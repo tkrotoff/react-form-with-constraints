@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "jsx": "react",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noLib": false,
+    "lib": ["dom.iterable", "es2017"],
+    "sourceMap": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "lib"
+  },
+
+  "include": [
+    "*.tsx"
+  ]
+}

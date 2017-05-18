@@ -1,0 +1,47 @@
+{
+  "name": "react-form-with-constraints",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tkrotoff/ReactFormWithConstraints.git"
+  },
+  "main": "lib/FormWithConstraints.js",
+  "license": "MIT",
+
+  "scripts": {
+    "clean": "del-cli build lib",
+
+    "build": "webpack -d --env.development --watch",
+
+    "prepare": "tsc"
+  },
+
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest"
+  },
+
+  "devDependencies": {
+    "typescript": "latest",
+
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+
+    "ts-node": "latest",
+    "@types/node": "latest",
+
+    "babel-core": "latest",
+    "babel-preset-react": "latest",
+
+    "webpack": "latest",
+    "ts-loader": "latest",
+    "babel-loader": "latest",
+    "file-loader": "latest",
+
+    "del-cli": "latest"
+  },
+
+  "engines": {
+    "node": "^6"
+  }
+}

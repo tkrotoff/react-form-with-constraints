@@ -1,0 +1,16 @@
+body {
+  background-color: lightgrey;
+}
+
+form div {
+  margin-bottom: 10px;
+}
+
+form div label {
+  display: block;
+}
+
+/* FieldFeedbacks */
+form div div {
+  color: red;
+}
