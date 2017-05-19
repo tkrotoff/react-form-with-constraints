@@ -183,7 +183,8 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
               validity.rangeUnderflow && when === 'rangeUnderflow' ||
               validity.stepMismatch && when === 'stepMismatch' ||
               validity.tooLong && when === 'tooLong' ||
-              validity.tooShort && when === 'tooShort' ||
+              // FIXME See Add tooShort to ValidityState https://github.com/Microsoft/TSJS-lib-generator/pull/259
+              (validity as any).tooShort && when === 'tooShort' ||
               validity.typeMismatch && when === 'typeMismatch' ||
               validity.valueMissing && when === 'valueMissing') {
 
