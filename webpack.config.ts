@@ -20,7 +20,7 @@ module.exports = {
 
   module: {
     rules: [
-      { test: /\.tsx?$/, loader: 'ts-loader', options: {} },
+      { test: /\.tsx?$/, loader: 'ts-loader', options: {compilerOptions: {declaration: false}} },
       { test: /\.jsx?$/, loader: 'babel-loader', options: {presets: ['react']} }
     ]
   }

@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { FormWithConstraintsContext, FormAssociatedContent } from './FormWithConstraints';
 
-interface FormGroupProps extends React.HTMLProps<HTMLDivElement> {
+export interface FormGroupProps extends React.HTMLProps<HTMLDivElement> {
   for: string | string[];
 }
 
-class FormGroup extends React.Component<FormGroupProps, void> {
+export class FormGroup extends React.Component<FormGroupProps, void> {
   static contextTypes = {
     form: React.PropTypes.object
   };
@@ -59,11 +59,11 @@ class FormGroup extends React.Component<FormGroupProps, void> {
 }
 
 
-interface LabelWithFormControlStyleProps extends React.HTMLProps<HTMLLabelElement> {
+export interface LabelWithFormControlStyleProps extends React.HTMLProps<HTMLLabelElement> {
   for: string | string[];
 }
 
-class LabelWithFormControlStyle extends React.Component<LabelWithFormControlStyleProps, void> {
+export class LabelWithFormControlStyle extends React.Component<LabelWithFormControlStyleProps, void> {
   static contextTypes = {
     form: React.PropTypes.object
   };
@@ -116,5 +116,3 @@ class LabelWithFormControlStyle extends React.Component<LabelWithFormControlStyl
     );
   }
 }
-
-export { FormGroup, LabelWithFormControlStyle };

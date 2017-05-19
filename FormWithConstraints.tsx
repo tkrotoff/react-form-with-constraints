@@ -44,7 +44,7 @@ function clearArray(array: any[]) {
 }
 
 // See Form-associated content https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#Form-associated_content
-type FormAssociatedContent =
+export type FormAssociatedContent =
   //HTMLButtonElement |
   //HTMLFieldSetElement |
   HTMLInputElement |
@@ -57,7 +57,7 @@ type FormAssociatedContent =
   HTMLTextAreaElement;
 
 // See Field is a better name than Input, see Django Form fields https://docs.djangoproject.com/en/1.11/ref/forms/fields/
-interface Field {
+export interface Field {
   errors: number[]; // List of FieldFeedback index to display
   warnings: number[]; // List of FieldFeedback index to display
 
@@ -65,18 +65,18 @@ interface Field {
   validationMessage: string;
 }
 
-interface Fields {
+export interface Fields {
   [fieldName: string]: Field | undefined;
 }
 
-type WhenStrings = '*' |
+export type WhenStrings = '*' |
                    'badInput' | 'patternMismatch' | 'rangeOverflow' | 'rangeUnderflow' | 'stepMismatch' | 'tooLong' | 'tooShort' | 'typeMismatch' | 'valueMissing';
 
-type When = WhenStrings | ((value: string) => boolean);
+export type When = WhenStrings | ((value: string) => boolean);
 
 type PropsWithChildren<T> = T & {children?: React.ReactNode};
 
-interface FieldFeedbackProps extends React.HTMLProps<HTMLDivElement> {
+export interface FieldFeedbackProps extends React.HTMLProps<HTMLDivElement> {
   when: When;
   warning?: boolean;
 }
@@ -86,7 +86,7 @@ interface FieldFeedbackInternalProps extends FieldFeedbackProps {
   field: Field;
 }
 
-class FieldFeedback extends React.Component<FieldFeedbackProps, void> {
+export class FieldFeedback extends React.Component<FieldFeedbackProps, void> {
   render() {
     const { index, when, warning, field, children, ...divProps } = this.props as FieldFeedbackInternalProps;
 
@@ -105,12 +105,12 @@ class FieldFeedback extends React.Component<FieldFeedbackProps, void> {
 }
 
 
-interface FieldFeedbacksProps extends React.HTMLProps<HTMLDivElement> {
+export interface FieldFeedbacksProps extends React.HTMLProps<HTMLDivElement> {
   for: string;
   show?: 'first' | 'all'
 }
 
-class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> {
+export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> {
   static defaultProps: Partial<FieldFeedbacksProps> = {
     show: 'first'
   };
@@ -245,16 +245,16 @@ class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> {
 }
 
 
-interface FormWithConstraintsProps extends React.HTMLProps<HTMLFormElement> {
+export interface FormWithConstraintsProps extends React.HTMLProps<HTMLFormElement> {
 }
 
-interface FormWithConstraintsContext {
+export interface FormWithConstraintsContext {
   form: FormWithConstraints;
 }
 
 // See How to safely use React context https://medium.com/@mweststrate/how-to-safely-use-react-context-b7e343eff076
 // See TypeScript 2.2 Support for Mix-in classes https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html
-class FormWithConstraints<P = {}, S = {}> extends React.Component<P & FormWithConstraintsProps, S> {
+export class FormWithConstraints<P = {}, S = {}> extends React.Component<P & FormWithConstraintsProps, S> {
   static childContextTypes = {
     form: React.PropTypes.object
   };
@@ -323,9 +323,3 @@ class FormWithConstraints<P = {}, S = {}> extends React.Component<P & FormWithCo
     return !this.hasErrors(...fieldNames);
   }
 }
-
-export {
-  FormAssociatedContent,
-  FormWithConstraints, FormWithConstraintsProps, FormWithConstraintsContext,
-  FieldFeedbacks, FieldFeedback
-};
