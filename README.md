@@ -23,6 +23,8 @@ The `required` HTML5 attribute specifies that the user must fill in a value. Oth
 https://codepen.io/tkrotoff/pen/wdYdBP
 
 ```JSX
+import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
+
 class MyForm extends FormWithConstraints {
   constructor(props) {
     super(props);
@@ -83,6 +85,8 @@ class MyForm extends FormWithConstraints {
     );
   }
 }
+
+ReactDOM.render(<MyForm />, document.getElementById('app'));
 ```
 
 ![demo-password](doc/demo-password.png)

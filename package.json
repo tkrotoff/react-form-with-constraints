@@ -6,6 +6,7 @@
     "url": "https://github.com/tkrotoff/ReactFormWithConstraints.git"
   },
   "main": "lib/FormWithConstraints.js",
+  "types": "lib/FormWithConstraints.d.ts",
   "license": "MIT",
 
   "scripts": {
