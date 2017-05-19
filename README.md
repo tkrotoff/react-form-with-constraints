@@ -20,19 +20,33 @@ The `required` HTML5 attribute specifies that the user must fill in a value. Oth
 
 ## ReactFormWithConstraints demo
 
-https://codepen.io/tkrotoff/pen/wdYdBP
+https://codepen.io/tkrotoff/project/editor/AnnBvo/
 
 ```JSX
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
 
 class MyForm extends FormWithConstraints {
   constructor(props) {
     super(props);
+
+    this.state = {
+      username: 'john@doe.com',
+      password: '',
+      passwordConfirm: ''
+    };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
+    const target = e.currentTarget;
+    this.setState({
+      [target.name]: target.value
+    });
     super.handleChange(e);
   }
 
