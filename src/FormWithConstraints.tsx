@@ -307,16 +307,14 @@ export class FormWithConstraints<P = {}, S = {}> extends React.Component<P & For
   hasErrors(...fieldNames: string[]) {
     return fieldNames.some(fieldName => {
       const field = this.fields[fieldName];
-      console.assert(field !== undefined, `Unknown field: ${fieldName}`);
-      return field!.errors.length > 0;
+      return field !== undefined && field.errors.length > 0;
     });
   }
 
   hasWarnings(...fieldNames: string[]) {
     return fieldNames.some(fieldName => {
       const field = this.fields[fieldName];
-      console.assert(field !== undefined, `Unknown field: ${fieldName}`);
-      return field!.warnings.length > 0;
+      return field !== undefined && field.warnings.length > 0;
     });
   }
 

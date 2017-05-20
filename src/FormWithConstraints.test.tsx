@@ -79,13 +79,9 @@ describe('FormWithConstraints', () => {
 
     console.assert = jest.fn();
 
-    expect(() => form.hasErrors('email')).toThrow("Cannot read property 'errors' of undefined");
-    expect(console.assert).toHaveBeenLastCalledWith(false, 'Unknown field: email');
-
-    expect(() => form.hasWarnings('email')).toThrow("Cannot read property 'warnings' of undefined");
-    expect(console.assert).toHaveBeenLastCalledWith(false, 'Unknown field: email');
-
-    expect(console.assert).toHaveBeenCalledTimes(2);
+    // Ignore unknown fields
+    expect(form.hasErrors('email')).toEqual(false);
+    expect(form.hasWarnings('email')).toEqual(false);
   });
 
   describe('TODO DOM', () => {
