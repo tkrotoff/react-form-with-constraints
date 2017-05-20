@@ -98,6 +98,10 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps, void> {
   }
 }
 
+// FIXME See Add tooShort to ValidityState https://github.com/Microsoft/TSJS-lib-generator/pull/259
+export interface ValidityState_fix extends ValidityState {
+  readonly tooShort: boolean;
+}
 
 export interface FieldFeedbacksProps extends React.HTMLProps<HTMLDivElement> {
   for: string;
@@ -145,7 +149,7 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
     const { ['for']: fieldName, show } = this.props;
 
     if (input.name === fieldName) { // Ignore the event if it's not for us
-      const validity = input.validity;
+      const validity = input.validity as ValidityState_fix;
 
       const field = {...this.state};
       clearArray(field.warnings);
@@ -177,8 +181,7 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
               validity.rangeUnderflow && when === 'rangeUnderflow' ||
               validity.stepMismatch && when === 'stepMismatch' ||
               validity.tooLong && when === 'tooLong' ||
-              // FIXME See Add tooShort to ValidityState https://github.com/Microsoft/TSJS-lib-generator/pull/259
-              (validity as any).tooShort && when === 'tooShort' ||
+              validity.tooShort && when === 'tooShort' ||
               validity.typeMismatch && when === 'typeMismatch' ||
               validity.valueMissing && when === 'valueMissing') {
 
