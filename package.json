@@ -12,9 +12,15 @@
   "scripts": {
     "clean": "del-cli build lib",
 
-    "build": "webpack -d --env.development --watch",
+    "build": "webpack -d --env.development",
+    "build:watch": "webpack -d --env.development --watch",
 
-    "prepare": "tsc"
+    "prepare": "tsc",
+
+    "pretest": "npm run clean && tsc || true",
+    "test": "node --trace-warnings node_modules/.bin/jest --no-cache",
+    "pretest:silent": "npm run pretest",
+    "test:silent": "node --trace-warnings node_modules/.bin/jest --no-cache --silent"
   },
 
   "dependencies": {
@@ -42,7 +48,14 @@
     "babel-loader": "latest",
     "file-loader": "latest",
 
-    "del-cli": "latest"
+    "del-cli": "latest",
+
+    "jest": "latest",
+    "@types/jest": "latest",
+
+    "enzyme": "latest",
+    "@types/enzyme": "latest",
+    "react-test-renderer": "latest"
   },
 
   "engines": {

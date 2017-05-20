@@ -16,6 +16,7 @@
   },
 
   "include": [
-    "*.tsx"
+    "*.tsx",
+    "test/**/*.test.tsx"
   ]
 }
