@@ -101,7 +101,7 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps, void> {
 
 export interface FieldFeedbacksProps extends React.HTMLProps<HTMLDivElement> {
   for: string;
-  show?: 'first' | 'all'
+  show?: 'first' | 'all';
 }
 
 export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> {

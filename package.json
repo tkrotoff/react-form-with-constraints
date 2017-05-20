@@ -24,6 +24,7 @@
 
   "devDependencies": {
     "typescript": "latest",
+    "tslint": "latest",
 
     "@types/react": "latest",
     "@types/react-dom": "latest",
