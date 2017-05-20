@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 import { FormWithConstraintsContext, Input } from './FormWithConstraints';
 
@@ -8,7 +9,7 @@ export interface FormGroupProps extends React.HTMLProps<HTMLDivElement> {
 
 export class FormGroup extends React.Component<FormGroupProps, void> {
   static contextTypes = {
-    form: React.PropTypes.object
+    form: PropTypes.object
   };
 
   context: FormWithConstraintsContext;
@@ -65,7 +66,7 @@ export interface LabelWithFormControlStyleProps extends React.HTMLProps<HTMLLabe
 
 export class LabelWithFormControlStyle extends React.Component<LabelWithFormControlStyleProps, void> {
   static contextTypes = {
-    form: React.PropTypes.object
+    form: PropTypes.object
   };
 
   context: FormWithConstraintsContext;

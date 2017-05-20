@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import * as ReactDOM from 'react-dom';
 
 // See Form data validation https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation
@@ -114,7 +115,7 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
   };
 
   static contextTypes = {
-    form: React.PropTypes.object
+    form: PropTypes.object
   };
 
   context: FormWithConstraintsContext;
@@ -254,7 +255,7 @@ export interface FormWithConstraintsContext {
 // See TypeScript 2.2 Support for Mix-in classes https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html
 export class FormWithConstraints<P = {}, S = {}> extends React.Component<P & FormWithConstraintsProps, S> {
   static childContextTypes = {
-    form: React.PropTypes.object
+    form: PropTypes.object
   };
 
   getChildContext(): FormWithConstraintsContext {

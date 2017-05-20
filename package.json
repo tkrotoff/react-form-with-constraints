@@ -19,6 +19,7 @@
 
   "dependencies": {
     "react": "latest",
+    "prop-types": "latest",
     "react-dom": "latest"
   },
 
@@ -27,6 +28,7 @@
     "tslint": "latest",
 
     "@types/react": "latest",
+    "@types/prop-types": "latest",
     "@types/react-dom": "latest",
 
     "ts-node": "latest",
