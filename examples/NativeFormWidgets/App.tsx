@@ -3,7 +3,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { FormWithConstraints } from '../../src/FormWithConstraints';
+import { FormWithConstraints } from '../../index';
 
 import 'file-loader?name=[path][name].[ext]!./index.html';
 

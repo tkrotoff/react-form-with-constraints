@@ -15,8 +15,11 @@
     "outDir": "lib"
   },
 
+  "files": [
+    "index.ts"
+  ],
+
   "include": [
-    "src/*.tsx",
     "src/*.test.tsx"
   ]
 }

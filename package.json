@@ -1,21 +1,24 @@
 {
   "name": "react-form-with-constraints",
-  "version": "0.1.1",
+  "version": "0.2.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/tkrotoff/ReactFormWithConstraints.git"
   },
-  "main": "lib/FormWithConstraints.js",
-  "types": "lib/FormWithConstraints.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "license": "MIT",
 
   "scripts": {
-    "clean": "del-cli build lib",
+    "clean": "del-cli build lib dist/*.js",
+
+    "preumd": "tsc",
+    "umd": "NODE_ENV=development browserify lib/index.js --external React --external ReactDOM --external PropTypes --standalone ReactFormWithConstraints --outfile dist/react-form-with-constraints.js",
 
     "build": "webpack -d --env.development",
     "build:watch": "webpack -d --env.development --watch",
 
-    "prepare": "tsc",
+    "prepare": "tsc && npm run umd",
     "prepublishOnly": "npm run test",
 
     "pretest": "npm run clean && tsc || true",
@@ -37,6 +40,8 @@
     "@types/react": "latest",
     "@types/prop-types": "latest",
     "@types/react-dom": "latest",
+
+    "browserify": "latest",
 
     "ts-node": "latest",
     "@types/node": "latest",

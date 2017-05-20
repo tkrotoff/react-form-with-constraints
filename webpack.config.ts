@@ -8,7 +8,7 @@ module.exports = {
     'examples/NativeFormWidgets/App': './examples/NativeFormWidgets/App.tsx',
     'examples/password/App': './examples/password/App.tsx',
 
-    'react-form-with-constraints': ['./src/FormWithConstraints.tsx', './src/Bootstrap4Helpers.tsx'],
+    'react-form-with-constraints': './index.ts',
 
     react: ['react', 'prop-types', 'react-dom']
   },
