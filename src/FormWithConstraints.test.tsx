@@ -6,7 +6,7 @@ import {
   FieldFeedbacks, FieldFeedbacksProps,
   FieldFeedback, FieldFeedbackInternalProps,
   Fields, Field
-} from '../FormWithConstraints';
+} from './FormWithConstraints';
 
 describe('FormWithConstraints', () => {
   test('hasErrors() hasWarnings() isValid()', () => {

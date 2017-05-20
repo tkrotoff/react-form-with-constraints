@@ -6,8 +6,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../FormWithConstraints';
-import { FormGroup } from '../../Bootstrap4Helpers';
+import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../src/FormWithConstraints';
+import { FormGroup } from '../../src/Bootstrap4Helpers';
 
 import 'file-loader?name=[path][name].[ext]!./index.html';
 
