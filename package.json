@@ -44,6 +44,7 @@
     "babel-preset-react": "latest",
 
     "webpack": "latest",
+    "@types/webpack": "latest",
     "ts-loader": "latest",
     "babel-loader": "latest",
     "file-loader": "latest",
