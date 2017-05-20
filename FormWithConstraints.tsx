@@ -43,18 +43,12 @@ function clearArray(array: any[]) {
   }
 }
 
-// See Form-associated content https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#Form-associated_content
-export type FormAssociatedContent =
-  //HTMLButtonElement |
-  //HTMLFieldSetElement |
-  HTMLInputElement |
-  //HTMLLabelElement |
-  //HTMLMeterElement |
-  //HTMLObjectElement |
-  //HTMLOutputElement |
-  //HTMLProgressElement |
-  HTMLSelectElement |
-  HTMLTextAreaElement;
+export interface Input {
+  name: string;
+  value: string;
+  validity: ValidityState;
+  validationMessage: string;
+}
 
 // See Field is a better name than Input, see Django Form fields https://docs.djangoproject.com/en/1.11/ref/forms/fields/
 export interface Field {
@@ -146,7 +140,7 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
 
   // This is the most important method:
   // contains all the intelligence => populates the Field structure
-  handleInputChange(input: FormAssociatedContent) {
+  handleInputChange(input: Input) {
     // See http://stackoverflow.com/a/40699547/990356
     const { ['for']: fieldName, show } = this.props;
 
@@ -266,7 +260,7 @@ export class FormWithConstraints<P = {}, S = {}> extends React.Component<P & For
     };
   }
 
-  handleChange(e: React.FormEvent<FormAssociatedContent>) {
+  handleChange(e: React.FormEvent<Input>) {
     const target = e.currentTarget;
     this.showFieldError(target);
   }
@@ -278,25 +272,25 @@ export class FormWithConstraints<P = {}, S = {}> extends React.Component<P & For
   private showFormErrors() {
     const form = ReactDOM.findDOMNode(this);
     const inputs = form.querySelectorAll('[name]');
-    inputs.forEach((input: FormAssociatedContent) => this.showFieldError(input));
+    inputs.forEach((input: any) => this.showFieldError(input));
   }
 
-  private showFieldError(input: FormAssociatedContent) {
+  private showFieldError(input: Input) {
     this.notifyListeners(input);
   }
 
 
-  private listeners: ((input: FormAssociatedContent) => void)[] = [];
+  private listeners: ((input: Input) => void)[] = [];
 
-  private notifyListeners(input: FormAssociatedContent) {
+  private notifyListeners(input: Input) {
     this.listeners.forEach(listener => listener(input));
   }
 
-  addListener(listener: (input: FormAssociatedContent) => void) {
+  addListener(listener: (input: Input) => void) {
     this.listeners.push(listener);
   }
 
-  removeListener(listener: (input: FormAssociatedContent) => void) {
+  removeListener(listener: (input: Input) => void) {
     const index = this.listeners.indexOf(listener);
     this.listeners.splice(index, 1);
   }

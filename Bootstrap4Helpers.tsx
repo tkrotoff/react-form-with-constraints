@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FormWithConstraintsContext, FormAssociatedContent } from './FormWithConstraints';
+import { FormWithConstraintsContext, Input } from './FormWithConstraints';
 
 export interface FormGroupProps extends React.HTMLProps<HTMLDivElement> {
   for: string | string[];
@@ -27,7 +27,7 @@ export class FormGroup extends React.Component<FormGroupProps, void> {
     this.context.form.removeListener(this.handleInputChange);
   }
 
-  handleInputChange(input: FormAssociatedContent) {
+  handleInputChange(input: Input) {
     const fieldName = this.props.for;
     if (input.name === fieldName) { // Ignore the event if it's not for us
       this.forceUpdate();
@@ -84,7 +84,7 @@ export class LabelWithFormControlStyle extends React.Component<LabelWithFormCont
     this.context.form.removeListener(this.handleInputChange);
   }
 
-  handleInputChange(input: FormAssociatedContent) {
+  handleInputChange(input: Input) {
     const fieldName = this.props.for;
     if (input.name === fieldName) { // Ignore the event if it's not for us
       this.forceUpdate();
