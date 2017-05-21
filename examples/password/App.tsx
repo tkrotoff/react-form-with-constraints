@@ -71,12 +71,12 @@ class Form extends FormWithConstraints<Props, State> {
                  value={this.state.password} onChange={this.handleChange}
                  pattern=".{5,}" required />
           <FieldFeedbacks for="password" show="all">
-            <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
             <FieldFeedback when="valueMissing" />
-            <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain some numbers</FieldFeedback>
-            <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain some small letters</FieldFeedback>
-            <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain some capital letters</FieldFeedback>
-            <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain some special characters</FieldFeedback>
+            <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
+            <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
+            <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
+            <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
+            <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
           </FieldFeedbacks>
         </div>
 

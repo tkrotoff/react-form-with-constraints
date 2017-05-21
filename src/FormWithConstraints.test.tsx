@@ -458,10 +458,10 @@ describe('FieldFeedbacks', () => {
         <FieldFeedbacks for="password" show="first">
           <FieldFeedback when="patternMismatch">0</FieldFeedback>
           <FieldFeedback when="valueMissing">1</FieldFeedback>
-          <FieldFeedback when={value => !/\d/.test(value)} warning>2 Should contain some numbers</FieldFeedback>
-          <FieldFeedback when={value => !/[a-z]/.test(value)} warning>3 Should contain some small letters</FieldFeedback>
-          <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>4 Should contain some capital letters</FieldFeedback>
-          <FieldFeedback when={value => !/\W/.test(value)} warning>5 Should contain some special characters</FieldFeedback>
+          <FieldFeedback when={value => !/\d/.test(value)} warning>2 Should contain numbers</FieldFeedback>
+          <FieldFeedback when={value => !/[a-z]/.test(value)} warning>3 Should contain small letters</FieldFeedback>
+          <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>4 Should contain capital letters</FieldFeedback>
+          <FieldFeedback when={value => !/\W/.test(value)} warning>5 Should contain special characters</FieldFeedback>
         </FieldFeedbacks>
       );
 
@@ -480,10 +480,10 @@ describe('FieldFeedbacks', () => {
         <FieldFeedbacks for="password" show="all">
           <FieldFeedback when="patternMismatch">0</FieldFeedback>
           <FieldFeedback when="valueMissing">1</FieldFeedback>
-          <FieldFeedback when={value => !/\d/.test(value)} warning>2 Should contain some numbers</FieldFeedback>
-          <FieldFeedback when={value => !/[a-z]/.test(value)} warning>3 Should contain some small letters</FieldFeedback>
-          <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>4 Should contain some capital letters</FieldFeedback>
-          <FieldFeedback when={value => !/\W/.test(value)} warning>5 Should contain some special characters</FieldFeedback>
+          <FieldFeedback when={value => !/\d/.test(value)} warning>2 Should contain numbers</FieldFeedback>
+          <FieldFeedback when={value => !/[a-z]/.test(value)} warning>3 Should contain small letters</FieldFeedback>
+          <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>4 Should contain capital letters</FieldFeedback>
+          <FieldFeedback when={value => !/\W/.test(value)} warning>5 Should contain special characters</FieldFeedback>
         </FieldFeedbacks>
       );
 

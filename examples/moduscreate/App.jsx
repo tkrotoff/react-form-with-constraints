@@ -68,8 +68,13 @@ class Form extends FormWithConstraints {
                  value={this.state.password} onChange={this.handleChange}
                  className="form-control"
                  pattern=".{5,}" required />
-          <FieldFeedbacks for="password" className="form-control-feedback">
-            <FieldFeedback when="*" />
+          <FieldFeedbacks for="password" show="all" className="form-control-feedback">
+            <FieldFeedback when="valueMissing" />
+            <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
+            <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
+            <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
+            <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
+            <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
           </FieldFeedbacks>
         </FormGroup>
 
@@ -80,8 +85,8 @@ class Form extends FormWithConstraints {
                  className="form-control"
                  required />
           <FieldFeedbacks for="passwordConfirm" className="form-control-feedback">
-            <FieldFeedback when={value => value !== this.state.password}>Not the same password</FieldFeedback>
             <FieldFeedback when="*" />
+            <FieldFeedback when={value => value !== this.state.password}>Not the same password</FieldFeedback>
           </FieldFeedbacks>
         </FormGroup>
 

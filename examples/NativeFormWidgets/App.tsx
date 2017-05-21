@@ -3,13 +3,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { FormWithConstraints } from '../../index';
-
 import 'file-loader?name=[path][name].[ext]!./index.html';
+import 'file-loader?name=[path][name].[ext]!./my-img.png';
 
 // See The native form widgets https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/The_native_form_widgets
 
-class Form extends FormWithConstraints {
+class Form extends React.Component<{}, {}> {
   constructor(props: {}) {
     super(props);
 
@@ -19,45 +18,50 @@ class Form extends FormWithConstraints {
   }
 
   handleChange(e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
-    console.log('handleChange:', e, e.currentTarget.value);
-    super.handleChange(e);
+    console.log('handleChange()');
+
+    const input = e.currentTarget;
+    this.showFieldError(input);
+  }
+
+  showFieldError(input: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) {
+    console.log('input:', input.value, input.validity, input.validationMessage);
   }
 
   handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    console.log('handleSubmit:', e);
-    e.preventDefault();
+    console.log('handleSubmit()', e);
 
-    super.handleSubmit(e);
+    e.preventDefault();
   }
 
   handleClick(e: React.MouseEvent<HTMLButtonElement>) {
-    console.log('handleClick:', e);
+    console.log('handleClick()', e);
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} noValidate>
+      <form onSubmit={this.handleSubmit}>
         <h2>Text input fields</h2>
 
         <h3>Single line text fields</h3>
 
         <h4>Text field</h4>
-        <input type="text" id="comment" name="comment" defaultValue="I'm a text field" onChange={this.handleChange} />
+        <input type="text" name="comment" defaultValue="I'm a text field" onChange={this.handleChange} />
 
         <h4>E-mail address field</h4>
-        <input type="email" id="email" name="email" multiple onChange={this.handleChange} />
+        <input type="email" name="email" multiple onChange={this.handleChange} />
 
         <h4>Password field</h4>
-        <input type="password" id="pwd" name="pwd" onChange={this.handleChange} />
+        <input type="password" name="pwd" onChange={this.handleChange} />
 
         <h4>Search field</h4>
-        <input type="search" id="search" name="search" onChange={this.handleChange} />
+        <input type="search" name="search" onChange={this.handleChange} />
 
         <h4>Phone number field</h4>
-        <input type="tel" id="tel" name="tel" onChange={this.handleChange} />
+        <input type="tel" name="tel" onChange={this.handleChange} />
 
         <h4>URL field</h4>
-        <input type="url" id="url" name="url" onChange={this.handleChange} />
+        <input type="url" name="url" onChange={this.handleChange} />
 
         <h3>Multi-line text fields</h3>
 
@@ -66,17 +70,17 @@ class Form extends FormWithConstraints {
         <h2>Drop-down content</h2>
 
         <h3>Select box</h3>
-        <select id="simple" name="simple" onChange={this.handleChange}>
+        <select name="simple" onChange={this.handleChange}>
           <option>Banana</option>
           <option>Cherry</option>
           <option>Lemon</option>
         </select>
         <p />
 
-        <select id="groups" name="groups" onChange={this.handleChange}>
-          <optgroup label="fruits">
+        <select name="groups" onChange={this.handleChange}>
+          <optgroup label="fruits" defaultValue="Cherry">
             <option>Banana</option>
-            <option selected>Cherry</option>
+            <option>Cherry</option>
             <option>Lemon</option>
           </optgroup>
           <optgroup label="vegetables">
@@ -87,7 +91,7 @@ class Form extends FormWithConstraints {
         </select>
 
         <h3>Multiple choice select box</h3>
-        <select multiple id="multi" name="multi" onChange={this.handleChange}>
+        <select multiple name="multi" onChange={this.handleChange}>
           <option>Banana</option>
           <option>Cherry</option>
           <option>Lemon</option>
@@ -95,7 +99,7 @@ class Form extends FormWithConstraints {
 
         <h3>Autocomplete box</h3>
         <label htmlFor="myFruit">What's your favorite fruit?</label>{' '}
-        <input type="text" name="myFruit" id="myFruit" list="mySuggestion" onChange={this.handleChange} />
+        <input type="text" id="myFruit" name="myFruit" list="mySuggestion" onChange={this.handleChange} />
         <datalist id="mySuggestion">
           <option>Apple</option>
           <option>Banana</option>
@@ -129,10 +133,10 @@ class Form extends FormWithConstraints {
         <h2>Checkable items</h2>
 
         <h3>Check box</h3>
-        <input type="checkbox" checked id="carrots" name="carrots" value="carrots" onChange={this.handleChange} />
+        <input type="checkbox" checked name="carrots" value="carrots" onChange={this.handleChange} />
 
         <h3>Radio button</h3>
-        <input type="radio" checked id="soup" name="meal" onChange={this.handleChange} />
+        <input type="radio" checked name="meal" onChange={this.handleChange} />
         <p />
 
         <fieldset>
@@ -169,54 +173,54 @@ class Form extends FormWithConstraints {
 
         <h3>anonymous</h3>
         <button type="button" onClick={this.handleClick}>
-            This an <br /><strong>anonymous button</strong>
+          This an <br /><strong>anonymous button</strong>
         </button>{' '}
         <input type="button" value="This is an anonymous button" onChange={this.handleChange} />
 
         <h2>Advanced form widgets</h2>
 
         <h3>Numbers</h3>
-        <input type="number" name="age" id="age" min="1" max="10" step="2" onChange={this.handleChange} />
+        <input type="number" name="age" min="1" max="10" step="2" onChange={this.handleChange} />
 
         <h3>Sliders</h3>
-        <input type="range" name="beans" id="beans" min="0" max="500" step="10" onChange={this.handleChange} />
+        <input type="range" name="beans" min="0" max="500" step="10" onChange={this.handleChange} />
         <p />
 
         <label htmlFor="beans">How many beans can you eat?</label>{' '}
-        <input type="range" name="beans" id="beans" min="0" max="500" step="10" onChange={this.handleChange} />
+        <input type="range" id="beans" name="beans" min="0" max="500" step="10" onChange={this.handleChange} />
         <span className="beancount"></span>
 
         <h3>Date and time picker</h3>
 
         <h4>date</h4>
-        <input type="date" name="date" id="date" onChange={this.handleChange} />
+        <input type="date" name="date" onChange={this.handleChange} />
 
         <h4>datetime-local</h4>
-        <input type="datetime-local" name="datetime" id="datetime" onChange={this.handleChange} />
+        <input type="datetime-local" name="datetime" onChange={this.handleChange} />
 
         <h4>month</h4>
-        <input type="month" name="month" id="month" onChange={this.handleChange} />
+        <input type="month" name="month" onChange={this.handleChange} />
 
         <h4>time</h4>
-        <input type="time" name="time" id="time" onChange={this.handleChange} />
+        <input type="time" name="time" onChange={this.handleChange} />
 
         <h4>week</h4>
-        <input type="week" name="week" id="week" onChange={this.handleChange} />
+        <input type="week" name="week" onChange={this.handleChange} />
 
         <h4>min and max attributes</h4>
         <label htmlFor="myDate">When are you available this summer?</label>{' '}
-        <input type="date" name="myDate" min="2013-06-01" max="2013-08-31" id="myDate" onChange={this.handleChange} />
+        <input type="date" id="myDate" name="myDate" min="2013-06-01" max="2013-08-31" onChange={this.handleChange} />
 
         <h3>Color picker</h3>
-        <input type="color" name="color" id="color" onChange={this.handleChange} />
+        <input type="color" name="color" onChange={this.handleChange} />
 
         <h2>Other widgets</h2>
 
         <h3>File picker</h3>
-        <input type="file" name="file" id="file" accept="image/*" multiple onChange={this.handleChange} />
+        <input type="file" name="file" accept="image/*" multiple onChange={this.handleChange} />
 
         <h3>Hidden content</h3>
-        <input type="hidden" id="timestamp" name="timestamp" value="1286705410" onChange={this.handleChange} />
+        <input type="hidden" name="timestamp" value="1286705410" onChange={this.handleChange} />
 
         <h3>Image button</h3>
         <input type="image" alt="Click me!" src="my-img.png" width="80" height="30" onChange={this.handleChange} />
