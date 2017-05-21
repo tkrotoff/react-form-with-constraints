@@ -65,7 +65,7 @@ export interface Fields {
 }
 
 export type WhenStrings = '*' |
-                   'badInput' | 'patternMismatch' | 'rangeOverflow' | 'rangeUnderflow' | 'stepMismatch' | 'tooLong' | 'tooShort' | 'typeMismatch' | 'valueMissing';
+                          'badInput' | 'patternMismatch' | 'rangeOverflow' | 'rangeUnderflow' | 'stepMismatch' | 'tooLong' | 'tooShort' | 'typeMismatch' | 'valueMissing';
 
 export type When = WhenStrings | ((value: string) => boolean);
 
@@ -115,7 +115,7 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
   };
 
   static contextTypes = {
-    form: PropTypes.object
+    form: PropTypes.object.isRequired
   };
 
   context: FormWithConstraintsContext;
@@ -256,7 +256,7 @@ export interface FormWithConstraintsContext {
 // See TypeScript 2.2 Support for Mix-in classes https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html
 export class FormWithConstraints<P = {}, S = {}> extends React.Component<P & FormWithConstraintsProps, S> {
   static childContextTypes = {
-    form: PropTypes.object
+    form: PropTypes.object.isRequired
   };
 
   getChildContext(): FormWithConstraintsContext {

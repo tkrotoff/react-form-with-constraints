@@ -9,7 +9,7 @@ export interface FormGroupProps extends React.HTMLProps<HTMLDivElement> {
 
 export class FormGroup extends React.Component<FormGroupProps, void> {
   static contextTypes = {
-    form: PropTypes.object
+    form: PropTypes.object.isRequired
   };
 
   context: FormWithConstraintsContext;
@@ -66,7 +66,7 @@ export interface LabelWithFormControlStyleProps extends React.HTMLProps<HTMLLabe
 
 export class LabelWithFormControlStyle extends React.Component<LabelWithFormControlStyleProps, void> {
   static contextTypes = {
-    form: PropTypes.object
+    form: PropTypes.object.isRequired
   };
 
   context: FormWithConstraintsContext;
