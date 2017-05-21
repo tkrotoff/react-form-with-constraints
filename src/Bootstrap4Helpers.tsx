@@ -42,7 +42,7 @@ export class FormGroup extends React.Component<FormGroupProps, void> {
 
   render() {
     // See http://stackoverflow.com/a/40699547/990356
-    let { ['for']: deletedKey, children, ...divProps } = this.props;
+    let { ['for']: _, children, ...divProps } = this.props;
 
     let fieldNames = this.props.for as string[];
     if (typeof this.props.for === 'string') {
@@ -94,7 +94,7 @@ export class LabelWithFormControlStyle extends React.Component<LabelWithFormCont
 
   render() {
     // See http://stackoverflow.com/a/40699547/990356
-    let { ['for']: deletedKey, style, children, ...labelProps } = this.props;
+    let { ['for']: _, style, children, ...labelProps } = this.props;
 
     let fieldNames = this.props.for as string[];
     if (typeof this.props.for === 'string') {
