@@ -22,9 +22,9 @@
     "prepublishOnly": "npm run test",
 
     "pretest": "npm run clean && tsc || true",
-    "test": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage",
+    "test": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage && codecov",
     "pretest:silent": "npm run pretest",
-    "test:silent": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage --silent"
+    "test:silent": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage --silent && codecov"
   },
 
   "dependencies": {
@@ -62,7 +62,9 @@
 
     "enzyme": "latest",
     "@types/enzyme": "latest",
-    "react-test-renderer": "latest"
+    "react-test-renderer": "latest",
+
+    "codecov": "latest"
   },
 
   "engines": {
