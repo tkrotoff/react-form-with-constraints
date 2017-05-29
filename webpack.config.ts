@@ -7,6 +7,7 @@ module.exports = {
     'examples/moduscreate/App': './examples/moduscreate/App.jsx',
     'examples/NativeFormWidgets/App': './examples/NativeFormWidgets/App.tsx',
     'examples/password/App': './examples/password/App.tsx',
+    'examples/HttpStatusCode/App': './examples/HttpStatusCode/App.tsx',
 
     'react-form-with-constraints': './index.ts',
 

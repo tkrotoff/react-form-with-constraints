@@ -1,6 +1,6 @@
 # ReactFormWithConstraints
 
-Simple form validation for React in ~300 lines of code
+Simple form validation for React in [~350 lines of code](src/FormWithConstraints.tsx)
 
 [![Build Status](https://travis-ci.org/tkrotoff/ReactFormWithConstraints.svg?branch=master)](https://travis-ci.org/tkrotoff/ReactFormWithConstraints)
 
@@ -28,6 +28,7 @@ The `required` HTML5 attribute specifies that the user must fill in a value. Oth
 - Control HTML5 error messages: `<FieldFeedback when="valueMissing">My custom error message</FieldFeedback>`
 - Custom constraints beyond HTML5: `<FieldFeedback when={value => ...}>`
 - Warnings: `<FieldFeedback ... warning>`
+- Infos: `<FieldFeedback ... info>`
 - Multiple feedbacks: `<FieldFeedbacks ... show="all">`
 
 ```JSX
@@ -83,7 +84,9 @@ for field "password" when constraint violation "valueMissing"    display "the de
 
 - `FieldFeedback`
   - `when: `[`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)` string | '*' | function` => HTML5 constraint violation name or a callback
-  - `warning?: boolean` => treat the feedback as an error (default) or a warning
+  - `error?: boolean` => treat the feedback as an error (default)
+  - `warning?: boolean` => treat the feedback as a warning
+  - `info?: boolean` => treat the feedback as an info
   - `children?: string` => the text to display or the default HTML5 text if `undefined`
 
 - `FormWithConstraints`
@@ -91,11 +94,12 @@ for field "password" when constraint violation "valueMissing"    display "the de
   - `handleSubmit(e: React.FormEvent<HTMLFormElement>): void`
   - `hasErrors(...fieldNames: string[]): boolean`
   - `hasWarnings(...fieldNames: string[]): boolean`
+  - `hasInfos(...fieldNames: string[]): boolean`
   - `isValid(): boolean`
 
 ## Browser support
 
-You can use HTML5 attributes like `type="email"`, `required`, `pattern`..., in this case a [recent browser](http://caniuse.com/#feat=form-validation) is needed,...
+You can use HTML5 attributes like `type="email"`, `required`, `pattern`..., in this case a [recent browser](http://caniuse.com/#feat=forms) is needed,...
 
 ```JSX
 <form onSubmit={this.handleSubmit} noValidate>

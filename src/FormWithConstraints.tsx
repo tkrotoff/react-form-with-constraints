@@ -30,7 +30,7 @@ FieldFeedbacks
 
 FormWithConstraints
   - no intelligence
-  - needs to keep track of all the fields (Field structure) for hasErrors() and hasWarnings()
+  - needs to keep track of all the fields (Field structure) for hasErrors(), hasWarnings() and hasInfos()
   - notifies FieldFeedbacks when an input changes thanks to the context
 
 An input changes => FormWithConstraints.handleChange()
@@ -38,6 +38,7 @@ An input changes => FormWithConstraints.handleChange()
  => FieldFeedbacks.render() => FieldFeedback.render()
 */
 
+// See How do I empty an array in JavaScript? https://stackoverflow.com/a/17306971/990356
 function clearArray(array: any[]) {
   while (array.length) {
     array.pop();
@@ -51,12 +52,14 @@ export interface Input {
   validationMessage: string;
 }
 
-// See Field is a better name than Input, see Django Form fields https://docs.djangoproject.com/en/1.11/ref/forms/fields/
+// Field is a better name than Input, see Django Form fields https://docs.djangoproject.com/en/1.11/ref/forms/fields/
 export interface Field {
-  errors: number[]; // List of FieldFeedback index to display
-  warnings: number[]; // List of FieldFeedback index to display
+  // List of FieldFeedback index to display
+  errors: number[];
+  warnings: number[];
+  infos: number[];
 
-  // Copy from input.validationMessage
+  // Copy of input.validationMessage
   validationMessage: string;
 }
 
@@ -64,16 +67,27 @@ export interface Fields {
   [fieldName: string]: Field | undefined;
 }
 
-export type WhenStrings = '*' |
-                          'badInput' | 'patternMismatch' | 'rangeOverflow' | 'rangeUnderflow' | 'stepMismatch' | 'tooLong' | 'tooShort' | 'typeMismatch' | 'valueMissing';
+export type WhenString =
+  '*' |
+  'badInput' |        // input type="number"
+  'patternMismatch' | // pattern attribute
+  'rangeOverflow' |   // max attribute
+  'rangeUnderflow' |  // min attribute
+  'stepMismatch' |    // step attribute
+  'tooLong' |         // maxlength attribute
+  'tooShort' |        // minlength attribute
+  'typeMismatch' |    // input type="email" or input type="url"
+  'valueMissing';     // required attribute
 
-export type When = WhenStrings | ((value: string) => boolean);
+export type When = WhenString | ((value: string) => boolean);
 
 type PropsWithChildren<T> = T & {children?: React.ReactNode};
 
 export interface FieldFeedbackProps extends React.HTMLProps<HTMLDivElement> {
   when: When;
+  error?: boolean;
   warning?: boolean;
+  info?: boolean;
 }
 
 export interface FieldFeedbackInternalProps extends FieldFeedbackProps {
@@ -83,11 +97,26 @@ export interface FieldFeedbackInternalProps extends FieldFeedbackProps {
 
 export class FieldFeedback extends React.Component<FieldFeedbackProps, void> {
   render() {
-    const { index, when, warning, field, children, ...divProps } = this.props as FieldFeedbackInternalProps;
+    const { index, when, error, warning, info, field, children, ...divProps } = this.props as FieldFeedbackInternalProps;
+
+    let show = false;
+    let className = '';
+    if (field.errors.includes(index)) {
+      show = true;
+      className = 'error';
+    }
+    else if (field.warnings.includes(index)) {
+      show = true;
+      className = 'warning';
+    }
+    else if (field.infos.includes(index)) {
+      show = true;
+      className = 'info';
+    }
 
     let feedback = null;
-
-    if (field.errors.includes(index) || field.warnings.includes(index)) {
+    if (show) {
+      divProps.className = divProps.className !== undefined ? className + ' ' + divProps.className : className;
       if (children === undefined) {
         feedback = field.validationMessage;
       } else {
@@ -126,6 +155,7 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
     this.state = {
       errors: [],
       warnings: [],
+      infos: [],
       validationMessage: ''
     };
 
@@ -153,15 +183,20 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
       const validity = input.validity as ValidityState_fix;
 
       const field = {...this.state};
-      clearArray(field.warnings);
       clearArray(field.errors);
+      clearArray(field.warnings);
+      clearArray(field.infos);
 
       const feedbacks = React.Children.toArray(this.props.children) as React.ReactElement<PropsWithChildren<FieldFeedbackProps>>[];
       for (let i = 0; i < feedbacks.length; i++) {
         const feedback = feedbacks[i];
-        const { when, warning } = feedback.props;
+        const { when, warning, info } = feedback.props;
 
-        const addToList = () => warning ? field.warnings.push(i) : field.errors.push(i);
+        const addToList = () => {
+          if (info) field.infos.push(i);
+          else if (warning) field.warnings.push(i);
+          else field.errors.push(i);
+        };
 
         if (typeof when === 'function') {
           const constraintViolation = when(input.value);
@@ -231,14 +266,14 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
 
     // Pass the Field object to all the FieldFeedback
     let index = 0;
-    const feedbacks = React.Children.map(children, (feedback: React.ReactElement<FieldFeedbackProps>) => {
-      return React.cloneElement(feedback, {
+    const feedbacks = React.Children.map(children, (feedback: React.ReactElement<FieldFeedbackProps>) =>
+      React.cloneElement(feedback, {
         index: index++,
         when: feedback.props.when,
         warning: feedback.props.warning,
         field
-      } as FieldFeedbackProps);
-    });
+      } as FieldFeedbackProps)
+    );
 
     return <div {...divProps}>{feedbacks}</div>;
   }
@@ -301,7 +336,7 @@ export class FormWithConstraints<P = {}, S = {}> extends React.Component<P & For
   }
 
 
-  // Needed for hasErrors() and hasWarnings()
+  // Needed for hasErrors(), hasWarnings() and hasInfos()
   fields: Fields = {};
 
   hasErrors(...fieldNames: string[]) {
@@ -315,6 +350,13 @@ export class FormWithConstraints<P = {}, S = {}> extends React.Component<P & For
     return fieldNames.some(fieldName => {
       const field = this.fields[fieldName];
       return field !== undefined && field.warnings.length > 0;
+    });
+  }
+
+  hasInfos(...fieldNames: string[]) {
+    return fieldNames.some(fieldName => {
+      const field = this.fields[fieldName];
+      return field !== undefined && field.infos.length > 0;
     });
   }
 
