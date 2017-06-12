@@ -65,9 +65,5 @@
     "react-test-renderer": "latest",
 
     "codecov": "latest"
-  },
-
-  "engines": {
-    "node": "^6"
   }
 }
