@@ -1,4 +1,4 @@
 export * from './src/FormWithConstraints';
 
-import * as Bootstrap4Helpers from './src/Bootstrap4Helpers';
-export { Bootstrap4Helpers };
+import * as Bootstrap4 from './src/Bootstrap4';
+export { Bootstrap4 };
