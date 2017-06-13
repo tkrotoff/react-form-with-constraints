@@ -6,8 +6,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback, Bootstrap4 } from '../../index';
-const FormGroup = Bootstrap4.FormGroup;
+import { FormWithConstraints, FieldFeedback, Bootstrap4 } from '../../index';
+const { FieldFeedbacks, FormGroup, FormControlLabel, FormControlInput } = Bootstrap4;
 
 import 'file-loader?name=[path][name].[ext]!./index.html';
 
@@ -53,22 +53,21 @@ class Form extends FormWithConstraints {
     return (
       <form onSubmit={this.handleSubmit} noValidate>
         <FormGroup for="username">
-          <label htmlFor="username" className="form-control-label">Username</label>
-          <input type="email" id="username" name="username"
-                 value={this.state.username} onChange={this.handleChange}
-                 className="form-control" required />
-          <FieldFeedbacks for="username" className="form-control-feedback">
+          <FormControlLabel htmlFor="username">Username</FormControlLabel>
+          <FormControlInput type="email" id="username" name="username"
+                            value={this.state.username} onChange={this.handleChange}
+                            required />
+          <FieldFeedbacks for="username">
             <FieldFeedback when="*" />
           </FieldFeedbacks>
         </FormGroup>
 
         <FormGroup for="password">
-          <label htmlFor="password" className="form-control-label">Password</label>
-          <input type="password" id="password" name="password"
-                 value={this.state.password} onChange={this.handleChange}
-                 className="form-control"
-                 pattern=".{5,}" required />
-          <FieldFeedbacks for="password" show="all" className="form-control-feedback">
+          <FormControlLabel htmlFor="password">Password</FormControlLabel>
+          <FormControlInput type="password" id="password" name="password"
+                            value={this.state.password} onChange={this.handleChange}
+                            pattern=".{5,}" required />
+          <FieldFeedbacks for="password" show="all">
             <FieldFeedback when="valueMissing" />
             <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
             <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
@@ -79,12 +78,11 @@ class Form extends FormWithConstraints {
         </FormGroup>
 
         <FormGroup for="passwordConfirm">
-          <label htmlFor="password-confirm" className="form-control-label">Confirm Password</label>
-          <input type="password" id="password-confirm" name="passwordConfirm"
-                 value={this.state.passwordConfirm} onChange={this.handleChange}
-                 className="form-control"
-                 required />
-          <FieldFeedbacks for="passwordConfirm" className="form-control-feedback">
+          <FormControlLabel htmlFor="password-confirm">Confirm Password</FormControlLabel>
+          <FormControlInput type="password" id="password-confirm" name="passwordConfirm"
+                            value={this.state.passwordConfirm} onChange={this.handleChange}
+                            required />
+          <FieldFeedbacks for="passwordConfirm">
             <FieldFeedback when="*" />
             <FieldFeedback when={value => value !== this.state.password}>Not the same password</FieldFeedback>
           </FieldFeedbacks>

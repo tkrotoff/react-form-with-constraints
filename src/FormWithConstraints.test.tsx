@@ -2,24 +2,26 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import {
-  FormWithConstraints, Input, ValidityState_fix,
+  FormWithConstraints, FormFields, Input, ValidityState_fix,
   FieldFeedbacks, FieldFeedbacksProps,
   FieldFeedback, FieldFeedbackInternalProps,
   Fields, Field
 } from './FormWithConstraints';
 
 describe('FormWithConstraints', () => {
-  test('hasErrors() hasWarnings() isValid()', () => {
+  test('isValid() + FormFields', () => {
     const form = new FormWithConstraints();
 
     form.fields = {
       username: {
+        dirty: false,
         errors: [],
         warnings: [],
         infos: [],
         validationMessage: ''
       },
       password: {
+        dirty: false,
         errors: [],
         warnings: [],
         infos: [],
@@ -27,18 +29,20 @@ describe('FormWithConstraints', () => {
       }
     };
     expect(form.isValid()).toEqual(true);
-    expect(form.hasErrors('username', 'password')).toEqual(false);
-    expect(form.hasWarnings('username', 'password')).toEqual(false);
-    expect(form.hasInfos('username', 'password')).toEqual(false);
+    expect(FormFields.containErrors(form, 'username', 'password')).toEqual(false);
+    expect(FormFields.containWarnings(form, 'username', 'password')).toEqual(false);
+    expect(FormFields.containInfos(form, 'username', 'password')).toEqual(false);
 
     form.fields = {
       username: {
+        dirty: false,
         errors: [0],
         warnings: [],
         infos: [],
         validationMessage: 'Suffering from being missing'
       },
       password: {
+        dirty: false,
         errors: [0],
         warnings: [],
         infos: [],
@@ -46,18 +50,20 @@ describe('FormWithConstraints', () => {
       }
     };
     expect(form.isValid()).toEqual(false);
-    expect(form.hasErrors('username', 'password')).toEqual(true);
-    expect(form.hasWarnings('username', 'password')).toEqual(false);
-    expect(form.hasInfos('username', 'password')).toEqual(false);
+    expect(FormFields.containErrors(form, 'username', 'password')).toEqual(true);
+    expect(FormFields.containWarnings(form, 'username', 'password')).toEqual(false);
+    expect(FormFields.containInfos(form, 'username', 'password')).toEqual(false);
 
     form.fields = {
       username: {
+        dirty: false,
         errors: [],
         warnings: [0],
         infos: [],
         validationMessage: ''
       },
       password: {
+        dirty: false,
         errors: [],
         warnings: [0],
         infos: [],
@@ -65,18 +71,20 @@ describe('FormWithConstraints', () => {
       }
     };
     expect(form.isValid()).toEqual(true);
-    expect(form.hasErrors('username', 'password')).toEqual(false);
-    expect(form.hasWarnings('username', 'password')).toEqual(true);
-    expect(form.hasInfos('username', 'password')).toEqual(false);
+    expect(FormFields.containErrors(form, 'username', 'password')).toEqual(false);
+    expect(FormFields.containWarnings(form, 'username', 'password')).toEqual(true);
+    expect(FormFields.containInfos(form, 'username', 'password')).toEqual(false);
 
     form.fields = {
       username: {
+        dirty: false,
         errors: [],
         warnings: [],
         infos: [0],
         validationMessage: ''
       },
       password: {
+        dirty: false,
         errors: [],
         warnings: [],
         infos: [0],
@@ -84,22 +92,24 @@ describe('FormWithConstraints', () => {
       }
     };
     expect(form.isValid()).toEqual(true);
-    expect(form.hasErrors('username', 'password')).toEqual(false);
-    expect(form.hasWarnings('username', 'password')).toEqual(false);
-    expect(form.hasInfos('username', 'password')).toEqual(true);
+    expect(FormFields.containErrors(form, 'username', 'password')).toEqual(false);
+    expect(FormFields.containWarnings(form, 'username', 'password')).toEqual(false);
+    expect(FormFields.containInfos(form, 'username', 'password')).toEqual(true);
   });
 
-  test('hasErrors() hasWarnings() - unknown field', () => {
+  test('FormFields - unknown field', () => {
     const form = new FormWithConstraints();
 
     form.fields = {
       username: {
+        dirty: false,
         errors: [],
         warnings: [],
         infos: [],
         validationMessage: ''
       },
       password: {
+        dirty: false,
         errors: [],
         warnings: [],
         infos: [],
@@ -110,9 +120,86 @@ describe('FormWithConstraints', () => {
     console.assert = jest.fn();
 
     // Ignore unknown fields
-    expect(form.hasErrors('email')).toEqual(false);
-    expect(form.hasWarnings('email')).toEqual(false);
-    expect(form.hasInfos('email')).toEqual(false);
+    expect(FormFields.containErrors(form, 'email')).toEqual(false);
+    expect(FormFields.containWarnings(form, 'email')).toEqual(false);
+    expect(FormFields.containInfos(form, 'email')).toEqual(false);
+    expect(FormFields.areValidDirtyWithoutWarnings(form, 'email')).toEqual(false);
+  });
+
+  test('FormFields.areValidDirtyWithoutWarnings()', () => {
+    const form = new FormWithConstraints();
+
+    form.fields = {
+      username: {
+        dirty: false,
+        errors: [],
+        warnings: [],
+        infos: [],
+        validationMessage: ''
+      },
+      password: {
+        dirty: false,
+        errors: [],
+        warnings: [],
+        infos: [],
+        validationMessage: ''
+      }
+    };
+    expect(FormFields.areValidDirtyWithoutWarnings(form, 'username', 'password')).toEqual(false);
+
+    form.fields = {
+      username: {
+        dirty: true,
+        errors: [],
+        warnings: [],
+        infos: [],
+        validationMessage: ''
+      },
+      password: {
+        dirty: true,
+        errors: [],
+        warnings: [],
+        infos: [],
+        validationMessage: ''
+      }
+    };
+    expect(FormFields.areValidDirtyWithoutWarnings(form, 'username', 'password')).toEqual(true);
+
+    form.fields = {
+      username: {
+        dirty: true,
+        errors: [0],
+        warnings: [],
+        infos: [],
+        validationMessage: 'Suffering from being missing'
+      },
+      password: {
+        dirty: true,
+        errors: [0],
+        warnings: [],
+        infos: [],
+        validationMessage: 'Suffering from being missing'
+      }
+    };
+    expect(FormFields.areValidDirtyWithoutWarnings(form, 'username', 'password')).toEqual(false);
+
+    form.fields = {
+      username: {
+        dirty: true,
+        errors: [],
+        warnings: [0],
+        infos: [],
+        validationMessage: 'Suffering from being missing'
+      },
+      password: {
+        dirty: true,
+        errors: [],
+        warnings: [0],
+        infos: [],
+        validationMessage: 'Suffering from being missing'
+      }
+    };
+    expect(FormFields.areValidDirtyWithoutWarnings(form, 'username', 'password')).toEqual(false);
   });
 
   describe('TODO DOM', () => {
@@ -184,6 +271,7 @@ describe('FieldFeedback', () => {
           index: 0,
           when: '*',
           field: {
+            dirty: false,
             errors: [0],
             warnings: [],
             infos: [],
@@ -201,6 +289,7 @@ describe('FieldFeedback', () => {
           index: 0,
           when: '*',
           field: {
+            dirty: false,
             errors: [0],
             warnings: [],
             infos: [],
@@ -220,6 +309,7 @@ describe('FieldFeedback', () => {
           when: '*',
           warning: true,
           field: {
+            dirty: false,
             errors: [],
             warnings: [0],
             infos: [],
@@ -239,6 +329,7 @@ describe('FieldFeedback', () => {
           when: '*',
           info: true,
           field: {
+            dirty: false,
             errors: [],
             warnings: [],
             infos: [0],
@@ -257,6 +348,7 @@ describe('FieldFeedback', () => {
           index: 0,
           when: '*',
           field: {
+            dirty: false,
             errors: [],
             warnings: [],
             infos: [],
@@ -277,6 +369,7 @@ describe('FieldFeedback', () => {
           index: 0,
           when: '*',
           field: {
+            dirty: false,
             errors: [0],
             warnings: [],
             infos: [],
@@ -299,6 +392,7 @@ describe('FieldFeedback', () => {
           when: '*',
           warning: true,
           field: {
+            dirty: false,
             errors: [],
             warnings: [0],
             infos: [],
@@ -321,6 +415,7 @@ describe('FieldFeedback', () => {
           when: '*',
           info: true,
           field: {
+            dirty: false,
             errors: [],
             warnings: [],
             infos: [0],
@@ -342,6 +437,7 @@ describe('FieldFeedback', () => {
           index: 0,
           when: '*',
           field: {
+            dirty: false,
             errors: [0],
             warnings: [],
             infos: [],
@@ -360,19 +456,19 @@ describe('FieldFeedback', () => {
 
 
 class FakeFormWithConstraints {
-  private listeners: ((input: Input) => void)[] = [];
+  inputChangeOrFormSubmitEventListeners: ((input: Input) => void)[] = [];
 
-  notifyListeners(input: Input) {
-    this.listeners.forEach(listener => listener(input));
+  emitInputChangeOrFormSubmitEvent(input: Input) {
+    this.inputChangeOrFormSubmitEventListeners.forEach(listener => listener(input));
   }
 
-  addListener(listener: (input: Input) => void) {
-    this.listeners.push(listener);
+  addInputChangeOrFormSubmitEventListener(listener: (input: Input) => void) {
+    this.inputChangeOrFormSubmitEventListeners.push(listener);
   }
 
-  removeListener(listener: (input: Input) => void) {
-    const index = this.listeners.indexOf(listener);
-    this.listeners.splice(index, 1);
+  removeInputChangeOrFormSubmitEventListener(listener: (input: Input) => void) {
+    const index = this.inputChangeOrFormSubmitEventListeners.indexOf(listener);
+    this.inputChangeOrFormSubmitEventListeners.splice(index, 1);
   }
 
   fields: Fields = {};
@@ -415,20 +511,20 @@ describe('FieldFeedbacks', () => {
   }
 
   test('componentDidMount() componentWillUnmount()', () => {
-    const addListenerSpy = jest.spyOn(form, 'addListener');
-    const removeListenerSpy = jest.spyOn(form, 'removeListener');
+    const addInputChangeOrFormSubmitEventListenerSpy = jest.spyOn(form, 'addInputChangeOrFormSubmitEventListener');
+    const removeInputChangeOrFormSubmitEventListenerSpy = jest.spyOn(form, 'removeInputChangeOrFormSubmitEventListener');
 
     const fieldFeedbacks = createFieldFeedbacks(
       <FieldFeedbacks for="username" />
     );
-    expect(addListenerSpy).toHaveBeenCalledTimes(1);
-    expect(removeListenerSpy).toHaveBeenCalledTimes(0);
-    expect((form as any).listeners).toHaveLength(1);
+    expect(addInputChangeOrFormSubmitEventListenerSpy).toHaveBeenCalledTimes(1);
+    expect(removeInputChangeOrFormSubmitEventListenerSpy).toHaveBeenCalledTimes(0);
+    expect(form.inputChangeOrFormSubmitEventListeners).toHaveLength(1);
 
     fieldFeedbacks.unmount();
-    expect(addListenerSpy).toHaveBeenCalledTimes(1);
-    expect(removeListenerSpy).toHaveBeenCalledTimes(1);
-    expect((form as any).listeners).toHaveLength(0);
+    expect(addInputChangeOrFormSubmitEventListenerSpy).toHaveBeenCalledTimes(1);
+    expect(removeInputChangeOrFormSubmitEventListenerSpy).toHaveBeenCalledTimes(1);
+    expect(form.inputChangeOrFormSubmitEventListeners).toHaveLength(0);
   });
 
   test('state and form.fields are equal', () => {
@@ -441,6 +537,7 @@ describe('FieldFeedbacks', () => {
     );
 
     expect(fieldFeedbacks.state()).toEqual({
+      dirty: false,
       errors: [],
       warnings: [],
       infos: [],
@@ -449,9 +546,10 @@ describe('FieldFeedbacks', () => {
     expect(form.fields.username).toEqual(fieldFeedbacks.state());
 
     const input = new FakeInput('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-    form.notifyListeners(input);
+    form.emitInputChangeOrFormSubmitEvent(input);
 
     expect(fieldFeedbacks.state()).toEqual({
+      dirty: true,
       errors: [0, 1, 2],
       warnings: [],
       infos: [],
@@ -469,9 +567,10 @@ describe('FieldFeedbacks', () => {
     );
 
     const input = new FakeInput('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-    form.notifyListeners(input);
+    form.emitInputChangeOrFormSubmitEvent(input);
 
     const field = {
+      dirty: true,
       errors: [0, 1],
       warnings: [],
       infos: [],
@@ -494,9 +593,10 @@ describe('FieldFeedbacks', () => {
     );
 
     const input = new FakeInput('unknownInputName', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-    form.notifyListeners(input);
+    form.emitInputChangeOrFormSubmitEvent(input);
 
     const field = {
+      dirty: false,
       errors: [],
       warnings: [],
       infos: [],
@@ -515,9 +615,10 @@ describe('FieldFeedbacks', () => {
       );
 
       const input = new FakeInput('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-      form.notifyListeners(input);
+      form.emitInputChangeOrFormSubmitEvent(input);
 
       expect(fieldFeedbacks.state()).toEqual({
+        dirty: true,
         errors: [0],
         warnings: [],
         infos: [],
@@ -533,9 +634,10 @@ describe('FieldFeedbacks', () => {
       );
 
       const input = new FakeInput('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-      form.notifyListeners(input);
+      form.emitInputChangeOrFormSubmitEvent(input);
 
       expect(fieldFeedbacks.state()).toEqual({
+        dirty: true,
         errors: [0],
         warnings: [],
         infos: [],
@@ -551,9 +653,10 @@ describe('FieldFeedbacks', () => {
       );
 
       const input = new FakeInput('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-      form.notifyListeners(input);
+      form.emitInputChangeOrFormSubmitEvent(input);
 
       expect(fieldFeedbacks.state()).toEqual({
+        dirty: true,
         errors: [0],
         warnings: [],
         infos: [],
@@ -572,9 +675,10 @@ describe('FieldFeedbacks', () => {
       );
 
       const input = new FakeInput('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-      form.notifyListeners(input);
+      form.emitInputChangeOrFormSubmitEvent(input);
 
       expect(fieldFeedbacks.state()).toEqual({
+        dirty: true,
         errors: [0],
         warnings: [],
         infos: [],
@@ -591,9 +695,10 @@ describe('FieldFeedbacks', () => {
       );
 
       const input = new FakeInput('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-      form.notifyListeners(input);
+      form.emitInputChangeOrFormSubmitEvent(input);
 
       expect(fieldFeedbacks.state()).toEqual({
+        dirty: true,
         errors: [0],
         warnings: [],
         infos: [],
@@ -610,9 +715,10 @@ describe('FieldFeedbacks', () => {
       );
 
       const input = new FakeInput('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-      form.notifyListeners(input);
+      form.emitInputChangeOrFormSubmitEvent(input);
 
       expect(fieldFeedbacks.state()).toEqual({
+        dirty: true,
         errors: [0, 1],
         warnings: [],
         infos: [],
@@ -631,9 +737,10 @@ describe('FieldFeedbacks', () => {
       );
 
       const input = new FakeInput('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-      form.notifyListeners(input);
+      form.emitInputChangeOrFormSubmitEvent(input);
 
       expect(fieldFeedbacks.state()).toEqual({
+        dirty: true,
         errors: [0, 1],
         warnings: [],
         infos: [],
@@ -652,9 +759,10 @@ describe('FieldFeedbacks', () => {
       );
 
       const input = new FakeInput('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-      form.notifyListeners(input);
+      form.emitInputChangeOrFormSubmitEvent(input);
 
       expect(fieldFeedbacks.state()).toEqual({
+        dirty: true,
         errors: [0],
         warnings: [],
         infos: [],
@@ -675,9 +783,10 @@ describe('FieldFeedbacks', () => {
       );
 
       const input = new FakeInput('password', '12345', {valid: true}, '');
-      form.notifyListeners(input);
+      form.emitInputChangeOrFormSubmitEvent(input);
 
       expect(fieldFeedbacks.state()).toEqual({
+        dirty: true,
         errors: [],
         warnings: [3],
         infos: [],
@@ -698,9 +807,10 @@ describe('FieldFeedbacks', () => {
       );
 
       const input = new FakeInput('password', '12345', {valid: true}, '');
-      form.notifyListeners(input);
+      form.emitInputChangeOrFormSubmitEvent(input);
 
       expect(fieldFeedbacks.state()).toEqual({
+        dirty: true,
         errors: [],
         warnings: [3, 4, 5],
         infos: [],
@@ -720,9 +830,10 @@ describe('FieldFeedbacks', () => {
       );
 
       const input = new FakeInput('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-      form.notifyListeners(input);
+      form.emitInputChangeOrFormSubmitEvent(input);
 
       expect(fieldFeedbacks.state()).toEqual({
+        dirty: true,
         errors: [0],
         warnings: [],
         infos: [1],

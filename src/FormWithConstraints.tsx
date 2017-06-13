@@ -26,15 +26,15 @@ FieldFeedback:
 FieldFeedbacks
   - is intelligent
   - state is the Field structure
-  - change the state when the proper input changes (handleInputChange())
+  - change the state when the proper input changes (computeFeedbacks())
 
 FormWithConstraints
   - no intelligence
-  - needs to keep track of all the fields (Field structure) for hasErrors(), hasWarnings() and hasInfos()
+  - needs to keep track of all the fields
   - notifies FieldFeedbacks when an input changes thanks to the context
 
 An input changes => FormWithConstraints.handleChange()
- => notifies all FieldFeedbacks.handleInputChange() => FieldFeedbacks.setState()
+ => notifies all FieldFeedbacks.computeFeedbacks() => FieldFeedbacks.setState()
  => FieldFeedbacks.render() => FieldFeedback.render()
 */
 
@@ -54,6 +54,8 @@ export interface Input {
 
 // Field is a better name than Input, see Django Form fields https://docs.djangoproject.com/en/1.11/ref/forms/fields/
 export interface Field {
+  dirty: boolean;
+
   // List of FieldFeedback index to display
   errors: number[];
   warnings: number[];
@@ -61,10 +63,6 @@ export interface Field {
 
   // Copy of input.validationMessage
   validationMessage: string;
-}
-
-export interface Fields {
-  [fieldName: string]: Field | undefined;
 }
 
 export type WhenString =
@@ -153,6 +151,7 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
     super(props);
 
     this.state = {
+      dirty: false,
       errors: [],
       warnings: [],
       infos: [],
@@ -162,20 +161,20 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
     const fieldName = this.props.for;
     context.form.fields[fieldName] = this.state;
 
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.computeFeedbacks = this.computeFeedbacks.bind(this);
   }
 
   componentDidMount() {
-    this.context.form.addListener(this.handleInputChange);
+    this.context.form.addInputChangeOrFormSubmitEventListener(this.computeFeedbacks);
   }
 
   componentWillUnmount() {
-    this.context.form.removeListener(this.handleInputChange);
+    this.context.form.removeInputChangeOrFormSubmitEventListener(this.computeFeedbacks);
   }
 
   // This is the most important method:
   // contains all the intelligence => populates the Field structure
-  handleInputChange(input: Input) {
+  computeFeedbacks(input: Input) {
     // See http://stackoverflow.com/a/40699547/990356
     const { ['for']: fieldName, show } = this.props;
 
@@ -183,6 +182,7 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
       const validity = input.validity as ValidityState_fix;
 
       const field = {...this.state};
+      field.dirty = true;
       clearArray(field.errors);
       clearArray(field.warnings);
       clearArray(field.infos);
@@ -254,7 +254,7 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
       field.validationMessage = input.validationMessage;
 
       this.setState({...field});
-      this.context.form.fields[fieldName] = this.state;
+      this.context.form.fields[fieldName] = {...field};
     }
   }
 
@@ -279,6 +279,10 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
   }
 }
 
+
+export interface Fields {
+  [fieldName: string]: Field | undefined;
+}
 
 export interface FormWithConstraintsProps extends React.HTMLProps<HTMLFormElement> {
 }
@@ -316,52 +320,67 @@ export class FormWithConstraints<P = {}, S = {}> extends React.Component<P & For
   }
 
   private showFieldError(input: Input) {
-    this.notifyListeners(input);
+    this.emitInputChangeOrFormSubmitEvent(input);
   }
 
 
-  private listeners: ((input: Input) => void)[] = [];
+  private inputChangeOrFormSubmitEventListeners: ((input: Input) => void)[] = [];
 
-  private notifyListeners(input: Input) {
-    this.listeners.forEach(listener => listener(input));
+  private emitInputChangeOrFormSubmitEvent(input: Input) {
+    this.inputChangeOrFormSubmitEventListeners.forEach(listener => listener(input));
   }
 
-  addListener(listener: (input: Input) => void) {
-    this.listeners.push(listener);
+  addInputChangeOrFormSubmitEventListener(listener: (input: Input) => void) {
+    this.inputChangeOrFormSubmitEventListeners.push(listener);
   }
 
-  removeListener(listener: (input: Input) => void) {
-    const index = this.listeners.indexOf(listener);
-    this.listeners.splice(index, 1);
+  removeInputChangeOrFormSubmitEventListener(listener: (input: Input) => void) {
+    const index = this.inputChangeOrFormSubmitEventListeners.indexOf(listener);
+    this.inputChangeOrFormSubmitEventListeners.splice(index, 1);
   }
 
 
-  // Needed for hasErrors(), hasWarnings() and hasInfos()
+  /**
+   * Keeps track of the fields, needed for FormFields
+   */
   fields: Fields = {};
 
-  hasErrors(...fieldNames: string[]) {
+  // Lazy check => if handleSubmit() has not been called, the fields structure might be incomplete
+  isValid() {
+    const fieldNames = Object.keys(this.fields);
+    return !FormFields.containErrors(this, ...fieldNames);
+  }
+}
+
+
+export class FormFields {
+  private constructor() {}
+
+  static containErrors(form: FormWithConstraints, ...fieldNames: string[]) {
     return fieldNames.some(fieldName => {
-      const field = this.fields[fieldName];
+      const field = form.fields[fieldName];
       return field !== undefined && field.errors.length > 0;
     });
   }
 
-  hasWarnings(...fieldNames: string[]) {
+  static containWarnings(form: FormWithConstraints, ...fieldNames: string[]) {
     return fieldNames.some(fieldName => {
-      const field = this.fields[fieldName];
+      const field = form.fields[fieldName];
       return field !== undefined && field.warnings.length > 0;
     });
   }
 
-  hasInfos(...fieldNames: string[]) {
+  static containInfos(form: FormWithConstraints, ...fieldNames: string[]) {
     return fieldNames.some(fieldName => {
-      const field = this.fields[fieldName];
+      const field = form.fields[fieldName];
       return field !== undefined && field.infos.length > 0;
     });
   }
 
-  isValid() {
-    const fieldNames = Object.keys(this.fields);
-    return !this.hasErrors(...fieldNames);
+  static areValidDirtyWithoutWarnings(form: FormWithConstraints, ...fieldNames: string[]) {
+    return fieldNames.some(fieldName => {
+      const field = form.fields[fieldName];
+      return field !== undefined && field.dirty === true && field.errors.length === 0 && field.warnings.length === 0;
+    });
   }
 }
