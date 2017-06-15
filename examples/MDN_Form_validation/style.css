@@ -41,3 +41,9 @@ input:invalid {
 input:focus:invalid {
   outline: none;
 }
+
+/* FieldFeedbacks */
+div.error {
+  margin-top: 5px;
+  color: red;
+}

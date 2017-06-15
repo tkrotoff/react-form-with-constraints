@@ -7,6 +7,7 @@ import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../index'
 
 import 'file-loader?name=[path][name].[ext]!./style.css';
 import 'file-loader?name=[path][name].[ext]!./index.html';
+import 'file-loader?name=[path][name].[ext]!./original.html';
 
 class Form extends FormWithConstraints {
   constructor(props: {}) {
@@ -46,7 +47,7 @@ class Form extends FormWithConstraints {
               Please note that browsers that support the pattern attribute will make it
               fail silently when used with a number field.
               Its usage here acts only as a fallback */}
-          <input type="number" min="12" max="120" step="1" id="n1" name="age"
+          <input type="number" min={12} max={120} step={1} id="n1" name="age"
                  pattern="\d+" onChange={this.handleChange} />
           <FieldFeedbacks for="age">
             <FieldFeedback when="*" />
@@ -70,7 +71,7 @@ class Form extends FormWithConstraints {
         </p>
         <p>
           <label htmlFor="t2">What's your e-mail?</label>
-          <input type="email" id="t2" name="email" />
+          <input type="email" id="t2" name="email" onChange={this.handleChange} />
           <FieldFeedbacks for="email">
             <FieldFeedback when="*" />
           </FieldFeedbacks>
@@ -92,7 +93,7 @@ class Form extends FormWithConstraints {
 
 const App = () => (
   <div>
-    Taken and adapted from <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation">MDN - Form data validation</a>
+    Taken and adapted from <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation">MDN - Form data validation</a>: <a href="original.html">original demo</a>
     <Form />
   </div>
 );
