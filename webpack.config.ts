@@ -10,7 +10,6 @@ module.exports = {
     'examples/HttpStatusCode/App': './examples/HttpStatusCode/App.tsx',
 
     'react-form-with-constraints': './index.ts',
-
     react: ['react', 'prop-types', 'react-dom']
   },
 

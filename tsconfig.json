@@ -16,7 +16,8 @@
   },
 
   "files": [
-    "index.ts"
+    "index.ts",
+    "Enzyme.ts"
   ],
 
   "include": [

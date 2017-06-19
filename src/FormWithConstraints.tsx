@@ -62,6 +62,8 @@ export interface Field {
   infos: number[];
 
   // Copy of input.validationMessage
+  // See https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement
+  // See https://www.w3.org/TR/html51/sec-forms.html#the-constraint-validation-api
   validationMessage: string;
 }
 
@@ -77,7 +79,9 @@ export type WhenString =
   'typeMismatch' |    // input type="email" or input type="url"
   'valueMissing';     // required attribute
 
-export type When = WhenString | ((value: string) => boolean);
+export type WhenFn = (value: string) => boolean;
+
+export type When = WhenString | WhenFn;
 
 type PropsWithChildren<T> = T & {children?: React.ReactNode};
 
