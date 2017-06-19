@@ -5,9 +5,11 @@
     "type": "git",
     "url": "https://github.com/tkrotoff/ReactFormWithConstraints.git"
   },
+  "description": "Simple form validation for React",
+  "license": "MIT",
+
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "license": "MIT",
 
   "scripts": {
     "clean": "del-cli build lib dist/*.js",
