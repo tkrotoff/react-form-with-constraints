@@ -36,8 +36,6 @@ class Form extends FormWithConstraints {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
-
     super.handleSubmit(e);
 
     console.log('state:', JSON.stringify(this.state));

@@ -17,16 +17,6 @@ class Form extends FormWithConstraints {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    super.handleChange(e);
-  }
-
-  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    super.handleSubmit(e);
-  }
-
   render() {
     return (
       <form noValidate onSubmit={this.handleSubmit}>

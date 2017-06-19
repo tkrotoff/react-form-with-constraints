@@ -314,6 +314,9 @@ export class FormWithConstraints<P = {}, S = {}> extends React.Component<P & For
   }
 
   handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    // Prevents the form to be submitted
+    e.preventDefault();
+
     this.showFormErrors();
   }
 

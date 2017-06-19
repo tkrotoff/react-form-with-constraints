@@ -41,8 +41,6 @@ class Form extends FormWithConstraints<Props, State> {
   }
 
   handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
     super.handleSubmit(e);
 
     if (this.isValid()) {
