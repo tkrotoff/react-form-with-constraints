@@ -22,7 +22,7 @@
     "prepublishOnly": "npm run test",
 
     "pretest": "npm run clean && tsc || true",
-    "test": "node --trace-warnings node_modules/.bin/jest --no-cache",
+    "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
     "precoverage": "npm run pretest",
     "coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"
   },
