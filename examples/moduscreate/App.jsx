@@ -88,7 +88,7 @@ class Form extends FormWithConstraints {
           </FieldFeedbacks>
         </FormGroup>
 
-        <button className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
+        <button className="btn btn-primary">Submit</button>
       </form>
     );
   }

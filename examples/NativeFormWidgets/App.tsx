@@ -160,7 +160,7 @@ class Form extends React.Component<{}, {}> {
         <h2>Buttons</h2>
 
         <h3>submit</h3>
-        <button type="submit" onClick={() => 'hello'}>
+        <button type="submit">
           This a <br /><strong>submit button</strong>
         </button>{' '}
         <input type="submit" value="This is a submit button" />
