@@ -18,7 +18,7 @@
     "build": "webpack -d --env.development",
     "build:watch": "webpack -d --env.development --watch",
 
-    "prepare": "tsc && npm run umd",
+    "prepare": "npm run umd",
     "prepublishOnly": "npm run test",
 
     "pretest": "npm run clean && tsc || true",
