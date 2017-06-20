@@ -1,2 +1,3 @@
 build/
+npm-package-test/build/
 coverage/
