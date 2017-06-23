@@ -97,7 +97,7 @@ export interface FieldFeedbackInternalProps extends FieldFeedbackProps {
   field: Field;
 }
 
-export class FieldFeedback extends React.Component<FieldFeedbackProps, void> {
+export class FieldFeedback extends React.Component<FieldFeedbackProps> {
   render() {
     const { index, when, error, warning, info, field, children, ...divProps } = this.props as FieldFeedbackInternalProps;
 

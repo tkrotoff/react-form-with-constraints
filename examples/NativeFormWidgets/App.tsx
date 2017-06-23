@@ -8,7 +8,7 @@ import 'file-loader?name=[path][name].[ext]!./my-img.png';
 
 // See The native form widgets https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/The_native_form_widgets
 
-class Form extends React.Component<{}, {}> {
+class Form extends React.Component {
   constructor(props: {}) {
     super(props);
 

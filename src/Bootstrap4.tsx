@@ -10,7 +10,7 @@ export interface FormGroupProps extends React.HTMLProps<HTMLDivElement> {
   for?: string;
 }
 
-export class FormGroup extends React.Component<FormGroupProps, void> {
+export class FormGroup extends React.Component<FormGroupProps> {
   static contextTypes = {
     form: PropTypes.object.isRequired
   };
@@ -86,7 +86,7 @@ export { FormControlLabel };
 export interface FormControlInputProps extends React.HTMLProps<HTMLInputElement> {
 }
 
-export class FormControlInput extends React.Component<FormControlInputProps, void> {
+export class FormControlInput extends React.Component<FormControlInputProps> {
   static contextTypes = {
     form: PropTypes.object.isRequired
   };
@@ -151,7 +151,7 @@ export interface LabelWithFormControlStyleProps extends React.HTMLProps<HTMLLabe
   for: string[];
 }
 
-export class LabelWithFormControlStyle extends React.Component<LabelWithFormControlStyleProps, void> {
+export class LabelWithFormControlStyle extends React.Component<LabelWithFormControlStyleProps> {
   static contextTypes = {
     form: PropTypes.object.isRequired
   };
