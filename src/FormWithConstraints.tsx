@@ -288,16 +288,13 @@ export interface Fields {
   [fieldName: string]: Field | undefined;
 }
 
-export interface FormWithConstraintsProps extends React.HTMLProps<HTMLFormElement> {
-}
-
 export interface FormWithConstraintsContext {
   form: FormWithConstraints;
 }
 
 // See How to safely use React context https://medium.com/@mweststrate/how-to-safely-use-react-context-b7e343eff076
 // See TypeScript 2.2 Support for Mix-in classes https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html
-export class FormWithConstraints<P = {}, S = {}> extends React.Component<P & FormWithConstraintsProps, S> {
+export class FormWithConstraints<P = {}, S = {}> extends React.Component<P, S> {
   static childContextTypes = {
     form: PropTypes.object.isRequired
   };
