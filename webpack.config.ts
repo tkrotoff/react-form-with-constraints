@@ -19,7 +19,7 @@ module.exports = {
   },
 
   plugins: [
-    new optimize.CommonsChunkPlugin({names: ['react-form-with-constraints', 'react']})
+    new optimize.CommonsChunkPlugin({names: ['react-form-with-constraints', 'react', 'manifest']})
   ],
 
   resolve: {
