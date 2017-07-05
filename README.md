@@ -148,4 +148,4 @@ In the last case you will have to manage translations yourself.
 
 ## Notes
 
-I do not like to inherit from `FormWithConstraints`, if you find a better solution tell me.
+A [`readonly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-readonly) or `disabled` input won't trigger any HTML5 form constraint like [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-required).
