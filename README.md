@@ -84,7 +84,7 @@ The API reads like this: "for field when constraint violation display feedback",
 </FieldFeedbacks>
 ```
 ```
-for field "password" when constraint violation "valueMissing"    display "the default HTML5 feedback"
+for field "password" when constraint violation "valueMissing"    display "the HTML5 error message"
                      when constraint violation "patternMismatch" display "Should be at least 5 characters long"
 ```
 
@@ -98,14 +98,11 @@ for field "password" when constraint violation "valueMissing"    display "the de
   - `error?: boolean` => treat the feedback as an error (default)
   - `warning?: boolean` => treat the feedback as a warning
   - `info?: boolean` => treat the feedback as an info
-  - `children?: string` => the text to display or the default HTML5 text if `undefined`
+  - `children?: string` => the text to display or the HTML5 error message if `undefined`
 
 - `FormWithConstraints`
   - `handleChange(e: React.FormEvent<Input>): void` => needs to be called whenever an `input` from the `form` changes
-  - `handleSubmit(e: React.FormEvent<HTMLFormElement>): void`
-  - `hasErrors(...fieldNames: string[]): boolean`
-  - `hasWarnings(...fieldNames: string[]): boolean`
-  - `hasInfos(...fieldNames: string[]): boolean`
+  - `handleSubmit(e: React.FormEvent<HTMLFormElement>): void` => needs to be called when the `form` is submitted
   - `isValid(): boolean`
 
 ## Browser support
