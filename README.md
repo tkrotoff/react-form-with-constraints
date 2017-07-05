@@ -38,11 +38,21 @@ The `required` HTML5 attribute specifies that the user must fill in a value. Oth
        pattern=".{5,}" required />
 <FieldFeedbacks for="password" show="all">
   <FieldFeedback when="valueMissing" />
-  <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
-  <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
-  <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
-  <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
-  <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
+  <FieldFeedback when="patternMismatch">
+    Should be at least 5 characters long
+  </FieldFeedback>
+  <FieldFeedback when={value => !/\d/.test(value)} warning>
+    Should contain numbers
+  </FieldFeedback>
+  <FieldFeedback when={value => !/[a-z]/.test(value)} warning>
+    Should contain small letters
+  </FieldFeedback>
+  <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>
+    Should contain capital letters
+  </FieldFeedback>
+  <FieldFeedback when={value => !/\W/.test(value)} warning>
+    Should contain special characters
+  </FieldFeedback>
 </FieldFeedbacks>
 ```
 
