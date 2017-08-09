@@ -20,9 +20,13 @@ Simple form validation for React in [~350 lines of code](src/FormWithConstraints
 ![input required](doc/input-required.png)
 ![input type="email"](doc/input-type-email.png)
 
-The `required` HTML5 attribute specifies that the user must fill in a value. Other available attributes: `min`, `max`, `minlength`, `maxlength`, `pattern`... see [MDN documentation - Form data validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation).
+The `required` HTML5 attribute specifies that the user must fill in a value, [`type="email"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email) checks that the entered text looks like an email address.
 
-[`type="email"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email) checks that the entered text looks like an email address. Other available input types: `checkbox`, `date`, `number`, `password`, `tel`, `text`, `url`... see [MDN documentation - Form input types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_<input>_types).
+Resources:
+- [Making Forms Fabulous with HTML5](https://www.html5rocks.com/en/tutorials/forms/html5forms/)
+- [Constraint Validation: Native Client Side Validation for Web Forms](https://www.html5rocks.com/en/tutorials/forms/constraintvalidation/)
+- [MDN - Form data validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation)
+- [MDN - Form input types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_<input>_types)
 
 ## What ReactFormWithConstraints brings
 
@@ -69,7 +73,7 @@ It is also inspired by [AngularJS ngMessages](https://docs.angularjs.org/api/ngM
 
 ## ReactFormWithConstraints demo
 
-- CodePen demo: https://codepen.io/tkrotoff/pen/BRGdqL
+- CodePen basic demo: https://codepen.io/tkrotoff/pen/BRGdqL
 - CodePen Bootstrap demo: https://codepen.io/tkrotoff/pen/oWQeQR
 
 ![demo-password](doc/demo-password.png)
