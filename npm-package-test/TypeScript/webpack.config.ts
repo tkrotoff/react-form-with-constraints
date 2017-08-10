@@ -1,7 +1,7 @@
 import * as path from 'path';
-import { optimize } from 'webpack';
+import { Configuration, optimize } from 'webpack';
 
-module.exports = {
+const config: Configuration = {
   entry: {
     'App': './App.tsx',
 
@@ -28,3 +28,5 @@ module.exports = {
     ]
   }
 };
+
+export = config;

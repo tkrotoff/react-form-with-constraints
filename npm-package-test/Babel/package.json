@@ -1,5 +1,5 @@
 {
-  "name": "npm-package-test",
+  "name": "npm-package-test-babel",
   "version": "0.0.1",
   "repository": {
     "type": "git",
@@ -15,18 +15,15 @@
   },
 
   "dependencies": {
-    "react-form-with-constraints": "../"
+    "react-form-with-constraints": "../.."
   },
 
   "devDependencies": {
-    "typescript": "latest",
-
-    "ts-node": "latest",
-    "@types/node": "latest",
+    "babel-core": "latest",
+    "babel-preset-react": "latest",
 
     "webpack": "latest",
-    "@types/webpack": "latest",
-    "ts-loader": "latest",
+    "babel-loader": "latest",
     "file-loader": "latest"
   }
 }

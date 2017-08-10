@@ -1,0 +1,32 @@
+{
+  "name": "npm-package-test-typescript",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tkrotoff/ReactFormWithConstraints.git"
+  },
+  "description": "Simple form validation for React",
+  "license": "MIT",
+
+  "scripts": {
+    "clean": "rm -rf build",
+    "build": "webpack -d --env.development",
+    "test": "./test.sh"
+  },
+
+  "dependencies": {
+    "react-form-with-constraints": "../.."
+  },
+
+  "devDependencies": {
+    "typescript": "latest",
+
+    "ts-node": "latest",
+    "@types/node": "latest",
+
+    "webpack": "latest",
+    "@types/webpack": "latest",
+    "ts-loader": "latest",
+    "file-loader": "latest"
+  }
+}
