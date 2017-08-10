@@ -9,11 +9,12 @@ import 'file-loader?name=[path][name].[ext]!./style.css';
 interface Props {}
 
 interface State {
-  [name: string]: string;
+  [name: string]: string | boolean;
 
   username: string;
   password: string;
   passwordConfirm: string;
+  submitButtonDisabled: boolean;
 }
 
 class Form extends FormWithConstraints<Props, State> {
@@ -23,7 +24,8 @@ class Form extends FormWithConstraints<Props, State> {
     this.state = {
       username: 'john@doe.com',
       password: '',
-      passwordConfirm: ''
+      passwordConfirm: '',
+      submitButtonDisabled: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -38,6 +40,10 @@ class Form extends FormWithConstraints<Props, State> {
     });
 
     super.handleChange(e);
+
+    this.setState({
+      submitButtonDisabled: !this.isValid()
+    });
   }
 
   handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -48,6 +54,10 @@ class Form extends FormWithConstraints<Props, State> {
     } else {
       console.log('form is invalid');
     }
+
+    this.setState({
+      submitButtonDisabled: !this.isValid()
+    });
   }
 
   render() {
@@ -89,7 +99,7 @@ class Form extends FormWithConstraints<Props, State> {
           </FieldFeedbacks>
         </div>
 
-        <button>Submit</button>
+        <button disabled={this.state.submitButtonDisabled}>Submit</button>
       </form>
     );
   }

@@ -18,7 +18,8 @@ class Form extends FormWithConstraints {
     this.state = {
       username: 'john@doe.com',
       password: '',
-      passwordConfirm: ''
+      passwordConfirm: '',
+      submitButtonDisabled: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -33,6 +34,10 @@ class Form extends FormWithConstraints {
     });
 
     super.handleChange(e);
+
+    this.setState({
+      submitButtonDisabled: !this.isValid()
+    });
   }
 
   handleSubmit(e) {
@@ -45,6 +50,10 @@ class Form extends FormWithConstraints {
     } else {
       console.log('form is valid: submit');
     }
+
+    this.setState({
+      submitButtonDisabled: !this.isValid()
+    });
   }
 
   render() {
@@ -86,7 +95,7 @@ class Form extends FormWithConstraints {
           </FieldFeedbacks>
         </FormGroup>
 
-        <button className="btn btn-primary">Submit</button>
+        <button disabled={this.state.submitButtonDisabled} className="btn btn-primary">Submit</button>
       </form>
     );
   }
