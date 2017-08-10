@@ -23,7 +23,7 @@ function findFieldFeedbackList(wrapper: ShallowWrapper<{}, {}>, inputName: strin
   return fieldFeedbacks.children() as ShallowWrapper<FieldFeedbackProps, {}>;
 }
 
-export function getFieldFeedbacksMessages(inputs: ShallowWrapper<React.HTMLAttributes<HTMLInputElement>, {}>) {
+export function getFieldFeedbacksMessages(inputs: ShallowWrapper<React.InputHTMLAttributes<HTMLInputElement>, {}>) {
   const messages: string[] = [];
 
   inputs.forEach(input => {
@@ -116,7 +116,7 @@ function simulateHTML5InputValidation(input: React.HTMLAttributes<HTMLInputEleme
   return validationMessage;
 }
 
-function badInput(input: React.HTMLAttributes<HTMLInputElement>) {
+function badInput(input: React.InputHTMLAttributes<HTMLInputElement>) {
   let validationMessage: string | undefined;
   if (input.type === 'number' && isNaN(input.value as any)) {
     validationMessage = 'Please enter a number.';
@@ -124,7 +124,7 @@ function badInput(input: React.HTMLAttributes<HTMLInputElement>) {
   return validationMessage;
 }
 
-function patternMismatch(input: React.HTMLAttributes<HTMLInputElement>) {
+function patternMismatch(input: React.InputHTMLAttributes<HTMLInputElement>) {
   const value = input.value as string;
   let validationMessage: string | undefined;
   if (input.pattern !== undefined && !new RegExp('^' + input.pattern + '$').test(value)) {
@@ -133,7 +133,7 @@ function patternMismatch(input: React.HTMLAttributes<HTMLInputElement>) {
   return validationMessage;
 }
 
-function rangeOverflow(input: React.HTMLAttributes<HTMLInputElement>) {
+function rangeOverflow(input: React.InputHTMLAttributes<HTMLInputElement>) {
   const value = input.value as number;
   const max = input.max;
   let validationMessage: string | undefined;
@@ -143,7 +143,7 @@ function rangeOverflow(input: React.HTMLAttributes<HTMLInputElement>) {
   return validationMessage;
 }
 
-function rangeUnderflow(input: React.HTMLAttributes<HTMLInputElement>) {
+function rangeUnderflow(input: React.InputHTMLAttributes<HTMLInputElement>) {
   const value = input.value as number;
   const min = input.min;
   let validationMessage: string | undefined;
@@ -153,7 +153,7 @@ function rangeUnderflow(input: React.HTMLAttributes<HTMLInputElement>) {
   return validationMessage;
 }
 
-function stepMismatch(input: React.HTMLAttributes<HTMLInputElement>) {
+function stepMismatch(input: React.InputHTMLAttributes<HTMLInputElement>) {
   const value = input.value as number;
   const step = input.step as number;
   let validationMessage: string | undefined;
@@ -163,7 +163,7 @@ function stepMismatch(input: React.HTMLAttributes<HTMLInputElement>) {
   return validationMessage;
 }
 
-function tooLong(input: React.HTMLAttributes<HTMLInputElement>) {
+function tooLong(input: React.InputHTMLAttributes<HTMLInputElement>) {
   const value = input.value as string;
   const maxLength = input.maxLength;
   let validationMessage: string | undefined;
@@ -173,7 +173,7 @@ function tooLong(input: React.HTMLAttributes<HTMLInputElement>) {
   return validationMessage;
 }
 
-function tooShort(input: React.HTMLAttributes<HTMLInputElement>) {
+function tooShort(input: React.InputHTMLAttributes<HTMLInputElement>) {
   const value = input.value as string;
   const minLength = input.minLength;
   let validationMessage: string | undefined;
@@ -183,7 +183,7 @@ function tooShort(input: React.HTMLAttributes<HTMLInputElement>) {
   return validationMessage;
 }
 
-function typeMismatch(input: React.HTMLAttributes<HTMLInputElement>) {
+function typeMismatch(input: React.InputHTMLAttributes<HTMLInputElement>) {
   const value = input.value as string;
   let validationMessage: string | undefined;
   if (input.type === 'email' && !/\S+@\S+/.test(value)) {
@@ -195,7 +195,7 @@ function typeMismatch(input: React.HTMLAttributes<HTMLInputElement>) {
   return validationMessage;
 }
 
-function valueMissing(input: React.HTMLAttributes<HTMLInputElement>) {
+function valueMissing(input: React.InputHTMLAttributes<HTMLInputElement>) {
   const value = input.value as string;
   let validationMessage: string | undefined;
   if (input.required === true && value.length === 0) {
