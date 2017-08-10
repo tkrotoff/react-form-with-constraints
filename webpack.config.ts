@@ -1,7 +1,7 @@
 import * as path from 'path';
-import { optimize } from 'webpack';
+import { Configuration, optimize } from 'webpack';
 
-module.exports = {
+const config: Configuration = {
   entry: {
     'examples/MDN_Form_validation/App': './examples/MDN_Form_validation/App.tsx',
     'examples/moduscreate/App': './examples/moduscreate/App.jsx',
@@ -33,3 +33,5 @@ module.exports = {
     ]
   }
 };
+
+export = config;
