@@ -199,7 +199,7 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
         const addToList = () => {
           if (info) field.infos.push(i);
           else if (warning) field.warnings.push(i);
-          else field.errors.push(i);
+          else field.errors.push(i); // Feedback type is error if nothing is specified
         };
 
         if (typeof when === 'function') {
