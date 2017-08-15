@@ -270,13 +270,11 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
 
     // Pass the Field object to all the FieldFeedback
     let index = 0;
-    const feedbacks = React.Children.map(children, (feedback: React.ReactElement<FieldFeedbackProps>) =>
+    const feedbacks = React.Children.map(children, (feedback: React.ReactElement<FieldFeedbackInternalProps>) =>
       React.cloneElement(feedback, {
         index: index++,
-        when: feedback.props.when,
-        warning: feedback.props.warning,
         field
-      } as FieldFeedbackProps)
+      })
     );
 
     return <div {...divProps}>{feedbacks}</div>;
