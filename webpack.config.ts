@@ -9,7 +9,7 @@ const config: Configuration = {
     'examples/password/App': './examples/password/App.tsx',
     'examples/HttpStatusCode/App': './examples/HttpStatusCode/App.tsx',
 
-    'react-form-with-constraints': './index.ts',
+    'react-form-with-constraints': './src/index.ts',
     react: ['react', 'prop-types', 'react-dom']
   },
 

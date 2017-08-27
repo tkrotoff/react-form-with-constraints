@@ -3,7 +3,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../index';
+import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../src/index';
 
 import 'file-loader?name=[path][name].[ext]!./style.css';
 import 'file-loader?name=[path][name].[ext]!./index.html';
