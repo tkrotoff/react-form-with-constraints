@@ -8,12 +8,6 @@
   "description": "Simple form validation for React",
   "license": "MIT",
 
-  "scripts": {
-    "clean": "rm -rf build",
-    "build": "webpack -d --env.development",
-    "test": "./test.sh"
-  },
-
   "dependencies": {
     "react-form-with-constraints": "../.."
   },
