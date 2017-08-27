@@ -179,8 +179,7 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
   // This is the most important method:
   // contains all the intelligence => populates the Field structure
   computeFeedbacks(input: Input) {
-    // See http://stackoverflow.com/a/40699547/990356
-    const { ['for']: fieldName, show } = this.props;
+    const { for: fieldName, show } = this.props;
 
     if (input.name === fieldName) { // Ignore the event if it's not for us
       const validity = input.validity as ValidityState_fix;
@@ -263,8 +262,7 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
   }
 
   render() {
-    // See http://stackoverflow.com/a/40699547/990356
-    let { ['for']: _, show, children, ...divProps } = this.props;
+    let { for: _, show, children, ...divProps } = this.props;
 
     const field = this.state;
 

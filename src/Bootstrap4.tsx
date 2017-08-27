@@ -56,8 +56,7 @@ export class FormGroup extends React.Component<FormGroupProps> {
   }
 
   render() {
-    // See http://stackoverflow.com/a/40699547/990356
-    let { ['for']: fieldName, children, ...divProps } = this.props;
+    let { for: fieldName, children, ...divProps } = this.props;
 
     return (
       <div {...divProps} className={this.className(fieldName)}>
@@ -180,8 +179,7 @@ export class LabelWithFormControlStyle extends React.Component<LabelWithFormCont
   }
 
   render() {
-    // See http://stackoverflow.com/a/40699547/990356
-    const { ['for']: fieldNames, style, children, ...labelProps } = this.props;
+    const { for: fieldNames, style, children, ...labelProps } = this.props;
 
     const form = this.context.form;
 
