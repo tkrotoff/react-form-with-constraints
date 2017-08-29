@@ -12,7 +12,7 @@
   "types": "lib/index.d.ts",
 
   "scripts": {
-    "clean": "del-cli build lib dist/*.js",
+    "clean": "del-cli build lib dist/*.js coverage",
 
     "preumd": "tsc",
     "umd": "NODE_ENV=development browserify lib/index.js --external React --external ReactDOM --external PropTypes --standalone ReactFormWithConstraints --outfile dist/react-form-with-constraints.js",
@@ -25,8 +25,15 @@
 
     "pretest": "npm run clean && tsc || true",
     "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
+
+    "coverage:remap:json": "remap-istanbul --input coverage/coverage-final.json --type json --output coverage/coverage-final.json",
+
     "precoverage": "npm run pretest",
-    "coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"
+    "coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage && npm run coverage:remap:json && istanbul report"
+  },
+
+  "jest": {
+    "coverageReporters": ["json"]
   },
 
   "dependencies": {
@@ -62,6 +69,7 @@
 
     "jest": "latest",
     "@types/jest": "latest",
+    "remap-istanbul": "latest",
 
     "enzyme": "latest",
     "@types/enzyme": "latest",

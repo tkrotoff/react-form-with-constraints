@@ -4,6 +4,7 @@ Simple form validation for React in [~350 lines of code](src/FormWithConstraints
 
 [![npm version](https://badge.fury.io/js/react-form-with-constraints.svg)](https://badge.fury.io/js/react-form-with-constraints)
 [![Build Status](https://travis-ci.org/tkrotoff/ReactFormWithConstraints.svg?branch=master)](https://travis-ci.org/tkrotoff/ReactFormWithConstraints)
+[![codecov](https://codecov.io/gh/tkrotoff/ReactFormWithConstraints/branch/master/graph/badge.svg)](https://codecov.io/gh/tkrotoff/ReactFormWithConstraints)
 
 - Installation: `npm install react-form-with-constraints`
 - CDN: https://unpkg.com/react-form-with-constraints/dist/react-form-with-constraints.js
