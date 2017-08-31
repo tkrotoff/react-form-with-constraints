@@ -23,17 +23,21 @@
     "prepare": "npm run umd",
     "prepublishOnly": "npm run test",
 
-    "pretest": "npm run clean && tsc || true",
+    "pretest": "npm run clean",
     "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
 
-    "coverage:remap:json": "remap-istanbul --input coverage/coverage-final.json --type json --output coverage/coverage-final.json",
-
     "precoverage": "npm run pretest",
-    "coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage && npm run coverage:remap:json && istanbul report"
+    "coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"
   },
 
   "jest": {
-    "coverageReporters": ["json"]
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"],
+
+    "mapCoverage": true
   },
 
   "dependencies": {
@@ -69,7 +73,7 @@
 
     "jest": "latest",
     "@types/jest": "latest",
-    "remap-istanbul": "latest",
+    "ts-jest": "latest",
 
     "enzyme": "latest",
     "@types/enzyme": "latest",
