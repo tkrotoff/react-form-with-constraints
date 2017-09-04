@@ -68,16 +68,16 @@ export interface Field {
 }
 
 export type WhenString =
-  '*' |
-  'badInput' |        // input type="number"
-  'patternMismatch' | // pattern attribute
-  'rangeOverflow' |   // max attribute
-  'rangeUnderflow' |  // min attribute
-  'stepMismatch' |    // step attribute
-  'tooLong' |         // maxlength attribute
-  'tooShort' |        // minlength attribute
-  'typeMismatch' |    // input type="email" or input type="url"
-  'valueMissing';     // required attribute
+  | '*'
+  | 'badInput'        // input type="number"
+  | 'patternMismatch' // pattern attribute
+  | 'rangeOverflow'   // max attribute
+  | 'rangeUnderflow'  // min attribute
+  | 'stepMismatch'    // step attribute
+  | 'tooLong'         // maxlength attribute
+  | 'tooShort'        // minlength attribute
+  | 'typeMismatch'    // input type="email" or input type="url"
+  | 'valueMissing';   // required attribute
 
 export type WhenFn = (value: string) => boolean;
 
