@@ -9,7 +9,7 @@ class Form extends FormWithConstraints {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)} noValidate>
-        <input type="email" name="username" defaultValue="John Doe" required />
+        <input type="email" name="username" defaultValue="John Doe" onChange={this.handleChange.bind(this)} required />
         <FieldFeedbacks for="username">
           <FieldFeedback when="*" />
         </FieldFeedbacks>
