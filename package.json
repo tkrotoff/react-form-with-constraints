@@ -40,20 +40,22 @@
     "mapCoverage": true
   },
 
-  "dependencies": {
-    "react": "latest",
-    "@types/react": "latest",
-
-    "prop-types": "latest",
-    "@types/prop-types": "latest",
-
-    "react-dom": "latest",
-    "@types/react-dom": "latest"
+  "peerDependencies": {
+    "react": ">=15",
+    "prop-types": ">=15",
+    "react-dom": ">=15"
   },
 
   "devDependencies": {
     "typescript": "latest",
     "tslint": "latest",
+
+    "react": "latest",
+    "@types/react": "latest",
+    "prop-types": "latest",
+    "@types/prop-types": "latest",
+    "react-dom": "latest",
+    "@types/react-dom": "latest",
 
     "browserify": "latest",
 

@@ -8,11 +8,13 @@
   "description": "Simple form validation for React",
   "license": "MIT",
 
-  "dependencies": {
-    "react-form-with-constraints": "../.."
-  },
-
   "devDependencies": {
+    "react-form-with-constraints": "../..",
+
+    "react": "latest",
+    "prop-types": "latest",
+    "react-dom": "latest",
+
     "babel-core": "latest",
     "babel-preset-react": "latest",
 
