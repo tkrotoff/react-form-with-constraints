@@ -3,8 +3,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import 'file-loader?name=[path][name].[ext]!./index.html';
-import 'file-loader?name=[path][name].[ext]!./my-img.png';
+import './index.html';
+import './my-img.png';
 
 // See The native form widgets https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/The_native_form_widgets
 

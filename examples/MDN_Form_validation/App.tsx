@@ -5,9 +5,9 @@ import * as ReactDOM from 'react-dom';
 
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../src/index';
 
-import 'file-loader?name=[path][name].[ext]!./style.css';
-import 'file-loader?name=[path][name].[ext]!./index.html';
-import 'file-loader?name=[path][name].[ext]!./original.html';
+import './style.css';
+import './index.html';
+import './original.html';
 
 class Form extends FormWithConstraints {
   constructor(props: {}) {

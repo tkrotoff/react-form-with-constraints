@@ -5,7 +5,7 @@ import * as ReactDOM from 'react-dom';
 
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
 
-import 'file-loader?name=[path][name].[ext]!./index.html';
+import './index.html';
 
 class Form extends FormWithConstraints {
   render() {

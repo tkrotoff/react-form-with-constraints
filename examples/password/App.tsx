@@ -3,8 +3,8 @@ import * as ReactDOM from 'react-dom';
 
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../src/index';
 
-import 'file-loader?name=[path][name].[ext]!./index.html';
-import 'file-loader?name=[path][name].[ext]!./style.css';
+import './index.html';
+import './style.css';
 
 interface Props {}
 

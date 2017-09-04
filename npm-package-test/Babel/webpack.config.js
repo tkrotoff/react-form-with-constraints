@@ -24,7 +24,8 @@ module.exports = {
 
   module: {
     rules: [
-      { test: /\.jsx?$/, loader: 'babel-loader', options: {presets: ['react']} }
+      { test: /\.jsx?$/, loader: 'babel-loader', options: {presets: ['react']} },
+      { test: /\.html$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} }
     ]
   }
 };

@@ -9,7 +9,7 @@ import * as ReactDOM from 'react-dom';
 import { FormWithConstraints, FieldFeedback, Bootstrap4 } from '../../src/index';
 const { FieldFeedbacks, FormGroup, FormControlLabel, FormControlInput } = Bootstrap4;
 
-import 'file-loader?name=[path][name].[ext]!./index.html';
+import './index.html';
 
 class Form extends FormWithConstraints {
   constructor(props) {

@@ -29,7 +29,8 @@ const config: Configuration = {
   module: {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader', options: {compilerOptions: {declaration: false}} },
-      { test: /\.jsx?$/, loader: 'babel-loader', options: {presets: ['react']} }
+      { test: /\.jsx?$/, loader: 'babel-loader', options: {presets: ['react']} },
+      { test: /\.(html|css|png)$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} }
     ]
   }
 };
