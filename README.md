@@ -1,10 +1,10 @@
-# ReactFormWithConstraints
+# react-form-with-constraints
 
 Simple form validation for React in [~350 lines of code](src/FormWithConstraints.tsx)
 
 [![npm version](https://badge.fury.io/js/react-form-with-constraints.svg)](https://badge.fury.io/js/react-form-with-constraints)
-[![Build Status](https://travis-ci.org/tkrotoff/ReactFormWithConstraints.svg?branch=master)](https://travis-ci.org/tkrotoff/ReactFormWithConstraints)
-[![codecov](https://codecov.io/gh/tkrotoff/ReactFormWithConstraints/branch/master/graph/badge.svg)](https://codecov.io/gh/tkrotoff/ReactFormWithConstraints)
+[![Build Status](https://travis-ci.org/tkrotoff/react-form-with-constraints.svg?branch=master)](https://travis-ci.org/tkrotoff/react-form-with-constraints)
+[![codecov](https://codecov.io/gh/tkrotoff/react-form-with-constraints/branch/master/graph/badge.svg)](https://codecov.io/gh/tkrotoff/react-form-with-constraints)
 
 - Installation: `npm install react-form-with-constraints`
 - CDN: https://unpkg.com/react-form-with-constraints/dist/react-form-with-constraints.js
@@ -29,7 +29,7 @@ Resources:
 - [MDN - Form data validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation)
 - [MDN - Form input types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_<input>_types)
 
-## What ReactFormWithConstraints brings
+## What react-form-with-constraints brings
 
 - Control HTML5 error messages: `<FieldFeedback when="valueMissing">My custom error message</FieldFeedback>`
 - Custom constraints beyond HTML5: `<FieldFeedback when={value => ...}>`
@@ -72,7 +72,7 @@ The API works the same way as [React Router v4](https://reacttraining.com/react-
 
 It is also inspired by [AngularJS ngMessages](https://docs.angularjs.org/api/ngMessages#usage).
 
-## ReactFormWithConstraints demo
+## react-form-with-constraints demo
 
 - CodePen basic demo: https://codepen.io/tkrotoff/pen/BRGdqL
 - CodePen Bootstrap demo: https://codepen.io/tkrotoff/pen/oWQeQR
