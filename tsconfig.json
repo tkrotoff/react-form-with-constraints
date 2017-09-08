@@ -10,6 +10,7 @@
     "declaration": true,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
+    "noImplicitReturns": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "lib"
