@@ -21,7 +21,6 @@
 
     "tsc": "tsc",
     "prepare": "npm run tsc && npm run umd",
-    "prepublishOnly": "npm run test",
 
     "pretest": "npm run clean",
     "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
