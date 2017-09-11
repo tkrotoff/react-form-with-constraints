@@ -27,7 +27,9 @@
     "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
 
     "precoverage": "npm run pretest",
-    "coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"
+    "coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage",
+
+    "tslint": "tslint --config tslint.json '**/*.ts{,x}' --exclude '**/node_modules/**' --exclude 'lib/**'"
   },
 
   "jest": {
@@ -49,6 +51,7 @@
   "devDependencies": {
     "typescript": "latest",
     "tslint": "latest",
+    "tslint-react": "latest",
 
     "react": "latest",
     "@types/react": "latest",

@@ -65,7 +65,7 @@ class Form extends React.Component {
 
         <h3>Multi-line text fields</h3>
 
-        <textarea cols={30} rows={10} onChange={this.handleChange}></textarea>
+        <textarea cols={30} rows={10} onChange={this.handleChange} />
 
         <h2>Drop-down content</h2>
 
@@ -188,7 +188,7 @@ class Form extends React.Component {
 
         <label htmlFor="beans">How many beans can you eat?</label>{' '}
         <input type="range" id="beans" name="beans" min="0" max="500" step="10" onChange={this.handleChange} />
-        <span className="beancount"></span>
+        <span className="beancount" />
 
         <h3>Date and time picker</h3>
 

@@ -56,7 +56,7 @@ export class FormGroup extends React.Component<FormGroupProps> {
   }
 
   render() {
-    let { for: fieldName, children, ...divProps } = this.props;
+    const { for: fieldName, children, ...divProps } = this.props;
 
     return (
       <div {...divProps} className={this.className(fieldName)}>
@@ -71,7 +71,7 @@ export interface FormControlLabelProps extends React.HTMLProps<HTMLLabelElement>
 }
 
 const FormControlLabel: React.SFC<FormControlLabelProps> = props => {
-  let { children, ...labelProps } = props;
+  const { children, ...labelProps } = props;
 
   return (
     <label {...labelProps} className="form-control-label">
@@ -131,7 +131,7 @@ export class FormControlInput extends React.Component<FormControlInputProps> {
   }
 
   render() {
-    let { children, ...inputProps } = this.props;
+    const { children, ...inputProps } = this.props;
 
     return (
       <input {...inputProps} className={this.className(inputProps.name)} />
@@ -188,7 +188,7 @@ export class LabelWithFormControlStyle extends React.Component<LabelWithFormCont
     const brandWarning = '#f0ad4e';
     const brandSuccess = '#5cb85c';
 
-    let color: string | undefined = undefined;
+    let color: string | undefined;
     if (FormFields.containErrors(form, ...fieldNames)) {
       color = brandDanger;
     }

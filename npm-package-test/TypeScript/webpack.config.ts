@@ -3,7 +3,7 @@ import { Configuration, optimize } from 'webpack';
 
 const config: Configuration = {
   entry: {
-    'App': './App.tsx',
+    App: './App.tsx',
 
     'react-form-with-constraints': 'react-form-with-constraints',
     react: ['react', 'prop-types', 'react-dom']

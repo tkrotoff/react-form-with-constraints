@@ -119,11 +119,7 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps> {
     let feedback = null;
     if (show) {
       divProps.className = divProps.className !== undefined ? className + ' ' + divProps.className : className;
-      if (children === undefined) {
-        feedback = field.validationMessage;
-      } else {
-        feedback = children;
-      }
+      feedback = children !== undefined ? children : field.validationMessage;
     }
 
     return feedback !== null ? <div {...divProps}>{feedback}</div> : null;
@@ -262,7 +258,7 @@ export class FieldFeedbacks extends React.Component<FieldFeedbacksProps, Field> 
   }
 
   render() {
-    let { for: _, show, children, ...divProps } = this.props;
+    const { for: _, show, children, ...divProps } = this.props;
 
     const field = this.state;
 

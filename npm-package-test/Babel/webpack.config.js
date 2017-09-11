@@ -3,7 +3,7 @@ const optimize = require('webpack').optimize;
 
 module.exports = {
   entry: {
-    'App': './App.jsx',
+    App: './App.jsx',
 
     'react-form-with-constraints': 'react-form-with-constraints',
     react: ['react', 'prop-types', 'react-dom']
