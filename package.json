@@ -16,8 +16,8 @@
 
     "umd": "NODE_ENV=development browserify src/index.ts -p [tsify --target=ES5 --forceConsistentCasingInFileNames=false --downlevelIteration] --debug --external react --external react-dom --external prop-types --standalone ReactFormWithConstraints --outfile dist/react-form-with-constraints.js",
 
-    "build": "webpack -d --env.development",
-    "build:watch": "webpack -d --env.development --watch",
+    "build": "webpack -d",
+    "build:watch": "webpack -d --watch",
 
     "tsc": "tsc",
     "prepare": "npm run tsc && npm run umd",

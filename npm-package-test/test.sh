@@ -15,5 +15,5 @@ echo '** Running (cd .. && rm -rf node_modules)'
 (cd .. && rm -rf node_modules)
 
 echo '** Running webpack'
-(cd Babel && yarn run webpack -d --env.development)
-(cd TypeScript && yarn run webpack -d --env.development)
+(cd Babel && yarn run webpack -d)
+(cd TypeScript && yarn run webpack -d)
