@@ -14,13 +14,13 @@
   "scripts": {
     "clean": "del-cli build lib dist/*.js coverage",
 
-    "umd": "NODE_ENV=development browserify src/index.ts -p [tsify --target=ES5 --forceConsistentCasingInFileNames=false --downlevelIteration] --debug --external react --external react-dom --external prop-types --standalone ReactFormWithConstraints --outfile dist/react-form-with-constraints.js",
+    "dist": "webpack --config webpack.dist.config.ts",
 
     "build": "webpack -d",
     "build:watch": "webpack -d --watch",
 
     "tsc": "tsc",
-    "prepare": "npm run tsc && npm run umd",
+    "prepublishOnly": "npm run clean && npm run build && npm run tsc && npm run dist",
 
     "pretest": "npm run clean",
     "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
@@ -58,9 +58,6 @@
     "@types/prop-types": "latest",
     "react-dom": "latest",
     "@types/react-dom": "latest",
-
-    "browserify": "latest",
-    "tsify": "latest",
 
     "ts-node": "latest",
     "@types/node": "latest",
