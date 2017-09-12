@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../src/index';
 
 import './index.html';
-import './style.css';
+import '../Password/style.css';
 
 interface Props {}
 
@@ -15,7 +15,9 @@ interface State {
 }
 
 // Inspired by http://codepen.io/nukos/pen/RPwxBp
-class Form extends FormWithConstraints<Props, State> {
+class Form extends React.Component<Props, State> {
+  form: FormWithConstraints;
+
   constructor(props: Props) {
     super(props);
 
@@ -30,26 +32,27 @@ class Form extends FormWithConstraints<Props, State> {
   handleChange(e: React.FormEvent<HTMLInputElement>) {
     const target = e.currentTarget;
 
-    this.setState({
-      [target.name]: target.value
-    });
+    this.form.validateFields(target);
 
-    super.handleChange(e);
+    this.setState({[target.name]: target.value});
   }
 
   handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    super.handleSubmit(e);
+    e.preventDefault();
 
-    if (this.isValid()) {
-      console.log('form is valid: submit');
+    this.form.validateFields();
+
+    if (this.form.isValid()) {
+      alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     } else {
-      console.log('form is invalid');
+      alert('Invalid form');
     }
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} noValidate>
+      <FormWithConstraints ref={(formWithConstraints: any) => this.form = formWithConstraints}
+                           onSubmit={this.handleSubmit} noValidate>
         <div>
           <label>HTTP Status code (enter 200, 404, 500, 503)</label>
           <input type="number" name="httpStatusCode"
@@ -65,7 +68,7 @@ class Form extends FormWithConstraints<Props, State> {
         </div>
 
         <button>Submit</button>
-      </form>
+      </FormWithConstraints>
     );
   }
 }

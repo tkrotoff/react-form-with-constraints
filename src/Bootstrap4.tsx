@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 import {
-  FormWithConstraintsContext, FormFields, Input,
+  Input, FormWithConstraintsChildContext,
   FieldFeedbacks as FieldFeedbacks_, FieldFeedbacksProps
-} from './FormWithConstraints';
+} from './index';
 
 export interface FormGroupProps extends React.HTMLProps<HTMLDivElement> {
   for?: string;
@@ -14,21 +14,19 @@ export class FormGroup extends React.Component<FormGroupProps> {
   static contextTypes = {
     form: PropTypes.object.isRequired
   };
-
-  context: FormWithConstraintsContext;
+  context: FormWithConstraintsChildContext;
 
   constructor(props: FormGroupProps) {
     super(props);
-
     this.reRender = this.reRender.bind(this);
   }
 
-  componentDidMount() {
-    this.context.form.addInputChangeOrFormSubmitEventListener(this.reRender);
+  componentWillMount() {
+    this.context.form.addValidateEventListener(this.reRender);
   }
 
   componentWillUnmount() {
-    this.context.form.removeInputChangeOrFormSubmitEventListener(this.reRender);
+    this.context.form.removeValidateEventListener(this.reRender);
   }
 
   reRender(input: Input) {
@@ -42,13 +40,13 @@ export class FormGroup extends React.Component<FormGroupProps> {
     let className = 'form-group';
     if (fieldName !== undefined) {
       const form = this.context.form;
-      if (FormFields.containErrors(form, fieldName)) {
+      if (form.fieldsStore.containErrors(fieldName)) {
         className += ' has-danger';
       }
-      else if (FormFields.containWarnings(form, fieldName)) {
+      else if (form.fieldsStore.containWarnings(fieldName)) {
         className += ' has-warning';
       }
-      else if (FormFields.areValidDirtyWithoutWarnings(form, fieldName)) {
+      else if (form.fieldsStore.areValidDirtyWithoutWarnings(fieldName)) {
         className += ' has-success';
       }
     }
@@ -56,54 +54,48 @@ export class FormGroup extends React.Component<FormGroupProps> {
   }
 
   render() {
-    const { for: fieldName, children, ...divProps } = this.props;
-
+    const { for: fieldName, className, children, ...divProps } = this.props;
+    const classes = className !== undefined ? `${className} ${this.className(fieldName)}` : this.className(fieldName);
     return (
-      <div {...divProps} className={this.className(fieldName)}>
-        {this.props.children}
-      </div>
+      <div {...divProps} className={classes}>{children}</div>
     );
   }
 }
 
 
-export interface FormControlLabelProps extends React.HTMLProps<HTMLLabelElement> {
-}
+export interface FormControlLabelProps extends React.HTMLProps<HTMLLabelElement> {}
 
 const FormControlLabel: React.SFC<FormControlLabelProps> = props => {
-  const { children, ...labelProps } = props;
-
+  const { className, children, ...labelProps } = props;
+  const classes = className !== undefined ? `${className} form-control-label` : 'form-control-label';
   return (
-    <label {...labelProps} className="form-control-label">
-      {props.children}
-    </label>
+    <label {...labelProps} className={classes}>{children}</label>
   );
 };
 export { FormControlLabel };
 
 
 export interface FormControlInputProps extends React.HTMLProps<HTMLInputElement> {
+  innerRef?: React.Ref<HTMLInputElement>;
 }
 
 export class FormControlInput extends React.Component<FormControlInputProps> {
   static contextTypes = {
     form: PropTypes.object.isRequired
   };
-
-  context: FormWithConstraintsContext;
+  context: FormWithConstraintsChildContext;
 
   constructor(props: FormControlInputProps) {
     super(props);
-
     this.reRender = this.reRender.bind(this);
   }
 
-  componentDidMount() {
-    this.context.form.addInputChangeOrFormSubmitEventListener(this.reRender);
+  componentWillMount() {
+    this.context.form.addValidateEventListener(this.reRender);
   }
 
   componentWillUnmount() {
-    this.context.form.removeInputChangeOrFormSubmitEventListener(this.reRender);
+    this.context.form.removeValidateEventListener(this.reRender);
   }
 
   reRender(input: Input) {
@@ -117,13 +109,13 @@ export class FormControlInput extends React.Component<FormControlInputProps> {
     let className = 'form-control';
     if (name !== undefined) {
       const form = this.context.form;
-      if (FormFields.containErrors(form, name)) {
+      if (form.fieldsStore.containErrors(name)) {
         className += ' form-control-danger';
       }
-      else if (FormFields.containWarnings(form, name)) {
+      else if (form.fieldsStore.containWarnings(name)) {
         className += ' form-control-warning';
       }
-      else if (FormFields.areValidDirtyWithoutWarnings(form, name)) {
+      else if (form.fieldsStore.areValidDirtyWithoutWarnings(name)) {
         className += ' form-control-success';
       }
     }
@@ -131,17 +123,19 @@ export class FormControlInput extends React.Component<FormControlInputProps> {
   }
 
   render() {
-    const { children, ...inputProps } = this.props;
-
+    const { innerRef, className, children, ...inputProps } = this.props;
+    const classes = className !== undefined ? `${className} ${this.className(inputProps.name)}` : this.className(inputProps.name);
     return (
-      <input {...inputProps} className={this.className(inputProps.name)} />
+      <input ref={innerRef} {...inputProps} className={classes} />
     );
   }
 }
 
 
 const FieldFeedbacks: React.SFC<FieldFeedbacksProps> = props => {
-  return <FieldFeedbacks_ {...props as any} className="form-control-feedback">{props.children}</FieldFeedbacks_>;
+  const { ref /* Avoid TypeScript error "Types of property 'ref' are incompatible" */, className, children, ...other } = props;
+  const classes = className !== undefined ? `${className} form-control-feedback` : 'form-control-feedback';
+  return <FieldFeedbacks_ {...other} className={classes}>{children}</FieldFeedbacks_>;
 };
 export { FieldFeedbacks };
 
@@ -154,21 +148,19 @@ export class LabelWithFormControlStyle extends React.Component<LabelWithFormCont
   static contextTypes = {
     form: PropTypes.object.isRequired
   };
-
-  context: FormWithConstraintsContext;
+  context: FormWithConstraintsChildContext;
 
   constructor(props: LabelWithFormControlStyleProps) {
     super(props);
-
     this.reRender = this.reRender.bind(this);
   }
 
-  componentDidMount() {
-    this.context.form.addInputChangeOrFormSubmitEventListener(this.reRender);
+  componentWillMount() {
+    this.context.form.addValidateEventListener(this.reRender);
   }
 
   componentWillUnmount() {
-    this.context.form.removeInputChangeOrFormSubmitEventListener(this.reRender);
+    this.context.form.removeValidateEventListener(this.reRender);
   }
 
   reRender(input: Input) {
@@ -180,7 +172,6 @@ export class LabelWithFormControlStyle extends React.Component<LabelWithFormCont
 
   render() {
     const { for: fieldNames, style, children, ...labelProps } = this.props;
-
     const form = this.context.form;
 
     // See https://github.com/twbs/bootstrap/blob/v4.0.0-alpha.6/scss/_variables.scss#L118
@@ -189,20 +180,20 @@ export class LabelWithFormControlStyle extends React.Component<LabelWithFormCont
     const brandSuccess = '#5cb85c';
 
     let color: string | undefined;
-    if (FormFields.containErrors(form, ...fieldNames)) {
+    if (form.fieldsStore.containErrors(...fieldNames)) {
       color = brandDanger;
     }
-    else if (FormFields.containWarnings(form, ...fieldNames)) {
+    else if (form.fieldsStore.containWarnings(...fieldNames)) {
       color = brandWarning;
     }
-    else if (FormFields.areValidDirtyWithoutWarnings(form, ...fieldNames)) {
+    else if (form.fieldsStore.areValidDirtyWithoutWarnings(...fieldNames)) {
       color = brandSuccess;
     }
 
+    const styles = style !== undefined ? {color, ...style} : {color};
+
     return (
-      <label style={{color}} {...labelProps}>
-        {this.props.children}
-      </label>
+      <label {...labelProps} style={{styles}}>{children}</label>
     );
   }
 }

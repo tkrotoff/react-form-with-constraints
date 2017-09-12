@@ -9,8 +9,8 @@ import './my-img.png';
 // See The native form widgets https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/The_native_form_widgets
 
 class Form extends React.Component {
-  constructor(props: {}) {
-    super(props);
+  constructor() {
+    super();
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,10 +21,10 @@ class Form extends React.Component {
     console.log('handleChange()');
 
     const input = e.currentTarget;
-    this.showFieldError(input);
+    this.validateField(input);
   }
 
-  showFieldError(input: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) {
+  validateField(input: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) {
     console.log('input:', input.value, input.validity, input.validationMessage);
   }
 

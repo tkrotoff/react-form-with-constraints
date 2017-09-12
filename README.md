@@ -1,6 +1,6 @@
 # react-form-with-constraints
 
-Simple form validation for React in [~350 lines of code](src/FormWithConstraints.tsx)
+Simple form validation for React in [~400 lines of code](src)
 
 [![npm version](https://badge.fury.io/js/react-form-with-constraints.svg)](https://badge.fury.io/js/react-form-with-constraints)
 [![Build Status](https://travis-ci.org/tkrotoff/react-form-with-constraints.svg?branch=master)](https://travis-ci.org/tkrotoff/react-form-with-constraints)
@@ -32,7 +32,7 @@ Resources:
 ## What react-form-with-constraints brings
 
 - Control HTML5 error messages: `<FieldFeedback when="valueMissing">My custom error message</FieldFeedback>`
-- Custom constraints beyond HTML5: `<FieldFeedback when={value => ...}>`
+- Custom constraints: `<FieldFeedback when={value => ...}>`
 - Warnings: `<FieldFeedback ... warning>`
 - Infos: `<FieldFeedback ... info>`
 - Multiple feedbacks: `<FieldFeedbacks ... show="all">`
@@ -40,7 +40,7 @@ Resources:
 ```JSX
 <input type="password" name="password"
        value={this.state.password} onChange={this.handleChange}
-       pattern=".{5,}" required />
+       required pattern=".{5,}" />
 <FieldFeedbacks for="password" show="all">
   <FieldFeedback when="valueMissing" />
   <FieldFeedback when="patternMismatch">
@@ -96,7 +96,6 @@ for field "password" when constraint violation "valueMissing"    display "the HT
 - `FieldFeedbacks`
   - `for: string` => refer to a `name` attribute, e.g `<input name="password">`
   - `show?: 'first' | 'all'` => display the first error/warning encountered (default) or all of them
-  - `children: FieldFeedback[]`
 
 - `FieldFeedback`
   - `when: `[`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)` string | '*' | function` => HTML5 constraint violation name or a callback
@@ -106,8 +105,7 @@ for field "password" when constraint violation "valueMissing"    display "the HT
   - `children?: string` => the text to display or the HTML5 error message if `undefined`
 
 - `FormWithConstraints`
-  - `handleChange(e: React.FormEvent<Input>): void` => needs to be called whenever an `input` from the `form` changes
-  - `handleSubmit(e: React.FormEvent<HTMLFormElement>): void` => needs to be called when the `form` is submitted
+  - `validateFields(...inputsOrNames: Array<Input | string>): void` => should be called when an `input` changes or the `form` is submitted
   - `isValid(): boolean`
 
 ## Browser support

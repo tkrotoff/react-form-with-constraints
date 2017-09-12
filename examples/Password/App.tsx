@@ -9,66 +9,71 @@ import './style.css';
 interface Props {}
 
 interface State {
-  [name: string]: string | boolean;
-
   username: string;
   password: string;
   passwordConfirm: string;
   submitButtonDisabled: boolean;
 }
 
-class Form extends FormWithConstraints<Props, State> {
+class Form extends React.Component<Props, State> {
+  form: FormWithConstraints;
+  password: HTMLInputElement;
+
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      username: 'john@doe.com',
+      username: '',
       password: '',
       passwordConfirm: '',
       submitButtonDisabled: false
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e: React.FormEvent<HTMLInputElement>) {
     const target = e.currentTarget;
 
-    this.setState({
-      [target.name]: target.value
-    });
-
-    super.handleChange(e);
+    this.form.validateFields(target);
 
     this.setState({
-      submitButtonDisabled: !this.isValid()
+      [target.name as any]: target.value,
+      submitButtonDisabled: !this.form.isValid()
     });
   }
 
+  handlePasswordChange(e: React.FormEvent<HTMLInputElement>) {
+    this.form.validateFields('passwordConfirm');
+
+    this.handleChange(e);
+  }
+
   handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    super.handleSubmit(e);
+    e.preventDefault();
 
-    if (this.isValid()) {
-      console.log('form is valid: submit');
-    } else {
-      console.log('form is invalid');
+    this.form.validateFields();
+
+    this.setState({submitButtonDisabled: !this.form.isValid()});
+
+    if (this.form.isValid()) {
+      alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     }
-
-    this.setState({
-      submitButtonDisabled: !this.isValid()
-    });
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} noValidate>
+      <FormWithConstraints ref={(formWithConstraints: any) => this.form = formWithConstraints}
+                           onSubmit={this.handleSubmit} noValidate>
         <div>
           <label>Username</label>
           <input type="email" name="username"
                  value={this.state.username} onChange={this.handleChange}
-                 required />
+                 required minLength={3} />
           <FieldFeedbacks for="username">
+            <FieldFeedback when="tooShort">Too short</FieldFeedback>
             <FieldFeedback when="*" />
           </FieldFeedbacks>
         </div>
@@ -76,8 +81,9 @@ class Form extends FormWithConstraints<Props, State> {
         <div>
           <label>Password</label>
           <input type="password" name="password"
-                 value={this.state.password} onChange={this.handleChange}
-                 pattern=".{5,}" required />
+                 ref={password => this.password = password!}
+                 value={this.state.password} onChange={this.handlePasswordChange}
+                 required pattern=".{5,}" />
           <FieldFeedbacks for="password" show="all">
             <FieldFeedback when="valueMissing" />
             <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
@@ -91,16 +97,14 @@ class Form extends FormWithConstraints<Props, State> {
         <div>
           <label>Confirm Password</label>
           <input type="password" name="passwordConfirm"
-                 value={this.state.passwordConfirm} onChange={this.handleChange}
-                 required />
+                 value={this.state.passwordConfirm} onChange={this.handleChange} />
           <FieldFeedbacks for="passwordConfirm">
-            <FieldFeedback when="*" />
-            <FieldFeedback when={value => value !== this.state.password}>Not the same password</FieldFeedback>
+            <FieldFeedback when={value => value !== this.password.value}>Not the same password</FieldFeedback>
           </FieldFeedbacks>
         </div>
 
         <button disabled={this.state.submitButtonDisabled}>Submit</button>
-      </form>
+      </FormWithConstraints>
     );
   }
 }

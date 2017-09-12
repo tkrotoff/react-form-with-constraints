@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { ShallowWrapper } from 'enzyme';
 
-import { FieldFeedbackProps, FieldFeedbacks } from './FormWithConstraints';
-import { FieldFeedbacks as FieldFeedbacksBootstrap4 } from './Bootstrap4';
+import { FieldFeedback, FieldFeedbackProps, FieldFeedbacks, Bootstrap4 } from './index';
 
 // Return the list of FieldFeedback associated with an input name
 // Algorithm: find the FieldFeedbacks that matches the input name (for prop) and then return its children
 function findFieldFeedbackList(wrapper: ShallowWrapper<{}, {}>, inputName: string) {
-  const fieldFeedbacks = wrapper.findWhere(node => {
+  const fieldFeedbacksList = wrapper.findWhere(node => {
     let found = false;
-    if (node.type() === FieldFeedbacks || node.type() === FieldFeedbacksBootstrap4) {
+    if (node.type() === FieldFeedbacks || node.type() === Bootstrap4.FieldFeedbacks) {
       if (node.prop('for') === inputName) {
         found = true;
       }
@@ -18,9 +17,20 @@ function findFieldFeedbackList(wrapper: ShallowWrapper<{}, {}>, inputName: strin
   });
 
   // No use of expect() otherwise it mess up with expect.assertions(N)
-  console.assert(fieldFeedbacks.length >= 1, 'At least 1 FieldFeedbacks should match');
+  console.assert(fieldFeedbacksList.length >= 1, 'At least 1 FieldFeedbacks should match');
 
-  return fieldFeedbacks.children() as ShallowWrapper<FieldFeedbackProps, {}>;
+  const fieldFeedbackList = fieldFeedbacksList.findWhere(node => {
+    let found = false;
+    if (node.type() === FieldFeedback) {
+      found = true;
+    }
+    return found;
+  });
+
+  // No use of expect() otherwise it mess up with expect.assertions(N)
+  console.assert(fieldFeedbacksList.length >= 1, 'At least 1 FieldFeedback');
+
+  return fieldFeedbackList as ShallowWrapper<FieldFeedbackProps, {}>;
 }
 
 export function getFieldFeedbacksMessages(inputs: ShallowWrapper<React.InputHTMLAttributes<HTMLInputElement>, {}>) {

@@ -11,12 +11,12 @@ form > div > label {
 }
 
 /* FieldFeedbacks */
-form > div > div > div.error {
+div.error {
   color: red;
 }
-form > div > div > div.warning {
+div.warning {
   color: orange;
 }
-form > div > div > div.info {
+div.info {
   color: blue;
 }

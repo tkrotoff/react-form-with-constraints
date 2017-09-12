@@ -9,17 +9,36 @@ import './style.css';
 import './index.html';
 import './original.html';
 
-class Form extends FormWithConstraints {
-  constructor(props: {}) {
-    super(props);
+class Form extends React.Component {
+  form: FormWithConstraints;
+
+  constructor() {
+    super();
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handleChange(e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    this.form.validateFields(e.currentTarget);
+  }
+
+  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    this.form.validateFields();
+
+    if (this.form.isValid()) {
+      alert('Valid form');
+    } else {
+      alert('Invalid form');
+    }
+  }
+
   render() {
     return (
-      <form noValidate onSubmit={this.handleSubmit}>
+      <FormWithConstraints ref={(formWithConstraints: any) => this.form = formWithConstraints}
+                           onSubmit={this.handleSubmit} noValidate>
         <p>
           <fieldset>
             <legend>Title<abbr title="This field is mandatory">*</abbr></legend>
@@ -76,7 +95,7 @@ class Form extends FormWithConstraints {
         <p>
           <button>Submit</button>
         </p>
-      </form>
+      </FormWithConstraints>
     );
   }
 }
