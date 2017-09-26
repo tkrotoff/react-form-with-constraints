@@ -52,11 +52,11 @@
     "tslint": "latest",
     "tslint-react": "latest",
 
-    "react": "latest",
+    "react": "^15.6.2",
     "@types/react": "latest",
-    "prop-types": "latest",
+    "prop-types": "^15.6.0",
     "@types/prop-types": "latest",
-    "react-dom": "latest",
+    "react-dom": "^15.6.2",
     "@types/react-dom": "latest",
 
     "ts-node": "latest",
@@ -77,8 +77,8 @@
     "@types/jest": "latest",
     "ts-jest": "latest",
 
-    "enzyme": "latest",
+    "enzyme": "^2.9.1",
     "@types/enzyme": "latest",
-    "react-test-renderer": "latest"
+    "react-test-renderer": "^15.6.2"
   }
 }
