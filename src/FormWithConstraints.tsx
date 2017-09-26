@@ -52,7 +52,7 @@ export interface FormWithConstraintsChildContext {
   form: IFormWithConstraints;
 }
 
-export interface FormWithConstraintsProps extends React.HTMLProps<HTMLFormElement> {}
+export interface FormWithConstraintsProps extends React.AllHTMLAttributes<HTMLFormElement> {}
 
 export interface IFormWithConstraints extends IValidateEventEmitter {
   fieldsStore: FieldsStore;

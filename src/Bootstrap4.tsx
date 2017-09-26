@@ -6,7 +6,7 @@ import {
   FieldFeedbacks as FieldFeedbacks_, FieldFeedbacksProps
 } from './index';
 
-export interface FormGroupProps extends React.HTMLProps<HTMLDivElement> {
+export interface FormGroupProps extends React.AllHTMLAttributes<HTMLDivElement> {
   for?: string;
 }
 
@@ -63,7 +63,7 @@ export class FormGroup extends React.Component<FormGroupProps> {
 }
 
 
-export interface FormControlLabelProps extends React.HTMLProps<HTMLLabelElement> {}
+export interface FormControlLabelProps extends React.AllHTMLAttributes<HTMLLabelElement> {}
 
 const FormControlLabel: React.SFC<FormControlLabelProps> = props => {
   const { className, children, ...labelProps } = props;
@@ -75,7 +75,7 @@ const FormControlLabel: React.SFC<FormControlLabelProps> = props => {
 export { FormControlLabel };
 
 
-export interface FormControlInputProps extends React.HTMLProps<HTMLInputElement> {
+export interface FormControlInputProps extends React.AllHTMLAttributes<HTMLInputElement> {
   innerRef?: React.Ref<HTMLInputElement>;
 }
 
@@ -133,14 +133,14 @@ export class FormControlInput extends React.Component<FormControlInputProps> {
 
 
 const FieldFeedbacks: React.SFC<FieldFeedbacksProps> = props => {
-  const { ref /* Avoid TypeScript error "Types of property 'ref' are incompatible" */, className, children, ...other } = props;
+  const { className, children, ...other } = props;
   const classes = className !== undefined ? `${className} form-control-feedback` : 'form-control-feedback';
   return <FieldFeedbacks_ {...other} className={classes}>{children}</FieldFeedbacks_>;
 };
 export { FieldFeedbacks };
 
 
-export interface LabelWithFormControlStyleProps extends React.HTMLProps<HTMLLabelElement> {
+export interface LabelWithFormControlStyleProps extends React.AllHTMLAttributes<HTMLLabelElement> {
   for: string[];
 }
 

@@ -7,7 +7,7 @@ import { EventEmitter } from './EventEmitter'; // FIXME See https://github.com/M
 import Input from './Input';
 import { FieldEvent } from './FieldsStore';
 
-export interface FieldFeedbacksProps extends React.HTMLProps<HTMLDivElement> {
+export interface FieldFeedbacksProps extends React.AllHTMLAttributes<HTMLDivElement> {
   for: string;
 
   /**
