@@ -23,7 +23,7 @@ const config: Configuration = {
 
   module: {
     rules: [
-      { test: /\.tsx?$/, loader: 'ts-loader', options: {compilerOptions: {target: 'es5', declaration: false}} }
+      { test: /\.tsx?$/, loader: 'ts-loader', options: {compilerOptions: {module: 'esnext', declaration: false}} }
     ]
   }
 };

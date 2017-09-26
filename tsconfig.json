@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2016",
+    "target": "es5",
+    "downlevelIteration": true,
     "jsx": "react",
     "module": "commonjs",
     "moduleResolution": "node",
