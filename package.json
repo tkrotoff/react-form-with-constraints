@@ -12,9 +12,11 @@
   "types": "lib/index.d.ts",
 
   "scripts": {
-    "clean": "del-cli build lib dist/*.js coverage",
+    "clean": "del-cli build lib dist/* !dist/.gitkeep coverage .rpt2_cache",
 
-    "dist": "webpack --config webpack.dist.config.ts || true",
+    "dist:webpack": "webpack -p --config webpack.dist.config.ts || true",
+    "dist:rollup": "rollup --config",
+    "dist": "npm run dist:rollup",
 
     "build": "webpack -d || true",
     "build:watch": "webpack -d --watch",
@@ -65,11 +67,21 @@
     "babel-core": "latest",
     "babel-preset-react": "latest",
 
+    "node-zopfli": "latest",
+    "node-gyp": "latest",
+
     "webpack": "latest",
     "@types/webpack": "latest",
     "ts-loader": "latest",
     "babel-loader": "latest",
     "file-loader": "latest",
+    "zopfli-webpack-plugin": "latest",
+
+    "rollup": "latest",
+    "rollup-pluginutils": "latest",
+    "rollup-plugin-typescript2": "latest",
+    "rollup-plugin-uglify": "latest",
+    "rollup-plugin-gzip": "latest",
 
     "del-cli": "latest",
 

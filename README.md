@@ -5,9 +5,10 @@ Simple form validation for React in [~400 lines of code](src)
 [![npm version](https://badge.fury.io/js/react-form-with-constraints.svg)](https://badge.fury.io/js/react-form-with-constraints)
 [![Build Status](https://travis-ci.org/tkrotoff/react-form-with-constraints.svg?branch=master)](https://travis-ci.org/tkrotoff/react-form-with-constraints)
 [![codecov](https://codecov.io/gh/tkrotoff/react-form-with-constraints/branch/master/graph/badge.svg)](https://codecov.io/gh/tkrotoff/react-form-with-constraints)
+[![gzip size](http://img.badgesize.io/https://unpkg.com/react-form-with-constraints/dist/react-form-with-constraints.production.min.js.gz?compression=gzip)](https://unpkg.com/react-form-with-constraints/dist/react-form-with-constraints.production.min.js.gz)
 
 - Installation: `npm install react-form-with-constraints`
-- CDN: https://unpkg.com/react-form-with-constraints/dist/react-form-with-constraints.js
+- CDN: https://unpkg.com/react-form-with-constraints/dist/react-form-with-constraints.production.min.js
 
 ## Introduction: what is HTML5 form validation?
 
