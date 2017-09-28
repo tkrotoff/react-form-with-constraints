@@ -1,27 +1,27 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback, Bootstrap4 } from './index';
+import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from './index';
 import { getFieldFeedbacksMessages } from './Enzyme';
-const { FormGroup, FormControlInput } = Bootstrap4;
+import * as Bootstrap4 from './Bootstrap4';
 
 test('with Bootstrap4', () => {
   class FormBootstrap4 extends FormWithConstraints {
     render() {
       return (
-        <FormGroup for="username">
-          <FormControlInput type="email" name="username" value="" required />
+        <Bootstrap4.FormGroup for="username">
+          <Bootstrap4.FormControlInput type="email" name="username" value="" required />
           <Bootstrap4.FieldFeedbacks for="username">
             <FieldFeedback when="*" />
           </Bootstrap4.FieldFeedbacks>
-        </FormGroup>
+        </Bootstrap4.FormGroup>
       );
     }
   }
 
   const component = shallow(<FormBootstrap4 />);
 
-  const inputs = component.find(FormControlInput);
+  const inputs = component.find(Bootstrap4.FormControlInput);
   expect(inputs).toHaveLength(1);
   expect(inputs.props().value).toEqual('');
   expect(getFieldFeedbacksMessages(inputs)).toEqual(['Please fill out this field.']);

@@ -73,12 +73,14 @@ The API works the same way as [React Router v4](https://reacttraining.com/react-
 
 It is also inspired by [AngularJS ngMessages](https://docs.angularjs.org/api/ngMessages#usage).
 
-## react-form-with-constraints demo
+## Examples
 
-- CodePen basic demo: https://codepen.io/tkrotoff/pen/BRGdqL
-- CodePen Bootstrap demo: https://codepen.io/tkrotoff/pen/oWQeQR
+- CodePen basic example: https://codepen.io/tkrotoff/pen/BRGdqL
+- CodeSandbox Bootstrap 4 example: https://codesandbox.io/s/qk0zro1qm4
 
-![demo-password](doc/demo-password.png)
+![example-password](doc/example-password.png)
+
+Other examples inside [the examples directory](examples).
 
 ## API
 

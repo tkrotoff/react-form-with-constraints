@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { ShallowWrapper } from 'enzyme';
 
-import { FieldFeedback, FieldFeedbackProps, FieldFeedbacks, Bootstrap4 } from './index';
+import { FieldFeedback, FieldFeedbackProps, FieldFeedbacks } from './index';
+import * as Bootstrap4 from './Bootstrap4';
 
 // Return the list of FieldFeedback associated with an input name
 // Algorithm: find the FieldFeedbacks that matches the input name (for prop) and then return its children
