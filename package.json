@@ -45,8 +45,11 @@
 
   "peerDependencies": {
     "react": ">=15",
-    "prop-types": ">=15",
     "react-dom": ">=15"
+  },
+
+  "dependencies": {
+    "prop-types": "^15.6.0"
   },
 
   "devDependencies": {
@@ -56,7 +59,6 @@
 
     "react": "^15.6.2",
     "@types/react": "latest",
-    "prop-types": "^15.6.0",
     "@types/prop-types": "latest",
     "react-dom": "^15.6.2",
     "@types/react-dom": "latest",
