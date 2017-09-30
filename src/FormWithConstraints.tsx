@@ -89,12 +89,12 @@ export class FormWithConstraints extends withValidateEventEmitter(FormWithConstr
 
     let otherInputs: Input[] = [];
 
-    // [name] matches <input name="...">, <select name="...">...
+    // [name] matches <input name="...">, <select name="...">, <button name="...">, ...
     if (inputsOrNames.length === 0) {
       otherInputs = this.form.querySelectorAll('[name]') as any;
     }
     if (fieldNames.length > 0) {
-      const selectors = fieldNames.map(fieldName => `[name=${fieldName}]`);
+      const selectors = fieldNames.map(fieldName => `[name="${fieldName}"]`);
       otherInputs = this.form.querySelectorAll(selectors.join(', ')) as any;
     }
 
