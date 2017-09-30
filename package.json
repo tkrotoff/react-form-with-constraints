@@ -14,8 +14,8 @@
   "scripts": {
     "clean": "del-cli build lib dist/* !dist/.gitkeep coverage .rpt2_cache",
 
-    "dist:webpack": "webpack -p --config webpack.dist.config.ts || true",
-    "dist:rollup": "rollup --config",
+    "dist:webpack": "cross-env NODE_ENV=development webpack -d --config webpack.dist.config.ts || true && cross-env NODE_ENV=production webpack -p --config webpack.dist.config.ts || true",
+    "dist:rollup": "cross-env NODE_ENV=development rollup --config && cross-env NODE_ENV=production rollup --config",
     "dist": "npm run dist:rollup",
 
     "build": "webpack -d || true",
@@ -84,8 +84,10 @@
     "rollup-plugin-typescript2": "latest",
     "rollup-plugin-uglify": "latest",
     "rollup-plugin-gzip": "latest",
+    "rollup-plugin-filesize": "latest",
 
     "del-cli": "latest",
+    "cross-env": "latest",
 
     "jest": "latest",
     "@types/jest": "latest",

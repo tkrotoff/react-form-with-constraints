@@ -1,11 +1,22 @@
+// @ts-check
+
 import typescript from 'rollup-plugin-typescript2';
 import uglify from 'rollup-plugin-uglify';
 import gzip from 'rollup-plugin-gzip';
+import filesize from 'rollup-plugin-filesize';
+
+const __PROD__ = process.env.NODE_ENV === 'production';
+
+function outputFileName() {
+  let fileName = `react-form-with-constraints.${process.env.NODE_ENV}`;
+  fileName += __PROD__ ? '.min.js' : '.js';
+  return fileName;
+}
 
 export default {
   input: './src/index.ts',
   output: {
-    file: 'dist/react-form-with-constraints.production.min.js',
+    file: `dist/${outputFileName()}`,
     name: 'ReactFormWithConstraints',
     format: 'umd',
     sourcemap: true
@@ -21,11 +32,11 @@ export default {
   plugins: [
     typescript({
       abortOnError: false,
-      clean: true
+      clean: true,
+      tsconfigOverride: {compilerOptions: {module: 'esnext', declaration: false}}
     }),
-    uglify(),
-    gzip({
-      algorithm: 'zopfli'
-    })
+    __PROD__ && uglify(),
+    gzip({algorithm: 'zopfli'}),
+    filesize()
   ]
 };
