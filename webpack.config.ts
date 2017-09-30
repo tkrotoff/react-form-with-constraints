@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { Configuration, optimize } from 'webpack';
+import { Configuration } from 'webpack';
 
 const config: Configuration = {
   entry: {
@@ -11,20 +11,13 @@ const config: Configuration = {
     'examples/HttpStatusCode/App': './examples/HttpStatusCode/App.tsx',
     'examples/WizardForm/App': './examples/WizardForm/App.tsx',
     'examples/NoFramework/App': './examples/NoFramework/App.tsx',
-    'examples/HTML5Constraints/App': './examples/HTML5Constraints/App.tsx',
-
-    'react-form-with-constraints': './src/index.ts',
-    react: ['react', 'prop-types', 'react-dom']
+    'examples/HTML5Constraints/App': './examples/HTML5Constraints/App.tsx'
   },
 
   output: {
     path: path.join(__dirname, 'build'),
     filename: '[name].js'
   },
-
-  plugins: [
-    new optimize.CommonsChunkPlugin({names: ['react-form-with-constraints', 'react', 'manifest']})
-  ],
 
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
