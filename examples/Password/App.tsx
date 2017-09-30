@@ -34,7 +34,7 @@ class Form extends React.Component<Props, State> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e: React.FormEvent<HTMLInputElement>) {
+  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.currentTarget;
 
     this.form.validateFields(target);
@@ -45,7 +45,7 @@ class Form extends React.Component<Props, State> {
     });
   }
 
-  handlePasswordChange(e: React.FormEvent<HTMLInputElement>) {
+  handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
     this.form.validateFields('passwordConfirm');
 
     this.handleChange(e);

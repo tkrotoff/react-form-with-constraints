@@ -23,7 +23,7 @@ class WizardFormPage3 extends React.Component<Props> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e: React.FormEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) {
+  handleChange(e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) {
     const target = e.currentTarget;
 
     this.form.validateFields(target);

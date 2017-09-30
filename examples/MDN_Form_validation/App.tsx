@@ -19,7 +19,7 @@ class Form extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) {
+  handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     this.form.validateFields(e.currentTarget);
   }
 

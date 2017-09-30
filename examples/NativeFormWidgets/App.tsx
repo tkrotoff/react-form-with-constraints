@@ -17,7 +17,7 @@ class Form extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleChange(e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+  handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     console.log('handleChange()');
 
     const input = e.currentTarget;
