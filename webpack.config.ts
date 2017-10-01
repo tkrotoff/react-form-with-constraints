@@ -11,7 +11,8 @@ const config: Configuration = {
     'examples/HttpStatusCode/App': './examples/HttpStatusCode/App.tsx',
     'examples/WizardForm/App': './examples/WizardForm/App.tsx',
     'examples/NoFramework/App': './examples/NoFramework/App.tsx',
-    'examples/HTML5Constraints/App': './examples/HTML5Constraints/App.tsx'
+    'examples/HTML5Constraints/App': './examples/HTML5Constraints/App.tsx',
+    'examples/SignUp/App': './examples/SignUp/App.tsx'
   },
 
   output: {
