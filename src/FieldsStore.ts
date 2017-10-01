@@ -36,9 +36,9 @@ export class FieldsStore extends EventEmitter {
     console.assert(field !== undefined, `Unknown field '${fieldName}'`);
     const newField: Field = {
       dirty: field.dirty,
-      errors: field.errors,
-      warnings: field.warnings,
-      infos: field.infos,
+      errors: new Set(field.errors),
+      warnings: new Set(field.warnings),
+      infos: new Set(field.infos),
       validationMessage: field.validationMessage
     };
     return newField;

@@ -93,17 +93,34 @@ test('cloneField()', () => {
   });
 
   const field = store.cloneField('username');
-  field.errors = new Set([1.0, 1.1, 1.2]);
+  field.dirty = true;
+  field.errors.add(1.0);
+  field.warnings.add(2.0);
+  field.infos.add(3.0);
   field.validationMessage = "I'm a clone";
+
   expect(field).toEqual({
-    dirty: false,
-    errors: new Set([1.0, 1.1, 1.2]),
-    warnings: new Set(),
-    infos: new Set(),
+    dirty: true,
+    errors: new Set([1.0]),
+    warnings: new Set([2.0]),
+    infos: new Set([3.0]),
     validationMessage: "I'm a clone"
   });
   expect(store.fields).toEqual({
-    username: fieldWithoutFeedback
+    username: {
+      dirty: false,
+      errors: new Set(),
+      warnings: new Set(),
+      infos: new Set(),
+      validationMessage: ''
+    }
+  });
+  expect(fieldWithoutFeedback).toEqual({
+    dirty: false,
+    errors: new Set(),
+    warnings: new Set(),
+    infos: new Set(),
+    validationMessage: ''
   });
 });
 
@@ -121,20 +138,20 @@ test('updateField()', () => {
   });
 
   const fieldUpdated = {
-    dirty: false,
-    errors: new Set(),
-    warnings: new Set(),
-    infos: new Set(),
+    dirty: true,
+    errors: new Set([1.0, 1.1, 1.2]),
+    warnings: new Set([2.0, 2.1, 2.2]),
+    infos: new Set([3.0, 3.1, 3.2]),
     validationMessage: 'Field updated'
   };
   store.updateField('username', fieldUpdated);
 
   expect(store.fields).toEqual({
     username: {
-      dirty: false,
-      errors: new Set(),
-      warnings: new Set(),
-      infos: new Set(),
+      dirty: true,
+      errors: new Set([1.0, 1.1, 1.2]),
+      warnings: new Set([2.0, 2.1, 2.2]),
+      infos: new Set([3.0, 3.1, 3.2]),
       validationMessage: 'Field updated'
     }
   });
