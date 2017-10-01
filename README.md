@@ -14,8 +14,8 @@ Simple form validation for React in [~400 lines of code](src)
 
 ```HTML
 <form>
-  <label>Email:</label>
-  <input type="email" required>
+  <label for="email">Email:</label>
+  <input type="email" id="email" required>
   <button>Submit</button>
 </form>
 ```
@@ -117,9 +117,9 @@ You can use HTML5 attributes like `type="email"`, `required`, `pattern`..., in t
 
 ```JSX
 <form onSubmit={this.handleSubmit} noValidate>
-  <label>Username</label>
+  <label htmlFor="username">Username</label>
 
-  <input type="email" name="username"
+  <input type="email" name="username" id="username"
          value={this.state.username} onChange={this.handleChange}
          required />
   <FieldFeedbacks for="username">
@@ -134,9 +134,9 @@ You can use HTML5 attributes like `type="email"`, `required`, `pattern`..., in t
 
 ```JSX
 <form onSubmit={this.handleSubmit} noValidate>
-  <label>Username</label>
+  <label htmlFor="username">Username</label>
 
-  <input name="username"
+  <input name="username" id="username"
          value={this.state.username} onChange={this.handleChange} />
   <FieldFeedbacks for="username">
     <FieldFeedback when={value => value.length === 0}>Please fill out this field.</FieldFeedback>

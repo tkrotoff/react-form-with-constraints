@@ -47,8 +47,8 @@ class WizardFormPage2 extends React.Component<Props> {
       <FormWithConstraints ref={(formWithConstraints: any) => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
-          <label>Email</label>
-          <input type="email" name="email"
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" id="email"
                  value={email} onChange={this.handleChange}
                  required />
           <FieldFeedbacks for="email">

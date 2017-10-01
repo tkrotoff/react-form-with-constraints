@@ -54,8 +54,8 @@ class Form extends React.Component<Props, State> {
       <FormWithConstraints ref={(formWithConstraints: any) => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
-          <label>HTTP Status code (enter 200, 404, 500, 503)</label>
-          <input type="number" name="httpStatusCode"
+          <label htmlFor="http-status-code">HTTP Status code (enter 200, 404, 500, 503)</label>
+          <input type="number" name="httpStatusCode" id="http-status-code"
                  value={this.state.httpStatusCode} onChange={this.handleChange}
                  min={100} max={599} required />
           <FieldFeedbacks for="httpStatusCode">

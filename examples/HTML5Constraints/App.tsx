@@ -122,8 +122,8 @@ class Form extends React.Component<Props, State> {
     return (
       <form onSubmit={this.handleSubmit} noValidate>
         <div>
-          <label>Username</label>
-          <input type="email" name="username"
+          <label htmlFor="username">Username</label>
+          <input type="email" name="username" id="username"
                  ref={username => this.username = username!}
                  onChange={this.handleUsernameChange}
                  required minLength={3} />
@@ -133,8 +133,8 @@ class Form extends React.Component<Props, State> {
         </div>
 
         <div>
-          <label>Password</label>
-          <input type="password" name="password"
+          <label htmlFor="password">Password</label>
+          <input type="password" name="password" id="password"
                  ref={password => this.password = password!}
                  onChange={this.handlePasswordChange}
                  required pattern=".{5,}" />
@@ -144,8 +144,8 @@ class Form extends React.Component<Props, State> {
         </div>
 
         <div>
-          <label>Confirm Password</label>
-          <input type="password" name="passwordConfirm"
+          <label htmlFor="password-confirm">Confirm Password</label>
+          <input type="password" name="passwordConfirm" id="password-confirm"
                  ref={passwordConfirm => this.passwordConfirm = passwordConfirm!}
                  onChange={this.handlePasswordConfirmChange} />
           <div className="error">

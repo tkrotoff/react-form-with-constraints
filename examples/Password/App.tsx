@@ -68,8 +68,8 @@ class Form extends React.Component<Props, State> {
       <FormWithConstraints ref={(formWithConstraints: any) => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
-          <label>Username</label>
-          <input type="email" name="username"
+          <label htmlFor="username">Username</label>
+          <input type="email" name="username" id="username"
                  value={this.state.username} onChange={this.handleChange}
                  required minLength={3} />
           <FieldFeedbacks for="username">
@@ -79,8 +79,8 @@ class Form extends React.Component<Props, State> {
         </div>
 
         <div>
-          <label>Password</label>
-          <input type="password" name="password"
+          <label htmlFor="password">Password</label>
+          <input type="password" name="password" id="password"
                  ref={password => this.password = password!}
                  value={this.state.password} onChange={this.handlePasswordChange}
                  required pattern=".{5,}" />
@@ -95,15 +95,15 @@ class Form extends React.Component<Props, State> {
         </div>
 
         <div>
-          <label>Confirm Password</label>
-          <input type="password" name="passwordConfirm"
+          <label htmlFor="password-confirm">Confirm Password</label>
+          <input type="password" name="passwordConfirm" id="password-confirm"
                  value={this.state.passwordConfirm} onChange={this.handleChange} />
           <FieldFeedbacks for="passwordConfirm">
             <FieldFeedback when={value => value !== this.password.value}>Not the same password</FieldFeedback>
           </FieldFeedbacks>
         </div>
 
-        <button disabled={this.state.submitButtonDisabled}>Submit</button>
+        <button disabled={this.state.submitButtonDisabled}>Sign Up</button>
       </FormWithConstraints>
     );
   }

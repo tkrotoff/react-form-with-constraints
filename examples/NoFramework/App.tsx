@@ -130,8 +130,9 @@ class Form extends React.Component<Props, State> {
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
-          <label>Username</label>
-          <input ref={username => this.username = username!}
+          <label htmlFor="username">Username</label>
+          <input id="username"
+                 ref={username => this.username = username!}
                  onChange={this.handleUsernameChange} />
           <div className="error">
             {errors.username.map(error => <div key={error}>{error}</div>)}
@@ -139,8 +140,8 @@ class Form extends React.Component<Props, State> {
         </div>
 
         <div>
-          <label>Password</label>
-          <input type="password"
+          <label htmlFor="password">Password</label>
+          <input type="password" id="password"
                  ref={password => this.password = password!}
                  onChange={this.handlePasswordChange} />
           <div className="error">
@@ -149,8 +150,8 @@ class Form extends React.Component<Props, State> {
         </div>
 
         <div>
-          <label>Confirm Password</label>
-          <input type="password"
+          <label htmlFor="password-confirm">Confirm Password</label>
+          <input type="password" id="password-confirm"
                  ref={passwordConfirm => this.passwordConfirm = passwordConfirm!}
                  onChange={this.handlePasswordConfirmChange} />
           <div className="error">
@@ -158,7 +159,7 @@ class Form extends React.Component<Props, State> {
           </div>
         </div>
 
-        <button>Submit</button>
+        <button>Sign Up</button>
       </form>
     );
   }

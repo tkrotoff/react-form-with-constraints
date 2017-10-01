@@ -44,8 +44,8 @@ class WizardFormPage1 extends React.Component<Props> {
       <FormWithConstraints ref={(formWithConstraints: any) => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
-          <label>First Name</label>
-          <input name="firstName"
+          <label htmlFor="first-name">First Name</label>
+          <input name="firstName" id="first-name"
                  value={firstName} onChange={this.handleChange}
                  required minLength={3} />
           <FieldFeedbacks for="firstName">
@@ -55,8 +55,8 @@ class WizardFormPage1 extends React.Component<Props> {
         </div>
 
         <div>
-          <label>Last Name</label>
-          <input name="lastName"
+          <label htmlFor="last-name">Last Name</label>
+          <input name="lastName" id="last-name"
                  value={lastName} onChange={this.handleChange}
                  required minLength={3} />
           <FieldFeedbacks for="lastName">
