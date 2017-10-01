@@ -1,5 +1,6 @@
 import { Fields, Field } from './Fields';
 import { EventEmitter } from './EventEmitter';
+import fieldWithoutFeedback from './fieldWithoutFeedback';
 
 export enum FieldEvent {
   Added = 'FIELD_ADDED',
@@ -13,13 +14,7 @@ export class FieldsStore extends EventEmitter {
 
   addField(fieldName: string) {
     if (this.fields[fieldName] === undefined) {
-      const newField = {
-        dirty: false,
-        errors: new Set(),
-        warnings: new Set(),
-        infos: new Set(),
-        validationMessage: ''
-      };
+      const newField = fieldWithoutFeedback;
       this.fields[fieldName] = newField;
       this.emit(FieldEvent.Added, fieldName, newField);
     }

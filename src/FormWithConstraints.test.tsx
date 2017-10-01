@@ -1,20 +1,9 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 
-import { Field, FormWithConstraints, FieldFeedbacks, FieldFeedback } from './index';
+import { fieldWithoutFeedback, FormWithConstraints, FieldFeedbacks, FieldFeedback } from './index';
 
 // FYI "Suffering from being missing" string and friends come from the HTML specification https://www.w3.org/TR/html52/sec-forms.html#suffer-from-being-missing
-
-let fieldWithoutFeedback: Field;
-beforeEach(() => {
-  fieldWithoutFeedback = {
-    dirty: false,
-    errors: new Set(),
-    warnings: new Set(),
-    infos: new Set(),
-    validationMessage: ''
-  };
-});
 
 test('constructor()', () => {
   const form = new FormWithConstraints();

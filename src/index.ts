@@ -2,6 +2,8 @@ export * from './FormWithConstraints';
 export * from './FieldFeedbacks';
 export * from './FieldFeedback';
 export * from './Fields';
+import fieldWithoutFeedback from './fieldWithoutFeedback';
+export { fieldWithoutFeedback };
 export * from './FieldsStore';
 export * from './EventEmitter';
 export * from './withValidateEventEmitter';

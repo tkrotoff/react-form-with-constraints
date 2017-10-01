@@ -1,29 +1,22 @@
 import * as React from 'react';
 import { shallow as _shallow } from 'enzyme';
 
-import { Field, FieldFeedback, FieldFeedbackProps, FieldFeedbackContext, ValidateEvent } from './index';
+import { fieldWithoutFeedback, FieldFeedback, FieldFeedbackProps, FieldFeedbackContext, ValidateEvent } from './index';
 import FormWithConstraintsMock from './FormWithConstraintsMock';
 import FieldFeedbacksMock from './FieldFeedbacksMock';
 import InputMock from './InputMock';
-
-const fieldFeedbacksKey1 = 1;
-const fieldFeedbackKey11 = 1.1;
 
 function shallow(node: React.ReactElement<FieldFeedbackProps>, options: {context: FieldFeedbackContext}) {
   return _shallow<FieldFeedbackProps>(node, options);
 }
 
+const fieldFeedbacksKey1 = 1;
+const fieldFeedbackKey11 = 1.1;
+
 let form_username_empty: FormWithConstraintsMock;
 let fieldFeedbacks_username: FieldFeedbacksMock;
 
 beforeEach(() => {
-  const fieldWithoutFeedback: Field = {
-    dirty: false,
-    errors: new Set(),
-    warnings: new Set(),
-    infos: new Set(),
-    validationMessage: ''
-  };
   form_username_empty = new FormWithConstraintsMock({
     username: fieldWithoutFeedback
   });

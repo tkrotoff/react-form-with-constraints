@@ -1,15 +1,4 @@
-import { Field, FieldsStore, FieldEvent } from './index';
-
-let fieldWithoutFeedback: Field;
-beforeEach(() => {
-  fieldWithoutFeedback = {
-    dirty: false,
-    errors: new Set(),
-    warnings: new Set(),
-    infos: new Set(),
-    validationMessage: ''
-  };
-});
+import { fieldWithoutFeedback, FieldsStore, FieldEvent } from './index';
 
 test('constructor()', () => {
   const store = new FieldsStore();

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount as _mount, shallow as _shallow } from 'enzyme';
 
-import { FormWithConstraintsChildContext, Field, FieldFeedback, FieldFeedbacksProps, FieldFeedbacks, ValidateEvent } from './index';
+import { FormWithConstraintsChildContext, fieldWithoutFeedback, FieldFeedback, FieldFeedbacksProps, FieldFeedbacks, ValidateEvent } from './index';
 import FormWithConstraintsMock from './FormWithConstraintsMock';
 import InputMock from './InputMock';
 
@@ -11,17 +11,6 @@ function shallow(node: React.ReactElement<FieldFeedbacksProps>, options: {contex
 function mount(node: React.ReactElement<FieldFeedbacksProps>, options: {context: FormWithConstraintsChildContext}) {
   return _mount<FieldFeedbacksProps>(node, options);
 }
-
-let fieldWithoutFeedback: Field;
-beforeEach(() => {
-  fieldWithoutFeedback = {
-    dirty: false,
-    errors: new Set(),
-    warnings: new Set(),
-    infos: new Set(),
-    validationMessage: ''
-  };
-});
 
 test('constructor() - computeFieldFeedbackKey()', () => {
   const component = shallow(
