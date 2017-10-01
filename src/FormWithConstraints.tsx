@@ -40,12 +40,13 @@ FormWithConstraints contains the FieldsStore:
 }
 FieldsStore is passed to FieldFeedbacks and FieldFeedback thanks to React context.
 
-All the intelligence is inside FieldFeedback validate() and render()
+Most of the intelligence is inside FieldFeedback validate() and render()
 
-When an input changes:
+When an input changes (validateFields()):
  => FormWithConstraints notifies all FieldFeedbacks
-  => FieldFeedbacks filters unrelated input changes and then notifies its FieldFeedback
-   => FieldFeedback updates the FieldsStore
+  => FieldFeedbacks filters unrelated input changes and then notifies its FieldFeedback (validate())
+   => FieldFeedback updates the FieldsStore and emits an event (validate())
+    => FieldFeedbacks re-renders
 */
 
 export interface FormWithConstraintsChildContext {

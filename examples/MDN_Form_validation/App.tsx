@@ -1,5 +1,3 @@
-// Taken and adapted from MDN - Form data validation https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation
-
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 

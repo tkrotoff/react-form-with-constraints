@@ -4,6 +4,10 @@ import * as ReactDOM from 'react-dom';
 import './index.html';
 import '../Password/style.css';
 
+// Inspired by
+// - Validating a React form upon submit https://goshakkk.name/submit-time-validation-react/
+// - How to do Simple Form Validation in #Reactjs https://learnetto.com/blog/how-to-do-simple-form-validation-in-reactjs
+
 interface Errors {
   username: string[];
   password: string[];

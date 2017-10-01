@@ -1,5 +1,3 @@
-// Taken and adapted from MDN - The native form widgets https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/The_native_form_widgets
-
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 

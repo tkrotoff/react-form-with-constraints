@@ -9,9 +9,7 @@ import '../Password/style.css';
 const App = () => (
   <div>
     <p>
-      Taken and adapted from <a href="https://redux-form.com/7.0.4/examples/wizard/">Redux Form - Wizard Form Example</a>
-      <br />
-      Original code: <a href="https://codesandbox.io/s/0Qzz3843">https://codesandbox.io/s/0Qzz3843</a>
+      Inspired by <a href="https://redux-form.com/7.0.4/examples/wizard/">Redux Form - Wizard Form Example</a>
     </p>
     <WizardForm />
   </div>

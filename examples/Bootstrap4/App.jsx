@@ -1,9 +1,5 @@
 // @ts-check
 
-// Taken and adapted from Modus Create - ReactJS Form Validation Approaches http://moduscreate.com/reactjs-form-validation-approaches/
-// Original code: https://codepen.io/jmalfatto/pen/YGjmaJ
-// Fixed version: https://codepen.io/tkrotoff/pen/MEeNvO
-
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -106,9 +102,7 @@ class Form extends React.Component {
 const App = () => (
   <div className="container">
     <p>
-      Taken and adapted from <a href="http://moduscreate.com/reactjs-form-validation-approaches/">Modus Create - ReactJS Form Validation Approaches</a>
-      <br />
-      Original code: <a href="https://codepen.io/jmalfatto/pen/YGjmaJ">https://codepen.io/jmalfatto/pen/YGjmaJ</a>
+      Inspired by <a href="http://moduscreate.com/reactjs-form-validation-approaches/">Modus Create - ReactJS Form Validation Approaches</a>
       <br />
       Fixed version: <a href="https://codepen.io/tkrotoff/pen/MEeNvO">https://codepen.io/tkrotoff/pen/MEeNvO</a>
     </p>

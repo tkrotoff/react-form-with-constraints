@@ -14,7 +14,6 @@ interface State {
   httpStatusCode: string;
 }
 
-// Inspired by http://codepen.io/nukos/pen/RPwxBp
 class Form extends React.Component<Props, State> {
   form: FormWithConstraints;
 

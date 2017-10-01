@@ -4,6 +4,8 @@ import * as ReactDOM from 'react-dom';
 import './index.html';
 import '../Password/style.css';
 
+// Inspired by ReactJS Form Validation Approaches https://moduscreate.com/reactjs-form-validation-approaches/
+
 interface Errors {
   username: string[];
   password: string[];

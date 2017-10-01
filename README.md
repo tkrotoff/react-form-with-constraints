@@ -8,7 +8,7 @@ Simple form validation for React in [~400 lines of code](src)
 [![gzip size](http://img.badgesize.io/https://unpkg.com/react-form-with-constraints/dist/react-form-with-constraints.production.min.js.gz?compression=gzip)](https://unpkg.com/react-form-with-constraints/dist/react-form-with-constraints.production.min.js.gz)
 
 - Installation: `npm install react-form-with-constraints`
-- CDN: https://unpkg.com/react-form-with-constraints/dist/react-form-with-constraints.production.min.js
+- CDN: https://unpkg.com/react-form-with-constraints/dist/
 
 ## Introduction: what is HTML5 form validation?
 
@@ -32,11 +32,14 @@ Resources:
 
 ## What react-form-with-constraints brings
 
+- Minimal API and footprint
 - Control HTML5 error messages: `<FieldFeedback when="valueMissing">My custom error message</FieldFeedback>`
 - Custom constraints: `<FieldFeedback when={value => ...}>`
-- Warnings: `<FieldFeedback ... warning>`
-- Infos: `<FieldFeedback ... info>`
-- Multiple feedbacks: `<FieldFeedbacks ... show="all">`
+- Warnings and infos: `<FieldFeedback ... warning>`, `<FieldFeedback ... info>`
+- No dependency beside React (no Redux, MobX...)
+- No special component like `<TextField>`, just plain old `<input>` or whatever you like
+- Re-render only what's necessary
+- ...
 
 ```JSX
 <input type="password" name="password"
@@ -62,6 +65,8 @@ Resources:
 </FieldFeedbacks>
 ```
 
+## How it works
+
 The API works the same way as [React Router v4](https://reacttraining.com/react-router/web/example/basic):
 
 ```JSX
@@ -73,10 +78,17 @@ The API works the same way as [React Router v4](https://reacttraining.com/react-
 
 It is also inspired by [AngularJS ngMessages](https://docs.angularjs.org/api/ngMessages#usage).
 
+If you had to implement validation yourself, you would end up with [a global object that tracks errors for each field](examples/NoFramework/App.tsx).
+react-form-with-constraints [works](src/Fields.ts) [similarly](src/FieldsStore.ts) (although not using [`setState`](https://reactjs.org/docs/react-component.html#setstate)).
+It uses [React context](https://facebook.github.io/react/docs/context.html#parent-child-coupling) to share the [`FieldsStore`](src/FieldsStore.ts) object across [`FieldFeedbacks`](src/FieldFeedbacks.tsx) and [`FieldFeedback`](src/FieldFeedback.tsx).
+
 ## Examples
 
 - CodePen basic example: https://codepen.io/tkrotoff/pen/BRGdqL
 - CodeSandbox Bootstrap 4 example: https://codesandbox.io/s/qk0zro1qm4
+- CodeSandbox WizardForm example: https://codesandbox.io/s/my0ojyzq6p
+- CodeSandbox SignUp example: https://codesandbox.io/s/62qwozvm0k
+- CodeSandbox ClubMembers example: https://codesandbox.io/s/q8364yn60j
 
 ![example-password](doc/example-password.png)
 
@@ -92,23 +104,26 @@ The API reads like this: "for field when constraint violation display feedback",
 </FieldFeedbacks>
 ```
 ```
-for field "password" when constraint violation "valueMissing"    display "the HTML5 error message"
-                     when constraint violation "patternMismatch" display "Should be at least 5 characters long"
+for field "password"
+  when constraint violation "valueMissing"    display "the HTML5 error message"
+  when constraint violation "patternMismatch" display "Should be at least 5 characters long"
 ```
 
 - `FieldFeedbacks`
-  - `for: string` => refer to a `name` attribute, e.g `<input name="password">`
+  - `for: string` => refer to a `name` attribute (e.g `<input name="username">`), should be unique to the current form
   - `show?: 'first' | 'all'` => display the first error/warning encountered (default) or all of them
+
+  Note: you can place `FieldFeedbacks` anywhere and have as many as you want for the same `field`
 
 - `FieldFeedback`
   - `when: `[`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)` string | '*' | function` => HTML5 constraint violation name or a callback
   - `error?: boolean` => treat the feedback as an error (default)
   - `warning?: boolean` => treat the feedback as a warning
   - `info?: boolean` => treat the feedback as an info
-  - `children?: string` => the text to display or the HTML5 error message if `undefined`
+  - `children?: ReactNode` => a React node or the HTML5 error message if `undefined`
 
 - `FormWithConstraints`
-  - `validateFields(...inputsOrNames: Array<Input | string>): void` => should be called when an `input` changes or the `form` is submitted
+  - `validateFields(...inputsOrNames: Array<Input | string>): void` => should be called when a `field` changes or the `form` is submitted, will re-render the proper `FieldFeedbacks`
   - `isValid(): boolean`
 
 ## Browser support
@@ -149,6 +164,9 @@ You can use HTML5 attributes like `type="email"`, `required`, `pattern`..., in t
 
 In the last case you will have to manage translations yourself.
 
+react-form-with-constraints, like React 16, depends on the collection types [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) and [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).
+If you support older browsers (<IE11) you will need a global polyfill such as [core-js](https://github.com/zloirock/core-js) or [babel-polyfill](https://babeljs.io/docs/usage/polyfill/).
+
 ## Notes
 
-A [`readonly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-readonly) or `disabled` input won't trigger any HTML5 form constraint like [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-required).
+- A [`readonly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-readonly) or `disabled` input won't trigger any HTML5 form constraint like [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-required).

@@ -6,9 +6,6 @@ import WizardFormPage1 from './WizardFormPage1';
 import WizardFormPage2 from './WizardFormPage2';
 import WizardFormPage3 from './WizardFormPage3';
 
-// Taken and adapted from Redux Form - Wizard Form Example https://redux-form.com/7.0.4/examples/wizard/
-// Original code: https://codesandbox.io/s/0Qzz3843
-
 export interface Props {}
 
 export interface State {
