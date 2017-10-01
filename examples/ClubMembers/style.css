@@ -1,0 +1,29 @@
+/* See https://github.com/twbs/bootstrap/blob/v4.0.0-beta/scss/_close.scss */
+button.close {
+  float: initial;
+  padding-left: .5rem;
+}
+
+ul.list-none {
+  list-style-type: none;
+}
+
+/*
+ * FieldFeedbacks
+ * See https://github.com/twbs/bootstrap/blob/v4.0.0-beta/scss/_forms.scss#L266
+ */
+div.error {
+  margin-top: .25rem;
+  font-size: .875rem;
+  color: #dc3545; /* $form-feedback-invalid-color */
+}
+div.warning {
+  margin-top: .25rem;
+  font-size: .875rem;
+  color: orange;
+}
+div.info {
+  margin-top: .25rem;
+  font-size: .875rem;
+  color: blue;
+}

@@ -12,7 +12,8 @@ const config: Configuration = {
     'examples/WizardForm/App': './examples/WizardForm/App.tsx',
     'examples/NoFramework/App': './examples/NoFramework/App.tsx',
     'examples/HTML5Constraints/App': './examples/HTML5Constraints/App.tsx',
-    'examples/SignUp/App': './examples/SignUp/App.tsx'
+    'examples/SignUp/App': './examples/SignUp/App.tsx',
+    'examples/ClubMembers/App': './examples/ClubMembers/App.tsx'
   },
 
   output: {
@@ -27,7 +28,8 @@ const config: Configuration = {
   module: {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader', options: {compilerOptions: {module: 'esnext', declaration: false}} },
-      { test: /\.jsx?$/, loader: 'babel-loader', options: {presets: ['react']} },
+                         // Fix Module build failed: ReferenceError: Unknown plugin "transform-class-properties" specified in "node_modules/mobx-react-devtools/.babelrc"
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader', options: {presets: ['react']} },
       { test: /\.(html|css|png)$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} }
     ]
   }

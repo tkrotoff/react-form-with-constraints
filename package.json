@@ -64,6 +64,10 @@
     "ts-node": "latest",
     "@types/node": "latest",
 
+    "mobx": "latest",
+    "mobx-react": "latest",
+    "mobx-react-devtools": "latest",
+
     "babel-core": "latest",
     "babel-preset-react": "latest",
 
