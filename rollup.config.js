@@ -33,7 +33,7 @@ export default {
     typescript({
       abortOnError: false,
       clean: true,
-      tsconfigOverride: {compilerOptions: {module: 'esnext', declaration: false}}
+      tsconfigOverride: {compilerOptions: {module: 'esnext', declaration: false, removeComments: true}}
     }),
     __PROD__ && uglify(),
     gzip({algorithm: 'zopfli'}),
