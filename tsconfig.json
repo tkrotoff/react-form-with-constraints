@@ -15,8 +15,10 @@
     "noImplicitReturns": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "lib"
+    "outDir": "tsc"
   },
+
+  // List everything so that vscode displays the "problems" for everything
 
   "files": [
     "src/index.ts",
@@ -27,7 +29,7 @@
 
   "include": [
     "src/*.test.ts",
-    "src/*.test.tsx"
-    //,"examples/**/*.tsx" // FIXME Remove this otherwise it fucks the lib outDir structure
+    "src/*.test.tsx",
+    "examples/**/*.tsx"
   ]
 }

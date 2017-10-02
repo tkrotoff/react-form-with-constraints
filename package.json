@@ -19,8 +19,8 @@
     "build": "webpack -d || true",
     "build:watch": "webpack -d --watch",
 
-    "tsc": "tsc || true",
-    "prepublishOnly": "npm run clean && npm run build && npm run tsc && npm run dist",
+    "tsc:lib": "tsc --project tsconfig.lib.json || true",
+    "prepublishOnly": "npm run clean && npm run build && npm run tsc:lib && npm run dist",
 
     "pretest": "npm run clean",
     "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
