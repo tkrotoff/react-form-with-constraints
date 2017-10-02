@@ -47,7 +47,8 @@
   },
 
   "dependencies": {
-    "prop-types": "^15.6.0"
+    "prop-types": "^15.6.0",
+    "@types/prop-types": "latest"
   },
 
   "devDependencies": {
@@ -57,7 +58,6 @@
 
     "react": "^15.6.2",
     "@types/react": "latest",
-    "@types/prop-types": "latest",
     "react-dom": "^15.6.2",
     "@types/react-dom": "latest",
 
