@@ -193,7 +193,7 @@ export class LabelWithFormControlStyle extends React.Component<LabelWithFormCont
     const styles = style !== undefined ? {color, ...style} : {color};
 
     return (
-      <label {...labelProps} style={{styles}}>{children}</label>
+      <label {...labelProps} style={styles}>{children}</label>
     );
   }
 }
