@@ -63,7 +63,7 @@ export function getFieldFeedbacksMessages(inputs: ShallowWrapper<React.InputHTML
       }
 
       else {
-        console.assert(false, `Invalid FieldFeedback 'when': ${when}`);
+        throw new TypeError(`Invalid FieldFeedback 'when' type: ${typeof when}`);
       }
     });
   });
@@ -121,7 +121,7 @@ function simulateHTML5InputValidation(input: React.HTMLAttributes<HTMLInputEleme
       validationMessage = valueMissing(input);
       break;
     default:
-      console.assert(false, `Invalid FieldFeedback 'when': ${when}`);
+      throw new Error(`Invalid FieldFeedback 'when' value: ${when}`);
   }
 
   return validationMessage;

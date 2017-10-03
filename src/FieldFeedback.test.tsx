@@ -227,7 +227,8 @@ describe('validate()', () => {
         {context: {form: form_username_empty, fieldFeedbacks: fieldFeedbacks_username}}
       );
       const input = new InputMock('username', '', {}, '');
-      expect(() => fieldFeedbacks_username.emitValidateEvent(input)).toThrow("Invalid FieldFeedback 'when': 2");
+      expect(() => fieldFeedbacks_username.emitValidateEvent(input)).toThrow(TypeError);
+      expect(() => fieldFeedbacks_username.emitValidateEvent(input)).toThrow("Invalid FieldFeedback 'when' type: number");
 
       expect(form_username_empty.fieldsStore.fields.username!.errors).toEqual(new Set());
     });

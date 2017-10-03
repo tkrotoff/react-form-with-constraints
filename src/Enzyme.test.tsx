@@ -45,7 +45,7 @@ describe('when', () => {
   });
 
   test('invalid typeof', () => {
-    expect.assertions(3);
+    expect.assertions(4);
 
     const component = shallow(
       <div>
@@ -59,7 +59,8 @@ describe('when', () => {
     const inputs = component.find('input');
     expect(inputs).toHaveLength(1);
     expect(inputs.props().value).toEqual(undefined);
-    expect(() => getFieldFeedbacksMessages(inputs)).toThrow("Invalid FieldFeedback 'when': 2");
+    expect(() => getFieldFeedbacksMessages(inputs)).toThrow(TypeError);
+    expect(() => getFieldFeedbacksMessages(inputs)).toThrow("Invalid FieldFeedback 'when' type: number");
   });
 
   test('invalid string', () => {
@@ -75,7 +76,7 @@ describe('when', () => {
     const inputs = component.find('input');
     expect(inputs).toHaveLength(1);
     expect(inputs.props().value).toEqual(undefined);
-    expect(() => getFieldFeedbacksMessages(inputs)).toThrow("Invalid FieldFeedback 'when': unknown");
+    expect(() => getFieldFeedbacksMessages(inputs)).toThrow("Invalid FieldFeedback 'when' value: unknown");
   });
 
   describe('badInput', () => {

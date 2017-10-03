@@ -96,7 +96,7 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps> {
     }
 
     else {
-      console.assert(false, `Invalid FieldFeedback 'when': ${when}`);
+      throw new TypeError(`Invalid FieldFeedback 'when' type: ${typeof when}`);
     }
 
     // Update the Fields structure
