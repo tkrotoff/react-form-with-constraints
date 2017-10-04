@@ -16,8 +16,8 @@
 
     "dist": "cross-env NODE_ENV=development rollup --config && cross-env NODE_ENV=production rollup --config",
 
-    "build": "webpack -d || true",
-    "build:watch": "webpack -d --watch",
+    "build": "cross-env NODE_ENV=development webpack -d || true",
+    "build:watch": "cross-env NODE_ENV=development webpack -d --watch",
 
     "tsc:lib": "tsc --project tsconfig.lib.json || true",
     "prepublishOnly": "npm run clean && npm run build && npm run tsc:lib && npm run dist",
