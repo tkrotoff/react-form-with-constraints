@@ -6,7 +6,7 @@ import {
   FieldFeedbacks as FieldFeedbacks_, FieldFeedbacksProps
 } from './index';
 
-export interface FormGroupProps extends React.AllHTMLAttributes<HTMLDivElement> {
+export interface FormGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   for?: string;
 }
 
@@ -63,7 +63,7 @@ export class FormGroup extends React.Component<FormGroupProps> {
 }
 
 
-export interface FormControlLabelProps extends React.AllHTMLAttributes<HTMLLabelElement> {}
+export interface FormControlLabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {}
 
 const FormControlLabel: React.SFC<FormControlLabelProps> = props => {
   const { className, children, ...labelProps } = props;
@@ -75,7 +75,7 @@ const FormControlLabel: React.SFC<FormControlLabelProps> = props => {
 export { FormControlLabel };
 
 
-export interface FormControlInputProps extends React.AllHTMLAttributes<HTMLInputElement> {
+export interface FormControlInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   innerRef?: React.Ref<HTMLInputElement>;
 }
 
@@ -140,7 +140,7 @@ const FieldFeedbacks: React.SFC<FieldFeedbacksProps> = props => {
 export { FieldFeedbacks };
 
 
-export interface LabelWithFormControlStyleProps extends React.AllHTMLAttributes<HTMLLabelElement> {
+export interface LabelWithFormControlStyleProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
   for: string[];
 }
 

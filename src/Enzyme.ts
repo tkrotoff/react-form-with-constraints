@@ -74,7 +74,7 @@ export function getFieldFeedbacksMessages(inputs: ShallowWrapper<React.InputHTML
 // See HTML5 Form Shim https://github.com/dsheiko/HTML5-Form-Shim
 // See https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills#web-forms
 // See https://github.com/MrSwitch/jquery.form.js/blob/48e576db6c0114fe997ac549d074f87be06f54f3/src/jquery.checkValidity.js
-function simulateHTML5InputValidation(input: React.HTMLAttributes<HTMLInputElement>, when: string) {
+function simulateHTML5InputValidation(input: React.InputHTMLAttributes<HTMLInputElement>, when: string) {
   // input.validationMessage
   // See https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement
   // See https://www.w3.org/TR/html51/sec-forms.html#the-constraint-validation-api

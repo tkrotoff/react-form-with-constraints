@@ -24,7 +24,7 @@ export type WhenString =
 export type WhenFn = (value: string) => boolean;
 export type When = WhenString | WhenFn;
 
-export interface FieldFeedbackProps extends React.AllHTMLAttributes<HTMLDivElement> {
+export interface FieldFeedbackProps extends React.HTMLAttributes<HTMLDivElement> {
   when: When;
   error?: boolean;
   warning?: boolean;
