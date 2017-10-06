@@ -118,7 +118,7 @@ const Hobbies = observer(({memberIndex, member, validateField}: HobbiesProps) =>
           <input name={hobbyName} id={hobbyName} placeholder={hobbyLabel}
                  value={hobby} onChange={e => updateHobby(e, index)}
                  required minLength={3}
-                 className="form-control form-control" />
+                 className="form-control" style={{width: 'auto'}} />
           <button type="button" title="Remove Hobby"
                   onClick={() => removeHobby(index)}
                   className="close">
