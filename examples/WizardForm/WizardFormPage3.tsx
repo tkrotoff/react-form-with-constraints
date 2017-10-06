@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Input, FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../src/index';
 
-import { Color, colors } from './Color';
+import { Color, colorKeys } from './Color';
 
 export interface Props {
   favoriteColor?: Color;
@@ -53,7 +53,7 @@ class WizardFormPage3 extends React.Component<Props> {
                   value={favoriteColor} defaultValue={''} onChange={this.handleChange}
                   required>
             <option value="" disabled>Select a color...</option>
-            {colors.map(color => <option value={color} key={color}>{color}</option>)}
+            {colorKeys.map(colorKey => <option value={Color[colorKey as any]} key={colorKey}>{colorKey}</option>)}
           </select>
           <FieldFeedbacks for="favoriteColor">
             <FieldFeedback when="*" />

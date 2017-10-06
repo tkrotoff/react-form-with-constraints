@@ -8,6 +8,6 @@ enum Color {
   Violet = 'Violet'
 }
 
-const colors = Object.keys(Color);
+const colorKeys = Object.keys(Color);
 
-export { Color, colors };
+export { Color, colorKeys };

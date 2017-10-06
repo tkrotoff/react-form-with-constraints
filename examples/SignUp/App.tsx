@@ -16,7 +16,7 @@ enum Color {
   Indigo = 'Indigo',
   Violet = 'Violet'
 }
-const colors = Object.keys(Color);
+const colorKeys = Object.keys(Color);
 
 interface Props {}
 
@@ -166,7 +166,7 @@ class Form extends React.Component<Props, State> {
                   value={favoriteColor} defaultValue={''} onChange={this.handleChange}
                   required>
             <option value="" disabled>Select a color...</option>
-            {colors.map(color => <option value={color} key={color}>{color}</option>)}
+            {colorKeys.map(colorKey => <option value={Color[colorKey as any]} key={colorKey}>{colorKey}</option>)}
           </select>
           <FieldFeedbacks for="favoriteColor">
             <FieldFeedback when="*" />
