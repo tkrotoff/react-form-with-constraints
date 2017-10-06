@@ -54,8 +54,9 @@ class Form extends React.Component<Props, State> {
                            onSubmit={this.handleSubmit} noValidate>
         <div>
           <label htmlFor="http-status-code">HTTP Status code (enter 200, 404, 500, 503)</label>
+          {/* onChange() does not work properly with <input type="number">, see https://github.com/facebook/react/issues/11142 */}
           <input type="number" name="httpStatusCode" id="http-status-code"
-                 value={this.state.httpStatusCode} onChange={this.handleChange}
+                 value={this.state.httpStatusCode} onInput={this.handleChange}
                  min={100} max={599} required />
           <FieldFeedbacks for="httpStatusCode">
             <FieldFeedback when="*" />
