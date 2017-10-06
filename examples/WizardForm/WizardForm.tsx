@@ -10,6 +10,10 @@ export interface Props {}
 
 export interface State {
   page: number;
+
+  firstName: string;
+  lastName: string;
+  email: string;
 }
 
 class WizardForm extends React.Component<Props, State> {
@@ -23,7 +27,11 @@ class WizardForm extends React.Component<Props, State> {
     this.previousPage = this.previousPage.bind(this);
 
     this.state = {
-      page: 1
+      page: 1,
+
+      firstName: '',
+      lastName: '',
+      email: ''
     };
   }
 

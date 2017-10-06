@@ -5,7 +5,7 @@ import { Input, FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../..
 import Sex from './Sex';
 
 export interface Props {
-  email?: string;
+  email: string;
   sex?: Sex;
   previousPage: () => void;
   onChange: (input: Input) => void;
@@ -60,13 +60,13 @@ class WizardFormPage2 extends React.Component<Props> {
           <label>Sex</label>
           <label>
             <input type="radio" name="sex"
-                   value={'male'} checked={sex === 'male'} onChange={this.handleChange}
+                   value={Sex.Male} checked={sex === Sex.Male} onChange={this.handleChange}
                    required />
             Male
           </label>
           <label>
             <input type="radio" name="sex"
-                   value={'female'} checked={sex === 'female'} onChange={this.handleChange} />
+                   value={Sex.Female} checked={sex === Sex.Female} onChange={this.handleChange} />
             Female
           </label>
           <FieldFeedbacks for="sex">

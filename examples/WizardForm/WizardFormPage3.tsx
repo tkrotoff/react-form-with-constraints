@@ -63,7 +63,7 @@ class WizardFormPage3 extends React.Component<Props> {
         <div>
           <label>
             <input type="checkbox" name="employed"
-                   checked={employed} onChange={this.handleChange} />
+                   checked={employed ? employed : false} onChange={this.handleChange} />
             Employed
           </label>
         </div>

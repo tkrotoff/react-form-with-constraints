@@ -3,8 +3,8 @@ import * as React from 'react';
 import { Input, FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../src/index';
 
 export interface Props {
-  firstName?: string;
-  lastName?: string;
+  firstName: string;
+  lastName: string;
   onChange: (input: Input) => void;
   nextPage: () => void;
 }
