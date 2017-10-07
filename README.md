@@ -65,6 +65,18 @@ Resources:
 </FieldFeedbacks>
 ```
 
+## Examples
+
+- CodePen basic example: https://codepen.io/tkrotoff/pen/BRGdqL
+- CodeSandbox Bootstrap 4 example: https://codesandbox.io/s/qk0zro1qm4
+- CodeSandbox WizardForm example: https://codesandbox.io/s/my0ojyzq6p
+- CodeSandbox SignUp example: https://codesandbox.io/s/62qwozvm0k
+- CodeSandbox ClubMembers example: https://codesandbox.io/s/q8364yn60j
+
+![example-password](doc/example-password.png)
+
+Other examples inside [the examples directory](examples).
+
 ## How it works
 
 The API works the same way as [React Router v4](https://reacttraining.com/react-router/web/example/basic):
@@ -82,18 +94,6 @@ If you had to implement validation yourself, you would end up with [a global obj
 react-form-with-constraints [works](src/Fields.ts) [similarly](src/FieldsStore.ts) (although not using [`setState`](https://reactjs.org/docs/react-component.html#setstate)).
 It uses [React context](https://facebook.github.io/react/docs/context.html#parent-child-coupling) to share the [`FieldsStore`](src/FieldsStore.ts) object across [`FieldFeedbacks`](src/FieldFeedbacks.tsx) and [`FieldFeedback`](src/FieldFeedback.tsx).
 
-## Examples
-
-- CodePen basic example: https://codepen.io/tkrotoff/pen/BRGdqL
-- CodeSandbox Bootstrap 4 example: https://codesandbox.io/s/qk0zro1qm4
-- CodeSandbox WizardForm example: https://codesandbox.io/s/my0ojyzq6p
-- CodeSandbox SignUp example: https://codesandbox.io/s/62qwozvm0k
-- CodeSandbox ClubMembers example: https://codesandbox.io/s/q8364yn60j
-
-![example-password](doc/example-password.png)
-
-Other examples inside [the examples directory](examples).
-
 ## API
 
 The API reads like this: "for field when constraint violation display feedback", example:
@@ -105,9 +105,11 @@ The API reads like this: "for field when constraint violation display feedback",
 ```
 ```
 for field "password"
-  when constraint violation "valueMissing"    display "the HTML5 error message"
+  when constraint violation "valueMissing"    display "the HTML5 error message (*)"
   when constraint violation "patternMismatch" display "Should be at least 5 characters long"
 ```
+
+(*) [element.validationMessage](https://www.w3.org/TR/html51/sec-forms.html#the-constraint-validation-api)
 
 - `FieldFeedbacks`
   - `for: string` => refer to a `name` attribute (e.g `<input name="username">`), should be unique to the current form
@@ -120,7 +122,6 @@ for field "password"
   - `error?: boolean` => treat the feedback as an error (default)
   - `warning?: boolean` => treat the feedback as a warning
   - `info?: boolean` => treat the feedback as an info
-  - `children?: ReactNode` => a React node or the HTML5 error message if `undefined`
 
 - `FormWithConstraints`
   - `validateFields(...inputsOrNames: Array<Input | string>): void` => should be called when a `field` changes or the `form` is submitted, will re-render the proper `FieldFeedbacks`
