@@ -31,23 +31,13 @@
     "tslint": "tslint --config tslint.json '**/*.ts{,x}' --exclude '**/node_modules/**' --exclude 'lib/**'"
   },
 
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"],
-
-    "mapCoverage": true
-  },
-
   "peerDependencies": {
     "react": ">=15",
     "react-dom": ">=15"
   },
 
   "dependencies": {
-    "prop-types": "^15.6.0",
+    "prop-types": "latest",
     "@types/prop-types": "latest"
   },
 
@@ -56,9 +46,9 @@
     "tslint": "latest",
     "tslint-react": "latest",
 
-    "react": "^15.6.2",
+    "react": "latest",
     "@types/react": "latest",
-    "react-dom": "^15.6.2",
+    "react-dom": "latest",
     "@types/react-dom": "latest",
 
     "ts-node": "latest",
@@ -95,8 +85,10 @@
     "@types/jest": "latest",
     "ts-jest": "latest",
 
-    "enzyme": "^2.9.1",
+    "enzyme": "latest",
     "@types/enzyme": "latest",
-    "react-test-renderer": "^15.6.2"
+    "enzyme-adapter-react-16": "latest",
+    "@types/enzyme-adapter-react-16": "latest",
+    "react-test-renderer": "latest"
   }
 }

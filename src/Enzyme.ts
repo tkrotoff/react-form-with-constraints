@@ -40,7 +40,8 @@ export function getFieldFeedbacksMessages(inputs: ShallowWrapper<React.InputHTML
   inputs.forEach(input => {
     const { name, value } = input.props();
 
-    const fieldFeedbackList = findFieldFeedbackList(input.parent(), name!);
+    // FIXME parent() not listing children with Enzyme 3, see https://github.com/airbnb/enzyme/issues/1235#issuecomment-335053965
+    const fieldFeedbackList = findFieldFeedbackList(input.parents(), name!);
     fieldFeedbackList.forEach(fieldFeedback => {
       const { when, children } = fieldFeedback.props();
 

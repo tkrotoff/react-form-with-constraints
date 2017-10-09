@@ -85,6 +85,9 @@ describe('reRender()', () => {
 
     form_username_empty.fieldsStore.addField('password');
 
+    // See http://airbnb.io/enzyme/docs/guides/migration-from-2-to-3.html#for-mount-updates-are-sometimes-required-when-they-werent-before
+    component.update();
+
     expect(component.text()).toEqual(
 `react-form-with-constraints = {
   "username": {
@@ -112,6 +115,8 @@ describe('reRender()', () => {
 
     form_username_empty.fieldsStore.removeField('username');
 
+    component.update();
+
     expect(component.text()).toEqual('react-form-with-constraints = {}');
   });
 
@@ -128,6 +133,8 @@ describe('reRender()', () => {
     field.infos.add(3.0);
     field.validationMessage = "I'm a clone";
     form_username_empty.fieldsStore.updateField('username', field);
+
+    component.update();
 
     expect(component.text()).toEqual(
 `react-form-with-constraints = {

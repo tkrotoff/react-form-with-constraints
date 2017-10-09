@@ -230,7 +230,7 @@ describe('render()', () => {
       username: fieldWithoutFeedback
     });
     expect(component.html()).toEqual(
-      '<div><!-- react-empty: 2 --></div>'
+      '<div></div>'
     );
   });
 
@@ -287,7 +287,7 @@ describe('render()', () => {
       });
 
       expect(component.html()).toEqual(
-        '<div><div class="error">Suffering from being missing</div><!-- react-empty: 3 --><!-- react-empty: 4 --></div>'
+        '<div><div class="error">Suffering from being missing</div></div>'
       );
     });
 
@@ -315,7 +315,7 @@ describe('render()', () => {
       });
 
       expect(component.html()).toEqual(
-        '<div><div class="error">Suffering from being missing</div><!-- react-empty: 3 --><div class="info">Suffering from being missing</div></div>'
+        '<div><div class="error">Suffering from being missing</div><div class="info">Suffering from being missing</div></div>'
       );
     });
   });
@@ -348,7 +348,7 @@ describe('reRender()', () => {
 
     form.fieldsStore.updateField('username', fieldWithoutFeedback);
     expect(component.html()).toEqual(
-      '<div><!-- react-empty: 4 --></div>'
+      '<div></div>'
     );
   });
 
