@@ -1,30 +1,132 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from './index';
+import { FieldFeedbacks, FieldFeedback } from './index';
 import { getFieldFeedbacksMessages } from './Enzyme';
 import * as Bootstrap4 from './Bootstrap4';
 
-test('with Bootstrap4', () => {
-  class FormBootstrap4 extends FormWithConstraints {
-    render() {
-      return (
-        <Bootstrap4.FormGroup for="username">
-          <Bootstrap4.FormControlInput type="email" name="username" value="" required />
-          <Bootstrap4.FieldFeedbacks for="username">
-            <FieldFeedback when="*" />
-          </Bootstrap4.FieldFeedbacks>
-        </Bootstrap4.FormGroup>
-      );
-    }
-  }
+test('with matching FieldFeedbacks', () => {
+  const component = shallow(
+    <div>
+      <input name="username" value="" required />
+      <FieldFeedbacks for="username">
+        <FieldFeedback when="*" />
+      </FieldFeedbacks>
+    </div>
+  );
 
-  const component = shallow(<FormBootstrap4 />);
+  const inputs = component.find('input');
+  expect(inputs).toHaveLength(1);
+  expect(inputs.props().value).toEqual('');
+  expect(getFieldFeedbacksMessages(inputs)).toEqual(['Please fill out this field.']);
+});
+
+test('with Bootstrap4', () => {
+  const component = shallow(
+    <div>
+      <Bootstrap4.FormGroup for="username">
+        <Bootstrap4.FormControlInput name="username" value="" required />
+        <Bootstrap4.FieldFeedbacks for="username">
+          <FieldFeedback when="*" />
+        </Bootstrap4.FieldFeedbacks>
+      </Bootstrap4.FormGroup>
+    </div>
+  );
 
   const inputs = component.find(Bootstrap4.FormControlInput);
   expect(inputs).toHaveLength(1);
   expect(inputs.props().value).toEqual('');
   expect(getFieldFeedbacksMessages(inputs)).toEqual(['Please fill out this field.']);
+});
+
+test('children with <div> inside hierarchy', () => {
+  const component = shallow(
+    <div>
+      <input type="password" name="password" value="1234" required pattern=".{5,}" />
+      <FieldFeedbacks for="password" show="all">
+        <div>
+          <FieldFeedback when="valueMissing" />
+          <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
+        </div>
+        <div>
+          <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
+          <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
+          <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
+          <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
+        </div>
+      </FieldFeedbacks>
+    </div>
+  );
+
+  const inputs = component.find('input');
+  expect(inputs).toHaveLength(1);
+  expect(inputs.props().value).toEqual('1234');
+  expect(getFieldFeedbacksMessages(inputs)).toEqual([
+    'Should be at least 5 characters long',
+    'Should contain small letters',
+    'Should contain capital letters',
+    'Should contain special characters'
+  ]);
+});
+
+test('no matching FieldFeedbacks', () => {
+  expect.assertions(3);
+
+  const component = shallow(
+    <div>
+      <input name="username" />
+      <FieldFeedbacks for="invalid">
+        <FieldFeedback when="*" />
+      </FieldFeedbacks>
+    </div>
+  );
+
+  const inputs = component.find('input');
+  expect(inputs).toHaveLength(1);
+  expect(inputs.props().value).toEqual(undefined);
+  expect(() => getFieldFeedbacksMessages(inputs)).toThrow('At least 1 FieldFeedbacks should match');
+});
+
+test('multiple matching FieldFeedbacks', () => {
+  const component = shallow(
+    <div>
+      <input name="username" value="" required />
+      <FieldFeedbacks for="username">
+        <FieldFeedback when="*" />
+        <FieldFeedback when="valueMissing" />
+      </FieldFeedbacks>
+      <FieldFeedbacks for="username">
+        <FieldFeedback when="*" />
+        <FieldFeedback when="valueMissing" />
+      </FieldFeedbacks>
+    </div>
+  );
+
+  const inputs = component.find('input');
+  expect(inputs).toHaveLength(1);
+  expect(inputs.props().value).toEqual('');
+  expect(getFieldFeedbacksMessages(inputs)).toEqual(['Please fill out this field.', 'Please fill out this field.', 'Please fill out this field.', 'Please fill out this field.']);
+});
+
+test('multiple inputs', () => {
+  const component = shallow(
+    <div>
+      <input name="username" value="" required />
+      <FieldFeedbacks for="username">
+        <FieldFeedback when="*" />
+      </FieldFeedbacks>
+      <input type="password" name="password" value="1234" required pattern=".{5,}" />
+      <FieldFeedbacks for="password">
+        <FieldFeedback when="*" />
+      </FieldFeedbacks>
+    </div>
+  );
+
+  const inputs = component.find('input');
+  expect(inputs).toHaveLength(2);
+  expect(getFieldFeedbacksMessages(inputs)).toEqual(['Please fill out this field.', 'Please match the requested format.']);
+  expect(getFieldFeedbacksMessages(inputs.at(0))).toEqual(['Please fill out this field.']);
+  expect(getFieldFeedbacksMessages(inputs.at(1))).toEqual(['Please match the requested format.']);
 });
 
 describe('when', () => {
@@ -311,92 +413,4 @@ test('show="all"', () => {
     'Should contain capital letters',
     'Should contain special characters'
   ]);
-});
-
-test('children with <div> inside hierarchy', () => {
-  const component = shallow(
-    <div>
-      <input type="password" name="password" value="1234" required pattern=".{5,}" />
-      <FieldFeedbacks for="password" show="all">
-        <div>
-          <FieldFeedback when="valueMissing" />
-          <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
-        </div>
-        <div>
-          <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
-          <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
-          <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
-          <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
-        </div>
-      </FieldFeedbacks>
-    </div>
-  );
-
-  const inputs = component.find('input');
-  expect(inputs).toHaveLength(1);
-  expect(inputs.props().value).toEqual('1234');
-  expect(getFieldFeedbacksMessages(inputs)).toEqual([
-    'Should be at least 5 characters long',
-    'Should contain small letters',
-    'Should contain capital letters',
-    'Should contain special characters'
-  ]);
-});
-
-test('no matching FieldFeedbacks', () => {
-  expect.assertions(3);
-
-  const component = shallow(
-    <div>
-      <input name="username" />
-      <FieldFeedbacks for="invalid">
-        <FieldFeedback when="*" />
-      </FieldFeedbacks>
-    </div>
-  );
-
-  const inputs = component.find('input');
-  expect(inputs).toHaveLength(1);
-  expect(inputs.props().value).toEqual(undefined);
-  expect(() => getFieldFeedbacksMessages(inputs)).toThrow('At least 1 FieldFeedbacks should match');
-});
-
-test('multiple matching FieldFeedbacks', () => {
-  const component = shallow(
-    <div>
-      <input name="username" value="" required />
-      <FieldFeedbacks for="username">
-        <FieldFeedback when="*" />
-        <FieldFeedback when="valueMissing" />
-      </FieldFeedbacks>
-      <FieldFeedbacks for="username">
-        <FieldFeedback when="*" />
-        <FieldFeedback when="valueMissing" />
-      </FieldFeedbacks>
-    </div>
-  );
-
-  const inputs = component.find('input');
-  expect(inputs).toHaveLength(1);
-  expect(inputs.props().value).toEqual('');
-  expect(getFieldFeedbacksMessages(inputs)).toEqual(['Please fill out this field.', 'Please fill out this field.', 'Please fill out this field.', 'Please fill out this field.']);
-});
-
-test('multiple inputs', () => {
-  const component = shallow(
-    <div>
-      <input name="username" value="" required />
-      <FieldFeedbacks for="username">
-        <FieldFeedback when="*" />
-      </FieldFeedbacks>
-      <input type="password" name="password" value="1234" required pattern=".{5,}" />
-      <FieldFeedbacks for="password">
-        <FieldFeedback when="*" />
-      </FieldFeedbacks>
-    </div>
-  );
-
-  const inputs = component.find('input');
-  expect(inputs).toHaveLength(2);
-  expect(getFieldFeedbacksMessages(inputs)).toEqual(['Please fill out this field.', 'Please match the requested format.']);
 });
