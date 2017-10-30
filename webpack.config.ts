@@ -27,7 +27,7 @@ const config: Configuration = {
 
   module: {
     rules: [
-      { test: /\.tsx?$/, loader: 'ts-loader', options: {compilerOptions: {module: 'esnext', declaration: false}} },
+      { test: /\.tsx?$/, loader: 'ts-loader', options: {onlyCompileBundledFiles: true, compilerOptions: {module: 'esnext', declaration: false}} },
                          // Fix Module build failed: ReferenceError: Unknown plugin "transform-class-properties" specified in "node_modules/mobx-react-devtools/.babelrc"
       { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader', options: {presets: ['react']} },
       { test: /\.(html|css|png)$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} }
