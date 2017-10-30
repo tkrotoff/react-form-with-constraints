@@ -1,0 +1,40 @@
+{
+  "name": "server-side-rendering-example",
+  "version": "1.0.0",
+  "private": true,
+
+  "scripts": {
+    "clean": "del-cli build",
+
+    "build": "cross-env NODE_ENV=development webpack -d",
+
+    "start": "npm run clean && npm run build && cd build && node server"
+  },
+
+  "devDependencies": {
+    "typescript": "latest",
+
+    "react": "latest",
+    "@types/react": "latest",
+    "react-dom": "latest",
+    "@types/react-dom": "latest",
+
+    "react-form-with-constraints": "latest",
+
+    "ts-node": "latest",
+    "@types/node": "latest",
+
+    "express": "latest",
+    "@types/express": "latest",
+
+    "webpack": "latest",
+    "@types/webpack": "latest",
+    "webpack-node-externals": "latest",
+    "@types/webpack-node-externals": "latest",
+    "ts-loader": "latest",
+    "file-loader": "latest",
+
+    "del-cli": "latest",
+    "cross-env": "latest"
+  }
+}

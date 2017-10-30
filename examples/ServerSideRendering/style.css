@@ -1,0 +1,22 @@
+body {
+  background-color: lightgrey;
+}
+
+form > div {
+  margin-bottom: 10px;
+}
+
+form > div > label {
+  display: block;
+}
+
+/* FieldFeedbacks */
+div.error {
+  color: red;
+}
+div.warning {
+  color: orange;
+}
+div.info {
+  color: blue;
+}
