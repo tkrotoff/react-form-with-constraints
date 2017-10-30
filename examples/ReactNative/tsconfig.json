@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "target": "es2015",
+    "jsx": "react",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noLib": false,
+    "lib": ["dom.iterable", "es2017"],
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "declaration": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
