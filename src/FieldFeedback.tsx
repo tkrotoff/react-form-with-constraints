@@ -5,11 +5,6 @@ import { FormWithConstraintsChildContext } from './FormWithConstraints';
 import { FieldFeedbacksChildContext } from './FieldFeedbacks';
 import Input from './Input';
 
-// FIXME See Add tooShort to ValidityState https://github.com/Microsoft/TSJS-lib-generator/pull/259
-export interface ValidityStateFix extends ValidityState {
-  readonly tooShort: boolean;
-}
-
 export type WhenString =
   | '*'
   | 'badInput'        // input type="number"
@@ -73,7 +68,7 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps> {
     }
 
     else if (typeof when === 'string') {
-      const validity = input.validity as ValidityStateFix;
+      const validity = input.validity;
 
       if (!validity.valid) {
         if (when === '*') {

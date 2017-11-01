@@ -1,10 +1,10 @@
-import { Input, ValidityStateFix } from './index';
+import { Input } from './index';
 
 class InputMock implements Input {
-  type = 'input'; // Can be also checkbox;
-  validity: ValidityStateFix;
+  type = 'input'; // Can also be checkbox;
+  validity: ValidityState;
 
-  constructor(public name: string, public value: string, validity: Partial<ValidityStateFix>, public validationMessage: string) {
+  constructor(public name: string, public value: string, validity: Partial<ValidityState>, public validationMessage: string) {
     const defaultValidity = {
       valid: true,
       badInput: false,
