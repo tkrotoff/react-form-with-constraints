@@ -2,7 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 import { IValidateEventEmitter, withValidateEventEmitter } from './withValidateEventEmitter';
-import { EventEmitter } from './EventEmitter'; // FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
+// @ts-ignore
+// TS6133: 'EventEmitter' is declared but its value is never read.
+// FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
+import { EventEmitter } from './EventEmitter';
 import Input from './Input';
 import { FieldsStore } from './FieldsStore';
 

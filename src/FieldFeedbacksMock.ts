@@ -1,6 +1,9 @@
 import {
   IFieldFeedbacks, FieldFeedbacksProps,
-  Input, EventEmitter, // FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
+  // @ts-ignore
+  // TS6133: 'EventEmitter' is declared but its value is never read.
+  // FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
+  Input, EventEmitter,
   withValidateEventEmitter
 } from './index';
 
