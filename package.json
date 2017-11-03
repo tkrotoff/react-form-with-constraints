@@ -23,8 +23,9 @@
     "build": "cross-env NODE_ENV=development webpack -d || true",
     "build:watch": "cross-env NODE_ENV=development webpack -d --watch",
 
+    "tsc": "tsc || true",
     "tsc:lib": "tsc --project tsconfig.lib.json || true",
-    "prepublishOnly": "npm run clean && npm run build && npm run tsc:lib && npm run dist",
+    "prepublishOnly": "npm run clean && npm run tsc && npm run tsc:lib && npm run dist && npm run build",
 
     "pretest": "npm run clean",
     "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",

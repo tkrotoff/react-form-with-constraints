@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "noEmit": true,
     "target": "es5",
     "downlevelIteration": true,
     "jsx": "react",
@@ -15,7 +16,7 @@
     "noImplicitReturns": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "tsc"
+    "removeComments": true
   },
 
   // List everything so that vscode displays the "problems" for everything
