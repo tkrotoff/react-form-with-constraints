@@ -150,7 +150,7 @@ const Hobbies = observer(({memberIndex, member, validateField}: HobbiesProps) =>
     </div>
   );
 });
-Hobbies.displayName = 'Hobbies'; // See https://github.com/facebook/react-devtools/issues/267#issuecomment-182658039
+(Hobbies as React.SFC).displayName = 'Hobbies';
 
 
 interface MembersProps {
@@ -235,7 +235,7 @@ const Members = observer(({club, validateField}: MembersProps) => {
     </div>
   );
 });
-Members.displayName = 'Members'; // See https://github.com/facebook/react-devtools/issues/267#issuecomment-182658039
+(Members as React.SFC).displayName = 'Members';
 
 
 interface DisplayClubProps {
@@ -245,7 +245,7 @@ interface DisplayClubProps {
 const DisplayClub = observer(({club}: DisplayClubProps) =>
   <pre>Club = {JSON.stringify(club, null, 2)}</pre>
 );
-DisplayClub.displayName = 'DisplayClub'; // See https://github.com/facebook/react-devtools/issues/267#issuecomment-182658039
+(DisplayClub as React.SFC).displayName = 'DisplayClub';
 
 
 interface FormProps {
