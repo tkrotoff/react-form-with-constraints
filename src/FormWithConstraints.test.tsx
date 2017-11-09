@@ -6,12 +6,12 @@ import { fieldWithoutFeedback, FormWithConstraints, FieldFeedbacks, FieldFeedbac
 // FYI "Suffering from being missing" string and friends come from the HTML specification https://www.w3.org/TR/html52/sec-forms.html#suffer-from-being-missing
 
 test('constructor()', () => {
-  const form = new FormWithConstraints();
+  const form = new FormWithConstraints({});
   expect(form.fieldsStore.fields).toEqual({});
 });
 
 test('computeFieldFeedbacksKey()', () => {
-  const form = new FormWithConstraints();
+  const form = new FormWithConstraints({});
   expect(form.computeFieldFeedbacksKey()).toEqual(0);
   expect(form.computeFieldFeedbacksKey()).toEqual(1);
   expect(form.computeFieldFeedbacksKey()).toEqual(2);
@@ -79,7 +79,7 @@ describe('validateFields()', () => {
 });
 
 test('isValid()', () => {
-  const form = new FormWithConstraints();
+  const form = new FormWithConstraints({});
 
   form.fieldsStore.fields = {
     username: {

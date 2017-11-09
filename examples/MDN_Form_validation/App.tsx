@@ -10,8 +10,8 @@ import './original.html';
 class Form extends React.Component {
   form: FormWithConstraints;
 
-  constructor() {
-    super();
+  constructor(props: {}) {
+    super(props);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

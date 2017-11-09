@@ -31,8 +31,8 @@ class Form extends React.Component<Props, State> {
   form: FormWithConstraints;
   password: HTMLInputElement;
 
-  constructor() {
-    super();
+  constructor(props: Props) {
+    super(props);
 
     this.state = {
       hasWebsite: false,

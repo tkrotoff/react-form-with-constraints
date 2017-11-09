@@ -17,8 +17,8 @@ class DisplayFields extends React.Component {
   };
   context: FormWithConstraintsChildContext;
 
-  constructor() {
-    super();
+  constructor(props: {}) {
+    super(props);
 
     this.reRender = this.reRender.bind(this);
   }

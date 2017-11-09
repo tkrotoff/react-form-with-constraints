@@ -7,8 +7,8 @@ import './my-img.png';
 // See The native form widgets https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/The_native_form_widgets
 
 class Form extends React.Component {
-  constructor() {
-    super();
+  constructor(props: {}) {
+    super(props);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
