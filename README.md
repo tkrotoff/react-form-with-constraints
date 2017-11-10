@@ -1,11 +1,11 @@
 # react-form-with-constraints
 
-Simple form validation for React in [~400 lines of code](src)
-
 [![npm version](https://badge.fury.io/js/react-form-with-constraints.svg)](https://badge.fury.io/js/react-form-with-constraints)
 [![Build Status](https://travis-ci.org/tkrotoff/react-form-with-constraints.svg?branch=master)](https://travis-ci.org/tkrotoff/react-form-with-constraints)
 [![codecov](https://codecov.io/gh/tkrotoff/react-form-with-constraints/branch/master/graph/badge.svg)](https://codecov.io/gh/tkrotoff/react-form-with-constraints)
 [![gzip size](http://img.badgesize.io/https://unpkg.com/react-form-with-constraints@latest/dist/react-form-with-constraints.production.min.js.gz?compression=gzip)](https://unpkg.com/react-form-with-constraints/dist/react-form-with-constraints.production.min.js.gz)
+
+Simple form validation for React in [~400 lines of code](src)
 
 - Installation: `npm install react-form-with-constraints`
 - CDN: https://unpkg.com/react-form-with-constraints/dist/
@@ -132,35 +132,25 @@ for field "password"
 You can use HTML5 attributes like `type="email"`, `required`, `pattern`..., in this case a [recent browser](http://caniuse.com/#feat=forms) is needed,...
 
 ```JSX
-<form onSubmit={this.handleSubmit} noValidate>
-  <label htmlFor="username">Username</label>
-
-  <input type="email" name="username" id="username"
-         value={this.state.username} onChange={this.handleChange}
-         required />
-  <FieldFeedbacks for="username">
-    <FieldFeedback when="*" />
-  </FieldFeedbacks>
-
-  <button>Submit</button>
-</form>
+<label htmlFor="username">Username</label>
+<input type="email" name="username" id="username"
+       value={this.state.username} onChange={this.handleChange}
+       required />
+<FieldFeedbacks for="username">
+  <FieldFeedback when="*" />
+</FieldFeedbacks>
 ```
 
 ...or ignore them and rely on `when` functions:
 
 ```JSX
-<form onSubmit={this.handleSubmit} noValidate>
-  <label htmlFor="username">Username</label>
-
-  <input name="username" id="username"
-         value={this.state.username} onChange={this.handleChange} />
-  <FieldFeedbacks for="username">
-    <FieldFeedback when={value => value.length === 0}>Please fill out this field.</FieldFeedback>
-    <FieldFeedback when={value => !/\S+@\S+/.test(value)}>Invalid email address.</FieldFeedback>
-  </FieldFeedbacks>
-
-  <button>Submit</button>
-</form>
+<label htmlFor="username">Username</label>
+<input name="username" id="username"
+       value={this.state.username} onChange={this.handleChange} />
+<FieldFeedbacks for="username">
+  <FieldFeedback when={value => value.length === 0}>Please fill out this field.</FieldFeedback>
+  <FieldFeedback when={value => !/\S+@\S+/.test(value)}>Invalid email address.</FieldFeedback>
+</FieldFeedbacks>
 ```
 
 In the last case you will have to manage translations yourself.
