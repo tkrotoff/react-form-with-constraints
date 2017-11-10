@@ -45,7 +45,7 @@ class WizardFormPage3 extends React.Component<Props> {
     const { favoriteColor, employed, notes, previousPage } = this.props;
 
     return (
-      <FormWithConstraints ref={(formWithConstraints: any) => this.form = formWithConstraints}
+      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints!}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
           <label htmlFor="favorite-color">Favorite Color</label>

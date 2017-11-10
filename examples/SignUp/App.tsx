@@ -84,7 +84,7 @@ class Form extends React.Component<Props, State> {
     const { favoriteColor, hasWebsite } = this.state;
 
     return (
-      <FormWithConstraints ref={(formWithConstraints: any) => this.form = formWithConstraints}
+      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints!}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
           <label htmlFor="first-name">First Name</label>

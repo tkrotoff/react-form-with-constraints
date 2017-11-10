@@ -36,7 +36,7 @@ class Form extends React.Component {
 
   render() {
     return (
-      <FormWithConstraints ref={(formWithConstraints: any) => this.form = formWithConstraints}
+      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints!}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
           <label htmlFor="username">Username</label>

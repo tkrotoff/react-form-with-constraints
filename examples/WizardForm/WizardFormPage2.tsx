@@ -44,7 +44,7 @@ class WizardFormPage2 extends React.Component<Props> {
     const { email, sex, previousPage } = this.props;
 
     return (
-      <FormWithConstraints ref={(formWithConstraints: any) => this.form = formWithConstraints}
+      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints!}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
           <label htmlFor="email">Email</label>

@@ -116,6 +116,6 @@ export class FormWithConstraints extends withValidateEventEmitter(FormWithConstr
 
   render() {
     const { children, ...formProps } = this.props;
-    return <form ref={form => this.form = form as any} {...formProps}>{children}</form>;
+    return <form ref={form => this.form = form!} {...formProps}>{children}</form>;
   }
 }

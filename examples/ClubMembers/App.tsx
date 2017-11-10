@@ -288,7 +288,7 @@ class Form extends React.Component<FormProps> {
     const { club } = this.props;
 
     return (
-      <FormWithConstraints ref={(formWithConstraints: any) => this.form = formWithConstraints}
+      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints!}
                            onSubmit={this.handleSubmit} noValidate>
         <div className="form-group">
           <input name="clubName" placeholder="Club Name"

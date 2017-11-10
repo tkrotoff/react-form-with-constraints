@@ -41,7 +41,7 @@ class WizardFormPage1 extends React.Component<Props> {
     const { firstName, lastName } = this.props;
 
     return (
-      <FormWithConstraints ref={(formWithConstraints: any) => this.form = formWithConstraints}
+      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints!}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
           <label htmlFor="first-name">First Name</label>

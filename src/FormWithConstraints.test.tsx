@@ -25,9 +25,9 @@ describe('validateFields()', () => {
 
     render() {
       return (
-        <FormWithConstraints ref={(formWithConstraints: any) => this.formWithConstraints = formWithConstraints}>
-          <input type="email" name="username" ref={username => this.username = username as any} />
-          <input type="password" name="password" ref={password => this.password = password as any} />
+        <FormWithConstraints ref={formWithConstraints => this.formWithConstraints = formWithConstraints!}>
+          <input type="email" name="username" ref={username => this.username = username!} />
+          <input type="password" name="password" ref={password => this.password = password!} />
         </FormWithConstraints>
       );
     }
