@@ -311,8 +311,218 @@ describe('validate()', () => {
   });
 });
 
-describe('render()', () => {
+describe('className()', () => {
   test('error matching', () => {
+    const form = new FormWithConstraintsMock({
+      username: {
+        dirty: true,
+        errors: new Set([fieldFeedbackKey11]),
+        warnings: new Set(),
+        infos: new Set(),
+        validationMessage: ''
+      }
+    });
+    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+
+    const component = shallow(
+      <FieldFeedback when="*" />,
+      {context: {form, fieldFeedbacks}}
+    );
+    const fieldFeedback = component.instance() as FieldFeedback;
+
+    expect(fieldFeedback.className()).toEqual('error');
+  });
+
+  test('warning matching', () => {
+    const form = new FormWithConstraintsMock({
+      username: {
+        dirty: true,
+        errors: new Set(),
+        warnings: new Set([fieldFeedbackKey11]),
+        infos: new Set(),
+        validationMessage: ''
+      }
+    });
+    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+
+    const component = shallow(
+      <FieldFeedback when="*" />,
+      {context: {form, fieldFeedbacks}}
+    );
+    const fieldFeedback = component.instance() as FieldFeedback;
+
+    expect(fieldFeedback.className()).toEqual('warning');
+  });
+
+  test('info matching', () => {
+    const form = new FormWithConstraintsMock({
+      username: {
+        dirty: true,
+        errors: new Set(),
+        warnings: new Set(),
+        infos: new Set([fieldFeedbackKey11]),
+        validationMessage: ''
+      }
+    });
+    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+
+    const component = shallow(
+      <FieldFeedback when="*" />,
+      {context: {form, fieldFeedbacks}}
+    );
+    const fieldFeedback = component.instance() as FieldFeedback;
+
+    expect(fieldFeedback.className()).toEqual('info');
+  });
+
+  test('not matching', () => {
+    const form = new FormWithConstraintsMock({
+      username: {
+        dirty: false,
+        errors: new Set(),
+        warnings: new Set(),
+        infos: new Set(),
+        validationMessage: ''
+      }
+    });
+    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+
+    const component = shallow(
+      <FieldFeedback when="*" />,
+      {context: {form, fieldFeedbacks}}
+    );
+    const fieldFeedback = component.instance() as FieldFeedback;
+
+    expect(fieldFeedback.className()).toEqual(undefined);
+  });
+
+  describe('show="first"', () => {
+    test('first error', () => {
+      const form = new FormWithConstraintsMock({
+        username: {
+          dirty: true,
+          errors: new Set([fieldFeedbackKey11, 1.2, 1.3]),
+          warnings: new Set([fieldFeedbackKey11, 1.2, 1.3]),
+          infos: new Set([fieldFeedbackKey11, 1.2, 1.3]),
+          validationMessage: ''
+        }
+      });
+      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'first'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+      const component = shallow(
+        <FieldFeedback when="*" />,
+        {context: {form, fieldFeedbacks}}
+      );
+      const fieldFeedback = component.instance() as FieldFeedback;
+
+      expect(fieldFeedback.className()).toEqual('error');
+    });
+
+    test('no error + first warning', () => {
+      const form = new FormWithConstraintsMock({
+        username: {
+          dirty: true,
+          errors: new Set(),
+          warnings: new Set([fieldFeedbackKey11, 1.2, 1.3]),
+          infos: new Set([fieldFeedbackKey11, 1.2, 1.3]),
+          validationMessage: 'Suffering from being missing'
+        }
+      });
+      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'first'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+      const component = shallow(
+        <FieldFeedback when="*" />,
+        {context: {form, fieldFeedbacks}}
+      );
+      const fieldFeedback = component.instance() as FieldFeedback;
+
+      expect(fieldFeedback.className()).toEqual('warning');
+    });
+
+    test('not first', () => {
+      const form = new FormWithConstraintsMock({
+        username: {
+          dirty: true,
+          errors: new Set([1.0, fieldFeedbackKey11, 1.2]),
+          warnings: new Set([1.0, fieldFeedbackKey11, 1.2]),
+          infos: new Set([1.0, fieldFeedbackKey11, 1.2]),
+          validationMessage: 'Suffering from being missing'
+        }
+      });
+      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'first'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+      const component = shallow(
+        <FieldFeedback when="*" />,
+        {context: {form, fieldFeedbacks}}
+      );
+      const fieldFeedback = component.instance() as FieldFeedback;
+
+      expect(fieldFeedback.className()).toEqual('info');
+    });
+  });
+
+  describe('show="all"', () => {
+    test('not matching', () => {
+      const form = new FormWithConstraintsMock({
+        username: {
+          dirty: true,
+          errors: new Set([1.0, 1.2]),
+          warnings: new Set([1.0, 1.2]),
+          infos: new Set([1.0, 1.2]),
+          validationMessage: ''
+        }
+      });
+      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'first'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+      const component = shallow(
+        <FieldFeedback when="*" />,
+        {context: {form, fieldFeedbacks}}
+      );
+      const fieldFeedback = component.instance() as FieldFeedback;
+
+      expect(fieldFeedback.className()).toEqual(undefined);
+    });
+
+    test('errors + first warning', () => {
+      const form = new FormWithConstraintsMock({
+        username: {
+          dirty: true,
+          errors: new Set([1.2, 1.3]),
+          warnings: new Set([fieldFeedbackKey11, 1.2, 1.3]),
+          infos: new Set([fieldFeedbackKey11, 1.2, 1.3]),
+          validationMessage: ''
+        }
+      });
+      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+      const component = shallow(
+        <FieldFeedback when="*" />,
+        {context: {form, fieldFeedbacks}}
+      );
+      const fieldFeedback = component.instance() as FieldFeedback;
+
+      expect(fieldFeedback.className()).toEqual('info');
+    });
+
+    test('no error + warning', () => {
+      const form = new FormWithConstraintsMock({
+        username: {
+          dirty: true,
+          errors: new Set(),
+          warnings: new Set([1.0, fieldFeedbackKey11, 1.2]),
+          infos: new Set([1.0, fieldFeedbackKey11, 1.2]),
+          validationMessage: 'Suffering from being missing'
+        }
+      });
+      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+      const component = shallow(
+        <FieldFeedback when="*" />,
+        {context: {form, fieldFeedbacks}}
+      );
+      const fieldFeedback = component.instance() as FieldFeedback;
+
+      expect(fieldFeedback.className()).toEqual('warning');
+    });
+  });
+});
+
+describe('render()', () => {
+  test('with children', () => {
     const form = new FormWithConstraintsMock({
       username: {
         dirty: true,
@@ -332,7 +542,7 @@ describe('render()', () => {
     expect(fieldFeedback.html()).toEqual('<div class="error">message</div>');
   });
 
-  test('error matching - HTML5 validationMessage', () => {
+  test('without children', () => {
     const form = new FormWithConstraintsMock({
       username: {
         dirty: true,
@@ -349,259 +559,10 @@ describe('render()', () => {
       {context: {form, fieldFeedbacks}}
     );
 
-    expect(fieldFeedback.text()).toEqual('Suffering from being missing');
+    expect(fieldFeedback.html()).toEqual('<div class="error">Suffering from being missing</div>');
   });
 
-  test('warning matching', () => {
-    const form = new FormWithConstraintsMock({
-      username: {
-        dirty: true,
-        errors: new Set(),
-        warnings: new Set([fieldFeedbackKey11]),
-        infos: new Set(),
-        validationMessage: ''
-      }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-
-    const fieldFeedback = shallow(
-      <FieldFeedback when="*">message</FieldFeedback>,
-      {context: {form, fieldFeedbacks}}
-    );
-
-    expect(fieldFeedback.html()).toEqual('<div class="warning">message</div>');
-  });
-
-  test('info matching', () => {
-    const form = new FormWithConstraintsMock({
-      username: {
-        dirty: true,
-        errors: new Set(),
-        warnings: new Set(),
-        infos: new Set([fieldFeedbackKey11]),
-        validationMessage: ''
-      }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-
-    const fieldFeedback = shallow(
-      <FieldFeedback when="*">message</FieldFeedback>,
-      {context: {form, fieldFeedbacks}}
-    );
-
-    expect(fieldFeedback.html()).toEqual('<div class="info">message</div>');
-  });
-
-  test('not matching', () => {
-    const form = new FormWithConstraintsMock({
-      username: {
-        dirty: false,
-        errors: new Set(),
-        warnings: new Set(),
-        infos: new Set(),
-        validationMessage: ''
-      }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-
-    const fieldFeedback = shallow(
-      <FieldFeedback when="*">message</FieldFeedback>,
-      {context: {form, fieldFeedbacks}}
-    );
-
-    expect(fieldFeedback.html()).toEqual(null);
-  });
-
-  describe('show="first"', () => {
-    test('first error', () => {
-      const form = new FormWithConstraintsMock({
-        username: {
-          dirty: true,
-          errors: new Set([fieldFeedbackKey11, 1.2, 1.3]),
-          warnings: new Set([fieldFeedbackKey11, 1.2, 1.3]),
-          infos: new Set([fieldFeedbackKey11, 1.2, 1.3]),
-          validationMessage: 'Suffering from being missing'
-        }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'first'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-      const fieldFeedback = shallow(
-        <FieldFeedback when="*" />,
-        {context: {form, fieldFeedbacks}}
-      );
-
-      expect(fieldFeedback.html()).toEqual('<div class="error">Suffering from being missing</div>');
-    });
-
-    test('no error + first warning', () => {
-      const form = new FormWithConstraintsMock({
-        username: {
-          dirty: true,
-          errors: new Set(),
-          warnings: new Set([fieldFeedbackKey11, 1.2, 1.3]),
-          infos: new Set([fieldFeedbackKey11, 1.2, 1.3]),
-          validationMessage: 'Suffering from being missing'
-        }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'first'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-      const fieldFeedback = shallow(
-        <FieldFeedback when="*" />,
-        {context: {form, fieldFeedbacks}}
-      );
-
-      expect(fieldFeedback.html()).toEqual('<div class="warning">Suffering from being missing</div>');
-    });
-
-    test('not first', () => {
-      const form = new FormWithConstraintsMock({
-        username: {
-          dirty: true,
-          errors: new Set([1.0, fieldFeedbackKey11, 1.2]),
-          warnings: new Set([1.0, fieldFeedbackKey11, 1.2]),
-          infos: new Set([1.0, fieldFeedbackKey11, 1.2]),
-          validationMessage: 'Suffering from being missing'
-        }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'first'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-      const fieldFeedback = shallow(
-        <FieldFeedback when="*" />,
-        {context: {form, fieldFeedbacks}}
-      );
-
-      expect(fieldFeedback.html()).toEqual('<div class="info">Suffering from being missing</div>');
-    });
-  });
-
-  describe('show="all"', () => {
-    test('not matching', () => {
-      const form = new FormWithConstraintsMock({
-        username: {
-          dirty: true,
-          errors: new Set([1.0, 1.2]),
-          warnings: new Set([1.0, 1.2]),
-          infos: new Set([1.0, 1.2]),
-          validationMessage: 'Suffering from being missing'
-        }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'first'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-      const fieldFeedback = shallow(
-        <FieldFeedback when="*" />,
-        {context: {form, fieldFeedbacks}}
-      );
-
-      expect(fieldFeedback.html()).toEqual(null);
-    });
-
-    test('errors + first warning', () => {
-      const form = new FormWithConstraintsMock({
-        username: {
-          dirty: true,
-          errors: new Set([1.2, 1.3]),
-          warnings: new Set([fieldFeedbackKey11, 1.2, 1.3]),
-          infos: new Set([fieldFeedbackKey11, 1.2, 1.3]),
-          validationMessage: 'Suffering from being missing'
-        }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-      const fieldFeedback = shallow(
-        <FieldFeedback when="*" />,
-        {context: {form, fieldFeedbacks}}
-      );
-
-      expect(fieldFeedback.html()).toEqual('<div class="info">Suffering from being missing</div>');
-    });
-
-    test('no error + warning', () => {
-      const form = new FormWithConstraintsMock({
-        username: {
-          dirty: true,
-          errors: new Set(),
-          warnings: new Set([1.0, fieldFeedbackKey11, 1.2]),
-          infos: new Set([1.0, fieldFeedbackKey11, 1.2]),
-          validationMessage: 'Suffering from being missing'
-        }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-      const fieldFeedback = shallow(
-        <FieldFeedback when="*" />,
-        {context: {form, fieldFeedbacks}}
-      );
-
-      expect(fieldFeedback.html()).toEqual('<div class="warning">Suffering from being missing</div>');
-    });
-  });
-});
-
-describe('div props className', () => {
-  test('className="error"', () => {
-    const form = new FormWithConstraintsMock({
-      username: {
-        dirty: true,
-        errors: new Set([fieldFeedbackKey11]),
-        warnings: new Set(),
-        infos: new Set(),
-        validationMessage: ''
-      }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-
-    const fieldFeedback = shallow(
-      <FieldFeedback when="*" />,
-      {context: {form, fieldFeedbacks}}
-    );
-
-    const div = fieldFeedback.find('div');
-    expect(div.hasClass('error')).toBe(true);
-    expect(div.hasClass('warning')).toBe(false);
-    expect(div.hasClass('info')).toBe(false);
-  });
-
-  test('className="warning"', () => {
-    const form = new FormWithConstraintsMock({
-      username: {
-        dirty: true,
-        errors: new Set(),
-        warnings: new Set([fieldFeedbackKey11]),
-        infos: new Set(),
-        validationMessage: ''
-      }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-
-    const fieldFeedback = shallow(
-      <FieldFeedback when="*" />,
-      {context: {form, fieldFeedbacks}}
-    );
-
-    const div = fieldFeedback.find('div');
-    expect(div.hasClass('error')).toBe(false);
-    expect(div.hasClass('warning')).toBe(true);
-    expect(div.hasClass('info')).toBe(false);
-  });
-
-  test('className="info"', () => {
-    const form = new FormWithConstraintsMock({
-      username: {
-        dirty: true,
-        errors: new Set(),
-        warnings: new Set(),
-        infos: new Set([fieldFeedbackKey11]),
-        validationMessage: ''
-      }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-
-    const fieldFeedback = shallow(
-      <FieldFeedback when="*" />,
-      {context: {form, fieldFeedbacks}}
-    );
-
-    const div = fieldFeedback.find('div');
-    expect(div.hasClass('error')).toBe(false);
-    expect(div.hasClass('warning')).toBe(false);
-    expect(div.hasClass('info')).toBe(true);
-  });
-
-  test('with already existing className', () => {
+  test('with already existing class', () => {
     const form = new FormWithConstraintsMock({
       username: {
         dirty: true,
@@ -618,8 +579,46 @@ describe('div props className', () => {
       {context: {form, fieldFeedbacks}}
     );
 
-    const div = fieldFeedback.find('div');
-    expect(div.hasClass('alreadyExistingClassName')).toBe(true);
-    expect(div.hasClass('error')).toBe(true);
+    expect(fieldFeedback.html()).toEqual('<div class="alreadyExistingClassName error"></div>');
+  });
+
+  test('with already existing class - no error', () => {
+    const form = new FormWithConstraintsMock({
+      username: {
+        dirty: true,
+        errors: new Set(),
+        warnings: new Set(),
+        infos: new Set(),
+        validationMessage: ''
+      }
+    });
+    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+
+    const fieldFeedback = shallow(
+      <FieldFeedback when="*" className="alreadyExistingClassName" />,
+      {context: {form, fieldFeedbacks}}
+    );
+
+    expect(fieldFeedback.html()).toEqual(null);
+  });
+
+  test('with divProps', () => {
+    const form = new FormWithConstraintsMock({
+      username: {
+        dirty: true,
+        errors: new Set([fieldFeedbackKey11]),
+        warnings: new Set(),
+        infos: new Set(),
+        validationMessage: ''
+      }
+    });
+    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+
+    const fieldFeedback = shallow(
+      <FieldFeedback when="*" style={{color: 'yellow'}} />,
+      {context: {form, fieldFeedbacks}}
+    );
+
+    expect(fieldFeedback.html()).toEqual('<div style="color:yellow" class="error"></div>');
   });
 });

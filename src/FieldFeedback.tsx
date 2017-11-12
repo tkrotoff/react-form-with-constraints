@@ -107,26 +107,36 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps> {
     this.context.form.fieldsStore.updateField(fieldName, field);
   }
 
-  render() {
-    const { when, error, warning, info, className, children, ...divProps } = this.props;
+  className() {
     const { for: fieldName, show } = this.context.fieldFeedbacks.props;
 
     // Retrieve errors/warnings/infos only related to the parent FieldFeedbacks
-    const { errors, warnings, infos, validationMessage } = this.context.form.fieldsStore.getFieldFor(fieldName, this.context.fieldFeedbacks.key);
+    const { errors, warnings, infos } = this.context.form.fieldsStore.getFieldFor(fieldName, this.context.fieldFeedbacks.key);
 
     const firstError = errors.values().next().value;
     const firstWarning = warnings.values().next().value;
 
-    let classes: string | undefined;
+    let className: string | undefined;
+
     if (errors.has(this.key) && (show === 'all' || (show === 'first' && firstError === this.key))) {
-      classes = 'error';
+      className = 'error';
     }
     else if (warnings.has(this.key) && (errors.size === 0 && (show === 'all' || (show === 'first' && firstWarning === this.key)))) {
-      classes = 'warning';
+      className = 'warning';
     }
     else if (infos.has(this.key)) {
-      classes = 'info';
+      className = 'info';
     }
+
+    return className;
+  }
+
+  render() {
+    const { when, error, warning, info, className, children, ...divProps } = this.props;
+    const { for: fieldName } = this.context.fieldFeedbacks.props;
+    const { validationMessage } = this.context.form.fieldsStore.getFieldFor(fieldName, this.context.fieldFeedbacks.key);
+
+    let classes = this.className();
 
     let feedback = null;
     if (classes !== undefined) { // Means the FieldFeedback should be displayed
