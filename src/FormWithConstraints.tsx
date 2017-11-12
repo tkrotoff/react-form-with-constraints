@@ -74,6 +74,7 @@ export class FormWithConstraints extends withValidateEventEmitter(FormWithConstr
     };
   }
 
+  // Could be named innerRef instead
   form: HTMLFormElement;
 
   fieldsStore = new FieldsStore();

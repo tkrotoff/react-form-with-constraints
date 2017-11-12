@@ -28,7 +28,7 @@ interface State {
 }
 
 class Form extends React.Component<Props, State> {
-  form: FormWithConstraints;
+  formWithConstraints: FormWithConstraints;
   password: HTMLInputElement;
 
   constructor(props: Props) {
@@ -42,6 +42,7 @@ class Form extends React.Component<Props, State> {
     this.handleChange = this.handleChange.bind(this);
     this.handleHasWebsiteChange = this.handleHasWebsiteChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
@@ -49,11 +50,11 @@ class Form extends React.Component<Props, State> {
 
     const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
 
-    this.form.validateFields(target);
+    this.formWithConstraints.validateFields(target);
 
     this.setState({
       [target.name as any]: value,
-      submitButtonDisabled: !this.form.isValid()
+      submitButtonDisabled: !this.formWithConstraints.isValid()
     });
   }
 
@@ -71,20 +72,24 @@ class Form extends React.Component<Props, State> {
   handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    this.form.validateFields();
+    this.formWithConstraints.validateFields();
 
-    this.setState({submitButtonDisabled: !this.form.isValid()});
+    this.setState({submitButtonDisabled: !this.formWithConstraints.isValid()});
 
-    if (this.form.isValid()) {
+    if (this.formWithConstraints.isValid()) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     }
+  }
+
+  handleReset() {
+    this.formWithConstraints.form.reset();
   }
 
   render() {
     const { favoriteColor, hasWebsite } = this.state;
 
     return (
-      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints!}
+      <FormWithConstraints ref={formWithConstraints => this.formWithConstraints = formWithConstraints!}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
           <label htmlFor="first-name">First Name</label>
@@ -243,6 +248,7 @@ class Form extends React.Component<Props, State> {
         </div>
 
         <button disabled={this.state.submitButtonDisabled}>Sign Up</button>
+        <button onClick={this.handleReset}>Reset</button>
 
         <div>
           <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre>
