@@ -62,7 +62,7 @@ class Form extends React.Component {
           <FormControlInput type="email" id="username" name="username"
                             value={this.state.username} onChange={this.handleChange}
                             required minLength={3} />
-          <FieldFeedbacks for="username">
+          <FieldFeedbacks for="username" className="invalid-feedback">
             <FieldFeedback when="tooShort">Too short</FieldFeedback>
             <FieldFeedback when="*" />
           </FieldFeedbacks>
@@ -74,7 +74,7 @@ class Form extends React.Component {
                             innerRef={password => this.password = password}
                             value={this.state.password} onChange={this.handlePasswordChange}
                             required pattern=".{5,}" />
-          <FieldFeedbacks for="password" show="all">
+          <FieldFeedbacks for="password" show="all" className="invalid-feedback">
             <FieldFeedback when="valueMissing" />
             <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
             <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
@@ -88,7 +88,7 @@ class Form extends React.Component {
           <FormControlLabel htmlFor="password-confirm">Confirm Password</FormControlLabel>
           <FormControlInput type="password" id="password-confirm" name="passwordConfirm"
                             value={this.state.passwordConfirm} onChange={this.handleChange} />
-          <FieldFeedbacks for="passwordConfirm">
+          <FieldFeedbacks for="passwordConfirm" className="invalid-feedback">
             <FieldFeedback when={value => value !== this.password.value}>Not the same password</FieldFeedback>
           </FieldFeedbacks>
         </FormGroup>

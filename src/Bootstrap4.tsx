@@ -41,13 +41,13 @@ export class FormGroup extends React.Component<FormGroupProps> {
     if (fieldName !== undefined) {
       const form = this.context.form;
       if (form.fieldsStore.containErrors(fieldName)) {
-        className += ' has-danger';
+        className += ' is-invalid has-danger';
       }
       else if (form.fieldsStore.containWarnings(fieldName)) {
-        className += ' has-warning';
+        className += ' is-invalid has-warning';
       }
       else if (form.fieldsStore.areValidDirtyWithoutWarnings(fieldName)) {
-        className += ' has-success';
+        className += ' is-valid has-success';
       }
     }
     return className;
@@ -110,13 +110,13 @@ export class FormControlInput extends React.Component<FormControlInputProps> {
     if (name !== undefined) {
       const form = this.context.form;
       if (form.fieldsStore.containErrors(name)) {
-        className += ' form-control-danger';
+        className += ' is-invalid form-control-danger';
       }
       else if (form.fieldsStore.containWarnings(name)) {
-        className += ' form-control-warning';
+        className += ' is-invalid form-control-warning';
       }
       else if (form.fieldsStore.areValidDirtyWithoutWarnings(name)) {
-        className += ' form-control-success';
+        className += ' is-valid form-control-success';
       }
     }
     return className;
