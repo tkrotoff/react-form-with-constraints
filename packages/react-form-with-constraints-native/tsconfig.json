@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig-react-es5",
+
+  // List everything so that vscode displays the "problems" for everything
+
+  "files": [
+    "src/index.ts"
+  ],
+
+  "include": [
+    "src/*.test.ts",
+    "src/*.test.tsx"
+  ]
+}

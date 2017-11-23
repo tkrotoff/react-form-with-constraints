@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Input, FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../src/index';
+import { Input, FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
 
 import Sex from './Sex';
 

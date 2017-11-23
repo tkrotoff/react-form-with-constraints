@@ -54,6 +54,9 @@
     "jsx-no-bind": false, // FIXME Perf
     "jsx-boolean-value": false,
     "jsx-no-lambda": false, // FIXME Perf
-    "jsx-no-multiline-js": false
+    "jsx-no-multiline-js": false,
+
+    // Does not search inside the dependency graph
+    "no-implicit-dependencies": false
   }
 }

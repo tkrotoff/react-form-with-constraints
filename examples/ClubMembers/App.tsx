@@ -4,8 +4,8 @@ import { useStrict, observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../src/index';
-import DisplayFields from '../../src/DisplayFields';
+import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
+import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './index.html';
 import './style.css';

@@ -1,0 +1,36 @@
+{
+  "name": "mdn-form-validation-example",
+  "version": "0.7.0",
+  "private": true,
+
+  "scripts": {
+    "clean": "del-cli build",
+
+    "tsc": "tsc",
+
+    "build": "cross-env NODE_ENV=development webpack -d",
+    "build:watch": "cross-env NODE_ENV=development webpack -d --watch"
+  },
+
+  "devDependencies": {
+    "typescript": "latest",
+
+    "react": "latest",
+    "@types/react": "latest",
+    "react-dom": "latest",
+    "@types/react-dom": "latest",
+
+    "react-form-with-constraints": "^0.7.0",
+
+    "ts-node": "latest",
+    "@types/node": "latest",
+
+    "webpack": "latest",
+    "@types/webpack": "latest",
+    "ts-loader": "latest",
+    "file-loader": "latest",
+
+    "del-cli": "latest",
+    "cross-env": "latest"
+  }
+}

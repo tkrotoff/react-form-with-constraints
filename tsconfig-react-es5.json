@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "target": "es5",
+    "downlevelIteration": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noLib": false,
+    "lib": ["dom.iterable", "es2017"],
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "declaration": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "removeComments": true,
+
+    // FIXME
+    // See error TS2300: Duplicate identifier 'require' https://github.com/tkrotoff/react-form-with-constraints/issues/12
+    // See @types/react-native definitions for `global` and `require` conflict with @types/node https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16825
+    "skipLibCheck": true
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "server-side-rendering-example",
-  "version": "1.0.0",
+  "version": "0.7.0",
   "private": true,
 
   "scripts": {
@@ -19,7 +19,7 @@
     "react-dom": "latest",
     "@types/react-dom": "latest",
 
-    "react-form-with-constraints": "latest",
+    "react-form-with-constraints": "^0.7.0",
 
     "ts-node": "latest",
     "@types/node": "latest",

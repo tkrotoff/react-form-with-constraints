@@ -9,7 +9,7 @@ const output = {
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
-const tsLoaderRule = { test: /\.tsx?$/, loader: 'ts-loader', options: {onlyCompileBundledFiles: true, compilerOptions: {module: 'esnext', declaration: false}} };
+const tsLoaderRule = { test: /\.tsx?$/, loader: 'ts-loader', options: {onlyCompileBundledFiles: true, compilerOptions: {noEmit: false, module: 'esnext', declaration: false}} };
 
 const config: Configuration[] = [
   {

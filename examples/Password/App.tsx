@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../src/index';
+import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
+import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './index.html';
 import './style.css';
@@ -104,6 +105,8 @@ class Form extends React.Component<Props, State> {
         </div>
 
         <button disabled={this.state.submitButtonDisabled}>Sign Up</button>
+
+        <DisplayFields />
       </FormWithConstraints>
     );
   }

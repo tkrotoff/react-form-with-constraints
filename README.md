@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/tkrotoff/react-form-with-constraints/branch/master/graph/badge.svg)](https://codecov.io/gh/tkrotoff/react-form-with-constraints)
 [![gzip size](http://img.badgesize.io/https://unpkg.com/react-form-with-constraints@latest/dist/react-form-with-constraints.production.min.js.gz?compression=gzip)](https://unpkg.com/react-form-with-constraints/dist/react-form-with-constraints.production.min.js.gz)
 
-Simple form validation for React in [~400 lines of code](src)
+Simple form validation for React in [~400 lines of code](packages/react-form-with-constraints/src)
 
 - Installation: `npm install react-form-with-constraints`
 - CDN: https://unpkg.com/react-form-with-constraints/dist/
@@ -39,6 +39,7 @@ Resources:
 - No dependency beside React (no Redux, MobX...)
 - No special component like `<TextField>`, just plain old `<input>` or whatever you like
 - Re-render only what's necessary
+- Support for [React Native](examples/ReactNative) with npm package `react-form-with-constraints-native`
 - ...
 
 ```JSX
@@ -68,12 +69,19 @@ Resources:
 ## Examples
 
 - CodePen basic example: https://codepen.io/tkrotoff/pen/BRGdqL
+
+  ![example-password](doc/example-password.png)
+
 - CodeSandbox Bootstrap 4 example: https://codesandbox.io/s/qk0zro1qm4
 - CodeSandbox WizardForm example: https://codesandbox.io/s/my0ojyzq6p
 - CodeSandbox SignUp example: https://codesandbox.io/s/62qwozvm0k
 - CodeSandbox ClubMembers example: https://codesandbox.io/s/q8364yn60j
 
-![example-password](doc/example-password.png)
+- [React Native example](examples/ReactNative):
+
+  | iOS                                                   |                                                       Android |
+  | ----------------------------------------------------- | ------------------------------------------------------------- |
+  | ![react-native-example-ios](doc/react-native-ios.png) | ![react-native-example-android](doc/react-native-android.png) |
 
 Other examples inside [the examples directory](examples).
 
@@ -91,8 +99,8 @@ The API works the same way as [React Router v4](https://reacttraining.com/react-
 It is also inspired by [AngularJS ngMessages](https://docs.angularjs.org/api/ngMessages#usage).
 
 If you had to implement validation yourself, you would end up with [a global object that tracks errors for each field](examples/NoFramework/App.tsx).
-react-form-with-constraints [works](src/Fields.ts) [similarly](src/FieldsStore.ts) (although not using [`setState`](https://reactjs.org/docs/react-component.html#setstate)).
-It uses [React context](https://facebook.github.io/react/docs/context.html#parent-child-coupling) to share the [`FieldsStore`](src/FieldsStore.ts) object across [`FieldFeedbacks`](src/FieldFeedbacks.tsx) and [`FieldFeedback`](src/FieldFeedback.tsx).
+react-form-with-constraints [works similarly](packages/react-form-with-constraints/src/Fields.ts) (although not using `setState`).
+It uses [React context](https://facebook.github.io/react/docs/context.html#parent-child-coupling) to share the [`FieldsStore`](packages/react-form-with-constraints/src/FieldsStore.ts) object across [`FieldFeedbacks`](packages/react-form-with-constraints/src/FieldFeedbacks.tsx) and [`FieldFeedback`](packages/react-form-with-constraints/src/FieldFeedback.tsx).
 
 ## API
 

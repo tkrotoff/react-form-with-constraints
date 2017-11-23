@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Input } from '../../src/index';
+import { Input } from 'react-form-with-constraints';
 
 import WizardFormPage1 from './WizardFormPage1';
 import WizardFormPage2 from './WizardFormPage2';

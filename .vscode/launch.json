@@ -2,18 +2,28 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Jest",
+      "name": "Jest react-form-with-constraints",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceRoot}/node_modules/.bin/jest",
+      "program": "${workspaceRoot}/packages/react-form-with-constraints/node_modules/.bin/jest",
       "args": ["--runInBand", "--no-cache"],
-      "cwd": "${workspaceRoot}",
+      "cwd": "${workspaceRoot}/packages/react-form-with-constraints",
       "runtimeArgs": [
         "--nolazy" // See What does the Node.js `--nolazy` flag mean? http://stackoverflow.com/q/21534565/990356
       ],
       "env": {
         "NODE_ENV": "development"
       }
+    },
+    {
+      "name": "Jest react-form-with-constraints-bootstrap4",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/packages/react-form-with-constraints-bootstrap4/node_modules/.bin/jest",
+      "args": ["--runInBand", "--no-cache"],
+      "cwd": "${workspaceRoot}/packages/react-form-with-constraints-bootstrap4",
+      "runtimeArgs": ["--nolazy"],
+      "env": {"NODE_ENV": "development"}
     }
   ]
 }

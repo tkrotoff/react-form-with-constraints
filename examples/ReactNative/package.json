@@ -6,6 +6,8 @@
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
 
   "scripts": {
+    "prestart": "rm -rf node_modules/react-form-with-constraints-native/node_modules",
+
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
@@ -18,10 +20,13 @@
   },
 
   "dependencies": {
-    "expo": "^22.0.0",
+    "expo": "^23",
 
-    "react": "16.0.0-beta.5",
-    "react-native": "^0.49.5"
+    "react": "16.0.0",
+    "react-native": "^0.50",
+
+    "react-form-with-constraints": "../../packages/react-form-with-constraints",
+    "react-form-with-constraints-native": "../../packages/react-form-with-constraints-native"
   },
 
   "devDependencies": {
@@ -30,14 +35,15 @@
     "@types/react": "latest",
     "@types/react-native": "latest",
 
-    "react-native-scripts": "1.6.0",
-    "react-native-typescript-transformer": "latest",
+    "react-native-scripts": "^1.7",
+    "react-native-typescript-transformer": "^1.1",
 
     "@types/jest": "latest",
-    "jest-expo": "^22.0.0",
-    "jest-expo-ts": "latest",
+    "jest-expo": "^23",
+    "jest-expo-ts": "^22",
+    "babel-core": "^6",
 
-    "react-test-renderer": "16.0.0-beta.5",
+    "react-test-renderer": "16.0.0",
     "@types/react-test-renderer": "latest"
   }
 }

@@ -1,0 +1,63 @@
+{
+  "name": "react-form-with-constraints-native",
+  "version": "0.7.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tkrotoff/react-form-with-constraints.git"
+  },
+  "description": "Simple form validation for React",
+  "license": "MIT",
+
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/"
+  ],
+
+  "scripts": {
+    "clean": "del-cli lib coverage .rpt2_cache",
+
+    "tsc": "tsc",
+    "build": "tsc --project tsconfig.lib.json",
+    "prepublishOnly": "npm run clean && npm run tsc && npm run build",
+
+    "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
+    "coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"
+  },
+
+  "peerDependencies": {
+    "react-native": ">=0.50",
+    "react-form-with-constraints": "^0.7.0"
+  },
+
+  "devDependencies": {
+    "typescript": "latest",
+
+    "react": "16.0.0",
+    "@types/react": "latest",
+
+    "react-native": "^0.50",
+    "@types/react-native": "latest",
+
+    "react-form-with-constraints": "^0.7.0",
+
+    "jest": "latest",
+    "@types/jest": "latest",
+    "ts-jest": "latest",
+
+    "babel-jest": "latest",
+    "babel-core": "latest",
+    "babel-preset-react-native": "latest",
+
+    "react-test-renderer": "16.0.0",
+    "@types/react-test-renderer": "latest",
+
+    "enzyme": "latest",
+    "@types/enzyme": "latest",
+    "enzyme-adapter-react-16": "latest",
+    "@types/enzyme-adapter-react-16": "latest",
+
+    "del-cli": "latest",
+    "cross-env": "latest"
+  }
+}

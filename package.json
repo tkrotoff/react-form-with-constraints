@@ -1,98 +1,47 @@
 {
-  "name": "react-form-with-constraints",
-  "version": "0.6.4",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/tkrotoff/react-form-with-constraints.git"
-  },
-  "description": "Simple form validation for React",
-  "license": "MIT",
-
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "files": [
-    "dist/",
-    "lib/"
-  ],
+  "private": true,
 
   "scripts": {
-    "clean": "del-cli build lib dist/* !dist/.gitkeep coverage .rpt2_cache",
+    "clean:lerna": "lerna clean",
+    "clean:node_modules": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && find . -name 'yarn.lock' -exec rm -f '{}' +",
 
-    "dist": "cross-env NODE_ENV=development rollup --config && cross-env NODE_ENV=production rollup --config",
+    "clean": "lerna run clean",
 
-    "build": "cross-env NODE_ENV=development webpack -d || true",
-    "build:watch": "cross-env NODE_ENV=development webpack -d --watch",
+    "clean:all": "yarn clean && yarn clean:lerna && yarn clean:node_modules",
 
-    "tsc": "tsc || true",
-    "tsc:lib": "tsc --project tsconfig.lib.json || true",
-    "prepublishOnly": "npm run clean && npm run tsc && npm run tsc:lib && npm run dist && npm run build",
+    "tsc": "lerna run tsc",
+    "build": "lerna run build",
+    "dist": "lerna run dist",
+    "prepublishOnly": "lerna run prepublishOnly",
 
-    "pretest": "npm run clean",
-    "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
-
-    "precoverage": "npm run pretest",
-    "coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage",
+    "test": "lerna run test --stream",
+    "coverage": "lerna run coverage --stream",
 
     "tslint": "tslint --config tslint.json '**/*.ts{,x}' --exclude '**/node_modules/**' --exclude 'lib/**'"
   },
 
-  "peerDependencies": {
-    "react": ">=15"
-  },
+  "workspaces": [
+    "packages/*",
 
-  "dependencies": {
-    "prop-types": "latest",
-    "@types/prop-types": "latest"
-  },
+    "examples/Bootstrap4",
+    "examples/ClubMembers",
+    "examples/HttpStatusCode",
+    "examples/MDN_Form_validation",
+    "examples/NativeFormWidgets",
+    "examples/NoFramework",
+    "examples/Password",
+    "examples/PasswordNoState",
+    "examples/ServerSideRendering",
+    "examples/SignUp",
+    "examples/WizardForm"
+  ],
 
   "devDependencies": {
+    "lerna": "latest",
+
     "typescript": "latest",
+
     "tslint": "latest",
-    "tslint-react": "latest",
-
-    "react": "latest",
-    "@types/react": "latest",
-    "react-dom": "latest",
-    "@types/react-dom": "latest",
-
-    "ts-node": "latest",
-    "@types/node": "latest",
-
-    "mobx": "latest",
-    "mobx-react": "latest",
-    "mobx-react-devtools": "latest",
-
-    "babel-core": "latest",
-    "babel-preset-react": "latest",
-
-    "node-zopfli": "latest",
-    "node-gyp": "latest",
-
-    "webpack": "latest",
-    "@types/webpack": "latest",
-    "ts-loader": "latest",
-    "babel-loader": "latest",
-    "file-loader": "latest",
-    "zopfli-webpack-plugin": "latest",
-
-    "rollup": "latest",
-    "rollup-pluginutils": "latest",
-    "rollup-plugin-typescript2": "latest",
-    "rollup-plugin-uglify": "latest",
-    "rollup-plugin-gzip": "latest",
-    "rollup-plugin-filesize": "latest",
-
-    "del-cli": "latest",
-    "cross-env": "latest",
-
-    "jest": "latest",
-    "@types/jest": "latest",
-    "ts-jest": "latest",
-
-    "enzyme": "latest",
-    "@types/enzyme": "latest",
-    "enzyme-adapter-react-16": "latest",
-    "@types/enzyme-adapter-react-16": "latest",
-    "react-test-renderer": "latest"
+    "tslint-react": "latest"
   }
 }

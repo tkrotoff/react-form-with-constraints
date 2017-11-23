@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig-react-es5",
+
+  "files": [
+    "App.tsx"
+  ]
+}
