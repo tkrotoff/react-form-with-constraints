@@ -1,15 +1,24 @@
 language: node_js
 node_js:
-  - "7"
+  - "8"
+
+before_install:
+  # Install latest Yarn version
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
+
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+  # FIXME Couldn't make cc-test-reporter work with monorepo/Lerna, see https://github.com/codeclimate/test-reporter/issues/263
+  #- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  #- chmod +x ./cc-test-reporter
+
 script:
-  - npm run prepublishOnly
-  - npm run coverage
+  - yarn prepublishOnly
+  - yarn coverage
+
 after_script:
-  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
+  #- if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
+
 after_success:
-  - npm install codecov
-  - codecov
+  - yarn add codecov --ignore-workspace-root-check
+  - yarn codecov
