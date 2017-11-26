@@ -8,17 +8,25 @@ before_install:
   - export PATH="$HOME/.yarn/bin:$PATH"
 
 before_script:
-  # FIXME Couldn't make cc-test-reporter work with monorepo/Lerna, see https://github.com/codeclimate/test-reporter/issues/263
-  #- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  #- chmod +x ./cc-test-reporter
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
 
 script:
   - yarn prepublishOnly
   - yarn coverage
 
-after_script:
-  #- if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
-
 after_success:
   - yarn add codecov --ignore-workspace-root-check
   - yarn codecov
+
+  # See https://github.com/codeclimate/test-reporter/issues/263
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+      for f in packages/*; do
+        if [ -d $f ]; then
+          echo $f;
+          ./cc-test-reporter format-coverage -t lcov -o coverage/coverage.${f//\//-}.json $f/coverage/lcov.info;
+        fi
+      done;
+      ./cc-test-reporter sum-coverage -o coverage/coverage.total.json coverage/coverage.*.json;
+      ./cc-test-reporter upload-coverage -i coverage/coverage.total.json;
+    fi
