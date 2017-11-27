@@ -11,12 +11,7 @@
     "jsx-wrap-multiline": false,
     "linebreak-style": [true, "LF"],
     "no-invalid-this": [true, "check-function-in-method"],
-    "variable-name": [
-      "ban-keywords",
-      "check-format",
-      "allow-leading-underscore",
-      "allow-pascal-case"
-    ],
+    "variable-name": [true, "ban-keywords"],
 
 
     // Overwriting rules
