@@ -4,7 +4,8 @@
   // List everything so that vscode displays the "problems" for everything
 
   "files": [
-    "src/index.ts"
+    "src/index.ts",
+    "src/Enzyme.ts"
   ],
 
   "include": [
