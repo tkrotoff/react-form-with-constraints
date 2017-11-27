@@ -1,6 +1,6 @@
 {
   "name": "server-side-rendering-example",
-  "version": "0.7.0",
+  "version": "1.0.0",
   "private": true,
 
   "scripts": {
