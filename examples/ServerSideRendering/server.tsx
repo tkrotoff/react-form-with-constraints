@@ -3,7 +3,7 @@ import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 
 import App from './App';
-import './style.css';
+import '../Password/style.css';
 
 const server = express();
 
