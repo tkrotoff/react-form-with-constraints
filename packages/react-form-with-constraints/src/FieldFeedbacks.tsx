@@ -80,8 +80,8 @@ export class FieldFeedbacks extends withValidateEventEmitter(FieldFeedbacksCompo
   // We could use a string here instead of a number
   private fieldFeedbackKey = 0;
   computeFieldFeedbackKey() {
-    // Example: this.key = 5, this.fieldFeedbackKey = 2 => 5 + 2 / 10 = 5 + 0.2 = 5.2
-    return this.key + this.fieldFeedbackKey++ / 10;
+    // Example: this.key = 5, this.fieldFeedbackKey = 2 => 5.2
+    return parseFloat(`${this.key}.${this.fieldFeedbackKey++}`);
   }
 
   componentWillMount() {
