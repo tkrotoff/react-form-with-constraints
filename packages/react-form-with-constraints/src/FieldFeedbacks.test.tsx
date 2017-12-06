@@ -41,9 +41,7 @@ describe('componentWillMount()', () => {
   test('componentWillUnmount()', () => {
     const form = new FormWithConstraintsMock();
     const addValidateEventListenerSpy = jest.spyOn(form, 'addValidateEventListener');
-    const fieldsStoreAddListenerSpy = jest.spyOn(form.fieldsStore, 'addListener');
     const removeValidateEventListenerSpy = jest.spyOn(form, 'removeValidateEventListener');
-    const fieldsStoreRemoveListenerSpy = jest.spyOn(form.fieldsStore, 'removeListener');
 
     const component = shallow(
       <FieldFeedbacks for="username" />,
@@ -52,15 +50,11 @@ describe('componentWillMount()', () => {
     expect(addValidateEventListenerSpy).toHaveBeenCalledTimes(1);
     expect(removeValidateEventListenerSpy).toHaveBeenCalledTimes(0);
     expect(form.validateEventEmitter.listeners.get(ValidateEvent)).toHaveLength(1);
-    expect(fieldsStoreAddListenerSpy).toHaveBeenCalledTimes(1);
-    expect(fieldsStoreRemoveListenerSpy).toHaveBeenCalledTimes(0);
 
     component.unmount();
     expect(addValidateEventListenerSpy).toHaveBeenCalledTimes(1);
     expect(removeValidateEventListenerSpy).toHaveBeenCalledTimes(1);
     expect(form.validateEventEmitter.listeners.get(ValidateEvent)).toEqual(undefined);
-    expect(fieldsStoreAddListenerSpy).toHaveBeenCalledTimes(1);
-    expect(fieldsStoreRemoveListenerSpy).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -318,76 +312,5 @@ describe('render()', () => {
         '<div><div class="error">Suffering from being missing</div><div class="info">Suffering from being missing</div></div>'
       );
     });
-  });
-});
-
-describe('reRender()', () => {
-  test('known field updated', () => {
-    const form = new FormWithConstraintsMock();
-    const component = mount(
-      <FieldFeedbacks for="username">
-        <FieldFeedback when="*" />
-      </FieldFeedbacks>,
-      {context: {form}}
-    );
-    const input = new InputMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-    form.emitValidateEvent(input);
-
-    expect(form.fieldsStore.fields).toEqual({
-      username: {
-        dirty: true,
-        errors: new Set([0.0]),
-        warnings: new Set(),
-        infos: new Set(),
-        validationMessage: 'Suffering from being missing'
-      }
-    });
-    expect(component.html()).toEqual(
-      '<div><div class="error">Suffering from being missing</div></div>'
-    );
-
-    form.fieldsStore.updateField('username', fieldWithoutFeedback);
-    expect(component.html()).toEqual(
-      '<div></div>'
-    );
-  });
-
-  test('unknown field updated', () => {
-    const form = new FormWithConstraintsMock();
-    const component = mount(
-      <FieldFeedbacks for="username">
-        <FieldFeedback when="*" />
-      </FieldFeedbacks>,
-      {context: {form}}
-    );
-    const input = new InputMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-    form.emitValidateEvent(input);
-
-    expect(form.fieldsStore.fields).toEqual({
-      username: {
-        dirty: true,
-        errors: new Set([0.0]),
-        warnings: new Set(),
-        infos: new Set(),
-        validationMessage: 'Suffering from being missing'
-      }
-    });
-    expect(component.html()).toEqual(
-      '<div><div class="error">Suffering from being missing</div></div>'
-    );
-
-    const assert = console.assert;
-    console.assert = jest.fn();
-    form.fieldsStore.updateField('unknown', fieldWithoutFeedback);
-    expect(console.assert).toHaveBeenCalledTimes(2);
-    expect((console.assert as jest.Mock<{}>).mock.calls).toEqual([
-      [ false, "Unknown field 'unknown'" ],
-      [ true, "No listener for event 'FIELD_UPDATED'" ]
-    ]);
-    console.assert = assert;
-
-    expect(component.html()).toEqual(
-      '<div><div class="error">Suffering from being missing</div></div>'
-    );
   });
 });

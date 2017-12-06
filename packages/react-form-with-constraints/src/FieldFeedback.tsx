@@ -105,6 +105,9 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps> {
       else field.errors.add(this.key); // Feedback type is error if nothing is specified
     }
     this.context.form.fieldsStore.updateField(fieldName, field);
+
+    // Force re-rendering
+    this.forceUpdate();
   }
 
   className() {

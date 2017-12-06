@@ -8,7 +8,6 @@ import { IValidateEventEmitter, withValidateEventEmitter } from './withValidateE
 // FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
 import { EventEmitter } from './EventEmitter';
 import Input from './Input';
-import { FieldEvent } from './FieldsStore';
 
 export interface FieldFeedbacksProps extends React.HTMLAttributes<HTMLDivElement> {
   for: string;
@@ -56,7 +55,6 @@ export class FieldFeedbacks extends withValidateEventEmitter(FieldFeedbacksCompo
     super(props);
 
     this.validate = this.validate.bind(this);
-    this.reRender = this.reRender.bind(this);
 
     this.key = context.form.computeFieldFeedbacksKey();
   }
@@ -89,7 +87,6 @@ export class FieldFeedbacks extends withValidateEventEmitter(FieldFeedbacksCompo
     this.context.form.fieldsStore.addField(fieldName);
 
     this.context.form.addValidateEventListener(this.validate);
-    this.context.form.fieldsStore.addListener(FieldEvent.Updated, this.reRender);
   }
 
   componentWillUnmount() {
@@ -97,7 +94,6 @@ export class FieldFeedbacks extends withValidateEventEmitter(FieldFeedbacksCompo
     this.context.form.fieldsStore.removeField(fieldName);
 
     this.context.form.removeValidateEventListener(this.validate);
-    this.context.form.fieldsStore.removeListener(FieldEvent.Updated, this.reRender);
   }
 
   validate(input: Input) {
@@ -108,13 +104,6 @@ export class FieldFeedbacks extends withValidateEventEmitter(FieldFeedbacksCompo
       this.context.form.fieldsStore.removeFieldFor(fieldName, this.key);
 
       this.emitValidateEvent(input);
-    }
-  }
-
-  reRender(_fieldName: string) {
-    const { for: fieldName } = this.props;
-    if (fieldName === _fieldName) { // Ignore the event if it's not for us
-      this.forceUpdate();
     }
   }
 
