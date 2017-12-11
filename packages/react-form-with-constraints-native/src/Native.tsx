@@ -44,21 +44,25 @@ export class FormWithConstraints extends _FormWithConstraints {
     if (inputsOrNames.length === 0) {
       // Find all children with a name
       deepForEach(this.props.children, (child: React.ReactElement<Input>) => {
-        const fieldName = child.props.name;
-        if (fieldName !== undefined && fieldName.length > 0) {
-          otherInputs.push(child);
+        if (child.props !== undefined) {
+          const fieldName = child.props.name;
+          if (fieldName !== undefined && fieldName.length > 0) {
+            otherInputs.push(child);
+          }
         }
       });
     }
     if (fieldNames.length > 0) {
       deepForEach(this.props.children, (child: React.ReactElement<Input>) => {
-        const fieldName = child.props.name;
-        const matches = fieldNames.filter(_fieldName => _fieldName === fieldName);
+        if (child.props !== undefined) {
+          const fieldName = child.props.name;
+          const matches = fieldNames.filter(_fieldName => _fieldName === fieldName);
 
-        console.assert(matches.length === 0 || matches.length === 1, `Multiple matches for ${fieldName}`);
+          console.assert(matches.length === 0 || matches.length === 1, `Multiple matches for ${fieldName}`);
 
-        if (matches.length === 1) {
-          otherInputs.push(child);
+          if (matches.length === 1) {
+            otherInputs.push(child);
+          }
         }
       });
     }
