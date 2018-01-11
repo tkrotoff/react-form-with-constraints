@@ -3,10 +3,10 @@
 // See Proposal: Variadic Kinds -- Give specific types to variadic functions https://github.com/Microsoft/TypeScript/issues/5453
 export type Args = any[];
 
-export type Listener = (...args: Args) => void;
+export type Listener<ListenerReturnType> = (...args: Args) => ListenerReturnType;
 
-export class EventEmitter {
-  listeners = new Map<string, Listener[]>();
+export class EventEmitter<ListenerReturnType = void> {
+  listeners = new Map<string, Listener<ListenerReturnType>[]>();
 
   emit(eventName: string, ...args: Args) {
     const listeners = this.listeners.get(eventName)!;
@@ -14,13 +14,20 @@ export class EventEmitter {
     // Assert disabled: mess with the unit tests
     //console.assert(listeners !== undefined, `Unknown event '${eventName}'`);
 
+    const ret = new Array<ListenerReturnType>();
+
     if (listeners !== undefined) {
       console.assert(listeners.length > 0, `No listener for event '${eventName}'`);
-      listeners.forEach(listener => listener(...args));
+      listeners.forEach(listener =>
+        // Concat the results
+        ret.push(listener(...args))
+      );
     }
+
+    return ret;
   }
 
-  addListener(eventName: string, listener: Listener) {
+  addListener(eventName: string, listener: Listener<ListenerReturnType>) {
     if (!this.listeners.has(eventName)) this.listeners.set(eventName, []);
     const listeners = this.listeners.get(eventName)!;
     console.assert(listeners.indexOf(listener) === -1, `Listener already added for event '${eventName}'`);
@@ -31,7 +38,7 @@ export class EventEmitter {
   // "removeListener will remove, at most, one instance of a listener from the listener array.
   // If any single listener has been added multiple times to the listener array for the specified eventName,
   // then removeListener must be called multiple times to remove each instance."
-  removeListener(eventName: string, listener: Listener) {
+  removeListener(eventName: string, listener: Listener<ListenerReturnType>) {
     const listeners = this.listeners.get(eventName)!;
     console.assert(listeners !== undefined, `Unknown event '${eventName}'`);
 

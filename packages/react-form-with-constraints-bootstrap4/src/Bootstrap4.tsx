@@ -40,10 +40,10 @@ export class FormGroup extends React.Component<FormGroupProps> {
     let className = 'form-group';
     if (fieldName !== undefined) {
       const form = this.context.form;
-      if (form.fieldsStore.containErrors(fieldName)) {
+      if (form.fieldsStore.hasErrors(fieldName)) {
         className += ' has-danger';
       }
-      else if (form.fieldsStore.containWarnings(fieldName)) {
+      else if (form.fieldsStore.hasWarnings(fieldName)) {
         className += ' has-warning';
       }
       else if (form.fieldsStore.areValidDirtyWithoutWarnings(fieldName)) {
@@ -109,10 +109,10 @@ export class FormControlInput extends React.Component<FormControlInputProps> {
     let className = 'form-control';
     if (name !== undefined) {
       const form = this.context.form;
-      if (form.fieldsStore.containErrors(name)) {
+      if (form.fieldsStore.hasErrors(name)) {
         className += ' form-control-danger';
       }
-      else if (form.fieldsStore.containWarnings(name)) {
+      else if (form.fieldsStore.hasWarnings(name)) {
         className += ' form-control-warning';
       }
       else if (form.fieldsStore.areValidDirtyWithoutWarnings(name)) {
@@ -180,10 +180,10 @@ export class LabelWithFormControlStyle extends React.Component<LabelWithFormCont
     const brandSuccess = '#5cb85c';
 
     let color: string | undefined;
-    if (form.fieldsStore.containErrors(...fieldNames)) {
+    if (form.fieldsStore.hasErrors(...fieldNames)) {
       color = brandDanger;
     }
-    else if (form.fieldsStore.containWarnings(...fieldNames)) {
+    else if (form.fieldsStore.hasWarnings(...fieldNames)) {
       color = brandWarning;
     }
     else if (form.fieldsStore.areValidDirtyWithoutWarnings(...fieldNames)) {

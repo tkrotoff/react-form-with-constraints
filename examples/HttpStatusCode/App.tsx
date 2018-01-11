@@ -31,16 +31,15 @@ class Form extends React.Component<Props, State> {
   handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.currentTarget;
 
-    this.form.validateFields(target);
-
     this.setState({[target.name]: target.value});
+
+    this.form.validateFields(target);
   }
 
-  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    this.form.validateFields();
-
+    await this.form.validateFields();
     if (this.form.isValid()) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     } else {

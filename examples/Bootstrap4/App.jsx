@@ -24,31 +24,35 @@ class Form extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e) {
+  async handleChange(e) {
     const target = e.currentTarget;
 
-    this.form.validateFields(target);
+    this.setState({
+      [target.name]: target.value
+    });
+
+    await this.form.validateFields(target);
+    this.setState({submitButtonDisabled: !this.form.isValid()});
+  }
+
+  async handlePasswordChange(e) {
+    const target = e.currentTarget;
 
     this.setState({
-      [target.name]: target.value,
-      submitButtonDisabled: !this.form.isValid()
+      [target.name]: target.value
     });
+
+    await this.form.validateFields(target, 'passwordConfirm');
+    this.setState({submitButtonDisabled: !this.form.isValid()});
   }
 
-  handlePasswordChange(e) {
-    this.form.validateFields('passwordConfirm');
-
-    this.handleChange(e);
-  }
-
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
 
-    this.form.validateFields();
-
-    this.setState({submitButtonDisabled: !this.form.isValid()});
-
-    if (this.form.isValid()) {
+    await this.form.validateFields();
+    const formIsValid = this.form.isValid();
+    this.setState({submitButtonDisabled: !formIsValid});
+    if (formIsValid) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     }
   }
@@ -74,7 +78,7 @@ class Form extends React.Component {
                             innerRef={password => this.password = password}
                             value={this.state.password} onChange={this.handlePasswordChange}
                             required pattern=".{5,}" />
-          <FieldFeedbacks for="password" show="all">
+          <FieldFeedbacks for="password">
             <FieldFeedback when="valueMissing" />
             <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
             <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>

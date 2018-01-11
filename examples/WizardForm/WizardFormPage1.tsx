@@ -22,16 +22,15 @@ class WizardFormPage1 extends React.Component<Props> {
   handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.currentTarget;
 
-    this.form.validateFields(target);
-
     this.props.onChange(target);
+
+    this.form.validateFields(target);
   }
 
-  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    this.form.validateFields();
-
+    await this.form.validateFields();
     if (this.form.isValid()) {
       this.props.nextPage();
     }

@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { Input, FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
 
-import Sex from './Sex';
+import Gender from './Gender';
 
 export interface Props {
   email: string;
-  sex?: Sex;
+  gender?: Gender;
   previousPage: () => void;
   onChange: (input: Input) => void;
   nextPage: () => void;
@@ -25,23 +25,22 @@ class WizardFormPage2 extends React.Component<Props> {
   handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.currentTarget;
 
-    this.form.validateFields(target);
-
     this.props.onChange(target);
+
+    this.form.validateFields(target);
   }
 
-  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    this.form.validateFields();
-
+    await this.form.validateFields();
     if (this.form.isValid()) {
       this.props.nextPage();
     }
   }
 
   render() {
-    const { email, sex, previousPage } = this.props;
+    const { email, gender, previousPage } = this.props;
 
     return (
       <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints!}
@@ -57,19 +56,19 @@ class WizardFormPage2 extends React.Component<Props> {
         </div>
 
         <div>
-          <label>Sex</label>
+          <label>Gender</label>
           <label>
-            <input type="radio" name="sex"
-                   value={Sex.Male} checked={sex === Sex.Male} onChange={this.handleChange}
+            <input type="radio" name="gender"
+                   value={Gender.Male} checked={gender === Gender.Male} onChange={this.handleChange}
                    required />
             Male
           </label>
           <label>
-            <input type="radio" name="sex"
-                   value={Sex.Female} checked={sex === Sex.Female} onChange={this.handleChange} />
+            <input type="radio" name="gender"
+                   value={Gender.Female} checked={gender === Gender.Female} onChange={this.handleChange} />
             Female
           </label>
-          <FieldFeedbacks for="sex">
+          <FieldFeedbacks for="gender">
             <FieldFeedback when="*" />
           </FieldFeedbacks>
         </div>

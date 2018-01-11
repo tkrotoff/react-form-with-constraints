@@ -222,9 +222,9 @@ test('contain*()', () => {
   store.updateField('username', fieldWithoutFeedback);
   store.addField('password');
   store.updateField('password', fieldWithoutFeedback);
-  expect(store.containErrors('username', 'password')).toEqual(false);
-  expect(store.containWarnings('username', 'password')).toEqual(false);
-  expect(store.containInfos('username', 'password')).toEqual(false);
+  expect(store.hasErrors('username', 'password')).toEqual(false);
+  expect(store.hasWarnings('username', 'password')).toEqual(false);
+  expect(store.hasInfos('username', 'password')).toEqual(false);
 
   store.updateField('username', {
     dirty: true,
@@ -240,9 +240,9 @@ test('contain*()', () => {
     infos: new Set(),
     validationMessage: 'Suffering from being missing'
   });
-  expect(store.containErrors('username', 'password')).toEqual(true);
-  expect(store.containWarnings('username', 'password')).toEqual(false);
-  expect(store.containInfos('username', 'password')).toEqual(false);
+  expect(store.hasErrors('username', 'password')).toEqual(true);
+  expect(store.hasWarnings('username', 'password')).toEqual(false);
+  expect(store.hasInfos('username', 'password')).toEqual(false);
 
   store.updateField('username', {
     dirty: true,
@@ -258,9 +258,9 @@ test('contain*()', () => {
     infos: new Set(),
     validationMessage: 'Suffering from being missing'
   });
-  expect(store.containErrors('username', 'password')).toEqual(false);
-  expect(store.containWarnings('username', 'password')).toEqual(true);
-  expect(store.containInfos('username', 'password')).toEqual(false);
+  expect(store.hasErrors('username', 'password')).toEqual(false);
+  expect(store.hasWarnings('username', 'password')).toEqual(true);
+  expect(store.hasInfos('username', 'password')).toEqual(false);
 
   store.updateField('username', {
     dirty: true,
@@ -276,18 +276,18 @@ test('contain*()', () => {
     infos: new Set([1.1]),
     validationMessage: 'Suffering from being missing'
   });
-  expect(store.containErrors('username', 'password')).toEqual(false);
-  expect(store.containWarnings('username', 'password')).toEqual(false);
-  expect(store.containInfos('username', 'password')).toEqual(true);
+  expect(store.hasErrors('username', 'password')).toEqual(false);
+  expect(store.hasWarnings('username', 'password')).toEqual(false);
+  expect(store.hasInfos('username', 'password')).toEqual(true);
 });
 
 test('contain*() - unknown field', () => {
   const store = new FieldsStore();
 
   // Ignore unknown fields
-  expect(store.containErrors('email')).toEqual(false);
-  expect(store.containWarnings('email')).toEqual(false);
-  expect(store.containInfos('email')).toEqual(false);
+  expect(store.hasErrors('email')).toEqual(false);
+  expect(store.hasWarnings('email')).toEqual(false);
+  expect(store.hasInfos('email')).toEqual(false);
   expect(store.areValidDirtyWithoutWarnings('email')).toEqual(false);
 });
 

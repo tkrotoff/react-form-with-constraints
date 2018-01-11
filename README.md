@@ -5,10 +5,12 @@
 [![codecov](https://codecov.io/gh/tkrotoff/react-form-with-constraints/branch/master/graph/badge.svg)](https://codecov.io/gh/tkrotoff/react-form-with-constraints)
 [![gzip size](http://img.badgesize.io/https://unpkg.com/react-form-with-constraints@latest/dist/react-form-with-constraints.production.min.js.gz?compression=gzip)](https://unpkg.com/react-form-with-constraints/dist/react-form-with-constraints.production.min.js.gz)
 
-Simple form validation for React in [~400 lines of code](packages/react-form-with-constraints/src)
+Simple form validation for React in [~500 lines of code](packages/react-form-with-constraints/src)
 
 - Installation: `npm install react-form-with-constraints`
 - CDN: https://unpkg.com/react-form-with-constraints/dist/
+
+Check the [changelog](CHANGELOG.md) for breaking changes and fixes between releases.
 
 ## Introduction: what is HTML5 form validation?
 
@@ -36,17 +38,19 @@ Resources:
 - Control HTML5 error messages: `<FieldFeedback when="valueMissing">My custom error message</FieldFeedback>`
 - Custom constraints: `<FieldFeedback when={value => ...}>`
 - Warnings and infos: `<FieldFeedback ... warning>`, `<FieldFeedback ... info>`
+- Async validation
 - No dependency beside React (no Redux, MobX...)
 - No special component like `<TextField>`, just plain old `<input>` or whatever you like
 - Re-render only what's necessary
 - Support for [React Native](examples/ReactNative) with npm package `react-form-with-constraints-native`
+- Easily extendable
 - ...
 
 ```JSX
 <input type="password" name="password"
        value={this.state.password} onChange={this.handleChange}
        required pattern=".{5,}" />
-<FieldFeedbacks for="password" show="all">
+<FieldFeedbacks for="password">
   <FieldFeedback when="valueMissing" />
   <FieldFeedback when="patternMismatch">
     Should be at least 5 characters long
@@ -99,7 +103,7 @@ The API works the same way as [React Router v4](https://reacttraining.com/react-
 It is also inspired by [AngularJS ngMessages](https://docs.angularjs.org/api/ngMessages#usage).
 
 If you had to implement validation yourself, you would end up with [a global object that tracks errors for each field](examples/NoFramework/App.tsx).
-react-form-with-constraints [works similarly](packages/react-form-with-constraints/src/Fields.ts) (although not using `setState`).
+react-form-with-constraints [works similarly](packages/react-form-with-constraints/src/Fields.ts).
 It uses [React context](https://facebook.github.io/react/docs/context.html#parent-child-coupling) to share the [`FieldsStore`](packages/react-form-with-constraints/src/FieldsStore.ts) object across [`FieldFeedbacks`](packages/react-form-with-constraints/src/FieldFeedbacks.tsx) and [`FieldFeedback`](packages/react-form-with-constraints/src/FieldFeedback.tsx).
 
 ## API
@@ -119,21 +123,95 @@ for field "password"
 
 (*) [element.validationMessage](https://www.w3.org/TR/html51/sec-forms.html#the-constraint-validation-api)
 
+Async support works as follow:
+```JSX
+<FieldFeedbacks for="username">
+  <Async
+    promise={checkUsernameAvailability} /* Function that returns a promise */
+    then={available => available ?
+      <FieldFeedback info style={{color: 'green'}}>Username available</FieldFeedback> :
+      <FieldFeedback>Username already taken, choose another</FieldFeedback>
+    }
+  />
+</FieldFeedbacks>
+```
+
+Trigger validation:
+```JSX
+class MyForm extends React.Component {
+  async handleChange(e) {
+    // Validates only the given field and returns the related FieldFeedbackValidation structures
+    const fieldFeedbackValidations = await this.form.validateFields(e.currentTarget);
+
+    const fieldIsValid = fieldFeedbackValidations.every(fieldFeedback => fieldFeedback.isValid);
+    if (fieldIsValid) console.log('The field is valid');
+    else console.log('The field is invalid');
+    if (this.form.isValid()) console.log('The form is valid');
+    else console.log('The form is invalid');
+  }
+
+  async handleSubmit(e) {
+    e.preventDefault();
+
+    // Validates all fields and returns the related FieldFeedbackValidation structures
+    const fieldFeedbackValidations = await this.form.validateFields();
+
+    // or simply this.form.isValid()
+    const formIsValid = fieldFeedbackValidations.every(fieldFeedback => fieldFeedback.isValid);
+    if (formIsValid) console.log('The form is valid');
+    else console.log('The form is invalid');
+  }
+
+  render() {
+    return (
+      <FormWithConstraints
+        ref={form => this.form = form}
+        onSubmit={this.handleSubmit} noValidate
+      >
+        <input
+          name="username"
+          onChange={this.handleChange}
+          required minLength={3}
+        />
+        <FieldFeedbacks for="username">
+          <FieldFeedback when="tooShort">Too short</FieldFeedback>
+          <Async
+            promise={checkUsernameAvailability}
+            then={available => available ?
+              <FieldFeedback info style={{color: 'green'}}>Username available</FieldFeedback> :
+              <FieldFeedback>Username already taken, choose another</FieldFeedback>
+            }
+          />
+          <FieldFeedback when="*" />
+        </FieldFeedbacks>
+      </FormWithConstraints>
+    );
+  }
+}
+```
+
 - `FieldFeedbacks`
-  - `for: string` => refer to a `name` attribute (e.g `<input name="username">`), should be unique to the current form
-  - `show?: 'first' | 'all'` => display the first error/warning encountered (default) or all of them
+  - `for: string` => reference to a `name` attribute (e.g `<input name="username">`), should be unique to the current form
+  - `stop?: 'first-error' | 'no'` => when to stop rendering `FieldFeedback`s, by default stops at the first error encountered (`FieldFeedback`s order matters)
 
   Note: you can place `FieldFeedbacks` anywhere and have as many as you want for the same `field`
 
 - `FieldFeedback`
-  - `when: `[`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)` string | '*' | function` => HTML5 constraint violation name or a callback
-  - `error?: boolean` => treat the feedback as an error (default)
-  - `warning?: boolean` => treat the feedback as a warning
-  - `info?: boolean` => treat the feedback as an info
+  - `when?: `[`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)` string | '*' | function` => HTML5 constraint violation name or a callback
+  - `error?: boolean` => treats the feedback as an error (default)
+  - `warning?: boolean` => treats the feedback as a warning
+  - `info?: boolean` => treats the feedback as an info
+
+- `Async<T>` => Async version of FieldFeedback, similar API as [react-promise](https://github.com/capaj/react-promise)
+  - `promise: (value: string) => Promise<T>` => a promise you want to wait for
+  - `pending?: React.ReactNode` => runs when promise is pending
+  - `then?: (value: T) => React.ReactNode` => runs when promise is resolved
+  - `catch?: (reason: any) => React.ReactNode` => runs when promise is rejected
 
 - `FormWithConstraints`
-  - `validateFields(...inputsOrNames: Array<Input | string>): void` => should be called when a `field` changes or the `form` is submitted, will re-render the proper `FieldFeedbacks`
-  - `isValid(): boolean`
+  - `validateFields(...inputsOrNames: Array<Input | string>): Promise<FieldFeedbackValidation[]>` => should be called when a `field` changes or the `form` is submitted, will re-render the proper `FieldFeedback`s (and update the internal `FieldsStore`)
+  - `isValid(): boolean` => should be called after `validateFields(...)`, tells if the known fields are valid (thanks to internal `FieldsStore`)
+  - `FieldFeedbackValidation` => `{ key: number; isValid: boolean | undefined; }`
 
 ## Browser support
 

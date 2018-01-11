@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { shallow as _shallow } from 'enzyme';
 
-import { fieldWithoutFeedback, FieldFeedback, FieldFeedbackProps, FieldFeedbackContext, ValidateEvent } from './index';
-import FormWithConstraintsMock from './FormWithConstraintsMock';
-import FieldFeedbacksMock from './FieldFeedbacksMock';
+import { FormWithConstraints, fieldWithoutFeedback, FieldFeedbacks, FieldFeedback, FieldFeedbackContext, FieldFeedbackProps, ValidateEvent } from './index';
+import createFieldFeedbacks from './createFieldFeedbacks';
 import InputMock from './InputMock';
 
 function shallow(node: React.ReactElement<FieldFeedbackProps>, options: {context: FieldFeedbackContext}) {
@@ -13,30 +12,22 @@ function shallow(node: React.ReactElement<FieldFeedbackProps>, options: {context
 const fieldFeedbacksKey1 = 1;
 const fieldFeedbackKey11 = 1.1;
 
-let form_username_empty: FormWithConstraintsMock;
-let fieldFeedbacks_username: FieldFeedbacksMock;
+let form_username_empty: FormWithConstraints;
+let fieldFeedbacks_username: FieldFeedbacks;
 
 beforeEach(() => {
-  form_username_empty = new FormWithConstraintsMock({
+  form_username_empty = new FormWithConstraints({});
+  form_username_empty.fieldsStore.fields = {
     username: fieldWithoutFeedback
-  });
-  fieldFeedbacks_username = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-});
-
-test('constructor() - computeFieldFeedbackKey()', () => {
-  const component = shallow(
-    <FieldFeedback when="*">message</FieldFeedback>,
-    {context: {form: form_username_empty, fieldFeedbacks: fieldFeedbacks_username}}
-  );
-  const fieldFeedback = component.instance() as FieldFeedback;
-  expect(fieldFeedback.key).toEqual(fieldFeedbackKey11);
+  };
+  fieldFeedbacks_username = createFieldFeedbacks({for: 'username', stop: 'no'}, form_username_empty, fieldFeedbacksKey1, fieldFeedbackKey11);
 });
 
 test('componentWillMount() componentWillUnmount()', () => {
   const addValidateEventListenerSpy = jest.spyOn(fieldFeedbacks_username, 'addValidateEventListener');
   const removeValidateEventListenerSpy = jest.spyOn(fieldFeedbacks_username, 'removeValidateEventListener');
 
-  const component = shallow(
+  const wrapper = shallow(
     <FieldFeedback when="*">message</FieldFeedback>,
     {context: {form: form_username_empty, fieldFeedbacks: fieldFeedbacks_username}}
   );
@@ -44,7 +35,7 @@ test('componentWillMount() componentWillUnmount()', () => {
   expect(removeValidateEventListenerSpy).toHaveBeenCalledTimes(0);
   expect(fieldFeedbacks_username.validateEventEmitter.listeners.get(ValidateEvent)).toHaveLength(1);
 
-  component.unmount();
+  wrapper.unmount();
   expect(addValidateEventListenerSpy).toHaveBeenCalledTimes(1);
   expect(removeValidateEventListenerSpy).toHaveBeenCalledTimes(1);
   expect(fieldFeedbacks_username.validateEventEmitter.listeners.get(ValidateEvent)).toEqual(undefined);
@@ -313,7 +304,8 @@ describe('validate()', () => {
 
 describe('className()', () => {
   test('error matching', () => {
-    const form = new FormWithConstraintsMock({
+    const form = new FormWithConstraints({});
+    form.fieldsStore.fields = {
       username: {
         dirty: true,
         errors: new Set([fieldFeedbackKey11]),
@@ -321,20 +313,21 @@ describe('className()', () => {
         infos: new Set(),
         validationMessage: ''
       }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+    };
+    const fieldFeedbacks = createFieldFeedbacks({for: 'username', stop: 'no'}, form, fieldFeedbacksKey1, fieldFeedbackKey11);
 
-    const component = shallow(
+    const wrapper = shallow(
       <FieldFeedback when="*" />,
       {context: {form, fieldFeedbacks}}
     );
-    const fieldFeedback = component.instance() as FieldFeedback;
+    const fieldFeedback = wrapper.instance() as FieldFeedback;
 
     expect(fieldFeedback.className()).toEqual('error');
   });
 
   test('warning matching', () => {
-    const form = new FormWithConstraintsMock({
+    const form = new FormWithConstraints({});
+    form.fieldsStore.fields = {
       username: {
         dirty: true,
         errors: new Set(),
@@ -342,20 +335,21 @@ describe('className()', () => {
         infos: new Set(),
         validationMessage: ''
       }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+    };
+    const fieldFeedbacks = createFieldFeedbacks({for: 'username', stop: 'no'}, form, fieldFeedbacksKey1, fieldFeedbackKey11);
 
-    const component = shallow(
+    const wrapper = shallow(
       <FieldFeedback when="*" />,
       {context: {form, fieldFeedbacks}}
     );
-    const fieldFeedback = component.instance() as FieldFeedback;
+    const fieldFeedback = wrapper.instance() as FieldFeedback;
 
     expect(fieldFeedback.className()).toEqual('warning');
   });
 
   test('info matching', () => {
-    const form = new FormWithConstraintsMock({
+    const form = new FormWithConstraints({});
+    form.fieldsStore.fields = {
       username: {
         dirty: true,
         errors: new Set(),
@@ -363,20 +357,21 @@ describe('className()', () => {
         infos: new Set([fieldFeedbackKey11]),
         validationMessage: ''
       }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+    };
+    const fieldFeedbacks = createFieldFeedbacks({for: 'username', stop: 'no'}, form, fieldFeedbacksKey1, fieldFeedbackKey11);
 
-    const component = shallow(
+    const wrapper = shallow(
       <FieldFeedback when="*" />,
       {context: {form, fieldFeedbacks}}
     );
-    const fieldFeedback = component.instance() as FieldFeedback;
+    const fieldFeedback = wrapper.instance() as FieldFeedback;
 
     expect(fieldFeedback.className()).toEqual('info');
   });
 
   test('not matching', () => {
-    const form = new FormWithConstraintsMock({
+    const form = new FormWithConstraints({});
+    form.fieldsStore.fields = {
       username: {
         dirty: false,
         errors: new Set(),
@@ -384,146 +379,23 @@ describe('className()', () => {
         infos: new Set(),
         validationMessage: ''
       }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+    };
+    const fieldFeedbacks = createFieldFeedbacks({for: 'username', stop: 'no'}, form, fieldFeedbacksKey1, fieldFeedbackKey11);
 
-    const component = shallow(
+    const wrapper = shallow(
       <FieldFeedback when="*" />,
       {context: {form, fieldFeedbacks}}
     );
-    const fieldFeedback = component.instance() as FieldFeedback;
+    const fieldFeedback = wrapper.instance() as FieldFeedback;
 
     expect(fieldFeedback.className()).toEqual(undefined);
-  });
-
-  describe('show="first"', () => {
-    test('first error', () => {
-      const form = new FormWithConstraintsMock({
-        username: {
-          dirty: true,
-          errors: new Set([fieldFeedbackKey11, 1.2, 1.3]),
-          warnings: new Set([fieldFeedbackKey11, 1.2, 1.3]),
-          infos: new Set([fieldFeedbackKey11, 1.2, 1.3]),
-          validationMessage: ''
-        }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'first'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-      const component = shallow(
-        <FieldFeedback when="*" />,
-        {context: {form, fieldFeedbacks}}
-      );
-      const fieldFeedback = component.instance() as FieldFeedback;
-
-      expect(fieldFeedback.className()).toEqual('error');
-    });
-
-    test('no error + first warning', () => {
-      const form = new FormWithConstraintsMock({
-        username: {
-          dirty: true,
-          errors: new Set(),
-          warnings: new Set([fieldFeedbackKey11, 1.2, 1.3]),
-          infos: new Set([fieldFeedbackKey11, 1.2, 1.3]),
-          validationMessage: 'Suffering from being missing'
-        }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'first'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-      const component = shallow(
-        <FieldFeedback when="*" />,
-        {context: {form, fieldFeedbacks}}
-      );
-      const fieldFeedback = component.instance() as FieldFeedback;
-
-      expect(fieldFeedback.className()).toEqual('warning');
-    });
-
-    test('not first', () => {
-      const form = new FormWithConstraintsMock({
-        username: {
-          dirty: true,
-          errors: new Set([1.0, fieldFeedbackKey11, 1.2]),
-          warnings: new Set([1.0, fieldFeedbackKey11, 1.2]),
-          infos: new Set([1.0, fieldFeedbackKey11, 1.2]),
-          validationMessage: 'Suffering from being missing'
-        }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'first'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-      const component = shallow(
-        <FieldFeedback when="*" />,
-        {context: {form, fieldFeedbacks}}
-      );
-      const fieldFeedback = component.instance() as FieldFeedback;
-
-      expect(fieldFeedback.className()).toEqual('info');
-    });
-  });
-
-  describe('show="all"', () => {
-    test('not matching', () => {
-      const form = new FormWithConstraintsMock({
-        username: {
-          dirty: true,
-          errors: new Set([1.0, 1.2]),
-          warnings: new Set([1.0, 1.2]),
-          infos: new Set([1.0, 1.2]),
-          validationMessage: ''
-        }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'first'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-      const component = shallow(
-        <FieldFeedback when="*" />,
-        {context: {form, fieldFeedbacks}}
-      );
-      const fieldFeedback = component.instance() as FieldFeedback;
-
-      expect(fieldFeedback.className()).toEqual(undefined);
-    });
-
-    test('errors + first warning', () => {
-      const form = new FormWithConstraintsMock({
-        username: {
-          dirty: true,
-          errors: new Set([1.2, 1.3]),
-          warnings: new Set([fieldFeedbackKey11, 1.2, 1.3]),
-          infos: new Set([fieldFeedbackKey11, 1.2, 1.3]),
-          validationMessage: ''
-        }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-      const component = shallow(
-        <FieldFeedback when="*" />,
-        {context: {form, fieldFeedbacks}}
-      );
-      const fieldFeedback = component.instance() as FieldFeedback;
-
-      expect(fieldFeedback.className()).toEqual('info');
-    });
-
-    test('no error + warning', () => {
-      const form = new FormWithConstraintsMock({
-        username: {
-          dirty: true,
-          errors: new Set(),
-          warnings: new Set([1.0, fieldFeedbackKey11, 1.2]),
-          infos: new Set([1.0, fieldFeedbackKey11, 1.2]),
-          validationMessage: 'Suffering from being missing'
-        }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
-      const component = shallow(
-        <FieldFeedback when="*" />,
-        {context: {form, fieldFeedbacks}}
-      );
-      const fieldFeedback = component.instance() as FieldFeedback;
-
-      expect(fieldFeedback.className()).toEqual('warning');
-    });
   });
 });
 
 describe('render()', () => {
   test('with children', () => {
-    const form = new FormWithConstraintsMock({
+    const form = new FormWithConstraints({});
+    form.fieldsStore.fields = {
       username: {
         dirty: true,
         errors: new Set([fieldFeedbackKey11]),
@@ -531,8 +403,8 @@ describe('render()', () => {
         infos: new Set(),
         validationMessage: 'Suffering from being missing'
       }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+    };
+    const fieldFeedbacks = createFieldFeedbacks({for: 'username', stop: 'no'}, form, fieldFeedbacksKey1, fieldFeedbackKey11);
 
     const fieldFeedback = shallow(
       <FieldFeedback when="*">message</FieldFeedback>,
@@ -543,7 +415,8 @@ describe('render()', () => {
   });
 
   test('without children', () => {
-    const form = new FormWithConstraintsMock({
+    const form = new FormWithConstraints({});
+    form.fieldsStore.fields = {
       username: {
         dirty: true,
         errors: new Set([fieldFeedbackKey11]),
@@ -551,8 +424,8 @@ describe('render()', () => {
         infos: new Set(),
         validationMessage: 'Suffering from being missing'
       }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+    };
+    const fieldFeedbacks = createFieldFeedbacks({for: 'username', stop: 'no'}, form, fieldFeedbacksKey1, fieldFeedbackKey11);
 
     const fieldFeedback = shallow(
       <FieldFeedback when="*" />,
@@ -563,7 +436,8 @@ describe('render()', () => {
   });
 
   test('with already existing class', () => {
-    const form = new FormWithConstraintsMock({
+    const form = new FormWithConstraints({});
+    form.fieldsStore.fields = {
       username: {
         dirty: true,
         errors: new Set([fieldFeedbackKey11]),
@@ -571,8 +445,8 @@ describe('render()', () => {
         infos: new Set(),
         validationMessage: ''
       }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+    };
+    const fieldFeedbacks = createFieldFeedbacks({for: 'username', stop: 'no'}, form, fieldFeedbacksKey1, fieldFeedbackKey11);
 
     const fieldFeedback = shallow(
       <FieldFeedback when="*" className="alreadyExistingClassName" />,
@@ -583,7 +457,8 @@ describe('render()', () => {
   });
 
   test('with already existing class - no error', () => {
-    const form = new FormWithConstraintsMock({
+    const form = new FormWithConstraints({});
+    form.fieldsStore.fields = {
       username: {
         dirty: true,
         errors: new Set(),
@@ -591,8 +466,8 @@ describe('render()', () => {
         infos: new Set(),
         validationMessage: ''
       }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+    };
+    const fieldFeedbacks = createFieldFeedbacks({for: 'username', stop: 'no'}, form, fieldFeedbacksKey1, fieldFeedbackKey11);
 
     const fieldFeedback = shallow(
       <FieldFeedback when="*" className="alreadyExistingClassName" />,
@@ -603,7 +478,8 @@ describe('render()', () => {
   });
 
   test('with divProps', () => {
-    const form = new FormWithConstraintsMock({
+    const form = new FormWithConstraints({});
+    form.fieldsStore.fields = {
       username: {
         dirty: true,
         errors: new Set([fieldFeedbackKey11]),
@@ -611,8 +487,8 @@ describe('render()', () => {
         infos: new Set(),
         validationMessage: ''
       }
-    });
-    const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+    };
+    const fieldFeedbacks = createFieldFeedbacks({for: 'username', stop: 'no'}, form, fieldFeedbacksKey1, fieldFeedbackKey11);
 
     const fieldFeedback = shallow(
       <FieldFeedback when="*" style={{color: 'yellow'}} />,

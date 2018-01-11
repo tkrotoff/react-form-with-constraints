@@ -1,8 +1,19 @@
 import * as React from 'react';
-import { StyleSheet, Text, /*TextInput,*/ View, Button } from 'react-native';
+import { StyleSheet, Text, /*TextInput,*/ View, Button, ActivityIndicator } from 'react-native';
 import { TextInput } from 'react-form-with-constraints-native/lib/react-native-TextInput-fix'; // Specific to TypeScript
 
+import { Async } from 'react-form-with-constraints';
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints-native';
+
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function checkUsernameAvailability(value: string) {
+  console.log('checkUsernameAvailability');
+  await sleep(1000);
+  return !['john@beatles', 'paul@beatles', 'george@beatles', 'ringo@beatles'].includes(value.toLowerCase());
+}
 
 export interface Props {}
 
@@ -35,18 +46,13 @@ export default class App extends React.Component<Props, State> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  updateSubmitButton() {
-    this.setState({
-      submitButtonDisabled: !this.form.isValid()
-    });
-  }
-
   handleUsernameChange(text: string) {
     this.setState(
       {username: text},
-      () => {
-        this.form.validateFields(this.username); // or this.form.validateFields('username')
-        this.updateSubmitButton();
+      async () => {
+        // or this.form.validateFields('username')
+        await this.form.validateFields(this.username);
+        this.setState({submitButtonDisabled: !this.form.isValid()});
       }
     );
   }
@@ -54,9 +60,10 @@ export default class App extends React.Component<Props, State> {
   handlePasswordChange(text: string) {
     this.setState(
       {password: text},
-      () => {
-        this.form.validateFields(this.password, this.passwordConfirm); // or this.form.validateFields('password', 'passwordConfirm')
-        this.updateSubmitButton();
+      async () => {
+          // or this.form.validateFields('password', 'passwordConfirm')
+          await this.form.validateFields(this.password, this.passwordConfirm);
+          this.setState({submitButtonDisabled: !this.form.isValid()});
       }
     );
   }
@@ -64,18 +71,19 @@ export default class App extends React.Component<Props, State> {
   handlePasswordConfirmChange(text: string) {
     this.setState(
       {passwordConfirm: text},
-      () => {
-        this.form.validateFields(this.passwordConfirm); // or this.form.validateFields('passwordConfirm')
-        this.updateSubmitButton();
+      async () => {
+        // or this.form.validateFields('passwordConfirm')
+        await this.form.validateFields(this.passwordConfirm);
+        this.setState({submitButtonDisabled: !this.form.isValid()});
       }
     );
   }
 
-  handleSubmit() {
-    this.form.validateFields();
-    this.updateSubmitButton();
-
-    if (this.form.isValid()) {
+  async handleSubmit() {
+    await this.form.validateFields();
+    const formIsValid = this.form.isValid();
+    this.setState({submitButtonDisabled: !formIsValid});
+    if (formIsValid) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     }
   }
@@ -88,7 +96,9 @@ export default class App extends React.Component<Props, State> {
           style={feedbacksStyles}>
 
           <View style={styles.flow}>
-            <Text onPress={() => this.username.focus()}>Username</Text>
+            <Text onPress={() => this.username.focus()}>
+              Username <Text style={{fontSize: 11}}>(already taken: john@beatles, paul@beatles, george@beatles, ringo@beatles)</Text>
+            </Text>
             <TextInput
               name="username"
               keyboardType="email-address"
@@ -100,6 +110,14 @@ export default class App extends React.Component<Props, State> {
             <FieldFeedbacks for="username">
               <FieldFeedback when={value => value.length === 0}>Cannot be empty</FieldFeedback>
               <FieldFeedback when={value => !/\S+@\S+/.test(value)}>Invalid email address</FieldFeedback>
+              <Async
+                promise={checkUsernameAvailability}
+                pending={<ActivityIndicator size="small" color="blue" />}
+                then={available => available ?
+                  <FieldFeedback info style={{color: 'green'}}>Username available</FieldFeedback> :
+                  <FieldFeedback>Username already taken, choose another</FieldFeedback>
+                }
+              />
             </FieldFeedbacks>
           </View>
 
@@ -113,7 +131,7 @@ export default class App extends React.Component<Props, State> {
               onChangeText={this.handlePasswordChange}
               style={styles.input}
             />
-            <FieldFeedbacks for="password" show="all">
+            <FieldFeedbacks for="password">
               <FieldFeedback when={value => value.length === 0}>Cannot be empty</FieldFeedback>
               <FieldFeedback when={value => value.length > 0 && value.length < 5}>Should be at least 5 characters long</FieldFeedback>
               <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>

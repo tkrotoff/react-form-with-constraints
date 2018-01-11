@@ -7,7 +7,7 @@ import * as Bootstrap4 from './index';
 import { getFieldFeedbacksMessages } from './Enzyme';
 
 test('getFieldFeedbacksMessages() with Bootstrap4', () => {
-  const component = shallow(
+  const wrapper = shallow(
     <div>
       <Bootstrap4.FormGroup for="username">
         <Bootstrap4.FormControlInput name="username" value="" required />
@@ -18,7 +18,7 @@ test('getFieldFeedbacksMessages() with Bootstrap4', () => {
     </div>
   );
 
-  const inputs = component.find(Bootstrap4.FormControlInput);
+  const inputs = wrapper.find(Bootstrap4.FormControlInput);
   expect(inputs).toHaveLength(1);
   expect(inputs.props().value).toEqual('');
   expect(getFieldFeedbacksMessages(inputs)).toEqual(['Please fill out this field.']);

@@ -1,32 +1,32 @@
 import * as React from 'react';
 import { shallow as _shallow } from 'enzyme';
 
-import { fieldWithoutFeedback, FormWithConstraintsChildContext, FieldEvent } from 'react-form-with-constraints';
+import { FormWithConstraints, FormWithConstraintsChildContext, fieldWithoutFeedback, FieldEvent } from 'react-form-with-constraints';
 import { DisplayFields } from './index';
-import FormWithConstraintsMock from '../../react-form-with-constraints/src/FormWithConstraintsMock';
 
 function shallow(node: React.ReactElement<{}>, options: {context: FormWithConstraintsChildContext}) {
   return _shallow<{}>(node, options);
 }
 
-let form_username_empty: FormWithConstraintsMock;
+let form_username_empty: FormWithConstraints;
 
 beforeEach(() => {
-  form_username_empty = new FormWithConstraintsMock({
+  form_username_empty = new FormWithConstraints({});
+  form_username_empty.fieldsStore.fields = {
     username: fieldWithoutFeedback
-  });
+  };
 });
 
 test('componentWillMount() componentWillUnmount()', () => {
-  const form = new FormWithConstraintsMock();
+  const form = new FormWithConstraints({});
   const fieldsStoreAddListenerSpy = jest.spyOn(form.fieldsStore, 'addListener');
   const fieldsStoreRemoveListenerSpy = jest.spyOn(form.fieldsStore, 'removeListener');
 
-  const component = shallow(
+  const wrapper = shallow(
     <DisplayFields />,
     {context: {form}}
   );
-  const reRender = (component.instance() as DisplayFields).reRender;
+  const reRender = (wrapper.instance() as DisplayFields).reRender;
 
   expect(fieldsStoreAddListenerSpy).toHaveBeenCalledTimes(3);
   expect(fieldsStoreAddListenerSpy.mock.calls).toEqual([
@@ -36,7 +36,7 @@ test('componentWillMount() componentWillUnmount()', () => {
   ]);
   expect(fieldsStoreRemoveListenerSpy).toHaveBeenCalledTimes(0);
 
-  component.unmount();
+  wrapper.unmount();
   expect(fieldsStoreAddListenerSpy).toHaveBeenCalledTimes(3);
   expect(fieldsStoreRemoveListenerSpy).toHaveBeenCalledTimes(3);
   expect(fieldsStoreRemoveListenerSpy.mock.calls).toEqual([
@@ -47,12 +47,12 @@ test('componentWillMount() componentWillUnmount()', () => {
 });
 
 test('render()', () => {
-  const component = shallow(
+  const wrapper = shallow(
     <DisplayFields />,
     {context: {form: form_username_empty}}
   );
 
-  expect(component.text()).toEqual(
+  expect(wrapper.text()).toEqual(
 `react-form-with-constraints = {
   "username": {
     "dirty": false,
@@ -63,7 +63,7 @@ test('render()', () => {
   }
 }`);
 
-  expect(component.html()).toEqual(
+  expect(wrapper.html()).toEqual(
 `<pre>react-form-with-constraints = {
   &quot;username&quot;: {
     &quot;dirty&quot;: false,
@@ -78,7 +78,7 @@ test('render()', () => {
 
 describe('reRender()', () => {
   test('adding field', () => {
-    const component = shallow(
+    const wrapper = shallow(
       <DisplayFields />,
       {context: {form: form_username_empty}}
     );
@@ -86,9 +86,9 @@ describe('reRender()', () => {
     form_username_empty.fieldsStore.addField('password');
 
     // See http://airbnb.io/enzyme/docs/guides/migration-from-2-to-3.html#for-mount-updates-are-sometimes-required-when-they-werent-before
-    component.update();
+    wrapper.update();
 
-    expect(component.text()).toEqual(
+    expect(wrapper.text()).toEqual(
 `react-form-with-constraints = {
   "username": {
     "dirty": false,
@@ -108,20 +108,20 @@ describe('reRender()', () => {
   });
 
   test('removing field', () => {
-    const component = shallow(
+    const wrapper = shallow(
       <DisplayFields />,
       {context: {form: form_username_empty}}
     );
 
     form_username_empty.fieldsStore.removeField('username');
 
-    component.update();
+    wrapper.update();
 
-    expect(component.text()).toEqual('react-form-with-constraints = {}');
+    expect(wrapper.text()).toEqual('react-form-with-constraints = {}');
   });
 
   test('updating field', () => {
-    const component = shallow(
+    const wrapper = shallow(
       <DisplayFields />,
       {context: {form: form_username_empty}}
     );
@@ -134,9 +134,9 @@ describe('reRender()', () => {
     field.validationMessage = "I'm a clone";
     form_username_empty.fieldsStore.updateField('username', field);
 
-    component.update();
+    wrapper.update();
 
-    expect(component.text()).toEqual(
+    expect(wrapper.text()).toEqual(
 `react-form-with-constraints = {
   "username": {
     "dirty": true,
@@ -155,7 +155,7 @@ describe('reRender()', () => {
   });
 
   test('updating unknown field', () => {
-    const component = shallow(
+    const wrapper = shallow(
       <DisplayFields />,
       {context: {form: form_username_empty}}
     );
@@ -168,7 +168,7 @@ describe('reRender()', () => {
     field.validationMessage = "I'm a clone";
     expect(() => form_username_empty.fieldsStore.updateField('unknown', field)).toThrow("Unknown field 'unknown'");
 
-    expect(component.text()).toEqual(
+    expect(wrapper.text()).toEqual(
 `react-form-with-constraints = {
   "username": {
     "dirty": false,

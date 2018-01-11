@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { Text, TextProperties as TextProps, View } from 'react-native';
 import { TextInput } from './react-native-TextInput-fix'; // Specific to TypeScript
 
 import {
   FormWithConstraints as _FormWithConstraints,
   FieldFeedback as _FieldFeedback,
-  FieldFeedbacks as _FieldFeedbacks
+  FieldFeedbacks as _FieldFeedbacks,
+  FieldFeedbackValidation
 } from 'react-form-with-constraints';
 
 // Recursive React.Children.forEach()
@@ -36,6 +37,31 @@ export interface Input {
 //  Types of property 'validateFields' are incompatible.
 export class FormWithConstraints extends _FormWithConstraints {
   validateFields(...inputsOrNames: Array<TextInput | string>) {
+    const validationsPromisesList = new Array<Promise<FieldFeedbackValidation[]>>();
+
+    const inputs = this.normalizeInputs(...inputsOrNames);
+
+    inputs.forEach(input => {
+      const validationsPromises = this.emitValidateEvent({
+        name: input.props.name,
+        type: undefined as any,
+        value: input.props.value!, // Tested: TextInput props.value is always a string and never undefined (empty string instead)
+        validity: undefined as any,
+        validationMessage: undefined as any
+      })
+        .filter(validation => validation !== undefined) // Remove undefined results
+        .map(validation => Promise.resolve(validation!)); // Transforms all results into Promises
+
+      validationsPromisesList.push(...validationsPromises);
+    });
+
+    return Promise.all(validationsPromisesList).then(validations =>
+      // See Merge/flatten an array of arrays in JavaScript? https://stackoverflow.com/q/10865025/990356
+      validations.reduce((prev, curr) => prev.concat(curr), [])
+    );
+  }
+
+  normalizeInputs(...inputsOrNames: Array<TextInput | string>) {
     const inputs = inputsOrNames.filter(inputOrName => typeof inputOrName !== 'string') as any as React.ReactElement<Input>[];
     const fieldNames = inputsOrNames.filter(inputOrName => typeof inputOrName === 'string') as string[];
 
@@ -67,16 +93,10 @@ export class FormWithConstraints extends _FormWithConstraints {
       });
     }
 
-    [
+    return [
       ...inputs,
       ...otherInputs
-    ].forEach(input => this.emitValidateEvent({
-      name: input.props.name,
-      type: undefined as any,
-      value: input.props.value!, // Tested: TextInput props.value is always a string and never undefined (empty string instead)
-      validity: undefined as any,
-      validationMessage: undefined as any
-    }));
+    ];
   }
 
   render() {
@@ -95,16 +115,18 @@ export class FieldFeedbacks extends _FieldFeedbacks {
 
 export class FieldFeedback extends _FieldFeedback {
   render() {
-    const { children } = this.props;
+    const { when, error, warning, info, className: _, children, ...textProps } = this.props;
                       // React Native implementation needs to access props thus the cast
-    const { style } = (this.context.form as FormWithConstraints).props;
+    const { style } = (this.context.form as any as FormWithConstraints).props;
 
     const className = this.className();
 
     let feedback = null;
     if (className !== undefined) { // Means the FieldFeedback should be displayed
       const tmp = style !== undefined ? style[className] : undefined;
-      feedback = children !== undefined ? <Text style={tmp}>{children}</Text> : null;
+
+      // The last style property is the one applied
+      feedback = children !== undefined ? <Text style={tmp} {...textProps as TextProps}>{children}</Text> : null;
     }
 
     return feedback;

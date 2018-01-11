@@ -23,6 +23,9 @@
     "react-form-with-constraints": "^0.7.0",
     "react-form-with-constraints-tools": "^0.7.0",
 
+    "lodash": "latest",
+    "@types/lodash": "latest",
+
     "ts-node": "latest",
     "@types/node": "latest",
 

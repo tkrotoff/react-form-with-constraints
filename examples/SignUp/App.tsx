@@ -1,43 +1,71 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as _ from 'lodash';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
+import { Input, FormWithConstraints, FieldFeedbacks, FieldFeedback, Async as Async_, AsyncProps } from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
+import Gender from '../WizardForm/Gender';
+import { Color, colorKeys } from '../WizardForm/Color';
+
+import Spinner from './Spinner';
 import './index.html';
 import '../Password/style.css';
 
-enum Color {
-  Red = 'Red',
-  Orange = 'Orange',
-  Yellow = 'Yellow',
-  Green = 'Green',
-  Blue = 'Blue',
-  Indigo = 'Indigo',
-  Violet = 'Violet'
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
-const colorKeys = Object.keys(Color);
+
+async function checkUsernameAvailability(value: string) {
+  console.log('checkUsernameAvailability');
+  await sleep(1000);
+  return !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase());
+}
+
+// Async with a default React component for pending state
+function Async<T>(props: AsyncProps<T>) {
+  return (
+    <Async_
+      promise={props.promise}
+      pending={<Spinner />}
+      then={props.then}
+      catch={props.catch}
+    />
+  );
+}
+
+const VALIDATE_DEBOUNCE_WAIT = 1000;
 
 interface Props {}
 
 interface State {
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  gender?: Gender;
+  age: string;
+  phone: string;
   favoriteColor?: Color;
-  hasWebsite: boolean;
-  website?: string;
+  isEmployed?: boolean;
+  notes: string;
+  hasWebsite?: boolean;
+  website: string;
+  password: string;
+  passwordConfirm: string;
   submitButtonDisabled: boolean;
 }
 
 class Form extends React.Component<Props, State> {
   formWithConstraints: FormWithConstraints;
-  password: HTMLInputElement;
+  passwordInput: HTMLInputElement;
 
   constructor(props: Props) {
     super(props);
 
-    this.state = {
-      hasWebsite: false,
-      submitButtonDisabled: false
-    };
+    this.state = this.getInitialState();
+
+    this.validateFields = _.debounce(this.validateFields, VALIDATE_DEBOUNCE_WAIT);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleHasWebsiteChange = this.handleHasWebsiteChange.bind(this);
@@ -45,48 +73,97 @@ class Form extends React.Component<Props, State> {
     this.handleReset = this.handleReset.bind(this);
   }
 
+  private getInitialState() {
+    const state: State = {
+      firstName: '',
+      lastName: '',
+      username: '',
+      email: '',
+      gender: undefined,
+      age: '',
+      phone: '',
+      favoriteColor: undefined,
+      isEmployed: undefined,
+      notes: '',
+      hasWebsite: undefined,
+      website: '',
+      password: '',
+      passwordConfirm: '',
+      submitButtonDisabled: false
+    };
+    return state;
+  }
+
+  previousValidateFields: string;
+
   handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
     const target = e.currentTarget;
-
     const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
 
-    this.formWithConstraints.validateFields(target);
-
     this.setState({
-      [target.name as any]: value,
-      submitButtonDisabled: !this.formWithConstraints.isValid()
+      [target.name as any]: value
     });
+
+    // Flush the previous debounce if input is not the same otherwise validateFields(input2) will overwrite validateFields(input1)
+    // if the user changes input2 before validateFields(input1) is called
+    if (this.previousValidateFields !== target.name) {
+      (this.validateFields as ((target: Input) => Promise<void>) & _.Cancelable).flush();
+    }
+    this.previousValidateFields = target.name;
+
+    this.validateFields(target);
+  }
+
+  async validateFields(target: Input) {
+    await this.formWithConstraints.validateFields(target);
+    this.setState({submitButtonDisabled: !this.formWithConstraints.isValid()});
   }
 
   handleHasWebsiteChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const hasWebsite = (e.currentTarget as HTMLInputElement).checked;
+    const hasWebsite = e.currentTarget.checked;
 
     if (!hasWebsite) {
       // Reset this.state.website if it was previously filled
-      this.setState({website: undefined});
+      this.setState({website: ''});
     }
 
     this.handleChange(e);
   }
 
-  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    this.formWithConstraints.validateFields();
-
-    this.setState({submitButtonDisabled: !this.formWithConstraints.isValid()});
-
-    if (this.formWithConstraints.isValid()) {
+    await this.formWithConstraints.validateFields();
+    const formIsValid = this.formWithConstraints.isValid();
+    this.setState({submitButtonDisabled: !formIsValid});
+    if (formIsValid) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     }
   }
 
   handleReset() {
     this.formWithConstraints.form.reset();
+    this.setState(this.getInitialState());
   }
 
   render() {
-    const { favoriteColor, hasWebsite } = this.state;
+    const {
+      firstName,
+      lastName,
+      username,
+      email,
+      gender,
+      age,
+      phone,
+      favoriteColor,
+      isEmployed,
+      notes,
+      hasWebsite,
+      website,
+      password,
+      passwordConfirm,
+      submitButtonDisabled
+    } = this.state;
 
     return (
       <FormWithConstraints ref={formWithConstraints => this.formWithConstraints = formWithConstraints!}
@@ -94,7 +171,7 @@ class Form extends React.Component<Props, State> {
         <div>
           <label htmlFor="first-name">First Name</label>
           <input name="firstName" id="first-name"
-                 onChange={this.handleChange}
+                 value={firstName} onChange={this.handleChange}
                  required minLength={3} />
           <FieldFeedbacks for="firstName">
             <FieldFeedback when="tooShort">Too short</FieldFeedback>
@@ -105,7 +182,7 @@ class Form extends React.Component<Props, State> {
         <div>
           <label htmlFor="last-name">Last Name</label>
           <input name="lastName" id="last-name"
-                 onChange={this.handleChange}
+                 value={lastName} onChange={this.handleChange}
                  required minLength={3} />
           <FieldFeedbacks for="lastName">
             <FieldFeedback when="tooShort">Too short</FieldFeedback>
@@ -114,9 +191,27 @@ class Form extends React.Component<Props, State> {
         </div>
 
         <div>
+          <label htmlFor="username">Username <small>(already taken: john, paul, george, ringo)</small></label>
+          <input name="username" id="username"
+                 value={username} onChange={this.handleChange}
+                 required minLength={3} />
+          <FieldFeedbacks for="username">
+            <FieldFeedback when="tooShort">Too short</FieldFeedback>
+            <FieldFeedback when="*" />
+            <Async
+              promise={checkUsernameAvailability}
+              then={available => available ?
+                <FieldFeedback info style={{color: 'green'}}>Username available</FieldFeedback> :
+                <FieldFeedback>Username already taken, choose another</FieldFeedback>
+              }
+            />
+          </FieldFeedbacks>
+        </div>
+
+        <div>
           <label htmlFor="email">Email</label>
           <input type="email" name="email" id="email"
-                 onChange={this.handleChange}
+                 value={email} onChange={this.handleChange}
                  required minLength={3} />
           <FieldFeedbacks for="email">
             <FieldFeedback when="tooShort">Too short</FieldFeedback>
@@ -125,19 +220,19 @@ class Form extends React.Component<Props, State> {
         </div>
 
         <div>
-          <label>Sex</label>
+          <label>Gender</label>
           <label>
-            <input type="radio" name="sex"
-                   value="male" onChange={this.handleChange}
+            <input type="radio" name="gender"
+                   value={Gender.Male} checked={gender === Gender.Male} onChange={this.handleChange}
                    required />
             Male
           </label>
           <label>
-            <input type="radio" name="sex"
-                   value="female" onChange={this.handleChange} />
+            <input type="radio" name="gender"
+                   value={Gender.Female} checked={gender === Gender.Female} onChange={this.handleChange} />
             Female
           </label>
-          <FieldFeedbacks for="sex">
+          <FieldFeedbacks for="gender">
             <FieldFeedback when="*" />
           </FieldFeedbacks>
         </div>
@@ -145,7 +240,7 @@ class Form extends React.Component<Props, State> {
         <div>
           <label htmlFor="age">Age</label>
           <input type="number" name="age" id="age"
-                 onChange={this.handleChange}
+                 value={age} onChange={this.handleChange}
                  required />
           <FieldFeedbacks for="age">
             <FieldFeedback when="*" />
@@ -157,7 +252,7 @@ class Form extends React.Component<Props, State> {
         <div>
           <label htmlFor="phone">Phone number</label>
           <input type="tel" name="phone" id="phone"
-                 onChange={this.handleChange}
+                 value={phone} onChange={this.handleChange}
                  required />
           <FieldFeedbacks for="phone">
             <FieldFeedback when="*" />
@@ -190,8 +285,8 @@ class Form extends React.Component<Props, State> {
 
         <div>
           <label>
-            <input type="checkbox" name="employed"
-                   onChange={this.handleChange} />
+            <input type="checkbox" name="isEmployed"
+                   checked={isEmployed !== undefined ? isEmployed : false} onChange={this.handleChange} />
             Employed
           </label>
         </div>
@@ -199,13 +294,13 @@ class Form extends React.Component<Props, State> {
         <div>
           <label htmlFor="notes">Notes</label>
           <textarea name="notes" id="notes"
-                    onChange={this.handleChange} />
+                    value={notes} onChange={this.handleChange} />
         </div>
 
         <div>
           <label>
             <input type="checkbox" name="hasWebsite"
-                   onChange={this.handleHasWebsiteChange} />
+                   checked={hasWebsite !== undefined ? hasWebsite : false} onChange={this.handleHasWebsiteChange} />
             Do you have a website?
           </label>
         </div>
@@ -214,7 +309,7 @@ class Form extends React.Component<Props, State> {
           <div>
             <label htmlFor="website">Website</label>
             <input type="url" name="website" id="website"
-                   onChange={this.handleChange}
+                   value={website} onChange={this.handleChange}
                    required minLength={3} />
             <FieldFeedbacks for="website">
               <FieldFeedback when="*" />
@@ -225,10 +320,10 @@ class Form extends React.Component<Props, State> {
         <div>
           <label htmlFor="password">Password</label>
           <input type="password" name="password" id="password"
-                 ref={password => this.password = password!}
-                 onChange={this.handleChange}
+                 ref={passwordInput => this.passwordInput = passwordInput!}
+                 value={password} onChange={this.handleChange}
                  required pattern=".{5,}" />
-          <FieldFeedbacks for="password" show="all">
+          <FieldFeedbacks for="password">
             <FieldFeedback when="valueMissing" />
             <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
             <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
@@ -241,13 +336,13 @@ class Form extends React.Component<Props, State> {
         <div>
           <label htmlFor="password-confirm">Confirm Password</label>
           <input type="password" name="passwordConfirm" id="password-confirm"
-                 onChange={this.handleChange} />
+                 value={passwordConfirm} onChange={this.handleChange} />
           <FieldFeedbacks for="passwordConfirm">
-            <FieldFeedback when={value => value !== this.password.value}>Not the same password</FieldFeedback>
+            <FieldFeedback when={value => value !== this.passwordInput.value}>Not the same password</FieldFeedback>
           </FieldFeedbacks>
         </div>
 
-        <button disabled={this.state.submitButtonDisabled}>Sign Up</button>
+        <button disabled={submitButtonDisabled}>Sign Up</button>
         <button onClick={this.handleReset}>Reset</button>
 
         <div>

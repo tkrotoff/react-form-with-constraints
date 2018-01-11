@@ -52,6 +52,8 @@
     "jsx-no-multiline-js": false,
 
     // Does not search inside the dependency graph
-    "no-implicit-dependencies": false
+    "no-implicit-dependencies": false,
+
+    "no-this-assignment": [true, {"allow-destructuring": true}]
   }
 }

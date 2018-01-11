@@ -35,31 +35,35 @@ class Form extends React.Component<Props, State> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  async handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.currentTarget;
 
-    this.form.validateFields(target);
+    this.setState({
+      [target.name as any]: target.value
+    });
+
+    await this.form.validateFields(target);
+    this.setState({submitButtonDisabled: !this.form.isValid()});
+  }
+
+  async handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const target = e.currentTarget;
 
     this.setState({
-      [target.name as any]: target.value,
-      submitButtonDisabled: !this.form.isValid()
+      [target.name as any]: target.value
     });
+
+    await this.form.validateFields(target, 'passwordConfirm');
+    this.setState({submitButtonDisabled: !this.form.isValid()});
   }
 
-  handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
-    this.form.validateFields('passwordConfirm');
-
-    this.handleChange(e);
-  }
-
-  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    this.form.validateFields();
-
-    this.setState({submitButtonDisabled: !this.form.isValid()});
-
-    if (this.form.isValid()) {
+    const fieldFeedbackValidations = await this.form.validateFields();
+    const formIsValid = fieldFeedbackValidations.every(fieldFeedback => fieldFeedback.isValid!);
+    this.setState({submitButtonDisabled: !formIsValid});
+    if (formIsValid) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     }
   }
@@ -85,7 +89,7 @@ class Form extends React.Component<Props, State> {
                  ref={password => this.password = password!}
                  value={this.state.password} onChange={this.handlePasswordChange}
                  required pattern=".{5,}" />
-          <FieldFeedbacks for="password" show="all">
+          <FieldFeedbacks for="password" stop="first-error">
             <FieldFeedback when="valueMissing" />
             <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
             <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>

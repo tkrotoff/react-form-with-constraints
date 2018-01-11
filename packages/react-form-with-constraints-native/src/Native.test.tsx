@@ -4,11 +4,16 @@ import { StyleSheet, /*TextInput,*/ View } from 'react-native';
 import { TextInput } from './react-native-TextInput-fix'; // Specific to TypeScript
 import * as renderer from 'react-test-renderer';
 
-import { fieldWithoutFeedback } from 'react-form-with-constraints';
+import { fieldWithoutFeedback, FieldFeedbacksProps } from 'react-form-with-constraints';
 
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from './index';
-import FormWithConstraintsMock from '../../react-form-with-constraints/src/FormWithConstraintsMock';
-import FieldFeedbacksMock from '../../react-form-with-constraints/src/FieldFeedbacksMock';
+
+function createFieldFeedbacks(props: FieldFeedbacksProps, form: FormWithConstraints, key: number, fieldFeedbackKey: number) {
+  const fieldFeedbacks = new FieldFeedbacks(props, {form} as any);
+  fieldFeedbacks.key = key;
+  fieldFeedbacks.fieldFeedbackKey = fieldFeedbackKey;
+  return fieldFeedbacks;
+}
 
 // Taken and adapted from FormWithConstraints.test.tsx
 describe('FormWithConstraints', () => {
@@ -38,10 +43,11 @@ describe('FormWithConstraints', () => {
       }
     }
 
-    test('inputs', () => {
+    test('inputs', async () => {
       const form = renderer.create(<Form />).getInstance() as any as Form;
       const emitValidateEventSpy = jest.spyOn(form.formWithConstraints, 'emitValidateEvent');
-      form.formWithConstraints.validateFields(form.username, form.password);
+      const fieldFeedbackValidations = await form.formWithConstraints.validateFields(form.username, form.password);
+      expect(fieldFeedbackValidations).toEqual([]);
       expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
       expect(emitValidateEventSpy.mock.calls).toEqual([
         [{name: 'username', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}],
@@ -49,10 +55,11 @@ describe('FormWithConstraints', () => {
       ]);
     });
 
-    test('field names', () => {
+    test('field names', async () => {
       const form = renderer.create(<Form />).getInstance() as any as Form;
       const emitValidateEventSpy = jest.spyOn(form.formWithConstraints, 'emitValidateEvent');
-      form.formWithConstraints.validateFields('username', 'password');
+      const fieldFeedbackValidations = await form.formWithConstraints.validateFields('username', 'password');
+      expect(fieldFeedbackValidations).toEqual([]);
       expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
       expect(emitValidateEventSpy.mock.calls).toEqual([
         [{name: 'username', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}],
@@ -60,10 +67,11 @@ describe('FormWithConstraints', () => {
       ]);
     });
 
-    test('inputs + field names', () => {
+    test('inputs + field names', async () => {
       const form = renderer.create(<Form />).getInstance() as any as Form;
       const emitValidateEventSpy = jest.spyOn(form.formWithConstraints, 'emitValidateEvent');
-      form.formWithConstraints.validateFields(form.username, 'password');
+      const fieldFeedbackValidations = await form.formWithConstraints.validateFields(form.username, 'password');
+      expect(fieldFeedbackValidations).toEqual([]);
       expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
       expect(emitValidateEventSpy.mock.calls).toEqual([
         [{name: 'username', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}],
@@ -71,10 +79,11 @@ describe('FormWithConstraints', () => {
       ]);
     });
 
-    test('without arguments', () => {
+    test('without arguments', async () => {
       const form = renderer.create(<Form />).getInstance() as any as Form;
       const emitValidateEventSpy = jest.spyOn(form.formWithConstraints, 'emitValidateEvent');
-      form.formWithConstraints.validateFields();
+      const fieldFeedbackValidations = await form.formWithConstraints.validateFields();
+      expect(fieldFeedbackValidations).toEqual([]);
       expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
       expect(emitValidateEventSpy.mock.calls).toEqual([
         [{name: 'username', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}],
@@ -85,7 +94,7 @@ describe('FormWithConstraints', () => {
 
   describe('render()', () => {
     test('children', () => {
-      const component = renderer.create(
+      const wrapper = renderer.create(
         <FormWithConstraints>
           <TextInput name="username" keyboardType="email-address" />
           <FieldFeedbacks for="username">
@@ -101,7 +110,7 @@ describe('FormWithConstraints', () => {
         </FormWithConstraints>
       );
 
-      expect(component.toJSON()).toEqual(
+      expect(wrapper.toJSON()).toEqual(
         {
           type: 'View',
           props: {},
@@ -114,16 +123,15 @@ describe('FormWithConstraints', () => {
         }
       );
 
-      const formWithConstraints = component.getInstance() as any as FormWithConstraints;
+      const formWithConstraints = wrapper.getInstance() as any as FormWithConstraints;
       expect(formWithConstraints.fieldsStore.fields).toEqual({
         username: fieldWithoutFeedback,
         password: fieldWithoutFeedback
       });
     });
 
-
     test('children with <View> inside hierarchy', () => {
-      const component = renderer.create(
+      const wrapper = renderer.create(
         <FormWithConstraints>
           <TextInput name="username" keyboardType="email-address" />
           <View>
@@ -145,7 +153,7 @@ describe('FormWithConstraints', () => {
         </FormWithConstraints>
       );
 
-      const formWithConstraints = component.getInstance() as any as FormWithConstraints;
+      const formWithConstraints = wrapper.getInstance() as any as FormWithConstraints;
       expect(formWithConstraints.fieldsStore.fields).toEqual({
         username: fieldWithoutFeedback,
         password: fieldWithoutFeedback
@@ -153,7 +161,7 @@ describe('FormWithConstraints', () => {
     });
 
     test('children with <View> inside hierarchy + multiple FieldFeedbacks', () => {
-      const component = renderer.create(
+      const wrapper = renderer.create(
         <FormWithConstraints>
           <TextInput name="username" keyboardType="email-address" />
           <View>
@@ -189,7 +197,7 @@ describe('FormWithConstraints', () => {
         </FormWithConstraints>
       );
 
-      const formWithConstraints = component.getInstance() as any as FormWithConstraints;
+      const formWithConstraints = wrapper.getInstance() as any as FormWithConstraints;
       expect(formWithConstraints.fieldsStore.fields).toEqual({
         username: fieldWithoutFeedback,
         password: fieldWithoutFeedback
@@ -200,14 +208,14 @@ describe('FormWithConstraints', () => {
 
 describe('FieldFeedbacks', () => {
   test('render()', () => {
-    const form = new FormWithConstraintsMock();
-    const component = shallow(
+    const form = new FormWithConstraints({});
+    const wrapper = shallow(
       <FieldFeedbacks for="username">
         <FieldFeedback when="*" />
       </FieldFeedbacks>,
       {context: {form}}
     );
-    expect(component.debug()).toEqual(
+    expect(wrapper.debug()).toEqual(
 `<View>
   <FieldFeedback when="*" />
 </View>`
@@ -222,7 +230,8 @@ describe('FieldFeedback', () => {
 
   describe('render()', () => {
     test('should not render', () => {
-      const form = new FormWithConstraintsMock({
+      const form = new FormWithConstraints({});
+      form.fieldsStore.fields = {
         username: {
           dirty: true,
           errors: new Set(),
@@ -230,8 +239,8 @@ describe('FieldFeedback', () => {
           infos: new Set(),
           validationMessage: ''
         }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+      };
+      const fieldFeedbacks = createFieldFeedbacks({for: 'username', stop: 'no'}, form, fieldFeedbacksKey1, fieldFeedbackKey11);
 
       const fieldFeedback = shallow(
         <FieldFeedback when="*">message</FieldFeedback>,
@@ -242,7 +251,8 @@ describe('FieldFeedback', () => {
     });
 
     test('with children', () => {
-      const form = new FormWithConstraintsMock({
+      const form = new FormWithConstraints({});
+      form.fieldsStore.fields = {
         username: {
           dirty: true,
           errors: new Set([fieldFeedbackKey11]),
@@ -250,8 +260,8 @@ describe('FieldFeedback', () => {
           infos: new Set(),
           validationMessage: ''
         }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+      };
+      const fieldFeedbacks = createFieldFeedbacks({for: 'username', stop: 'no'}, form, fieldFeedbacksKey1, fieldFeedbackKey11);
 
       const fieldFeedback = shallow(
         <FieldFeedback when="*">message</FieldFeedback>,
@@ -266,7 +276,8 @@ describe('FieldFeedback', () => {
     });
 
     test('without children', () => {
-      const form = new FormWithConstraintsMock({
+      const form = new FormWithConstraints({});
+      form.fieldsStore.fields = {
         username: {
           dirty: true,
           errors: new Set([fieldFeedbackKey11]),
@@ -274,8 +285,8 @@ describe('FieldFeedback', () => {
           infos: new Set(),
           validationMessage: ''
         }
-      });
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+      };
+      const fieldFeedbacks = createFieldFeedbacks({for: 'username', stop: 'no'}, form, fieldFeedbacksKey1, fieldFeedbackKey11);
 
       const fieldFeedback = shallow(
         <FieldFeedback when="*" />,
@@ -292,7 +303,8 @@ describe('FieldFeedback', () => {
         info: { color: 'blue' }
       });
 
-      const form = new FormWithConstraintsMock({
+      const form = new FormWithConstraints({style: feedbacksStyles});
+      form.fieldsStore.fields = {
         username: {
           dirty: true,
           errors: new Set([fieldFeedbackKey11]),
@@ -300,9 +312,8 @@ describe('FieldFeedback', () => {
           infos: new Set(),
           validationMessage: ''
         }
-      });
-      form.props.style = feedbacksStyles;
-      const fieldFeedbacks = new FieldFeedbacksMock({for: 'username', show: 'all'}, fieldFeedbacksKey1, fieldFeedbackKey11);
+      };
+      const fieldFeedbacks = createFieldFeedbacks({for: 'username', stop: 'no'}, form, fieldFeedbacksKey1, fieldFeedbackKey11);
 
       const fieldFeedback = shallow(
         <FieldFeedback when="*">message</FieldFeedback>,

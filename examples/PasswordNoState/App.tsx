@@ -22,11 +22,10 @@ class Form extends React.Component {
     this.form.validateFields(target);
   }
 
-  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    this.form.validateFields();
-
+    await this.form.validateFields();
     if (this.form.isValid()) {
       alert('Valid form');
     } else {
@@ -55,7 +54,7 @@ class Form extends React.Component {
                  ref={password => this.password = password!}
                  onChange={this.handleChange}
                  required pattern=".{5,}" />
-          <FieldFeedbacks for="password" show="all">
+          <FieldFeedbacks for="password">
             <FieldFeedback when="valueMissing" />
             <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
             <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>

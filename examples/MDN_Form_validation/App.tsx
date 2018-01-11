@@ -21,11 +21,10 @@ class Form extends React.Component {
     this.form.validateFields(e.currentTarget);
   }
 
-  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    this.form.validateFields();
-
+    await this.form.validateFields();
     if (this.form.isValid()) {
       alert('Valid form');
     } else {

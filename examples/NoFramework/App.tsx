@@ -34,7 +34,7 @@ function validatePasswordConfirm(password: string, passwordConfirm: string) {
   return errors;
 }
 
-function containErrors(errors: Errors) {
+function hasErrors(errors: Errors) {
   return errors.username.length > 0 || errors.password.length > 0 || errors.passwordConfirm.length > 0;
 }
 
@@ -119,7 +119,7 @@ class Form extends React.Component<Props, State> {
         };
       },
       () => {
-        if (!containErrors(this.state.errors)) {
+        if (!hasErrors(this.state.errors)) {
           alert('Valid form');
         } else {
           alert('Invalid form');

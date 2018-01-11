@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-import { IValidateEventEmitter, withValidateEventEmitter } from './withValidateEventEmitter';
+import { withValidateEventEmitter } from './withValidateEventEmitter';
+import FieldFeedbackValidation from './FieldFeedbackValidation';
 // @ts-ignore
 // TS6133: 'EventEmitter' is declared but its value is never read.
 // FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
@@ -53,18 +54,16 @@ When an input changes (validateFields()):
 */
 
 export interface FormWithConstraintsChildContext {
-  form: IFormWithConstraints;
+  form: FormWithConstraints;
 }
 
 export interface FormWithConstraintsProps extends React.FormHTMLAttributes<HTMLFormElement> {}
 
-export interface IFormWithConstraints extends IValidateEventEmitter {
-  fieldsStore: FieldsStore;
-  computeFieldFeedbacksKey(): number;
-}
+// FieldFeedbacks returns FieldFeedbackValidation[] | undefined and Async returns Promise<FieldFeedbackValidation[]> | undefined
+type ListenerReturnType = FieldFeedbackValidation[] | Promise<FieldFeedbackValidation[]> | undefined | void /* void for react-form-with-constraints-bootstrap4 */;
 
 export class FormWithConstraintsComponent extends React.Component<FormWithConstraintsProps> {}
-export class FormWithConstraints extends withValidateEventEmitter(FormWithConstraintsComponent) implements IFormWithConstraints {
+export class FormWithConstraints extends withValidateEventEmitter<ListenerReturnType, typeof FormWithConstraintsComponent>(FormWithConstraintsComponent) {
   static childContextTypes = {
     form: PropTypes.object.isRequired
   };
@@ -89,6 +88,25 @@ export class FormWithConstraints extends withValidateEventEmitter(FormWithConstr
    * If called without arguments, validates all fields ($('[name]')).
    */
   validateFields(...inputsOrNames: Array<Input | string>) {
+    const validationsPromisesList = new Array<Promise<FieldFeedbackValidation[]>>();
+
+    const inputs = this.normalizeInputs(...inputsOrNames);
+
+    inputs.forEach(input => {
+      const validationsPromises = this.emitValidateEvent(input)
+        .filter(validation => validation !== undefined) // Remove undefined results
+        .map(validation => Promise.resolve(validation!)); // Transforms all results into Promises
+
+      validationsPromisesList.push(...validationsPromises);
+    });
+
+    return Promise.all(validationsPromisesList).then(validations =>
+      // See Merge/flatten an array of arrays in JavaScript? https://stackoverflow.com/q/10865025/990356
+      validations.reduce((prev, curr) => prev.concat(curr), [])
+    );
+  }
+
+  normalizeInputs(...inputsOrNames: Array<Input | string>) {
     const inputs = inputsOrNames.filter(inputOrName => typeof inputOrName !== 'string') as Input[];
     const fieldNames = inputsOrNames.filter(inputOrName => typeof inputOrName === 'string') as string[];
 
@@ -103,16 +121,16 @@ export class FormWithConstraints extends withValidateEventEmitter(FormWithConstr
       otherInputs = this.form.querySelectorAll(selectors.join(', ')) as any;
     }
 
-    [
+    return [
       ...inputs,
       ...otherInputs
-    ].forEach(input => this.emitValidateEvent(input));
+    ];
   }
 
   // Lazy check => the fields structure might be incomplete
   isValid() {
     const fieldNames = Object.keys(this.fieldsStore.fields);
-    return !this.fieldsStore.containErrors(...fieldNames);
+    return !this.fieldsStore.hasErrors(...fieldNames);
   }
 
   render() {

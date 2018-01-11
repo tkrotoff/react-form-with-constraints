@@ -46,8 +46,8 @@ export class FieldsStore extends EventEmitter {
   }
 
   // Clear the errors/warnings/infos each time we re-validate the input,
-  // this solves the problem with the errors order and show="first", example:
-  // <FieldFeedbacks for="username" show="first"> key=0
+  // this solves the problem with the errors order and stop="first-error", example:
+  // <FieldFeedbacks for="username" stop="first-error"> key=0
   //   <FieldFeedback ...> key=0.0
   //   <FieldFeedback ...> key=0.1
   // </FieldFeedbacks>
@@ -55,23 +55,26 @@ export class FieldsStore extends EventEmitter {
   // + we have a special case where we could have multiple FieldFeedbacks for the same field
   removeFieldFor(fieldName: string, fieldFeedbacksKey: number) {
     const field = this.fields[fieldName]!;
-    console.assert(field !== undefined, `Unknown field '${fieldName}'`);
 
-    // reject is the opposite of filter, see https://lodash.com/docs/#reject
-    // Example: fieldFeedbacksKey = 5, fieldFeedbackKey = 5.2, Math.floor(5.2) = 5
-    const reject = (fieldFeedbackKey: number) => fieldFeedbacksKey !== Math.floor(fieldFeedbackKey);
+    // FieldFeedbacks.componentWillUnmount() is called before (instead of after) its children FieldFeedback.componentWillUnmount()
+    //console.assert(field !== undefined, `Unknown field '${fieldName}'`);
+    if (field !== undefined) {
+      // reject is the opposite of filter, see https://lodash.com/docs/#reject
+      // Example: fieldFeedbacksKey = 5, fieldFeedbackKey = 5.2, Math.floor(5.2) = 5
+      const reject = (fieldFeedbackKey: number) => fieldFeedbacksKey !== Math.floor(fieldFeedbackKey);
 
-    // FIXME
-    // With TypeScript ES5 [...set] is translated to __spread(set)
-    // and __spread(set) is buggy with react-native Android
-    // works with iOS
-    // No idea why it's buggy under Android
-    // This should be removed when TypeScript target will be changed for > ES5
-    field.errors = new Set(/*[...field.errors]*/Array.from(field.errors).filter(reject));
-    field.warnings = new Set(/*[...field.warnings]*/Array.from(field.warnings).filter(reject));
-    field.infos = new Set(/*[...field.infos]*/Array.from(field.infos).filter(reject));
+      // FIXME
+      // With TypeScript ES5 [...set] is translated to __spread(set)
+      // and __spread(set) is buggy with react-native Android
+      // works with iOS
+      // No idea why it's buggy under Android
+      // This should be removed when TypeScript target will be changed for > ES5
+      field.errors = new Set(/*[...field.errors]*/Array.from(field.errors).filter(reject));
+      field.warnings = new Set(/*[...field.warnings]*/Array.from(field.warnings).filter(reject));
+      field.infos = new Set(/*[...field.infos]*/Array.from(field.infos).filter(reject));
 
-    this.emit(FieldEvent.Updated, fieldName);
+      this.emit(FieldEvent.Updated, fieldName);
+    }
   }
 
   // Retrieve errors/warnings/infos only related to a given FieldFeedbacks
@@ -100,21 +103,21 @@ export class FieldsStore extends EventEmitter {
     return fieldFor;
   }
 
-  containErrors(...fieldNames: string[]) {
+  hasErrors(...fieldNames: string[]) {
     return fieldNames.some(fieldName => {
       const field = this.fields[fieldName];
       return field !== undefined && field.errors.size > 0;
     });
   }
 
-  containWarnings(...fieldNames: string[]) {
+  hasWarnings(...fieldNames: string[]) {
     return fieldNames.some(fieldName => {
       const field = this.fields[fieldName];
       return field !== undefined && field.warnings.size > 0;
     });
   }
 
-  containInfos(...fieldNames: string[]) {
+  hasInfos(...fieldNames: string[]) {
     return fieldNames.some(fieldName => {
       const field = this.fields[fieldName];
       return field !== undefined && field.infos.size > 0;
