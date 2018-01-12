@@ -19,14 +19,14 @@ export default {
     file: `dist/${outputFileName()}`,
     name: 'ReactFormWithConstraints',
     format: 'umd',
-    sourcemap: true
+    sourcemap: true,
+    globals: {
+      react: 'React',
+      'prop-types': 'PropTypes'
+    }
   },
 
   external: ['react', 'prop-types'],
-  globals: {
-    react: 'React',
-    'prop-types': 'PropTypes'
-  },
 
   plugins: [
     typescript({

@@ -19,15 +19,15 @@ export default {
     file: `dist/${outputFileName()}`,
     name: 'ReactFormWithConstraintsBootstrap4',
     format: 'umd',
-    sourcemap: true
+    sourcemap: true,
+    globals: {
+      'react-form-with-constraints': 'ReactFormWithConstraints',
+      react: 'React',
+      'prop-types': 'PropTypes'
+    }
   },
 
   external: ['react-form-with-constraints', 'react', 'prop-types'],
-  globals: {
-    'react-form-with-constraints': 'ReactFormWithConstraints',
-    react: 'React',
-    'prop-types': 'PropTypes'
-  },
 
   plugins: [
     typescript({
