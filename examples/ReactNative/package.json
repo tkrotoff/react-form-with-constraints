@@ -6,13 +6,15 @@
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
 
   "scripts": {
-    "prestart": "rm -rf node_modules/react-form-with-constraints-native/node_modules",
+    "rm-duplicated-react-native": "rm -rf node_modules/react-form-with-constraints-native/node_modules/react-native",
+    "prestart": "npm run rm-duplicated-react-native",
+    "pretest": "npm run rm-duplicated-react-native",
 
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "node node_modules/jest/bin/jest.js --watch"
+    "test": "node node_modules/jest/bin/jest.js --no-cache --watch"
   },
 
   "jest": {
