@@ -6,6 +6,8 @@
   "scripts": {
     "clean": "del-cli build",
 
+    "tsc": "tsc",
+
     "build": "cross-env NODE_ENV=development webpack -d",
 
     "start": "npm run clean && npm run build && cd build && node server"
