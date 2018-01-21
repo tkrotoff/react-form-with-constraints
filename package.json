@@ -25,6 +25,7 @@
 
     "examples/Bootstrap4",
     "examples/ClubMembers",
+    "examples/HTML5Constraints",
     "examples/HttpStatusCode",
     "examples/MDN_Form_validation",
     "examples/NativeFormWidgets",
