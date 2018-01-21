@@ -28,7 +28,7 @@ const config: Configuration[] = [
     module: {
       rules: [
         tsLoaderRule,
-        { test: /\.(html|css|png)$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} }
+        { test: /\.(html|css|png)$/, loader: 'file-loader', options: {name: '[name].[ext]'} }
       ]
     }
   },
