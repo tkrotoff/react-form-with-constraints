@@ -5,7 +5,7 @@ import { Input, FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react
 import { Color, colorKeys } from './Color';
 
 export interface Props {
-  favoriteColor?: Color;
+  favoriteColor: '' | Color;
   employed?: boolean;
   notes?: string;
   previousPage: () => void;
@@ -50,7 +50,7 @@ class WizardFormPage3 extends React.Component<Props> {
         <div>
           <label htmlFor="favorite-color">Favorite Color</label>
           <select name="favoriteColor" id="favorite-color"
-                  value={favoriteColor} defaultValue={''} onChange={this.handleChange}
+                  value={favoriteColor} onChange={this.handleChange}
                   required>
             <option value="" disabled>Select a color...</option>
             {colorKeys.map(colorKey => <option value={Color[colorKey as any]} key={colorKey}>{colorKey}</option>)}

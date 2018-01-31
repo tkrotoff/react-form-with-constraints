@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Input } from 'react-form-with-constraints';
 
+import { Color } from './Color';
 import WizardFormPage1 from './WizardFormPage1';
 import WizardFormPage2 from './WizardFormPage2';
 import WizardFormPage3 from './WizardFormPage3';
@@ -14,6 +15,7 @@ export interface State {
   firstName: string;
   lastName: string;
   email: string;
+  favoriteColor: '' | Color;
 }
 
 class WizardForm extends React.Component<Props, State> {
@@ -31,7 +33,8 @@ class WizardForm extends React.Component<Props, State> {
 
       firstName: '',
       lastName: '',
-      email: ''
+      email: '',
+      favoriteColor: ''
     };
   }
 
