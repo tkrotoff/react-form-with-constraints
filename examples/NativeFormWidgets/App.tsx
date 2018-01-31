@@ -16,24 +16,24 @@ class Form extends React.Component {
   }
 
   handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
-    console.log('handleChange()');
+    console.log('handleChange(), event:', e);
 
     const input = e.currentTarget;
     this.validateField(input);
   }
 
   validateField(input: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) {
-    console.log('input:', input.value, input.validity, input.validationMessage);
+    console.log('validateField(), input:', input.name, input.value, input.validity, input.validationMessage);
   }
 
   handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    console.log('handleSubmit()', e);
+    console.log('handleSubmit(), event:', e);
 
     e.preventDefault();
   }
 
   handleClick(e: React.MouseEvent<HTMLButtonElement>) {
-    console.log('handleClick()', e);
+    console.log('handleClick(), event:', e);
   }
 
   render() {
@@ -111,8 +111,8 @@ class Form extends React.Component {
         <p />
 
         <h4>Datalist support and fallbacks</h4>
-        <label htmlFor="myFruit">What is your favorite fruit? (With fallback)</label>{' '}
-        <input type="text" id="myFruit" name="fruit" list="fruitList" onChange={this.handleChange} />
+        <label htmlFor="myFruit_fallback">What is your favorite fruit? (With fallback)</label>{' '}
+        <input type="text" id="myFruit_fallback" name="fruit" list="fruitList" onChange={this.handleChange} />
 
         <datalist id="fruitList">
           <label htmlFor="suggestion">or pick a fruit</label>{' '}
