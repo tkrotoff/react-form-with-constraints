@@ -11,10 +11,10 @@ export interface FormGroupProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export class FormGroup extends React.Component<FormGroupProps> {
-  static contextTypes = {
+  static contextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
     form: PropTypes.object.isRequired
   };
-  context: FormWithConstraintsChildContext;
+  context!: FormWithConstraintsChildContext;
 
   constructor(props: FormGroupProps) {
     super(props);
@@ -80,10 +80,10 @@ export interface FormControlInputProps extends React.InputHTMLAttributes<HTMLInp
 }
 
 export class FormControlInput extends React.Component<FormControlInputProps> {
-  static contextTypes = {
+  static contextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
     form: PropTypes.object.isRequired
   };
-  context: FormWithConstraintsChildContext;
+  context!: FormWithConstraintsChildContext;
 
   constructor(props: FormControlInputProps) {
     super(props);
@@ -145,10 +145,10 @@ export interface LabelWithFormControlStyleProps extends React.LabelHTMLAttribute
 }
 
 export class LabelWithFormControlStyle extends React.Component<LabelWithFormControlStyleProps> {
-  static contextTypes = {
+  static contextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
     form: PropTypes.object.isRequired
   };
-  context: FormWithConstraintsChildContext;
+  context!: FormWithConstraintsChildContext;
 
   constructor(props: LabelWithFormControlStyleProps) {
     super(props);

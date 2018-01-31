@@ -1,8 +1,7 @@
 {
-  "lerna": "2.5.1",
+  "lerna": "*",
   "version": "0.7.1",
   "npmClient": "yarn",
-  "registry": "https://registry.npmjs.org/",
   "useWorkspaces": true,
   "commands": {
     "publish": {

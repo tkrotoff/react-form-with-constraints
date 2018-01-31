@@ -36,26 +36,26 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps> {
     when: () => true
   };
 
-  static contextTypes = {
+  static contextTypes: React.ValidationMap<FieldFeedbackContext> = {
     form: PropTypes.object.isRequired,
     fieldFeedbacks: PropTypes.object.isRequired,
     async: PropTypes.object
   };
-  context: FieldFeedbackContext;
+  context!: FieldFeedbackContext;
 
   // Example: key=0.1
   key: number;
 
-  constructor(props: FieldFeedbackProps) {
+  constructor(props: FieldFeedbackProps, context: FieldFeedbackContext) {
     super(props);
+
+    this.key = context.fieldFeedbacks.addFieldFeedback();
 
     this.validate = this.validate.bind(this);
     this.reRender = this.reRender.bind(this);
   }
 
   componentWillMount() {
-    this.key = this.context.fieldFeedbacks.addFieldFeedback();
-
     if (this.context.async) this.context.async.addValidateEventListener(this.validate);
     else this.context.fieldFeedbacks.addValidateEventListener(this.validate);
 

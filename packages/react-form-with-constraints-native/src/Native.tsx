@@ -30,12 +30,9 @@ export interface Input {
   value?: string;
 }
 
-// FIXME
-// @ts-ignore
-// TypeScript fix for:
-// error TS2415: Class 'FormWithConstraints' incorrectly extends base class 'FormWithConstraints'.
-//  Types of property 'validateFields' are incompatible.
 export class FormWithConstraints extends _FormWithConstraints {
+  // @ts-ignore
+  // TS2416: Property 'validateFields' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'
   validateFields(...inputsOrNames: Array<TextInput | string>) {
     const validationsPromisesList = new Array<Promise<FieldFeedbackValidation[]>>();
 
@@ -93,7 +90,7 @@ export class FormWithConstraints extends _FormWithConstraints {
     );
   }
 
-  normalizeInputs(...inputsOrNames: Array<TextInput | string>) {
+  private normalizeInputs(...inputsOrNames: Array<TextInput | string>) {
     const inputs = inputsOrNames.filter(inputOrName => typeof inputOrName !== 'string') as any as React.ReactElement<Input>[];
     const fieldNames = inputsOrNames.filter(inputOrName => typeof inputOrName === 'string') as string[];
 

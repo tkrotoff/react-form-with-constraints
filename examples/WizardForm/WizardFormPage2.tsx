@@ -13,7 +13,7 @@ export interface Props {
 }
 
 class WizardFormPage2 extends React.Component<Props> {
-  form: FormWithConstraints;
+  form: FormWithConstraints | null | undefined;
 
   constructor(props: Props) {
     super(props);
@@ -27,14 +27,14 @@ class WizardFormPage2 extends React.Component<Props> {
 
     this.props.onChange(target);
 
-    this.form.validateFields(target);
+    this.form!.validateFields(target);
   }
 
   async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    await this.form.validateForm();
-    if (this.form.isValid()) {
+    await this.form!.validateForm();
+    if (this.form!.isValid()) {
       this.props.nextPage();
     }
   }
@@ -43,7 +43,7 @@ class WizardFormPage2 extends React.Component<Props> {
     const { email, gender, previousPage } = this.props;
 
     return (
-      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints!}
+      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
           <label htmlFor="email">Email</label>

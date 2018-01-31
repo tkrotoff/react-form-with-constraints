@@ -46,9 +46,9 @@ interface State {
 }
 
 class Form extends React.Component<Props, State> {
-  username: HTMLInputElement;
-  password: HTMLInputElement;
-  passwordConfirm: HTMLInputElement;
+  username: HTMLInputElement | null | undefined;
+  password: HTMLInputElement | null | undefined;
+  passwordConfirm: HTMLInputElement | null | undefined;
 
   constructor(props: Props) {
     super(props);
@@ -86,7 +86,7 @@ class Form extends React.Component<Props, State> {
         errors: {
           ...prevState.errors,
           password: validatePassword(value),
-          passwordConfirm: validatePasswordConfirm(value, this.passwordConfirm.value)
+          passwordConfirm: validatePasswordConfirm(value, this.passwordConfirm!.value)
         }
       };
     });
@@ -98,7 +98,7 @@ class Form extends React.Component<Props, State> {
       return {
         errors: {
           ...prevState.errors,
-          passwordConfirm: validatePasswordConfirm(this.password.value, value)
+          passwordConfirm: validatePasswordConfirm(this.password!.value, value)
         }
       };
     });
@@ -112,9 +112,9 @@ class Form extends React.Component<Props, State> {
         return {
           errors: {
             ...prevState.errors,
-            username: validateUsername(this.username.value),
-            password: validatePassword(this.password.value),
-            passwordConfirm: validatePasswordConfirm(this.password.value, this.passwordConfirm.value)
+            username: validateUsername(this.username!.value),
+            password: validatePassword(this.password!.value),
+            passwordConfirm: validatePasswordConfirm(this.password!.value, this.passwordConfirm!.value)
           }
         };
       },
@@ -136,7 +136,7 @@ class Form extends React.Component<Props, State> {
         <div>
           <label htmlFor="username">Username</label>
           <input id="username"
-                 ref={username => this.username = username!}
+                 ref={username => this.username = username}
                  onChange={this.handleUsernameChange} />
           <div className="error">
             {errors.username.map(error => <div key={error}>{error}</div>)}
@@ -146,7 +146,7 @@ class Form extends React.Component<Props, State> {
         <div>
           <label htmlFor="password">Password</label>
           <input type="password" id="password"
-                 ref={password => this.password = password!}
+                 ref={password => this.password = password}
                  onChange={this.handlePasswordChange} />
           <div className="error">
             {errors.password.map(error => <div key={error}>{error}</div>)}
@@ -156,7 +156,7 @@ class Form extends React.Component<Props, State> {
         <div>
           <label htmlFor="password-confirm">Confirm Password</label>
           <input type="password" id="password-confirm"
-                 ref={passwordConfirm => this.passwordConfirm = passwordConfirm!}
+                 ref={passwordConfirm => this.passwordConfirm = passwordConfirm}
                  onChange={this.handlePasswordConfirmChange} />
           <div className="error">
             {errors.passwordConfirm.map(error => <div key={error}>{error}</div>)}

@@ -25,10 +25,10 @@ export interface State {
 }
 
 export default class App extends React.Component<Props, State> {
-  form: FormWithConstraints;
-  username: TextInput;
-  password: TextInput;
-  passwordConfirm: TextInput;
+  form: FormWithConstraints | null | undefined;
+  username: TextInput | null | undefined;
+  password: TextInput | null | undefined;
+  passwordConfirm: TextInput | null | undefined;
 
   constructor(props: Props) {
     super(props);
@@ -56,9 +56,9 @@ export default class App extends React.Component<Props, State> {
     this.setState(
       {username: text},
       async () => {
-        // or this.form.validateFields('username')
-        await this.form.validateFields(this.username);
-        this.setState({submitButtonDisabled: !this.form.isValid()});
+        // or this.form!.validateFields('username')
+        await this.form!.validateFields(this.username!);
+        this.setState({submitButtonDisabled: !this.form!.isValid()});
       }
     );
   }
@@ -67,9 +67,9 @@ export default class App extends React.Component<Props, State> {
     this.setState(
       {password: text},
       async () => {
-        // or this.form.validateFields('password', 'passwordConfirm')
-        await this.form.validateFields(this.password, this.passwordConfirm);
-        this.setState({submitButtonDisabled: !this.form.isValid()});
+        // or this.form!.validateFields('password', 'passwordConfirm')
+        await this.form!.validateFields(this.password!, this.passwordConfirm!);
+        this.setState({submitButtonDisabled: !this.form!.isValid()});
       }
     );
   }
@@ -78,16 +78,16 @@ export default class App extends React.Component<Props, State> {
     this.setState(
       {passwordConfirm: text},
       async () => {
-        // or this.form.validateFields('passwordConfirm')
-        await this.form.validateFields(this.passwordConfirm);
-        this.setState({submitButtonDisabled: !this.form.isValid()});
+        // or this.form!.validateFields('passwordConfirm')
+        await this.form!.validateFields(this.passwordConfirm!);
+        this.setState({submitButtonDisabled: !this.form!.isValid()});
       }
     );
   }
 
   async handleSubmit() {
-    await this.form.validateForm();
-    const formIsValid = this.form.isValid();
+    await this.form!.validateForm();
+    const formIsValid = this.form!.isValid();
     this.setState({submitButtonDisabled: !formIsValid});
     if (formIsValid) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
@@ -96,18 +96,18 @@ export default class App extends React.Component<Props, State> {
 
   handleReset() {
     this.setState(this.getInitialState());
-    this.form.reset();
+    this.form!.reset();
   }
 
   render() {
     return (
       <View style={styles.container}>
         <FormWithConstraints
-          ref={formWithConstraints => this.form = formWithConstraints!}
+          ref={formWithConstraints => this.form = formWithConstraints}
           style={feedbacksStyles}>
 
           <View style={styles.flow}>
-            <Text onPress={() => this.username.focus()}>
+            <Text onPress={() => this.username!.focus()}>
               Username <Text style={{fontSize: 11}}>(already taken: john@beatles, paul@beatles, george@beatles, ringo@beatles)</Text>
             </Text>
             <TextInput
@@ -133,7 +133,7 @@ export default class App extends React.Component<Props, State> {
           </View>
 
           <View style={styles.flow}>
-            <Text onPress={() => this.password.focus()}>Password</Text>
+            <Text onPress={() => this.password!.focus()}>Password</Text>
             <TextInput
               name="password"
               secureTextEntry
@@ -153,7 +153,7 @@ export default class App extends React.Component<Props, State> {
           </View>
 
           <View style={styles.flow}>
-            <Text onPress={() => this.passwordConfirm.focus()}>Confirm Password</Text>
+            <Text onPress={() => this.passwordConfirm!.focus()}>Confirm Password</Text>
             <TextInput
               name="passwordConfirm"
               secureTextEntry

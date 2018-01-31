@@ -254,7 +254,7 @@ interface FormProps {
 
 @observer
 class Form extends React.Component<FormProps> {
-  form: FormWithConstraints;
+  form: FormWithConstraints | null | undefined;
 
   constructor(props: FormProps) {
     super(props);
@@ -265,14 +265,14 @@ class Form extends React.Component<FormProps> {
 
   validateField(e: React.ChangeEvent<HTMLInputElement> | string) {
     const target = typeof e === 'string' ? e : e.currentTarget;
-    this.form.validateFields(target);
+    this.form!.validateFields(target);
   }
 
   async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    await this.form.validateForm();
-    if (this.form.isValid()) {
+    await this.form!.validateForm();
+    if (this.form!.isValid()) {
       alert(`Valid form\n\nClub =\n${JSON.stringify(this.props.club, null, 2)}`);
     }
   }
@@ -287,7 +287,7 @@ class Form extends React.Component<FormProps> {
     const { club } = this.props;
 
     return (
-      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints!}
+      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div className="form-group">
           <input name="clubName" placeholder="Club Name"

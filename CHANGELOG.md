@@ -5,6 +5,7 @@
 - `show` attribute replaced by `stop`
 - `validateFields()` now returns a list of promises
 - Add `validateForm()`: does not re-validate fields already validated contrary to `validateFields()`
+- Improve typings, see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16318#issuecomment-362060939
 
 ### Fixes
 

@@ -57,8 +57,8 @@ interface State {
 }
 
 class Form extends React.Component<Props, State> {
-  formWithConstraints: FormWithConstraints;
-  passwordInput: HTMLInputElement;
+  formWithConstraints: FormWithConstraints | null | undefined;
+  passwordInput: HTMLInputElement | null | undefined;
 
   constructor(props: Props) {
     super(props);
@@ -94,7 +94,7 @@ class Form extends React.Component<Props, State> {
     return state;
   }
 
-  previousValidateFields: string;
+  previousValidateFields: string | undefined;
 
   handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
     const target = e.currentTarget;
@@ -115,8 +115,8 @@ class Form extends React.Component<Props, State> {
   }
 
   async validateFields(target: Input) {
-    await this.formWithConstraints.validateFields(target);
-    this.setState({submitButtonDisabled: !this.formWithConstraints.isValid()});
+    await this.formWithConstraints!.validateFields(target);
+    this.setState({submitButtonDisabled: !this.formWithConstraints!.isValid()});
   }
 
   handleHasWebsiteChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -133,8 +133,8 @@ class Form extends React.Component<Props, State> {
   async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    await this.formWithConstraints.validateForm();
-    const formIsValid = this.formWithConstraints.isValid();
+    await this.formWithConstraints!.validateForm();
+    const formIsValid = this.formWithConstraints!.isValid();
     this.setState({submitButtonDisabled: !formIsValid});
     if (formIsValid) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
@@ -143,7 +143,7 @@ class Form extends React.Component<Props, State> {
 
   handleReset() {
     this.setState(this.getInitialState());
-    this.formWithConstraints.reset();
+    this.formWithConstraints!.reset();
   }
 
   render() {
@@ -166,7 +166,7 @@ class Form extends React.Component<Props, State> {
     } = this.state;
 
     return (
-      <FormWithConstraints ref={formWithConstraints => this.formWithConstraints = formWithConstraints!}
+      <FormWithConstraints ref={formWithConstraints => this.formWithConstraints = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
           <label htmlFor="first-name">First Name</label>
@@ -320,7 +320,7 @@ class Form extends React.Component<Props, State> {
         <div>
           <label htmlFor="password">Password</label>
           <input type="password" name="password" id="password"
-                 ref={passwordInput => this.passwordInput = passwordInput!}
+                 ref={passwordInput => this.passwordInput = passwordInput}
                  value={password} onChange={this.handleChange}
                  required pattern=".{5,}" />
           <FieldFeedbacks for="password">
@@ -338,7 +338,7 @@ class Form extends React.Component<Props, State> {
           <input type="password" name="passwordConfirm" id="password-confirm"
                  value={passwordConfirm} onChange={this.handleChange} />
           <FieldFeedbacks for="passwordConfirm">
-            <FieldFeedback when={value => value !== this.passwordInput.value}>Not the same password</FieldFeedback>
+            <FieldFeedback when={value => value !== this.passwordInput!.value}>Not the same password</FieldFeedback>
           </FieldFeedbacks>
         </div>
 

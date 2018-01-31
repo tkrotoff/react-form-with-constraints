@@ -15,8 +15,8 @@ interface State {
 }
 
 class Form extends React.Component<Props, State> {
-  form: FormWithConstraints;
-  password: HTMLInputElement;
+  form: FormWithConstraints | null | undefined;
+  password: HTMLInputElement | null | undefined;
 
   constructor(props: Props) {
     super(props);
@@ -40,13 +40,13 @@ class Form extends React.Component<Props, State> {
       [target.name as any]: target.value
     });
 
-    const fieldFeedbackValidations = await this.form.validateFields(target);
+    const fieldFeedbackValidations = await this.form!.validateFields(target);
 
     const fieldIsValid = fieldFeedbackValidations.every(fieldFeedback => fieldFeedback.isValid!);
     if (fieldIsValid) console.log(`Field '${target.name}' is valid`);
     else console.log(`Field '${target.name}' is invalid`);
 
-    this.setState({submitButtonDisabled: !this.form.isValid()});
+    this.setState({submitButtonDisabled: !this.form!.isValid()});
   }
 
   async handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -56,21 +56,21 @@ class Form extends React.Component<Props, State> {
       [target.name as any]: target.value
     });
 
-    const fieldFeedbackValidations = await this.form.validateFields(target, 'passwordConfirm');
+    const fieldFeedbackValidations = await this.form!.validateFields(target, 'passwordConfirm');
 
     const fieldsAreValid = fieldFeedbackValidations.every(fieldFeedback => fieldFeedback.isValid!);
     if (fieldsAreValid) console.log(`Fields '${target.name}' and 'passwordConfirm' are valid`);
     else console.log(`Fields '${target.name}' and/or 'passwordConfirm' are invalid`);
 
-    this.setState({submitButtonDisabled: !this.form.isValid()});
+    this.setState({submitButtonDisabled: !this.form!.isValid()});
   }
 
   async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const fieldFeedbackValidations = await this.form.validateForm();
+    const fieldFeedbackValidations = await this.form!.validateForm();
 
-    // or simply this.form.isValid();
+    // or simply this.form!.isValid();
     const formIsValid = fieldFeedbackValidations.every(fieldFeedback => fieldFeedback.isValid!);
 
     this.setState({submitButtonDisabled: !formIsValid});
@@ -81,7 +81,7 @@ class Form extends React.Component<Props, State> {
 
   render() {
     return (
-      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints!}
+      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
           <label htmlFor="username">Username</label>
@@ -97,7 +97,7 @@ class Form extends React.Component<Props, State> {
         <div>
           <label htmlFor="password">Password</label>
           <input type="password" name="password" id="password"
-                 ref={password => this.password = password!}
+                 ref={password => this.password = password}
                  value={this.state.password} onChange={this.handlePasswordChange}
                  required pattern=".{5,}" />
           <FieldFeedbacks for="password" stop="first-error">
@@ -115,7 +115,7 @@ class Form extends React.Component<Props, State> {
           <input type="password" name="passwordConfirm" id="password-confirm"
                  value={this.state.passwordConfirm} onChange={this.handleChange} />
           <FieldFeedbacks for="passwordConfirm">
-            <FieldFeedback when={value => value !== this.password.value}>Not the same password</FieldFeedback>
+            <FieldFeedback when={value => value !== this.password!.value}>Not the same password</FieldFeedback>
           </FieldFeedbacks>
         </div>
 

@@ -26,15 +26,15 @@ test('computeFieldFeedbacksKey()', () => {
 
 describe('validateFields()', () => {
   class Form extends React.Component {
-    formWithConstraints: FormWithConstraints;
-    username: HTMLInputElement;
-    password: HTMLInputElement;
+    formWithConstraints: FormWithConstraints | null | undefined;
+    username: HTMLInputElement | null | undefined;
+    password: HTMLInputElement | null | undefined;
 
     render() {
       return (
-        <FormWithConstraints ref={formWithConstraints => this.formWithConstraints = formWithConstraints!}>
+        <FormWithConstraints ref={formWithConstraints => this.formWithConstraints = formWithConstraints}>
           <div>
-            <input type="email" name="username" ref={username => this.username = username!} />
+            <input type="email" name="username" ref={username => this.username = username} />
             <FieldFeedbacks for="username" stop="no">
               <FieldFeedback when={value => value.length === 0}>Cannot be empty</FieldFeedback>
               <FieldFeedback when={value => value.length < 3}>Should be at least 3 characters long</FieldFeedback>
@@ -48,7 +48,7 @@ describe('validateFields()', () => {
               />
             </FieldFeedbacks>
 
-            <input type="password" name="password" ref={password => this.password = password!} />
+            <input type="password" name="password" ref={password => this.password = password} />
             <FieldFeedbacks for="password" stop="no">
               <FieldFeedback when={value => value.length === 0}>Cannot be empty</FieldFeedback>
               <FieldFeedback when={value => value.length < 5}>Should be at least 5 characters long</FieldFeedback>
@@ -62,8 +62,8 @@ describe('validateFields()', () => {
   test('inputs', async () => {
     const wrapper = mount(<Form />);
     const form = wrapper.instance() as Form;
-    const emitValidateEventSpy = jest.spyOn(form.formWithConstraints, 'emitValidateEvent');
-    const fieldFeedbackValidations = await form.formWithConstraints.validateFields(form.username, form.password);
+    const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+    const fieldFeedbackValidations = await form.formWithConstraints!.validateFields(form.username!, form.password!);
     expect(fieldFeedbackValidations).toEqual([
       {key: 0.0, isValid: false},
       {key: 0.1, isValid: false},
@@ -97,8 +97,8 @@ describe('validateFields()', () => {
 
   test('field names', async () => {
     const form = mount(<Form />).instance() as Form;
-    const emitValidateEventSpy = jest.spyOn(form.formWithConstraints, 'emitValidateEvent');
-    const fieldFeedbackValidations = await form.formWithConstraints.validateFields('username', 'password');
+    const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+    const fieldFeedbackValidations = await form.formWithConstraints!.validateFields('username', 'password');
     expect(fieldFeedbackValidations).toEqual([
       {key: 0.0, isValid: false},
       {key: 0.1, isValid: false},
@@ -115,8 +115,8 @@ describe('validateFields()', () => {
 
   test('inputs + field names', async () => {
     const form = mount(<Form />).instance() as Form;
-    const emitValidateEventSpy = jest.spyOn(form.formWithConstraints, 'emitValidateEvent');
-    const fieldFeedbackValidations = await form.formWithConstraints.validateFields(form.username, 'password');
+    const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+    const fieldFeedbackValidations = await form.formWithConstraints!.validateFields(form.username!, 'password');
     expect(fieldFeedbackValidations).toEqual([
       {key: 0.0, isValid: false},
       {key: 0.1, isValid: false},
@@ -133,8 +133,8 @@ describe('validateFields()', () => {
 
   test('without arguments', async () => {
     const form = mount(<Form />).instance() as Form;
-    const emitValidateEventSpy = jest.spyOn(form.formWithConstraints, 'emitValidateEvent');
-    const fieldFeedbackValidations = await form.formWithConstraints.validateFields();
+    const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+    const fieldFeedbackValidations = await form.formWithConstraints!.validateFields();
     expect(fieldFeedbackValidations).toEqual([
       {key: 0.0, isValid: false},
       {key: 0.1, isValid: false},
@@ -153,9 +153,9 @@ describe('validateFields()', () => {
     const wrapper = mount(<Form />);
     const form = wrapper.instance() as Form;
 
-    form.username.value = 'jimmy';
-    form.password.value = '1234';
-    const fieldFeedbackValidations = await form.formWithConstraints.validateFields();
+    form.username!.value = 'jimmy';
+    form.password!.value = '1234';
+    const fieldFeedbackValidations = await form.formWithConstraints!.validateFields();
     expect(fieldFeedbackValidations).toEqual([
       {key: 0.0, isValid: true},
       {key: 0.1, isValid: true},
@@ -184,9 +184,9 @@ describe('validateFields()', () => {
     const wrapper = mount(<Form />);
     const form = wrapper.instance() as Form;
 
-    form.username.value = 'error';
-    form.password.value = '1234';
-    const fieldFeedbackValidations = await form.formWithConstraints.validateFields();
+    form.username!.value = 'error';
+    form.password!.value = '1234';
+    const fieldFeedbackValidations = await form.formWithConstraints!.validateFields();
     expect(fieldFeedbackValidations).toEqual([
       {key: 0.0, isValid: true},
       {key: 0.1, isValid: true},

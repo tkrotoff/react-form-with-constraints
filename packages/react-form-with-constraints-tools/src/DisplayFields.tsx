@@ -12,10 +12,10 @@ function Set_toJSON(_key: string, value: any) {
 }
 
 class DisplayFields extends React.Component {
-  static contextTypes = {
+  static contextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
     form: PropTypes.object.isRequired
   };
-  context: FormWithConstraintsChildContext;
+  context!: FormWithConstraintsChildContext;
 
   constructor(props: {}) {
     super(props);

@@ -47,14 +47,15 @@ export type AsyncComponentType = AsyncComponent<any>;
 // See How to render promises in React https://gist.github.com/hex13/6d46f8b54631871ea8bf87576b635c49
 // Cannot be inside a separated npm package since FieldFeedback needs to attach itself to Async
 export class AsyncComponent<T = any> extends React.Component<AsyncProps<T>, AsyncState<T>> {}
-export class Async<T> extends withValidateEventEmitter<ListenerReturnType, typeof AsyncComponent>(AsyncComponent) {
-  static contextTypes = {
+export class Async<T> extends withValidateEventEmitter<ListenerReturnType, typeof AsyncComponent>(AsyncComponent)
+                      implements React.ChildContextProvider<AsyncChildContext> {
+  static contextTypes: React.ValidationMap<AsyncContext> = {
     form: PropTypes.object.isRequired,
     fieldFeedbacks: PropTypes.object.isRequired
   };
-  context: AsyncContext;
+  context!: AsyncContext;
 
-  static childContextTypes = {
+  static childContextTypes: React.ValidationMap<AsyncChildContext> = {
     async: PropTypes.object.isRequired
   };
   getChildContext(): AsyncChildContext {

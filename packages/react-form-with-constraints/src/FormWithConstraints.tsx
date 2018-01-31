@@ -63,8 +63,9 @@ export interface FormWithConstraintsProps extends React.FormHTMLAttributes<HTMLF
 type ListenerReturnType = FieldFeedbackValidation[] | Promise<FieldFeedbackValidation[]> | undefined | void /* void for react-form-with-constraints-bootstrap4 */;
 
 export class FormWithConstraintsComponent extends React.Component<FormWithConstraintsProps> {}
-export class FormWithConstraints extends withValidateEventEmitter<ListenerReturnType, typeof FormWithConstraintsComponent>(FormWithConstraintsComponent) {
-  static childContextTypes = {
+export class FormWithConstraints extends withValidateEventEmitter<ListenerReturnType, typeof FormWithConstraintsComponent>(FormWithConstraintsComponent)
+                                 implements React.ChildContextProvider<FormWithConstraintsChildContext> {
+  static childContextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
     form: PropTypes.object.isRequired
   };
   getChildContext(): FormWithConstraintsChildContext {
@@ -73,8 +74,8 @@ export class FormWithConstraints extends withValidateEventEmitter<ListenerReturn
     };
   }
 
-  // Could be named innerRef instead
-  form: HTMLFormElement;
+  // Could be named innerRef instead, see https://github.com/ant-design/ant-design/issues/5489#issuecomment-332208652
+  private form: HTMLFormElement | null | undefined;
 
   fieldsStore = new FieldsStore();
 
@@ -130,7 +131,7 @@ export class FormWithConstraints extends withValidateEventEmitter<ListenerReturn
   }
 
   // If called without arguments, returns all fields ($('[name]')).
-  normalizeInputs(...inputsOrNames: Array<Input | string>) {
+  private normalizeInputs(...inputsOrNames: Array<Input | string>) {
     const inputs = inputsOrNames.filter(inputOrName => typeof inputOrName !== 'string') as Input[];
     const fieldNames = inputsOrNames.filter(inputOrName => typeof inputOrName === 'string') as string[];
 
@@ -138,11 +139,11 @@ export class FormWithConstraints extends withValidateEventEmitter<ListenerReturn
 
     // [name] matches <input name="...">, <select name="...">, <button name="...">, ...
     if (inputsOrNames.length === 0) {
-      otherInputs = this.form.querySelectorAll('[name]') as any;
+      otherInputs = this.form!.querySelectorAll('[name]') as any;
     }
     if (fieldNames.length > 0) {
       const selectors = fieldNames.map(fieldName => `[name="${fieldName}"]`);
-      otherInputs = this.form.querySelectorAll(selectors.join(', ')) as any;
+      otherInputs = this.form!.querySelectorAll(selectors.join(', ')) as any;
     }
 
     return [
@@ -163,6 +164,6 @@ export class FormWithConstraints extends withValidateEventEmitter<ListenerReturn
 
   render() {
     const { children, ...formProps } = this.props;
-    return <form ref={form => this.form = form!} {...formProps}>{children}</form>;
+    return <form ref={form => this.form = form} {...formProps}>{children}</form>;
   }
 }

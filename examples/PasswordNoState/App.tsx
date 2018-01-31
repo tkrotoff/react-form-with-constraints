@@ -7,8 +7,8 @@ import './index.html';
 import '../Password/style.css';
 
 class Form extends React.Component {
-  form: FormWithConstraints;
-  password: HTMLInputElement;
+  form: FormWithConstraints | null | undefined;
+  password: HTMLInputElement | null | undefined;
 
   constructor(props: {}) {
     super(props);
@@ -19,14 +19,14 @@ class Form extends React.Component {
 
   handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.currentTarget;
-    this.form.validateFields(target);
+    this.form!.validateFields(target);
   }
 
   async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    await this.form.validateFields();
-    if (this.form.isValid()) {
+    await this.form!.validateFields();
+    if (this.form!.isValid()) {
       alert('Valid form');
     } else {
       alert('Invalid form');
@@ -35,7 +35,7 @@ class Form extends React.Component {
 
   render() {
     return (
-      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints!}
+      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
           <label htmlFor="username">Username</label>
@@ -51,7 +51,7 @@ class Form extends React.Component {
         <div>
           <label htmlFor="password">Password</label>
           <input type="password" name="password" id="password"
-                 ref={password => this.password = password!}
+                 ref={password => this.password = password}
                  onChange={this.handleChange}
                  required pattern=".{5,}" />
           <FieldFeedbacks for="password">
@@ -69,7 +69,7 @@ class Form extends React.Component {
           <input type="password" name="passwordConfirm" id="password-confirm"
                  onChange={this.handleChange} />
           <FieldFeedbacks for="passwordConfirm">
-            <FieldFeedback when={value => value !== this.password.value}>Not the same password</FieldFeedback>
+            <FieldFeedback when={value => value !== this.password!.value}>Not the same password</FieldFeedback>
           </FieldFeedbacks>
         </div>
 

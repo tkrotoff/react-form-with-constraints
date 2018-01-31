@@ -15,7 +15,7 @@ interface State {
 }
 
 class Form extends React.Component<Props, State> {
-  form: FormWithConstraints;
+  form: FormWithConstraints | null | undefined;
 
   constructor(props: Props) {
     super(props);
@@ -33,14 +33,14 @@ class Form extends React.Component<Props, State> {
 
     this.setState({[target.name]: target.value});
 
-    this.form.validateFields(target);
+    this.form!.validateFields(target);
   }
 
   async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    await this.form.validateForm();
-    if (this.form.isValid()) {
+    await this.form!.validateForm();
+    if (this.form!.isValid()) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     } else {
       alert('Invalid form');
@@ -49,7 +49,7 @@ class Form extends React.Component<Props, State> {
 
   render() {
     return (
-      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints!}
+      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
           <label htmlFor="http-status-code">HTTP Status code (enter 200, 404, 500, 503)</label>

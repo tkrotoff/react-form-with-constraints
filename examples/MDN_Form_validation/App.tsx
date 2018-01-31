@@ -8,7 +8,7 @@ import './index.html';
 import './original.html';
 
 class Form extends React.Component {
-  form: FormWithConstraints;
+  form: FormWithConstraints | null | undefined;
 
   constructor(props: {}) {
     super(props);
@@ -18,14 +18,14 @@ class Form extends React.Component {
   }
 
   handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    this.form.validateFields(e.currentTarget);
+    this.form!.validateFields(e.currentTarget);
   }
 
   async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    await this.form.validateForm();
-    if (this.form.isValid()) {
+    await this.form!.validateForm();
+    if (this.form!.isValid()) {
       alert('Valid form');
     } else {
       alert('Invalid form');
@@ -34,7 +34,7 @@ class Form extends React.Component {
 
   render() {
     return (
-      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints!}
+      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <p>
           <fieldset>

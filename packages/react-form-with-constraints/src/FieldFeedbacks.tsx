@@ -30,17 +30,18 @@ export interface FieldFeedbacksChildContext {
 export type ListenerReturnType = FieldFeedbackValidation;
 
 export class FieldFeedbacksComponent extends React.Component<FieldFeedbacksProps> {}
-export class FieldFeedbacks extends withValidateEventEmitter<ListenerReturnType, typeof FieldFeedbacksComponent>(FieldFeedbacksComponent) {
+export class FieldFeedbacks extends withValidateEventEmitter<ListenerReturnType, typeof FieldFeedbacksComponent>(FieldFeedbacksComponent)
+                            implements React.ChildContextProvider<FieldFeedbacksChildContext> {
   static defaultProps: Partial<FieldFeedbacksProps> = {
     stop: 'first-error'
   };
 
-  static contextTypes = {
+  static contextTypes: React.ValidationMap<FieldFeedbacksContext> = {
     form: PropTypes.object.isRequired
   };
-  context: FieldFeedbacksContext;
+  context!: FieldFeedbacksContext;
 
-  static childContextTypes = {
+  static childContextTypes: React.ValidationMap<FieldFeedbacksChildContext> = {
     fieldFeedbacks: PropTypes.object.isRequired
   };
   getChildContext(): FieldFeedbacksChildContext {
