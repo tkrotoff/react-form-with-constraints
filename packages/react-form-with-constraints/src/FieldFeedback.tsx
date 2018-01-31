@@ -6,6 +6,7 @@ import { FieldFeedbacksChildContext } from './FieldFeedbacks';
 import { AsyncChildContext } from './Async';
 import Input from './Input';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
+import { FieldEvent } from './FieldsStore';
 
 export type WhenString =
   | '*'
@@ -49,6 +50,7 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps> {
     super(props);
 
     this.validate = this.validate.bind(this);
+    this.reRender = this.reRender.bind(this);
   }
 
   componentWillMount() {
@@ -56,6 +58,8 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps> {
 
     if (this.context.async) this.context.async.addValidateEventListener(this.validate);
     else this.context.fieldFeedbacks.addValidateEventListener(this.validate);
+
+    this.context.form.fieldsStore.addListener(FieldEvent.Updated, this.reRender);
   }
 
   componentWillUnmount() {
@@ -64,6 +68,8 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps> {
 
     if (this.context.async) this.context.async.removeValidateEventListener(this.validate);
     else this.context.fieldFeedbacks.removeValidateEventListener(this.validate);
+
+    this.context.form.fieldsStore.removeListener(FieldEvent.Updated, this.reRender);
   }
 
   // Generates Field for Fields structure
@@ -139,9 +145,6 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps> {
       else field.errors.add(this.key); // Feedback type is error if nothing is specified
     }
     this.context.form.fieldsStore.updateField(fieldName, field);
-
-    // Force re-rendering
-    this.forceUpdate();
   }
 
   isValid() {
@@ -168,10 +171,18 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps> {
     return className;
   }
 
+  reRender(_fieldName: string) {
+    const fieldName = this.context.fieldFeedbacks.props.for;
+    if (fieldName === _fieldName) { // Ignore the event if it's not for us
+      this.forceUpdate();
+    }
+  }
+
   render() {
     const { when, error, warning, info, className, children, ...divProps } = this.props;
-    const { for: fieldName } = this.context.fieldFeedbacks.props;
-    const { validationMessage } = this.context.form.fieldsStore.getFieldFor(fieldName, this.context.fieldFeedbacks.key);
+    const { form, fieldFeedbacks } = this.context;
+    const { for: fieldName } = fieldFeedbacks.props;
+    const { validationMessage } = form.fieldsStore.getFieldFor(fieldName, fieldFeedbacks.key);
 
     let classes = this.className();
 

@@ -34,7 +34,7 @@ class WizardFormPage3 extends React.Component<Props> {
   async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    await this.form.validateFields();
+    await this.form.validateForm();
     if (this.form.isValid()) {
       this.props.onSubmit();
     }

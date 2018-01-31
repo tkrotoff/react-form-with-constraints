@@ -15,5 +15,8 @@ export interface Field {
 
 export interface Fields {
   // Could be also Map<string, Field>
-  [fieldName: string]: Field | undefined;
+  [fieldName: string]:
+    Field |
+    undefined /* undefined means the field has a name (<input name="username">) but there is no FieldFeedbacks associated */
+    ;
 }

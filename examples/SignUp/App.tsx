@@ -133,7 +133,7 @@ class Form extends React.Component<Props, State> {
   async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    await this.formWithConstraints.validateFields();
+    await this.formWithConstraints.validateForm();
     const formIsValid = this.formWithConstraints.isValid();
     this.setState({submitButtonDisabled: !formIsValid});
     if (formIsValid) {
@@ -142,8 +142,8 @@ class Form extends React.Component<Props, State> {
   }
 
   handleReset() {
-    this.formWithConstraints.form.reset();
     this.setState(this.getInitialState());
+    this.formWithConstraints.reset();
   }
 
   render() {
@@ -343,7 +343,7 @@ class Form extends React.Component<Props, State> {
         </div>
 
         <button disabled={submitButtonDisabled}>Sign Up</button>
-        <button onClick={this.handleReset}>Reset</button>
+        <button type="button" onClick={this.handleReset}>Reset</button>
 
         <div>
           <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre>

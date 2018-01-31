@@ -33,17 +33,23 @@ export default class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.state = {
-      username: '',
-      password: '',
-      passwordConfirm: '',
-      submitButtonDisabled: false
-    };
+    this.state = this.getInitialState();
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handlePasswordConfirmChange = this.handlePasswordConfirmChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+  }
+
+  private getInitialState() {
+    const state: State = {
+      username: '',
+      password: '',
+      passwordConfirm: '',
+      submitButtonDisabled: false
+    };
+    return state;
   }
 
   handleUsernameChange(text: string) {
@@ -61,9 +67,9 @@ export default class App extends React.Component<Props, State> {
     this.setState(
       {password: text},
       async () => {
-          // or this.form.validateFields('password', 'passwordConfirm')
-          await this.form.validateFields(this.password, this.passwordConfirm);
-          this.setState({submitButtonDisabled: !this.form.isValid()});
+        // or this.form.validateFields('password', 'passwordConfirm')
+        await this.form.validateFields(this.password, this.passwordConfirm);
+        this.setState({submitButtonDisabled: !this.form.isValid()});
       }
     );
   }
@@ -80,12 +86,17 @@ export default class App extends React.Component<Props, State> {
   }
 
   async handleSubmit() {
-    await this.form.validateFields();
+    await this.form.validateForm();
     const formIsValid = this.form.isValid();
     this.setState({submitButtonDisabled: !formIsValid});
     if (formIsValid) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     }
+  }
+
+  handleReset() {
+    this.setState(this.getInitialState());
+    this.form.reset();
   }
 
   render() {
@@ -161,6 +172,10 @@ export default class App extends React.Component<Props, State> {
           title="Sign Up"
           disabled={this.state.submitButtonDisabled}
           onPress={this.handleSubmit}
+        />
+        <Button
+          title="Reset"
+          onPress={this.handleReset}
         />
 
       </View>

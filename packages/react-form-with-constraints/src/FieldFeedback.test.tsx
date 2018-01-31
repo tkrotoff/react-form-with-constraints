@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow as _shallow } from 'enzyme';
+import { shallow as _shallow, mount as _mount } from 'enzyme';
 
 import { FormWithConstraints, fieldWithoutFeedback, FieldFeedbacks, FieldFeedback, FieldFeedbackContext, FieldFeedbackProps, ValidateEvent } from './index';
 import createFieldFeedbacks from './createFieldFeedbacks';
@@ -7,6 +7,10 @@ import InputMock from './InputMock';
 
 function shallow(node: React.ReactElement<FieldFeedbackProps>, options: {context: FieldFeedbackContext}) {
   return _shallow<FieldFeedbackProps>(node, options);
+}
+
+function mount(node: React.ReactElement<FieldFeedbackProps>, options: {context: FieldFeedbackContext}) {
+  return _mount<FieldFeedbackProps>(node, options);
 }
 
 const fieldFeedbacksKey1 = 1;
@@ -25,7 +29,9 @@ beforeEach(() => {
 
 test('componentWillMount() componentWillUnmount()', () => {
   const addValidateEventListenerSpy = jest.spyOn(fieldFeedbacks_username, 'addValidateEventListener');
+  const fieldsStoreAddListenerSpy = jest.spyOn(form_username_empty.fieldsStore, 'addListener');
   const removeValidateEventListenerSpy = jest.spyOn(fieldFeedbacks_username, 'removeValidateEventListener');
+  const fieldsStoreRemoveListenerSpy = jest.spyOn(form_username_empty.fieldsStore, 'removeListener');
 
   const wrapper = shallow(
     <FieldFeedback when="*">message</FieldFeedback>,
@@ -34,11 +40,15 @@ test('componentWillMount() componentWillUnmount()', () => {
   expect(addValidateEventListenerSpy).toHaveBeenCalledTimes(1);
   expect(removeValidateEventListenerSpy).toHaveBeenCalledTimes(0);
   expect(fieldFeedbacks_username.validateEventEmitter.listeners.get(ValidateEvent)).toHaveLength(1);
+  expect(fieldsStoreAddListenerSpy).toHaveBeenCalledTimes(1);
+  expect(fieldsStoreRemoveListenerSpy).toHaveBeenCalledTimes(0);
 
   wrapper.unmount();
   expect(addValidateEventListenerSpy).toHaveBeenCalledTimes(1);
   expect(removeValidateEventListenerSpy).toHaveBeenCalledTimes(1);
   expect(fieldFeedbacks_username.validateEventEmitter.listeners.get(ValidateEvent)).toEqual(undefined);
+  expect(fieldsStoreAddListenerSpy).toHaveBeenCalledTimes(1);
+  expect(fieldsStoreRemoveListenerSpy).toHaveBeenCalledTimes(1);
 });
 
 describe('validate()', () => {
@@ -496,5 +506,68 @@ describe('render()', () => {
     );
 
     expect(fieldFeedback.html()).toEqual('<div style="color:yellow" class="error"></div>');
+  });
+});
+
+describe('reRender()', () => {
+  test('known field updated', () => {
+    const wrapper = mount(
+      <FieldFeedback when="*" />,
+      {context: {form: form_username_empty, fieldFeedbacks: fieldFeedbacks_username}}
+    );
+    const input = new InputMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
+    fieldFeedbacks_username.emitValidateEvent(input);
+
+    expect(form_username_empty.fieldsStore.fields).toEqual({
+      username: {
+        dirty: true,
+        errors: new Set([fieldFeedbackKey11]),
+        warnings: new Set(),
+        infos: new Set(),
+        validationMessage: 'Suffering from being missing'
+      }
+    });
+    expect(wrapper.html()).toEqual(
+      '<div class="error">Suffering from being missing</div>'
+    );
+
+    form_username_empty.fieldsStore.updateField('username', fieldWithoutFeedback);
+    expect(wrapper.html()).toEqual(null);
+  });
+
+  test('unknown field updated', () => {
+    const wrapper = mount(
+      <FieldFeedback when="*" />,
+      {context: {form: form_username_empty, fieldFeedbacks: fieldFeedbacks_username}}
+    );
+    const input = new InputMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
+    fieldFeedbacks_username.emitValidateEvent(input);
+
+    expect(form_username_empty.fieldsStore.fields).toEqual({
+      username: {
+        dirty: true,
+        errors: new Set([fieldFeedbackKey11]),
+        warnings: new Set(),
+        infos: new Set(),
+        validationMessage: 'Suffering from being missing'
+      }
+    });
+    expect(wrapper.html()).toEqual(
+      '<div class="error">Suffering from being missing</div>'
+    );
+
+    const assert = console.assert;
+    console.assert = jest.fn();
+    form_username_empty.fieldsStore.updateField('unknown', fieldWithoutFeedback);
+    expect(console.assert).toHaveBeenCalledTimes(2);
+    expect((console.assert as jest.Mock<{}>).mock.calls).toEqual([
+      [ false, "Unknown field 'unknown'" ],
+      [ true, "No listener for event 'FIELD_UPDATED'" ]
+    ]);
+    console.assert = assert;
+
+    expect(wrapper.html()).toEqual(
+      '<div class="error">Suffering from being missing</div>'
+    );
   });
 });

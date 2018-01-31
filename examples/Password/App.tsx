@@ -42,7 +42,12 @@ class Form extends React.Component<Props, State> {
       [target.name as any]: target.value
     });
 
-    await this.form.validateFields(target);
+    const fieldFeedbackValidations = await this.form.validateFields(target);
+
+    const fieldIsValid = fieldFeedbackValidations.every(fieldFeedback => fieldFeedback.isValid!);
+    if (fieldIsValid) console.log(`Field '${target.name}' is valid`);
+    else console.log(`Field '${target.name}' is invalid`);
+
     this.setState({submitButtonDisabled: !this.form.isValid()});
   }
 
@@ -53,15 +58,23 @@ class Form extends React.Component<Props, State> {
       [target.name as any]: target.value
     });
 
-    await this.form.validateFields(target, 'passwordConfirm');
+    const fieldFeedbackValidations = await this.form.validateFields(target, 'passwordConfirm');
+
+    const fieldsAreValid = fieldFeedbackValidations.every(fieldFeedback => fieldFeedback.isValid!);
+    if (fieldsAreValid) console.log(`Fields '${target.name}' and 'passwordConfirm' are valid`);
+    else console.log(`Fields '${target.name}' and/or 'passwordConfirm' are invalid`);
+
     this.setState({submitButtonDisabled: !this.form.isValid()});
   }
 
   async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const fieldFeedbackValidations = await this.form.validateFields();
+    const fieldFeedbackValidations = await this.form.validateForm();
+
+    // or simply this.form.isValid();
     const formIsValid = fieldFeedbackValidations.every(fieldFeedback => fieldFeedback.isValid!);
+
     this.setState({submitButtonDisabled: !formIsValid});
     if (formIsValid) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);

@@ -9,6 +9,42 @@ test('constructor()', () => {
   expect(store.fields.toString).toEqual(undefined);
 });
 
+test('reset()', () => {
+  const store = new FieldsStore();
+  const emitSpy = jest.spyOn(store, 'emit');
+
+  store.addField('username');
+  store.addField('password');
+
+  const fieldUpdated = {
+    dirty: true,
+    errors: new Set([1.0, 1.1, 1.2]),
+    warnings: new Set([2.0, 2.1, 2.2]),
+    infos: new Set([3.0, 3.1, 3.2]),
+    validationMessage: 'Field updated'
+  };
+
+  store.updateField('username', fieldUpdated);
+  store.updateField('password', fieldUpdated);
+
+  expect(store.fields).toEqual({
+    username: fieldUpdated,
+    password: fieldUpdated
+  });
+
+  emitSpy.mockClear();
+  store.reset();
+  expect(emitSpy).toHaveBeenCalledTimes(2);
+  expect(emitSpy.mock.calls).toEqual([
+    [FieldEvent.Updated, 'username'],
+    [FieldEvent.Updated, 'password']
+  ]);
+  expect(store.fields).toEqual({
+    username: fieldWithoutFeedback,
+    password: fieldWithoutFeedback
+  });
+});
+
 test('addField()', () => {
   const store = new FieldsStore();
   const emitSpy = jest.spyOn(store, 'emit');

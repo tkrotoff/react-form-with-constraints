@@ -4,11 +4,13 @@
 
 - `show` attribute replaced by `stop`
 - `validateFields()` now returns a list of promises
+- Add `validateForm()`: does not re-validate fields already validated contrary to `validateFields()`
 
 ### Fixes
 
 - Fix `computeFieldFeedbackKey()` implementation, see 2291b3b
 - Fix possible crash with React Native, see 03d72e1
+- Fix form reset #22 by introducing `reset()`
 
 ### Features
 

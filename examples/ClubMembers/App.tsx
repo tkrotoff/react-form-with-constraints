@@ -271,7 +271,7 @@ class Form extends React.Component<FormProps> {
   async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    await this.form.validateFields();
+    await this.form.validateForm();
     if (this.form.isValid()) {
       alert(`Valid form\n\nClub =\n${JSON.stringify(this.props.club, null, 2)}`);
     }

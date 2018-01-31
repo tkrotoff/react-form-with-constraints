@@ -106,6 +106,30 @@ export class FormWithConstraints extends withValidateEventEmitter<ListenerReturn
     );
   }
 
+  // Validates only what's necessary (e.g. non-dirty fields)
+  validateForm() {
+    const validationsPromisesList = new Array<Promise<FieldFeedbackValidation[]>>();
+
+    const inputs = this.normalizeInputs();
+
+    inputs.forEach(input => {
+      const field = this.fieldsStore.fields[input.name];
+      if (field !== undefined && field.dirty === false) {
+        const validationsPromises = this.emitValidateEvent(input)
+          .filter(validation => validation !== undefined) // Remove undefined results
+          .map(validation => Promise.resolve(validation!)); // Transforms all results into Promises
+
+        validationsPromisesList.push(...validationsPromises);
+      }
+    });
+
+    return Promise.all(validationsPromisesList).then(validations =>
+      // See Merge/flatten an array of arrays in JavaScript? https://stackoverflow.com/q/10865025/990356
+      validations.reduce((prev, curr) => prev.concat(curr), [])
+    );
+  }
+
+  // If called without arguments, returns all fields ($('[name]')).
   normalizeInputs(...inputsOrNames: Array<Input | string>) {
     const inputs = inputsOrNames.filter(inputOrName => typeof inputOrName !== 'string') as Input[];
     const fieldNames = inputsOrNames.filter(inputOrName => typeof inputOrName === 'string') as string[];
@@ -131,6 +155,10 @@ export class FormWithConstraints extends withValidateEventEmitter<ListenerReturn
   isValid() {
     const fieldNames = Object.keys(this.fieldsStore.fields);
     return !this.fieldsStore.hasErrors(...fieldNames);
+  }
+
+  reset() {
+    this.fieldsStore.reset();
   }
 
   render() {

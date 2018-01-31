@@ -42,17 +42,49 @@ export class FormWithConstraints extends _FormWithConstraints {
     const inputs = this.normalizeInputs(...inputsOrNames);
 
     inputs.forEach(input => {
-      const validationsPromises = this.emitValidateEvent({
+      const _input = {
         name: input.props.name,
         type: undefined as any,
         value: input.props.value!, // Tested: TextInput props.value is always a string and never undefined (empty string instead)
         validity: undefined as any,
         validationMessage: undefined as any
-      })
+      };
+
+      const validationsPromises = this.emitValidateEvent(_input)
         .filter(validation => validation !== undefined) // Remove undefined results
         .map(validation => Promise.resolve(validation!)); // Transforms all results into Promises
 
       validationsPromisesList.push(...validationsPromises);
+    });
+
+    return Promise.all(validationsPromisesList).then(validations =>
+      // See Merge/flatten an array of arrays in JavaScript? https://stackoverflow.com/q/10865025/990356
+      validations.reduce((prev, curr) => prev.concat(curr), [])
+    );
+  }
+
+  validateForm() {
+    const validationsPromisesList = new Array<Promise<FieldFeedbackValidation[]>>();
+
+    const inputs = this.normalizeInputs();
+
+    inputs.forEach(input => {
+      const _input = {
+        name: input.props.name,
+        type: undefined as any,
+        value: input.props.value!, // Tested: TextInput props.value is always a string and never undefined (empty string instead)
+        validity: undefined as any,
+        validationMessage: undefined as any
+      };
+
+      const field = this.fieldsStore.fields[_input.name];
+      if (field !== undefined && field.dirty === false) {
+        const validationsPromises = this.emitValidateEvent(_input)
+          .filter(validation => validation !== undefined) // Remove undefined results
+          .map(validation => Promise.resolve(validation!)); // Transforms all results into Promises
+
+        validationsPromisesList.push(...validationsPromises);
+      }
     });
 
     return Promise.all(validationsPromisesList).then(validations =>

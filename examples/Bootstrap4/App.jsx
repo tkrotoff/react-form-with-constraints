@@ -49,7 +49,7 @@ class Form extends React.Component {
   async handleSubmit(e) {
     e.preventDefault();
 
-    await this.form.validateFields();
+    await this.form.validateForm();
     const formIsValid = this.form.isValid();
     this.setState({submitButtonDisabled: !formIsValid});
     if (formIsValid) {
