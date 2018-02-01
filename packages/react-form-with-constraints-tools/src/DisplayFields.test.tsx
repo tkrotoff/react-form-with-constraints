@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { shallow as _shallow } from 'enzyme';
 
 import { FormWithConstraints, FormWithConstraintsChildContext, fieldWithoutFeedback, FieldEvent } from 'react-form-with-constraints';

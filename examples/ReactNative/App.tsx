@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { StyleSheet, Text, /*TextInput,*/ View, Button, ActivityIndicator } from 'react-native';
 import { TextInput } from 'react-form-with-constraints-native/lib/react-native-TextInput-fix'; // Specific to TypeScript
 

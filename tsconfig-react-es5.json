@@ -6,6 +6,8 @@
     "jsx": "react",
     "module": "commonjs",
     "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true, // FIXME TypeScript Bug? Should be set to true by default with esModuleInterop
     "noLib": false,
     "lib": ["dom.iterable", "es2017"],
     "experimentalDecorators": true,

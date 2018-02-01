@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import * as _ from 'lodash';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { debounce } from 'lodash';
 
 import { Input, FormWithConstraints, FieldFeedbacks, FieldFeedback, Async as Async_, AsyncProps } from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
@@ -65,7 +65,7 @@ class Form extends React.Component<Props, State> {
 
     this.state = this.getInitialState();
 
-    this.validateFields = _.debounce(this.validateFields, VALIDATE_DEBOUNCE_WAIT);
+    this.validateFields = debounce(this.validateFields, VALIDATE_DEBOUNCE_WAIT);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleHasWebsiteChange = this.handleHasWebsiteChange.bind(this);

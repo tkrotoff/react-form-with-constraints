@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { ShallowWrapper } from 'enzyme';
 
 import { FieldFeedback, FieldFeedbackProps, FieldFeedbacks, FieldFeedbacksProps } from './index';

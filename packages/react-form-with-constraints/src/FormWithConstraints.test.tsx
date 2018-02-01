@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { mount } from 'enzyme';
 
 import { fieldWithoutFeedback, FormWithConstraints, FieldFeedbacks, FieldFeedback, Async } from './index';

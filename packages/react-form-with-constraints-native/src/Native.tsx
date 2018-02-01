@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Text, TextProperties as TextProps, View } from 'react-native';
 import { TextInput } from './react-native-TextInput-fix'; // Specific to TypeScript
 

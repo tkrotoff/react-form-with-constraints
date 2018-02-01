@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { ShallowWrapper } from 'enzyme';
 
 import { getFieldFeedbacksMessages as _getFieldFeedbacksMessages } from 'react-form-with-constraints/lib/Enzyme';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { Input, FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
 
