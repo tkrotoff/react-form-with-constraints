@@ -6,7 +6,7 @@ import {
   FormWithConstraints as _FormWithConstraints,
   FieldFeedback as _FieldFeedback,
   FieldFeedbacks as _FieldFeedbacks,
-  FieldFeedbackValidation
+  FieldFeedbacksValidation
 } from 'react-form-with-constraints';
 
 // Recursive React.Children.forEach()
@@ -34,60 +34,49 @@ export class FormWithConstraints extends _FormWithConstraints {
   // @ts-ignore
   // TS2416: Property 'validateFields' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'
   validateFields(...inputsOrNames: Array<TextInput | string>) {
-    const validationsPromisesList = new Array<Promise<FieldFeedbackValidation[]>>();
+    return this._validateFields(true /* validateDirtyFields */, ...inputsOrNames);
+  }
+
+  private _validateFields(validateDirtyFields: boolean, ...inputsOrNames: Array<TextInput | string>) {
+    const fieldFeedbacksValidationPromises = new Array<Promise<FieldFeedbacksValidation>>();
 
     const inputs = this.normalizeInputs(...inputsOrNames);
 
     inputs.forEach(input => {
+      const fieldName = input.props.name;
+
       const _input = {
-        name: input.props.name,
+        name: fieldName,
         type: undefined as any,
         value: input.props.value!, // Tested: TextInput props.value is always a string and never undefined (empty string instead)
         validity: undefined as any,
         validationMessage: undefined as any
       };
 
-      const validationsPromises = this.emitValidateEvent(_input)
-        .filter(validation => validation !== undefined) // Remove undefined results
-        .map(validation => Promise.resolve(validation!)); // Transforms all results into Promises
+      const field = this.fieldsStore.fields[fieldName];
+      if (validateDirtyFields || (field !== undefined && field.dirty === false)) {
+        const fieldFeedbackValidationsPromise = this.emitValidateEvent(_input)
+          .filter(fieldFeedbackValidations => fieldFeedbackValidations !== undefined) // Remove undefined results
+          .map(fieldFeedbackValidations => Promise.resolve(fieldFeedbackValidations!)); // Transforms all results into Promises
 
-      validationsPromisesList.push(...validationsPromises);
-    });
+        const _fieldFeedbacksValidationPromises = Promise.all(fieldFeedbackValidationsPromise)
+          .then(validations =>
+            // See Merge/flatten an array of arrays in JavaScript? https://stackoverflow.com/q/10865025/990356
+            validations.reduce((prev, curr) => prev.concat(curr), [])
+          )
+          .then(fieldFeedbackValidations =>
+            ({
+              fieldName,
+              isValid: () => fieldFeedbackValidations.every(fieldFeedbackValidation => fieldFeedbackValidation.isValid!),
+              fieldFeedbackValidations
+            })
+          );
 
-    return Promise.all(validationsPromisesList).then(validations =>
-      // See Merge/flatten an array of arrays in JavaScript? https://stackoverflow.com/q/10865025/990356
-      validations.reduce((prev, curr) => prev.concat(curr), [])
-    );
-  }
-
-  validateForm() {
-    const validationsPromisesList = new Array<Promise<FieldFeedbackValidation[]>>();
-
-    const inputs = this.normalizeInputs();
-
-    inputs.forEach(input => {
-      const _input = {
-        name: input.props.name,
-        type: undefined as any,
-        value: input.props.value!, // Tested: TextInput props.value is always a string and never undefined (empty string instead)
-        validity: undefined as any,
-        validationMessage: undefined as any
-      };
-
-      const field = this.fieldsStore.fields[_input.name];
-      if (field !== undefined && field.dirty === false) {
-        const validationsPromises = this.emitValidateEvent(_input)
-          .filter(validation => validation !== undefined) // Remove undefined results
-          .map(validation => Promise.resolve(validation!)); // Transforms all results into Promises
-
-        validationsPromisesList.push(...validationsPromises);
+        fieldFeedbacksValidationPromises.push(_fieldFeedbacksValidationPromises);
       }
     });
 
-    return Promise.all(validationsPromisesList).then(validations =>
-      // See Merge/flatten an array of arrays in JavaScript? https://stackoverflow.com/q/10865025/990356
-      validations.reduce((prev, curr) => prev.concat(curr), [])
-    );
+    return Promise.all(fieldFeedbacksValidationPromises);
   }
 
   private normalizeInputs(...inputsOrNames: Array<TextInput | string>) {

@@ -112,16 +112,16 @@ export class FieldFeedbacks extends withValidateEventEmitter<ListenerReturnType,
   validate(input: Input) {
     const { for: fieldName } = this.props;
 
-    let validations;
+    let fieldFeedbackValidations;
 
     if (input.name === fieldName) { // Ignore the event if it's not for us
       // Clear the errors/warnings/infos each time we re-validate the input
       this.context.form.fieldsStore.removeFieldFor(fieldName, this.key);
 
-      validations = this.emitValidateEvent(input);
+      fieldFeedbackValidations = this.emitValidateEvent(input);
     }
 
-    return validations;
+    return fieldFeedbackValidations;
   }
 
   hasErrors() {

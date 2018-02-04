@@ -142,10 +142,10 @@ class MyForm extends React.Component {
   async handleChange(e) {
     const target = e.currentTarget;
 
-    // Validates only the given field and returns the related FieldFeedbackValidation structures
-    const fieldFeedbackValidations = await this.form.validateFields(target);
+    // Validates only the given field and returns the related FieldFeedbacksValidation structures
+    const fieldFeedbacksValidations = await this.form.validateFields(target);
 
-    const fieldIsValid = fieldFeedbackValidations.every(fieldFeedback => fieldFeedback.isValid);
+    const fieldIsValid = fieldFeedbacksValidations.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
     if (fieldIsValid) console.log(`Field '${target.name}' is valid`);
     else console.log(`Field '${target.name}' is invalid`);
 
@@ -156,11 +156,11 @@ class MyForm extends React.Component {
   async handleSubmit(e) {
     e.preventDefault();
 
-    // Validates the non-dirty fields and returns the related FieldFeedbackValidation structures
-    const fieldFeedbackValidations = await this.form.validateForm();
+    // Validates the non-dirty fields and returns the related FieldFeedbacksValidation structures
+    const fieldFeedbacksValidations = await this.form.validateForm();
 
     // or simply this.form.isValid();
-    const formIsValid = fieldFeedbackValidations.every(fieldFeedback => fieldFeedback.isValid);
+    const formIsValid = fieldFeedbacksValidations.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
 
     if (formIsValid) console.log('The form is valid');
     else console.log('The form is invalid');
@@ -214,19 +214,29 @@ class MyForm extends React.Component {
 
 - `FormWithConstraints`
 
-  - `validateFields(...inputsOrNames: Array<Input | string>): Promise<FieldFeedbackValidation[]>` =>
+  - `validateFields(...inputsOrNames: Array<Input | string>): Promise<FieldFeedbacksValidation[]>` =>
     Should be called when a `field` changes, will re-render the proper `FieldFeedback`s (and update the internal `FieldsStore`).
     Without arguments, all fields (`$('[name]')`) are validated.
 
-  - `validateForm(): Promise<FieldFeedbackValidation[]>` =>
-    Should be called before to submit the `form`. Only validates all non-dirty fields (won't re-validate fields that have been already validated with `validateFields()`),
+  - `validateForm(): Promise<FieldFeedbacksValidation[]>` =>
+    Should be called before to submit the `form`. Validates only all non-dirty fields (won't re-validate fields that have been already validated with `validateFields()`),
     If you want to force re-validate all fields, use `validateFields()` without arguments.
 
   - `isValid(): boolean` => should be called after `validateForm()` or `validateFields()`, tells if the known fields are valid (thanks to internal `FieldsStore`)
 
   - `reset(): void` => resets internal `FieldsStore` and re-render all `FieldFeedback`s
 
-  - `FieldFeedbackValidation` => `{ key: number; isValid: boolean | undefined; }`
+  - `FieldFeedbacksValidation` =>
+    ```TypeScript
+    {
+      fieldName: string;
+      isValid: () => boolean;
+      fieldFeedbackValidations: {
+        key: number;
+        isValid: boolean | undefined;
+      }[]; // FieldFeedbackValidation[]
+    }
+    ```
 
 ## Browser support
 

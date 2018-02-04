@@ -24,7 +24,7 @@ test('computeFieldFeedbacksKey()', () => {
   expect(form.computeFieldFeedbacksKey()).toEqual(2);
 });
 
-describe('validateFields()', () => {
+describe('validate', () => {
   class Form extends React.Component {
     formWithConstraints: FormWithConstraints | null | undefined;
     username: HTMLInputElement | null | undefined;
@@ -59,24 +59,37 @@ describe('validateFields()', () => {
     }
   }
 
-  test('inputs', async () => {
-    const wrapper = mount(<Form />);
-    const form = wrapper.instance() as Form;
-    const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
-    const fieldFeedbackValidations = await form.formWithConstraints!.validateFields(form.username!, form.password!);
-    expect(fieldFeedbackValidations).toEqual([
-      {key: 0.0, isValid: false},
-      {key: 0.1, isValid: false},
-      {key: 0.2, isValid: true},
-      {key: 1.0, isValid: false},
-      {key: 1.1, isValid: false}
-    ]);
-    expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
-    expect(emitValidateEventSpy.mock.calls).toEqual([
-      [form.username],
-      [form.password]
-    ]);
-    expect(wrapper.html()).toEqual(`\
+  describe('validateFields()', () => {
+    test('inputs', async () => {
+      const wrapper = mount(<Form />);
+      const form = wrapper.instance() as Form;
+      const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+      const fieldFeedbackValidations = await form.formWithConstraints!.validateFields(form.username!, form.password!);
+      expect(fieldFeedbackValidations).toEqual([
+        {
+          fieldName: 'username',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 0.0, isValid: false},
+            {key: 0.1, isValid: false},
+            {key: 0.2, isValid: true}
+          ]
+        },
+        {
+          fieldName: 'password',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 1.0, isValid: false},
+            {key: 1.1, isValid: false}
+          ]
+        }
+      ]);
+      expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
+      expect(emitValidateEventSpy.mock.calls).toEqual([
+        [form.username],
+        [form.password]
+      ]);
+      expect(wrapper.html()).toEqual(`\
 <form>\
 <div>\
 <input type="email" name="username">\
@@ -92,79 +105,163 @@ describe('validateFields()', () => {
 </div>\
 </div>\
 </form>`
-    );
-  });
+      );
+    });
 
-  test('field names', async () => {
-    const form = mount(<Form />).instance() as Form;
-    const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
-    const fieldFeedbackValidations = await form.formWithConstraints!.validateFields('username', 'password');
-    expect(fieldFeedbackValidations).toEqual([
-      {key: 0.0, isValid: false},
-      {key: 0.1, isValid: false},
-      {key: 0.2, isValid: true},
-      {key: 1.0, isValid: false},
-      {key: 1.1, isValid: false}
-    ]);
-    expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
-    expect(emitValidateEventSpy.mock.calls).toEqual([
-      [form.username],
-      [form.password]
-    ]);
-  });
+    test('field names', async () => {
+      const form = mount(<Form />).instance() as Form;
+      const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+      const fieldFeedbackValidations = await form.formWithConstraints!.validateFields('username', 'password');
+      expect(fieldFeedbackValidations).toEqual([
+        {
+          fieldName: 'username',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 0.0, isValid: false},
+            {key: 0.1, isValid: false},
+            {key: 0.2, isValid: true}
+          ]
+        },
+        {
+          fieldName: 'password',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 1.0, isValid: false},
+            {key: 1.1, isValid: false}
+          ]
+        }
+      ]);
+      expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
+      expect(emitValidateEventSpy.mock.calls).toEqual([
+        [form.username],
+        [form.password]
+      ]);
+    });
 
-  test('inputs + field names', async () => {
-    const form = mount(<Form />).instance() as Form;
-    const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
-    const fieldFeedbackValidations = await form.formWithConstraints!.validateFields(form.username!, 'password');
-    expect(fieldFeedbackValidations).toEqual([
-      {key: 0.0, isValid: false},
-      {key: 0.1, isValid: false},
-      {key: 0.2, isValid: true},
-      {key: 1.0, isValid: false},
-      {key: 1.1, isValid: false}
-    ]);
-    expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
-    expect(emitValidateEventSpy.mock.calls).toEqual([
-      [form.username],
-      [form.password]
-    ]);
-  });
+    test('inputs + field names', async () => {
+      const form = mount(<Form />).instance() as Form;
+      const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+      const fieldFeedbackValidations = await form.formWithConstraints!.validateFields(form.username!, 'password');
+      expect(fieldFeedbackValidations).toEqual([
+        {
+          fieldName: 'username',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 0.0, isValid: false},
+            {key: 0.1, isValid: false},
+            {key: 0.2, isValid: true}
+          ],
+        },
+        {
+          fieldName: 'password',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 1.0, isValid: false},
+            {key: 1.1, isValid: false}
+          ]
+        }
+      ]);
+      expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
+      expect(emitValidateEventSpy.mock.calls).toEqual([
+        [form.username],
+        [form.password]
+      ]);
+    });
 
-  test('without arguments', async () => {
-    const form = mount(<Form />).instance() as Form;
-    const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
-    const fieldFeedbackValidations = await form.formWithConstraints!.validateFields();
-    expect(fieldFeedbackValidations).toEqual([
-      {key: 0.0, isValid: false},
-      {key: 0.1, isValid: false},
-      {key: 0.2, isValid: true},
-      {key: 1.0, isValid: false},
-      {key: 1.1, isValid: false}
-    ]);
-    expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
-    expect(emitValidateEventSpy.mock.calls).toEqual([
-      [form.username],
-      [form.password]
-    ]);
-  });
+    test('without arguments', async () => {
+      const form = mount(<Form />).instance() as Form;
+      const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+      const fieldFeedbackValidations = await form.formWithConstraints!.validateFields();
+      expect(fieldFeedbackValidations).toEqual([
+        {
+          fieldName: 'username',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 0.0, isValid: false},
+            {key: 0.1, isValid: false},
+            {key: 0.2, isValid: true}
+          ]
+        },
+        {
+          fieldName: 'password',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 1.0, isValid: false},
+            {key: 1.1, isValid: false}
+          ]
+        }
+      ]);
+      expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
+      expect(emitValidateEventSpy.mock.calls).toEqual([
+        [form.username],
+        [form.password]
+      ]);
+    });
 
-  test('change inputs', async () => {
-    const wrapper = mount(<Form />);
-    const form = wrapper.instance() as Form;
+    test('change inputs', async () => {
+      const wrapper = mount(<Form />);
+      const form = wrapper.instance() as Form;
+      const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+      const fieldFeedbackValidations1 = await form.formWithConstraints!.validateFields();
+      expect(fieldFeedbackValidations1).toEqual([
+        {
+          fieldName: 'username',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 0.0, isValid: false},
+            {key: 0.1, isValid: false},
+            {key: 0.2, isValid: true}
+          ],
+        },
+        {
+          fieldName: 'password',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 1.0, isValid: false},
+            {key: 1.1, isValid: false}
+          ]
+        }
+      ]);
+      expect(fieldFeedbackValidations1[0].isValid()).toEqual(false);
+      expect(fieldFeedbackValidations1[1].isValid()).toEqual(false);
+      expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
+      expect(emitValidateEventSpy.mock.calls).toEqual([
+        [form.username],
+        [form.password]
+      ]);
 
-    form.username!.value = 'jimmy';
-    form.password!.value = '1234';
-    const fieldFeedbackValidations = await form.formWithConstraints!.validateFields();
-    expect(fieldFeedbackValidations).toEqual([
-      {key: 0.0, isValid: true},
-      {key: 0.1, isValid: true},
-      {key: 0.2, isValid: true},
-      {key: 1.0, isValid: true},
-      {key: 1.1, isValid: false}
-    ]);
+      emitValidateEventSpy.mockClear();
+      form.username!.value = 'jimmy';
+      form.password!.value = '1234';
+      const fieldFeedbackValidations2 = await form.formWithConstraints!.validateFields();
+      expect(fieldFeedbackValidations2).toEqual([
+        {
+          fieldName: 'username',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 0.0, isValid: true},
+            {key: 0.1, isValid: true},
+            {key: 0.3, isValid: true} // FieldFeedback key incremented because Async created a new FieldFeedback
+          ]
+        },
+        {
+          fieldName: 'password',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 1.0, isValid: true},
+            {key: 1.1, isValid: false}
+          ]
+        }
+      ]);
+      expect(fieldFeedbackValidations2[0].isValid()).toEqual(true);
+      expect(fieldFeedbackValidations2[1].isValid()).toEqual(false);
+      expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
+      expect(emitValidateEventSpy.mock.calls).toEqual([
+        [form.username],
+        [form.password]
+      ]);
 
-    expect(wrapper.html()).toEqual(`\
+      expect(wrapper.html()).toEqual(`\
 <form>\
 <div>\
 <input type="email" name="username">\
@@ -177,25 +274,37 @@ describe('validateFields()', () => {
 </div>\
 </div>\
 </form>`
-    );
-  });
+      );
+    });
 
-  test('change inputs - Async catch()', async () => {
-    const wrapper = mount(<Form />);
-    const form = wrapper.instance() as Form;
+    test('change inputs - Async catch()', async () => {
+      const wrapper = mount(<Form />);
+      const form = wrapper.instance() as Form;
 
-    form.username!.value = 'error';
-    form.password!.value = '1234';
-    const fieldFeedbackValidations = await form.formWithConstraints!.validateFields();
-    expect(fieldFeedbackValidations).toEqual([
-      {key: 0.0, isValid: true},
-      {key: 0.1, isValid: true},
-      {key: 0.2, isValid: false},
-      {key: 1.0, isValid: true},
-      {key: 1.1, isValid: false}
-    ]);
+      form.username!.value = 'error';
+      form.password!.value = '1234';
+      const fieldFeedbackValidations = await form.formWithConstraints!.validateFields();
+      expect(fieldFeedbackValidations).toEqual([
+        {
+          fieldName: 'username',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 0.0, isValid: true},
+            {key: 0.1, isValid: true},
+            {key: 0.2, isValid: false}
+          ]
+        },
+        {
+          fieldName: 'password',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 1.0, isValid: true},
+            {key: 1.1, isValid: false}
+          ]
+        }
+      ]);
 
-    expect(wrapper.html()).toEqual(`\
+      expect(wrapper.html()).toEqual(`\
 <form>\
 <div>\
 <input type="email" name="username">\
@@ -208,7 +317,68 @@ describe('validateFields()', () => {
 </div>\
 </div>\
 </form>`
-    );
+      );
+    });
+  });
+
+  describe('validateForm()', () => {
+    test.only('validateDirtyFields = false', async () => {
+      const wrapper = mount(<Form />);
+      const form = wrapper.instance() as Form;
+      const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+      const fieldFeedbackValidations1 = await form.formWithConstraints!.validateForm();
+      expect(fieldFeedbackValidations1).toEqual([
+        {
+          fieldName: 'username',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 0.0, isValid: false},
+            {key: 0.1, isValid: false},
+            {key: 0.2, isValid: true}
+          ]
+        },
+        {
+          fieldName: 'password',
+          isValid: expect.any(Function),
+          fieldFeedbackValidations: [
+            {key: 1.0, isValid: false},
+            {key: 1.1, isValid: false}
+          ]
+        }
+      ]);
+      expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
+      expect(emitValidateEventSpy.mock.calls).toEqual([
+        [form.username],
+        [form.password]
+      ]);
+
+      // Fields are already dirty so calling validateForm() again won't do anything
+
+      expect(form.formWithConstraints!.fieldsStore.fields).toEqual({
+        username: {
+          dirty: true,
+          errors: new Set([0.0, 0.1]),
+          warnings: new Set(),
+          infos: new Set([0.2]),
+          validationMessage: undefined
+        },
+        password: {
+          dirty: true,
+          errors: new Set([1.0, 1.1]),
+          warnings: new Set(),
+          infos: new Set(),
+          validationMessage: undefined
+        }
+      });
+
+      emitValidateEventSpy.mockClear();
+      form.username!.value = 'jimmy';
+      form.password!.value = '1234';
+      const fieldFeedbackValidations2 = await form.formWithConstraints!.validateForm();
+      expect(fieldFeedbackValidations2).toEqual([]);
+      expect(emitValidateEventSpy).toHaveBeenCalledTimes(0);
+      expect(emitValidateEventSpy.mock.calls).toEqual([]);
+    });
   });
 });
 
@@ -286,6 +456,34 @@ test('isValid()', () => {
     }
   };
   expect(form.isValid()).toEqual(true);
+});
+
+test('reset()', () => {
+  const form = new FormWithConstraints({});
+
+  form.fieldsStore.fields = {
+    username: {
+      dirty: true,
+      errors: new Set([0]),
+      warnings: new Set(),
+      infos: new Set(),
+      validationMessage: 'Suffering from being missing'
+    },
+    password: {
+      dirty: true,
+      errors: new Set([0]),
+      warnings: new Set(),
+      infos: new Set(),
+      validationMessage: 'Suffering from being missing'
+    }
+  };
+
+  form.reset();
+
+  expect(form.fieldsStore.fields).toEqual({
+    username: fieldWithoutFeedback,
+    password: fieldWithoutFeedback
+  });
 });
 
 describe('render()', () => {

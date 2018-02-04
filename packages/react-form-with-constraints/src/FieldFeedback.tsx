@@ -77,9 +77,9 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps> {
     const { when } = this.props;
     const { fieldFeedbacks } = this.context;
 
-    const validation: FieldFeedbackValidation = {
+    const fieldFeedbackValidation: FieldFeedbackValidation = {
       key: this.key,
-      isValid: undefined
+      isValid: undefined // undefined means the FieldFeedback was not checked
     };
 
     if (fieldFeedbacks.props.stop === 'first-error' && fieldFeedbacks.hasErrors()) {
@@ -124,10 +124,10 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps> {
 
       this.updateFieldsStore(input, show);
 
-      validation.isValid = this.isValid();
+      fieldFeedbackValidation.isValid = this.isValid();
     }
 
-    return validation;
+    return fieldFeedbackValidation;
   }
 
   // Update the Fields structure

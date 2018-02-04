@@ -17,7 +17,7 @@ function createFieldFeedbacks(props: FieldFeedbacksProps, form: FormWithConstrai
 
 // Taken and adapted from FormWithConstraints.test.tsx
 describe('FormWithConstraints', () => {
-  describe('validateFields()', () => {
+  describe('validate', () => {
     class Form extends React.Component {
       formWithConstraints: FormWithConstraints | null | undefined;
       username: TextInput | null | undefined;
@@ -43,52 +43,137 @@ describe('FormWithConstraints', () => {
       }
     }
 
-    test('inputs', async () => {
-      const form = renderer.create(<Form />).getInstance() as any as Form;
-      const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
-      const fieldFeedbackValidations = await form.formWithConstraints!.validateFields(form.username!, form.password!);
-      expect(fieldFeedbackValidations).toEqual([]);
-      expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
-      expect(emitValidateEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}],
-        [{name: 'password', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}]
-      ]);
+    describe('validateFields()', () => {
+      test('inputs', async () => {
+        const form = renderer.create(<Form />).getInstance() as any as Form;
+        const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+        const fieldFeedbackValidations = await form.formWithConstraints!.validateFields(form.username!, form.password!);
+        expect(fieldFeedbackValidations).toEqual([
+          {
+            fieldName: 'username',
+            isValid: expect.any(Function),
+            fieldFeedbackValidations: []
+          },
+          {
+            fieldName: 'password',
+            isValid: expect.any(Function),
+            fieldFeedbackValidations: []
+          }
+        ]);
+        expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
+        expect(emitValidateEventSpy.mock.calls).toEqual([
+          [{name: 'username', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}],
+          [{name: 'password', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}]
+        ]);
+      });
+
+      test('field names', async () => {
+        const form = renderer.create(<Form />).getInstance() as any as Form;
+        const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+        const fieldFeedbackValidations = await form.formWithConstraints!.validateFields('username', 'password');
+        expect(fieldFeedbackValidations).toEqual([
+          {
+            fieldName: 'username',
+            isValid: expect.any(Function),
+            fieldFeedbackValidations: []
+          },
+          {
+            fieldName: 'password',
+            isValid: expect.any(Function),
+            fieldFeedbackValidations: []
+          }
+        ]);
+        expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
+        expect(emitValidateEventSpy.mock.calls).toEqual([
+          [{name: 'username', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}],
+          [{name: 'password', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}]
+        ]);
+      });
+
+      test('inputs + field names', async () => {
+        const form = renderer.create(<Form />).getInstance() as any as Form;
+        const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+        const fieldFeedbackValidations = await form.formWithConstraints!.validateFields(form.username!, 'password');
+        expect(fieldFeedbackValidations).toEqual([
+          {
+            fieldName: 'username',
+            isValid: expect.any(Function),
+            fieldFeedbackValidations: []
+          },
+          {
+            fieldName: 'password',
+            isValid: expect.any(Function),
+            fieldFeedbackValidations: []
+          }
+        ]);
+        expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
+        expect(emitValidateEventSpy.mock.calls).toEqual([
+          [{name: 'username', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}],
+          [{name: 'password', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}]
+        ]);
+      });
+
+      test('without arguments', async () => {
+        const form = renderer.create(<Form />).getInstance() as any as Form;
+        const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+        const fieldFeedbackValidations = await form.formWithConstraints!.validateFields();
+        expect(fieldFeedbackValidations).toEqual([
+          {
+            fieldName: 'username',
+            isValid: expect.any(Function),
+            fieldFeedbackValidations: []
+          },
+          {
+            fieldName: 'password',
+            isValid: expect.any(Function),
+            fieldFeedbackValidations: []
+          }
+        ]);
+        expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
+        expect(emitValidateEventSpy.mock.calls).toEqual([
+          [{name: 'username', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}],
+          [{name: 'password', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}]
+        ]);
+      });
     });
 
-    test('field names', async () => {
-      const form = renderer.create(<Form />).getInstance() as any as Form;
-      const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
-      const fieldFeedbackValidations = await form.formWithConstraints!.validateFields('username', 'password');
-      expect(fieldFeedbackValidations).toEqual([]);
-      expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
-      expect(emitValidateEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}],
-        [{name: 'password', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}]
-      ]);
-    });
+    describe('validateForm()', () => {
+      test('validateDirtyFields = false', async () => {
+        const form = renderer.create(<Form />).getInstance() as any as Form;
+        const fieldsStore = form.formWithConstraints!.fieldsStore;
+        fieldsStore.fields = {
+          username: fieldWithoutFeedback,
+          password: fieldWithoutFeedback
+        };
+        const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
+        const fieldFeedbackValidations1 = await form.formWithConstraints!.validateForm();
+        expect(fieldFeedbackValidations1).toEqual([
+          {
+            fieldName: 'username',
+            isValid: expect.any(Function),
+            fieldFeedbackValidations: []
+          },
+          {
+            fieldName: 'password',
+            isValid: expect.any(Function),
+            fieldFeedbackValidations: []
+          }
+        ]);
+        expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
+        expect(emitValidateEventSpy.mock.calls).toEqual([
+          [{name: 'username', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}],
+          [{name: 'password', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}]
+        ]);
 
-    test('inputs + field names', async () => {
-      const form = renderer.create(<Form />).getInstance() as any as Form;
-      const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
-      const fieldFeedbackValidations = await form.formWithConstraints!.validateFields(form.username!, 'password');
-      expect(fieldFeedbackValidations).toEqual([]);
-      expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
-      expect(emitValidateEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}],
-        [{name: 'password', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}]
-      ]);
-    });
-
-    test('without arguments', async () => {
-      const form = renderer.create(<Form />).getInstance() as any as Form;
-      const emitValidateEventSpy = jest.spyOn(form.formWithConstraints!, 'emitValidateEvent');
-      const fieldFeedbackValidations = await form.formWithConstraints!.validateFields();
-      expect(fieldFeedbackValidations).toEqual([]);
-      expect(emitValidateEventSpy).toHaveBeenCalledTimes(2);
-      expect(emitValidateEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}],
-        [{name: 'password', type: undefined, value: undefined, validity: undefined, validationMessage: undefined}]
-      ]);
+        fieldsStore.fields.username!.dirty = true;
+        fieldsStore.fields.password!.dirty = true;
+        emitValidateEventSpy.mockClear();
+        // Fields are dirty so calling validateForm() again won't do anything
+        const fieldFeedbackValidations2 = await form.formWithConstraints!.validateForm();
+        expect(fieldFeedbackValidations2).toEqual([]);
+        expect(emitValidateEventSpy).toHaveBeenCalledTimes(0);
+        expect(emitValidateEventSpy.mock.calls).toEqual([]);
+      });
     });
   });
 

@@ -86,7 +86,7 @@ export class Async<T> extends withValidateEventEmitter<ListenerReturnType, typeo
     const { fieldFeedbacks } = this.context;
     const fieldName = fieldFeedbacks.props.for;
 
-    let validationsPromise;
+    let fieldFeedbackValidationsPromise;
 
     if (input.name === fieldName) { // Ignore the event if it's not for us
       if (fieldFeedbacks.props.stop === 'first-error' && fieldFeedbacks.hasErrors()) {
@@ -95,7 +95,7 @@ export class Async<T> extends withValidateEventEmitter<ListenerReturnType, typeo
       else {
         this.setState({status: Status.Pending});
 
-        validationsPromise = this.props.promise(input.value)
+        fieldFeedbackValidationsPromise = this.props.promise(input.value)
 
           // See Make setState return a promise https://github.com/facebook/react/issues/2642
           // The Promise returned is Promise<undefined>
@@ -118,7 +118,7 @@ export class Async<T> extends withValidateEventEmitter<ListenerReturnType, typeo
       }
     }
 
-    return validationsPromise;
+    return fieldFeedbackValidationsPromise;
   }
 
   render() {

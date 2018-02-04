@@ -89,7 +89,11 @@ describe('validate()', () => {
     expect(emitValidateEventSpy).toHaveBeenCalledTimes(0);
     const input = new InputMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
     const fieldFeedbackValidations = await form.validateFields(input);
-    expect(fieldFeedbackValidations).toEqual([]);
+    expect(fieldFeedbackValidations).toEqual([{
+      fieldName: 'username',
+      isValid: expect.any(Function),
+      fieldFeedbackValidations: []
+    }]);
     expect(emitValidateEventSpy).toHaveBeenCalledTimes(1);
     expect(emitValidateEventSpy).toHaveBeenLastCalledWith(input);
   });
@@ -104,9 +108,11 @@ describe('validate()', () => {
     );
     const input = new InputMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
     const fieldFeedbackValidations = await form.validateFields(input);
-    expect(fieldFeedbackValidations).toEqual([
-      {key: 0.0, isValid: false}
-    ]);
+    expect(fieldFeedbackValidations).toEqual([{
+      fieldName: 'username',
+      isValid: expect.any(Function),
+      fieldFeedbackValidations: [{key: 0.0, isValid: false}]
+    }]);
 
     expect(form.fieldsStore.fields).toEqual({
       username: {
@@ -130,7 +136,11 @@ describe('validate()', () => {
     expect(emitValidateEventSpy).toHaveBeenCalledTimes(0);
     const input = new InputMock('unknown', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
     const fieldFeedbackValidations = await form.validateFields(input);
-    expect(fieldFeedbackValidations).toEqual([]);
+    expect(fieldFeedbackValidations).toEqual([{
+      fieldName: 'unknown',
+      isValid: expect.any(Function),
+      fieldFeedbackValidations: []
+    }]);
     expect(emitValidateEventSpy).toHaveBeenCalledTimes(0);
   });
 
@@ -144,7 +154,11 @@ describe('validate()', () => {
     );
     const input = new InputMock('unknown', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
     const fieldFeedbackValidations = await form.validateFields(input);
-    expect(fieldFeedbackValidations).toEqual([]);
+    expect(fieldFeedbackValidations).toEqual([{
+      fieldName: 'unknown',
+      isValid: expect.any(Function),
+      fieldFeedbackValidations: []
+    }]);
 
     expect(form.fieldsStore.fields).toEqual({
       username: fieldWithoutFeedback
@@ -169,7 +183,11 @@ describe('validate()', () => {
     );
     const input = new InputMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
     const fieldFeedbackValidations = await form.validateFields(input);
-    expect(fieldFeedbackValidations).toEqual([]);
+    expect(fieldFeedbackValidations).toEqual([{
+      fieldName: 'username',
+      isValid: expect.any(Function),
+      fieldFeedbackValidations: []
+    }]);
 
     expect(form.fieldsStore.fields).toEqual({
       username: {
@@ -194,9 +212,11 @@ describe('render()', () => {
     );
     const input = new InputMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
     const fieldFeedbackValidations = await form.validateFields(input);
-    expect(fieldFeedbackValidations).toEqual([
-      {key: 0.0, isValid: false}
-    ]);
+    expect(fieldFeedbackValidations).toEqual([{
+      fieldName: 'username',
+      isValid: expect.any(Function),
+      fieldFeedbackValidations: [{key: 0.0, isValid: false}]
+    }]);
 
     expect(form.fieldsStore.fields).toEqual({
       username: {
@@ -224,9 +244,11 @@ describe('render()', () => {
     );
     const input = new InputMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
     const fieldFeedbackValidations = await form.validateFields(input);
-    expect(fieldFeedbackValidations).toEqual([
-      {key: 0.0, isValid: false}
-    ]);
+    expect(fieldFeedbackValidations).toEqual([{
+      fieldName: 'username',
+      isValid: expect.any(Function),
+      fieldFeedbackValidations: [{key: 0.0, isValid: false}]
+    }]);
 
     expect(form.fieldsStore.fields).toEqual({
       username: {
@@ -252,7 +274,11 @@ describe('render()', () => {
     );
     const input = new InputMock('unknown', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
     const fieldFeedbackValidations = await form.validateFields(input);
-    expect(fieldFeedbackValidations).toEqual([]);
+    expect(fieldFeedbackValidations).toEqual([{
+      fieldName: 'unknown',
+      isValid: expect.any(Function),
+      fieldFeedbackValidations: []
+    }]);
 
     expect(form.fieldsStore.fields).toEqual({
       username: fieldWithoutFeedback
@@ -275,11 +301,15 @@ describe('render()', () => {
       );
       const input = new InputMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
       const fieldFeedbackValidations = await form.validateFields(input);
-      expect(fieldFeedbackValidations).toEqual([
-        {key: 0.0, isValid: false},
-        {key: 0.1, isValid: false},
-        {key: 0.2, isValid: false}
-      ]);
+      expect(fieldFeedbackValidations).toEqual([{
+        fieldName: 'username',
+        isValid: expect.any(Function),
+        fieldFeedbackValidations: [
+          {key: 0.0, isValid: false},
+          {key: 0.1, isValid: false},
+          {key: 0.2, isValid: false}
+        ]
+      }]);
 
       expect(form.fieldsStore.fields).toEqual({
         username: {
@@ -308,11 +338,15 @@ describe('render()', () => {
       );
       const input = new InputMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
       const fieldFeedbackValidations = await form.validateFields(input);
-      expect(fieldFeedbackValidations).toEqual([
-        {key: 0.0, isValid: false},
-        {key: 0.1, isValid: undefined},
-        {key: 0.2, isValid: undefined}
-      ]);
+      expect(fieldFeedbackValidations).toEqual([{
+        fieldName: 'username',
+        isValid: expect.any(Function),
+        fieldFeedbackValidations: [
+          {key: 0.0, isValid: false},
+          {key: 0.1, isValid: undefined},
+          {key: 0.2, isValid: undefined}
+        ]
+      }]);
 
       expect(form.fieldsStore.fields).toEqual({
         username: {
@@ -341,11 +375,15 @@ describe('render()', () => {
       );
       const input = new InputMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
       const fieldFeedbackValidations = await form.validateFields(input);
-      expect(fieldFeedbackValidations).toEqual([
-        {key: 0.0, isValid: true},
-        {key: 0.1, isValid: false},
-        {key: 0.2, isValid: undefined}
-      ]);
+      expect(fieldFeedbackValidations).toEqual([{
+        fieldName: 'username',
+        isValid: expect.any(Function),
+        fieldFeedbackValidations: [
+          {key: 0.0, isValid: true},
+          {key: 0.1, isValid: false},
+          {key: 0.2, isValid: undefined}
+        ]
+      }]);
 
       expect(form.fieldsStore.fields).toEqual({
         username: {

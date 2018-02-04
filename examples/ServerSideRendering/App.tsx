@@ -40,11 +40,15 @@ class Form extends React.Component<Props, State> {
       [target.name as any]: target.value
     });
 
-    const fieldFeedbackValidations = await this.form!.validateFields(target);
+    // Validates only the given field and returns the related FieldFeedbacksValidation structures
+    const fieldFeedbacksValidations = await this.form!.validateFields(target);
 
-    const fieldIsValid = fieldFeedbackValidations.every(fieldFeedback => fieldFeedback.isValid!);
+    const fieldIsValid = fieldFeedbacksValidations.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
     if (fieldIsValid) console.log(`Field '${target.name}' is valid`);
     else console.log(`Field '${target.name}' is invalid`);
+
+    if (this.form!.isValid()) console.log('The form is valid');
+    else console.log('The form is invalid');
 
     this.setState({submitButtonDisabled: !this.form!.isValid()});
   }
@@ -56,9 +60,9 @@ class Form extends React.Component<Props, State> {
       [target.name as any]: target.value
     });
 
-    const fieldFeedbackValidations = await this.form!.validateFields(target, 'passwordConfirm');
+    const fieldFeedbacksValidations = await this.form!.validateFields(target, 'passwordConfirm');
 
-    const fieldsAreValid = fieldFeedbackValidations.every(fieldFeedback => fieldFeedback.isValid!);
+    const fieldsAreValid = fieldFeedbacksValidations.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
     if (fieldsAreValid) console.log(`Fields '${target.name}' and 'passwordConfirm' are valid`);
     else console.log(`Fields '${target.name}' and/or 'passwordConfirm' are invalid`);
 
@@ -68,10 +72,14 @@ class Form extends React.Component<Props, State> {
   async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const fieldFeedbackValidations = await this.form!.validateForm();
+    // Validates the non-dirty fields and returns the related FieldFeedbacksValidation structures
+    const fieldFeedbacksValidations = await this.form!.validateForm();
 
-    // or simply this.form!.isValid();
-    const formIsValid = fieldFeedbackValidations.every(fieldFeedback => fieldFeedback.isValid!);
+    // or simply this.form.isValid();
+    const formIsValid = fieldFeedbacksValidations.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
+
+    if (formIsValid) console.log('The form is valid');
+    else console.log('The form is invalid');
 
     this.setState({submitButtonDisabled: !formIsValid});
     if (formIsValid) {

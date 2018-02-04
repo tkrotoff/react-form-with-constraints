@@ -65,7 +65,11 @@ describe('validate()', () => {
     expect(emitValidateEventSpy).toHaveBeenCalledTimes(0);
     const input = new InputMock('username', 'jimmy', {valid: true}, '');
     const fieldFeedbackValidations = await form.validateFields(input);
-    expect(fieldFeedbackValidations).toEqual([]);
+    expect(fieldFeedbackValidations).toEqual([{
+      fieldName: 'username',
+      isValid: expect.any(Function),
+      fieldFeedbackValidations: []
+    }]);
     expect(emitValidateEventSpy).toHaveBeenCalledTimes(1);
     expect(emitValidateEventSpy).toHaveBeenLastCalledWith(input);
   });
@@ -81,7 +85,11 @@ describe('validate()', () => {
     expect(emitValidateEventSpy).toHaveBeenCalledTimes(0);
     const input = new InputMock('unknown', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
     const fieldFeedbackValidations = await form.validateFields(input);
-    expect(fieldFeedbackValidations).toEqual([]);
+    expect(fieldFeedbackValidations).toEqual([{
+      fieldName: 'unknown',
+      isValid: expect.any(Function),
+      fieldFeedbackValidations: []
+    }]);
     expect(emitValidateEventSpy).toHaveBeenCalledTimes(0);
   });
 });
@@ -111,7 +119,11 @@ describe('render()', () => {
     expect(wrapper.html()).toEqual('<div>Pending...</div>');
 
     let fieldFeedbackValidations = await fieldFeedbackValidationsPromise;
-    expect(fieldFeedbackValidations).toEqual([{key: 0.0, isValid: true}]);
+    expect(fieldFeedbackValidations).toEqual([{
+      fieldName: 'username',
+      isValid: expect.any(Function),
+      fieldFeedbackValidations: [{key: 0.0, isValid: true}]
+    }]);
     wrapper.update();
     expect(wrapper.html()).toEqual(`<div><div class="info">Username 'jimmy' available</div></div>`);
 
@@ -121,7 +133,11 @@ describe('render()', () => {
     expect(wrapper.html()).toEqual('<div>Pending...</div>');
 
     fieldFeedbackValidations = await fieldFeedbackValidationsPromise;
-    expect(fieldFeedbackValidations).toEqual([{key: 0.1, isValid: false}]);
+    expect(fieldFeedbackValidations).toEqual([{
+      fieldName: 'username',
+      isValid: expect.any(Function),
+      fieldFeedbackValidations: [{key: 0.1, isValid: false}]
+    }]);
     wrapper.update();
     expect(wrapper.html()).toEqual(`<div><div class="error">Username 'john' already taken, choose another</div></div>`);
   });
@@ -147,7 +163,11 @@ describe('render()', () => {
     expect(wrapper.html()).toEqual('<div>Pending...</div>');
 
     const fieldFeedbackValidations = await fieldFeedbackValidationsPromise;
-    expect(fieldFeedbackValidations).toEqual([{key: 0, isValid: false}]);
+    expect(fieldFeedbackValidations).toEqual([{
+      fieldName: 'username',
+      isValid: expect.any(Function),
+      fieldFeedbackValidations: [{key: 0.0, isValid: false}]
+    }]);
     wrapper.update();
     expect(wrapper.html()).toEqual(`<div><div class="error">Something wrong with username 'error'</div></div>`);
   });
@@ -170,7 +190,11 @@ describe('render()', () => {
     expect(wrapper.text()).toEqual('Pending...');
 
     const fieldFeedbackValidations = await fieldFeedbackValidationsPromise;
-    expect(fieldFeedbackValidations).toEqual([]);
+    expect(fieldFeedbackValidations).toEqual([{
+      fieldName: 'username',
+      isValid: expect.any(Function),
+      fieldFeedbackValidations: []
+    }]);
     wrapper.update();
     expect(wrapper.html()).toEqual(null);
   });
