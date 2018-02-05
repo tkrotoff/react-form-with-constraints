@@ -47,13 +47,16 @@ class WizardFormPage3 extends React.Component<Props> {
       <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
-          <label htmlFor="favorite-color">Favorite Color</label>
-          <select name="favoriteColor" id="favorite-color"
-                  value={favoriteColor} onChange={this.handleChange}
-                  required>
-            <option value="" disabled>Select a color...</option>
-            {colorKeys.map(colorKey => <option value={Color[colorKey as any]} key={colorKey}>{colorKey}</option>)}
-          </select>
+          <label>
+            Favorite Color
+            <br />
+            <select name="favoriteColor"
+                    value={favoriteColor} onChange={this.handleChange}
+                    required>
+              <option value="" disabled>Select a color...</option>
+              {colorKeys.map(colorKey => <option value={Color[colorKey as any]} key={colorKey}>{colorKey}</option>)}
+            </select>
+          </label>
           <FieldFeedbacks for="favoriteColor">
             <FieldFeedback when="*" />
           </FieldFeedbacks>

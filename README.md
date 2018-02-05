@@ -264,7 +264,7 @@ You can use HTML5 attributes like `type="email"`, `required`, `pattern`..., in t
 </FieldFeedbacks>
 ```
 
-In the last case you will have to manage translations yourself.
+In the last case you will have to manage translations yourself (see SignUp example).
 
 react-form-with-constraints, like React 16, depends on the collection types [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) and [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).
 If you support older browsers (<IE11) you will need a global polyfill such as [core-js](https://github.com/zloirock/core-js) or [babel-polyfill](https://babeljs.io/docs/usage/polyfill/).

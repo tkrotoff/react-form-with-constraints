@@ -9,7 +9,9 @@
     "tsc": "tsc",
 
     "build": "cross-env NODE_ENV=development webpack -d",
-    "build:watch": "cross-env NODE_ENV=development webpack -d --watch"
+    "build:watch": "cross-env NODE_ENV=development webpack -d --watch",
+
+    "i18next": "i18next --namespace-separator '__NS' --key-separator '__KS'"
   },
 
   "devDependencies": {
@@ -25,6 +27,14 @@
 
     "lodash": "latest",
     "@types/lodash": "latest",
+
+    "i18next": "latest",
+    "@types/i18next": "latest",
+    "react-i18next": "latest",
+    "@types/react-i18next": "latest",
+    "i18next-browser-languagedetector": "latest",
+    "@types/i18next-browser-languagedetector": "latest",
+    "i18next-parser": "latest",
 
     "ts-node": "latest",
     "@types/node": "latest",
