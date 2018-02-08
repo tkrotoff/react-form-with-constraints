@@ -36,6 +36,8 @@
 
     "react": "latest",
     "@types/react": "latest",
+    "react-dom": "latest",
+    "@types/react-dom": "latest",
 
     "react-form-with-constraints": "^0.7.0",
 
@@ -59,7 +61,6 @@
     "enzyme": "latest",
     "@types/enzyme": "latest",
     "enzyme-adapter-react-16": "latest",
-    "@types/enzyme-adapter-react-16": "latest",
-    "react-dom": "latest"
+    "@types/enzyme-adapter-react-16": "latest"
   }
 }

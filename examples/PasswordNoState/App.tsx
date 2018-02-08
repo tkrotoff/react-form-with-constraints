@@ -7,8 +7,8 @@ import './index.html';
 import '../Password/style.css';
 
 class Form extends React.Component {
-  form: FormWithConstraints | null | undefined;
-  password: HTMLInputElement | null | undefined;
+  form: FormWithConstraints | null = null;
+  password: HTMLInputElement | null = null;
 
   constructor(props: {}) {
     super(props);
@@ -41,10 +41,11 @@ class Form extends React.Component {
           <label htmlFor="username">Username</label>
           <input type="email" name="username" id="username"
                  onChange={this.handleChange}
-                 required minLength={3} />
+                 required minLength={5} />
           <FieldFeedbacks for="username">
             <FieldFeedback when="tooShort">Too short</FieldFeedback>
             <FieldFeedback when="*" />
+            <FieldFeedback when="valid">Looks good!</FieldFeedback>
           </FieldFeedbacks>
         </div>
 
@@ -61,6 +62,7 @@ class Form extends React.Component {
             <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
             <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
             <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
+            <FieldFeedback when="valid">Looks good!</FieldFeedback>
           </FieldFeedbacks>
         </div>
 

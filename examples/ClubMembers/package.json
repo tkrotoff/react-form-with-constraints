@@ -30,9 +30,9 @@
     "ts-node": "latest",
     "@types/node": "latest",
 
-    "webpack": "latest",
+    "webpack": "^3",
     "@types/webpack": "latest",
-    "ts-loader": "latest",
+    "ts-loader": "^3",
     "file-loader": "latest",
 
     "del-cli": "latest",

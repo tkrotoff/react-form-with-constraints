@@ -10,6 +10,10 @@
     "prestart": "npm run rm-duplicated-react-native",
     "pretest": "npm run rm-duplicated-react-native",
 
+    "clean:node_modules": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
+    "clean": "rm -f yarn.lock && rm -rf node_modules/react-form-with-constraints && rm -rf node_modules/react-form-with-constraints-native",
+    "clean:all": "rm -rf .expo && yarn clean && yarn clean:node_modules",
+
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
@@ -22,10 +26,10 @@
   },
 
   "dependencies": {
-    "expo": "^23",
+    "expo": "^25",
 
-    "react": "16.0.0",
-    "react-native": "^0.50",
+    "react": "16.2.0",
+    "react-native": "^0.52",
 
     "react-form-with-constraints": "../../packages/react-form-with-constraints",
     "react-form-with-constraints-native": "../../packages/react-form-with-constraints-native"
@@ -37,15 +41,15 @@
     "@types/react": "latest",
     "@types/react-native": "latest",
 
-    "react-native-scripts": "^1.7",
-    "react-native-typescript-transformer": "^1.1",
+    "react-native-scripts": "latest",
+    "react-native-typescript-transformer": "latest",
 
     "@types/jest": "latest",
-    "jest-expo": "^23",
-    "jest-expo-ts": "^22",
-    "babel-core": "^6",
+    "jest-expo": "latest",
+    "jest-expo-ts": "latest",
+    "babel-core": "latest",
 
-    "react-test-renderer": "16.0.0",
+    "react-test-renderer": "16.2.0",
     "@types/react-test-renderer": "latest"
   }
 }

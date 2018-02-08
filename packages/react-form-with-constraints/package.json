@@ -64,6 +64,9 @@
     "@types/enzyme": "latest",
     "enzyme-adapter-react-16": "latest",
     "@types/enzyme-adapter-react-16": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+
+    "js-beautify": "latest",
+    "@types/js-beautify": "latest"
   }
 }

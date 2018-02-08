@@ -46,9 +46,9 @@ interface State {
 }
 
 class Form extends React.Component<Props, State> {
-  username: HTMLInputElement | null | undefined;
-  password: HTMLInputElement | null | undefined;
-  passwordConfirm: HTMLInputElement | null | undefined;
+  username: HTMLInputElement | null = null;
+  password: HTMLInputElement | null = null;
+  passwordConfirm: HTMLInputElement | null = null;
 
   constructor(props: Props) {
     super(props);

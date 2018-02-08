@@ -20,3 +20,6 @@ div.warning {
 div.info {
   color: blue;
 }
+div.valid {
+  color: green;
+}

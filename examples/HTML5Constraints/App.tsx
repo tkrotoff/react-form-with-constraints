@@ -19,7 +19,7 @@ function validateHTML5Field(field: HTMLInputElement) {
 }
 
 function validatePasswordConfirm(password: HTMLInputElement, passwordConfirm: HTMLInputElement) {
-  const errors = [] as string[];
+  const errors = [];
   if (passwordConfirm.value !== password.value) errors.push('Not the same password');
   return errors;
 }
@@ -36,9 +36,9 @@ interface State {
 }
 
 class Form extends React.Component<Props, State> {
-  username: HTMLInputElement | null | undefined;
-  password: HTMLInputElement | null | undefined;
-  passwordConfirm: HTMLInputElement | null | undefined;
+  username: HTMLInputElement | null = null;
+  password: HTMLInputElement | null = null;
+  passwordConfirm: HTMLInputElement | null = null;
 
   constructor(props: Props) {
     super(props);
@@ -128,7 +128,7 @@ class Form extends React.Component<Props, State> {
           <input type="email" name="username" id="username"
                  ref={username => this.username = username}
                  onChange={this.handleUsernameChange}
-                 required minLength={3} />
+                 required minLength={5} />
           <div className="error">
             {errors.username.map(error => <div key={error}>{error}</div>)}
           </div>

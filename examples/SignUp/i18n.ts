@@ -22,7 +22,7 @@ i18n
     keySeparator: false,
 
     interpolation: {
-      escapeValue: false, // Not needed with React
+      escapeValue: false // Not needed with React
     },
 
     resources: {

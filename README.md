@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/tkrotoff/react-form-with-constraints/branch/master/graph/badge.svg)](https://codecov.io/gh/tkrotoff/react-form-with-constraints)
 [![gzip size](http://img.badgesize.io/https://unpkg.com/react-form-with-constraints@latest/dist/react-form-with-constraints.production.min.js.gz?compression=gzip)](https://unpkg.com/react-form-with-constraints/dist/react-form-with-constraints.production.min.js.gz)
 
-Simple form validation for React in [~500 lines of code](packages/react-form-with-constraints/src)
+Simple form validation for React
 
 - Installation: `npm install react-form-with-constraints`
 - CDN: https://unpkg.com/react-form-with-constraints/dist/
@@ -13,6 +13,8 @@ Simple form validation for React in [~500 lines of code](packages/react-form-wit
 Check the [changelog](CHANGELOG.md) for breaking changes and fixes between releases.
 
 ## Introduction: what is HTML5 form validation?
+
+⚠️ [Client side validation is cosmetic, you should not rely on it to enforce security](https://stackoverflow.com/q/162159)
 
 ```HTML
 <form>
@@ -103,8 +105,8 @@ The API works the same way as [React Router v4](https://reacttraining.com/react-
 It is also inspired by [AngularJS ngMessages](https://docs.angularjs.org/api/ngMessages#usage).
 
 If you had to implement validation yourself, you would end up with [a global object that tracks errors for each field](examples/NoFramework/App.tsx).
-react-form-with-constraints [works similarly](packages/react-form-with-constraints/src/Fields.ts).
-It uses [React context](https://facebook.github.io/react/docs/context.html#parent-child-coupling) to share the [`FieldsStore`](packages/react-form-with-constraints/src/FieldsStore.ts) object across [`FieldFeedbacks`](packages/react-form-with-constraints/src/FieldFeedbacks.tsx) and [`FieldFeedback`](packages/react-form-with-constraints/src/FieldFeedback.tsx).
+react-form-with-constraints [works similarly](packages/react-form-with-constraints/src/FieldsStore.ts).
+It uses [React context](https://github.com/reactjs/reactjs.org/blob/d59c4f9116138e419812e44b0fdb56644c498d3e/content/docs/context.md) to share the [`FieldsStore`](packages/react-form-with-constraints/src/FieldsStore.ts) object across [`FieldFeedbacks`](packages/react-form-with-constraints/src/FieldFeedbacks.tsx) and [`FieldFeedback`](packages/react-form-with-constraints/src/FieldFeedback.tsx).
 
 ## API
 
@@ -142,10 +144,10 @@ class MyForm extends React.Component {
   async handleChange(e) {
     const target = e.currentTarget;
 
-    // Validates only the given field and returns the related FieldFeedbacksValidation structures
-    const fieldFeedbacksValidations = await this.form.validateFields(target);
+    // Validates only the given fields and returns Promise<Field[]>
+    const fields = await this.form.validateFields(target);
 
-    const fieldIsValid = fieldFeedbacksValidations.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
+    const fieldIsValid = fields.every(field => field.isValid());
     if (fieldIsValid) console.log(`Field '${target.name}' is valid`);
     else console.log(`Field '${target.name}' is invalid`);
 
@@ -156,11 +158,11 @@ class MyForm extends React.Component {
   async handleSubmit(e) {
     e.preventDefault();
 
-    // Validates the non-dirty fields and returns the related FieldFeedbacksValidation structures
-    const fieldFeedbacksValidations = await this.form.validateForm();
+    // Validates the non-dirty fields and returns Promise<Field[]>
+    const fields = await this.form.validateForm();
 
     // or simply this.form.isValid();
-    const formIsValid = fieldFeedbacksValidations.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
+    const formIsValid = fields.every(field => field.isValid());
 
     if (formIsValid) console.log('The form is valid');
     else console.log('The form is invalid');
@@ -169,7 +171,7 @@ class MyForm extends React.Component {
   render() {
     return (
       <FormWithConstraints
-        ref={form => this.form = form}
+        ref={formWithConstraints => this.form = formWithConstraints}
         onSubmit={this.handleSubmit} noValidate
       >
         <input
@@ -194,47 +196,104 @@ class MyForm extends React.Component {
 }
 ```
 
-- `FieldFeedbacks`
+- [`FieldFeedbacks`](packages/react-form-with-constraints/src/FieldFeedbacks.tsx)
   - `for: string` => reference to a `name` attribute (e.g `<input name="username">`), should be unique to the current form
-  - `stop?: 'first-error' | 'no'` => when to stop rendering `FieldFeedback`s, by default stops at the first error encountered (`FieldFeedback`s order matters)
+  - `stop?: 'first' | 'first-error' | 'first-warning' | 'first-info' | 'no'` =>
+    when to stop rendering `FieldFeedback`s, by default stops at the first error encountered (`FieldFeedback`s order matters)
 
-  Note: you can place `FieldFeedbacks` anywhere and have as many as you want for the same `field`
+  Note: you can place `FieldFeedbacks` anywhere, have as many as you want for the same `field`, nest them, mix them with `FieldFeedback`... Dirty example:
 
-- `FieldFeedback`
-  - `when?: `[`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)` string | '*' | function` => HTML5 constraint violation name or a callback
+  ```JSX
+  <div>
+    <input name="username" ... />
+  </div>
+
+  <FieldFeedbacks for="username" stop="first-warning">
+
+    <FieldFeedbacks stop="no">
+      <div>
+        <FieldFeedbacks stop="first-error">
+          <FieldFeedbacks>
+            <div><FieldFeedback ... /></div>
+            <div><Async ... /></div>
+            <div><FieldFeedback ... /></div>
+          </FieldFeedbacks>
+        </FieldFeedbacks>
+      </div>
+      <FieldFeedbacks>
+        <FieldFeedback ... />
+        <Async ... />
+        <FieldFeedback ... />
+
+        <FieldFeedbacks stop="first-info">
+          <FieldFeedback ... />
+          <Async ... />
+          <FieldFeedback ... />
+        </FieldFeedbacks>
+
+        <FieldFeedback ... />
+        <Async ... />
+        <FieldFeedback ... />
+      </FieldFeedbacks>
+    </FieldFeedbacks>
+
+    <FieldFeedbacks stop="first-info">
+      <FieldFeedbacks>
+        <FieldFeedback ... />
+        <Async ... />
+        <FieldFeedback ... />
+      </FieldFeedbacks>
+    </FieldFeedbacks>
+
+  </FieldFeedbacks>
+
+  <div>
+    <FieldFeedbacks for="username" stop="no">
+      ...
+    </FieldFeedbacks>
+  </div>
+  ```
+
+- [`FieldFeedback`](packages/react-form-with-constraints/src/FieldFeedback.tsx)
+  - `when?`:
+    - [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) as a string => HTML5 constraint violation name
+    - `'*'` => matches any HTML5 constraint violation
+    - `'valid'` => displays the feedback only if the field is valid
+    - `(value: string) => boolean` => custom constraint
   - `error?: boolean` => treats the feedback as an error (default)
   - `warning?: boolean` => treats the feedback as a warning
   - `info?: boolean` => treats the feedback as an info
 
-- `Async<T>` => Async version of FieldFeedback, similar API as [react-promise](https://github.com/capaj/react-promise)
+- [`Async<T>`](packages/react-form-with-constraints/src/Async.tsx) => Async version of `FieldFeedback`, similar API as [react-promise](https://github.com/capaj/react-promise)
   - `promise: (value: string) => Promise<T>` => a promise you want to wait for
   - `pending?: React.ReactNode` => runs when promise is pending
   - `then?: (value: T) => React.ReactNode` => runs when promise is resolved
   - `catch?: (reason: any) => React.ReactNode` => runs when promise is rejected
 
-- `FormWithConstraints`
+- [`FormWithConstraints`](packages/react-form-with-constraints/src/FormWithConstraints.tsx)
 
-  - `validateFields(...inputsOrNames: Array<Input | string>): Promise<FieldFeedbacksValidation[]>` =>
+  - `validateFields(...inputsOrNames: Array<Input | string>): Promise<Field[]>` =>
     Should be called when a `field` changes, will re-render the proper `FieldFeedback`s (and update the internal `FieldsStore`).
     Without arguments, all fields (`$('[name]')`) are validated.
 
-  - `validateForm(): Promise<FieldFeedbacksValidation[]>` =>
+  - `validateForm(): Promise<Field[]>` =>
     Should be called before to submit the `form`. Validates only all non-dirty fields (won't re-validate fields that have been already validated with `validateFields()`),
     If you want to force re-validate all fields, use `validateFields()` without arguments.
 
   - `isValid(): boolean` => should be called after `validateForm()` or `validateFields()`, tells if the known fields are valid (thanks to internal `FieldsStore`)
 
-  - `reset(): void` => resets internal `FieldsStore` and re-render all `FieldFeedback`s
+  - `reset(): Promise` => resets internal `FieldsStore` and re-render all `FieldFeedback`s
 
-  - `FieldFeedbacksValidation` =>
+  - [`Field`](packages/react-form-with-constraints/src/Field.ts) =>
     ```TypeScript
     {
-      fieldName: string;
-      isValid: () => boolean;
-      fieldFeedbackValidations: {
+      name: string;
+      validations: {
         key: number;
-        isValid: boolean | undefined;
-      }[]; // FieldFeedbackValidation[]
+        type: 'error' | 'warning' | 'info' | 'whenValid';
+        show: boolean | undefined;
+      }[]; // FieldFeedbackValidation[],
+      isValid: () => boolean
     }
     ```
 
@@ -267,7 +326,7 @@ You can use HTML5 attributes like `type="email"`, `required`, `pattern`..., in t
 In the last case you will have to manage translations yourself (see SignUp example).
 
 react-form-with-constraints, like React 16, depends on the collection types [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) and [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).
-If you support older browsers (<IE11) you will need a global polyfill such as [core-js](https://github.com/zloirock/core-js) or [babel-polyfill](https://babeljs.io/docs/usage/polyfill/).
+If you support older browsers (<IE11) you will need a polyfill such as [core-js](https://github.com/zloirock/core-js) or [babel-polyfill](https://babeljs.io/docs/usage/polyfill/).
 
 ## Notes
 

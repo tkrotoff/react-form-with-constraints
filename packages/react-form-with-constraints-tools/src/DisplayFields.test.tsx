@@ -1,24 +1,30 @@
 import React from 'react';
-import { shallow as _shallow } from 'enzyme';
+import { shallow as _shallow, mount as _mount } from 'enzyme';
 
-import { FormWithConstraints, FormWithConstraintsChildContext, fieldWithoutFeedback, FieldEvent } from 'react-form-with-constraints';
+import {
+  FormWithConstraints,
+  FormWithConstraintsProps,
+  FormWithConstraintsChildContext,
+  FieldEvent,
+  FieldFeedbackValidation,
+  FieldFeedbackType
+} from 'react-form-with-constraints';
+
+import beautifyHtml from '../../react-form-with-constraints/src/beautifyHtml';
+
 import { DisplayFields } from './index';
+import { SignUp } from './SignUp';
+import new_FormWithConstraints from './FormWithConstraintsEnzymeFix';
 
+function mount(node: React.ReactElement<FormWithConstraintsProps>) {
+  return _mount<FormWithConstraintsProps, {}>(node);
+}
 function shallow(node: React.ReactElement<{}>, options: {context: FormWithConstraintsChildContext}) {
   return _shallow<{}>(node, options);
 }
 
-let form_username_empty: FormWithConstraints;
-
-beforeEach(() => {
-  form_username_empty = new FormWithConstraints({});
-  form_username_empty.fieldsStore.fields = {
-    username: fieldWithoutFeedback
-  };
-});
-
 test('componentWillMount() componentWillUnmount()', () => {
-  const form = new FormWithConstraints({});
+  const form = new_FormWithConstraints({});
   const fieldsStoreAddListenerSpy = jest.spyOn(form.fieldsStore, 'addListener');
   const fieldsStoreRemoveListenerSpy = jest.spyOn(form.fieldsStore, 'removeListener');
 
@@ -26,157 +32,436 @@ test('componentWillMount() componentWillUnmount()', () => {
     <DisplayFields />,
     {context: {form}}
   );
-  const reRender = (wrapper.instance() as DisplayFields).reRender;
+  const displayFields = wrapper.instance() as DisplayFields;
 
-  expect(fieldsStoreAddListenerSpy).toHaveBeenCalledTimes(3);
+  expect(fieldsStoreAddListenerSpy).toHaveBeenCalledTimes(2);
   expect(fieldsStoreAddListenerSpy.mock.calls).toEqual([
-    [FieldEvent.Added, reRender],
-    [FieldEvent.Removed, reRender],
-    [FieldEvent.Updated, reRender],
+    [FieldEvent.Added, displayFields.reRender],
+    [FieldEvent.Removed, displayFields.reRender]
   ]);
   expect(fieldsStoreRemoveListenerSpy).toHaveBeenCalledTimes(0);
 
   wrapper.unmount();
-  expect(fieldsStoreAddListenerSpy).toHaveBeenCalledTimes(3);
-  expect(fieldsStoreRemoveListenerSpy).toHaveBeenCalledTimes(3);
+  expect(fieldsStoreAddListenerSpy).toHaveBeenCalledTimes(2);
+  expect(fieldsStoreRemoveListenerSpy).toHaveBeenCalledTimes(2);
   expect(fieldsStoreRemoveListenerSpy.mock.calls).toEqual([
-    [FieldEvent.Added, reRender],
-    [FieldEvent.Removed, reRender],
-    [FieldEvent.Updated, reRender],
+    [FieldEvent.Added, displayFields.reRender],
+    [FieldEvent.Removed, displayFields.reRender]
   ]);
 });
 
-test('render()', () => {
-  const wrapper = shallow(
-    <DisplayFields />,
-    {context: {form: form_username_empty}}
-  );
 
-  expect(wrapper.text()).toEqual(
-`react-form-with-constraints = {
-  "username": {
-    "dirty": false,
-    "errors": [],
-    "warnings": [],
-    "infos": [],
-    "validationMessage": ""
-  }
-}`);
+describe('render()', () => {
+  let form_username: FormWithConstraints;
 
-  expect(wrapper.html()).toEqual(
-`<pre>react-form-with-constraints = {
-  &quot;username&quot;: {
-    &quot;dirty&quot;: false,
-    &quot;errors&quot;: [],
-    &quot;warnings&quot;: [],
-    &quot;infos&quot;: [],
-    &quot;validationMessage&quot;: &quot;&quot;
-  }
-}</pre>`
-  );
-});
+  const validation_empty: FieldFeedbackValidation = {
+    key: '0.0',
+    type: FieldFeedbackType.Error,
+    show: true
+  };
 
-describe('reRender()', () => {
-  test('adding field', () => {
+  beforeEach(() => {
+    form_username = new_FormWithConstraints({});
+  });
+
+  test('0 field', () => {
     const wrapper = shallow(
       <DisplayFields />,
-      {context: {form: form_username_empty}}
+      {context: {form: form_username}}
     );
 
-    form_username_empty.fieldsStore.addField('password');
+    expect(wrapper.text()).toEqual(`Fields = []`);
+    expect(wrapper.html()).toEqual(`<pre style="font-size:small">Fields = []</pre>`);
+  });
+
+  test('add field', () => {
+    const wrapper = shallow(
+      <DisplayFields />,
+      {context: {form: form_username}}
+    );
+
+    form_username.fieldsStore.addField('username');
 
     // See http://airbnb.io/enzyme/docs/guides/migration-from-2-to-3.html#for-mount-updates-are-sometimes-required-when-they-werent-before
     wrapper.update();
 
     expect(wrapper.text()).toEqual(
-`react-form-with-constraints = {
-  "username": {
-    "dirty": false,
-    "errors": [],
-    "warnings": [],
-    "infos": [],
-    "validationMessage": ""
+`Fields = [
+  {
+    name: "username",
+    validations: []
+  }
+]`);
+
+    form_username.fieldsStore.addField('password');
+    wrapper.update();
+    expect(wrapper.text()).toEqual(
+`Fields = [
+  {
+    name: "username",
+    validations: []
   },
-  "password": {
-    "dirty": false,
-    "errors": [],
-    "warnings": [],
-    "infos": [],
-    "validationMessage": ""
+  {
+    name: "password",
+    validations: []
   }
-}`);
+]`);
   });
 
-  test('removing field', () => {
+  test('remove field', () => {
     const wrapper = shallow(
       <DisplayFields />,
-      {context: {form: form_username_empty}}
+      {context: {form: form_username}}
     );
 
-    form_username_empty.fieldsStore.removeField('username');
-
+    form_username.fieldsStore.addField('username');
+    form_username.fieldsStore.addField('password');
     wrapper.update();
+    expect(wrapper.text()).toEqual(
+`Fields = [
+  {
+    name: "username",
+    validations: []
+  },
+  {
+    name: "password",
+    validations: []
+  }
+]`);
 
-    expect(wrapper.text()).toEqual('react-form-with-constraints = {}');
+    form_username.fieldsStore.removeField('password');
+    wrapper.update();
+    expect(wrapper.text()).toEqual(
+`Fields = [
+  {
+    name: "username",
+    validations: []
+  }
+]`);
   });
 
-  test('updating field', () => {
+  test('form.emitFieldDidValidateEvent()', async () => {
     const wrapper = shallow(
       <DisplayFields />,
-      {context: {form: form_username_empty}}
+      {context: {form: form_username}}
     );
 
-    const field = form_username_empty.fieldsStore.cloneField('username');
-    field.dirty = true;
-    field.errors.add(1.0);
-    field.warnings.add(2.0);
-    field.infos.add(3.0);
-    field.validationMessage = "I'm a clone";
-    form_username_empty.fieldsStore.updateField('username', field);
+    form_username.fieldsStore.addField('username');
+    form_username.fieldsStore.addField('password');
+    const username = form_username.fieldsStore.getField('username')!;
+    username.addOrReplaceValidation(validation_empty);
+    await form_username.emitFieldDidValidateEvent(username);
 
+    // See http://airbnb.io/enzyme/docs/guides/migration-from-2-to-3.html#for-mount-updates-are-sometimes-required-when-they-werent-before
     wrapper.update();
 
     expect(wrapper.text()).toEqual(
-`react-form-with-constraints = {
-  "username": {
-    "dirty": true,
-    "errors": [
-      1
-    ],
-    "warnings": [
-      2
-    ],
-    "infos": [
-      3
-    ],
-    "validationMessage": "I'm a clone"
+`Fields = [
+  {
+    name: "username",
+    validations: [
+      { key: "0.0", type: "error", show: true }
+    ]
+  },
+  {
+    name: "password",
+    validations: []
   }
-}`);
+]`);
   });
 
-  test('updating unknown field', () => {
+  test('form.reset()', async () => {
     const wrapper = shallow(
       <DisplayFields />,
-      {context: {form: form_username_empty}}
+      {context: {form: form_username}}
     );
 
-    const field = form_username_empty.fieldsStore.cloneField('username');
-    field.dirty = true;
-    field.errors.add(1.0);
-    field.warnings.add(2.0);
-    field.infos.add(3.0);
-    field.validationMessage = "I'm a clone";
-    expect(() => form_username_empty.fieldsStore.updateField('unknown', field)).toThrow("Unknown field 'unknown'");
-
+    form_username.fieldsStore.addField('username');
+    form_username.fieldsStore.addField('password');
+    const username = form_username.fieldsStore.getField('username')!;
+    username.addOrReplaceValidation(validation_empty);
+    await form_username.emitFieldDidValidateEvent(username);
+    wrapper.update();
     expect(wrapper.text()).toEqual(
-`react-form-with-constraints = {
-  "username": {
-    "dirty": false,
-    "errors": [],
-    "warnings": [],
-    "infos": [],
-    "validationMessage": ""
+`Fields = [
+  {
+    name: "username",
+    validations: [
+      { key: "0.0", type: "error", show: true }
+    ]
+  },
+  {
+    name: "password",
+    validations: []
   }
-}`);
+]`);
+
+    await form_username.reset();
+    wrapper.update();
+    expect(wrapper.text()).toEqual(
+`Fields = [
+  {
+    name: "username",
+    validations: []
+  },
+  {
+    name: "password",
+    validations: []
+  }
+]`);
+  });
+});
+
+// FIXME See Support for Element.closest() https://github.com/jsdom/jsdom/issues/1555
+if (!Element.prototype.closest) {
+  Element.prototype.closest = function(this: Element, selector: string) {
+    // tslint:disable-next-line:no-this-assignment
+    let el: Element | null = this;
+    while (el) {
+      if (el.matches(selector)) return el;
+      el = el.parentElement;
+    }
+    return null;
+  };
+}
+
+test('SignUp', async () => {
+  const wrapper = mount(<SignUp />);
+  const signUp = wrapper.instance() as SignUp;
+
+  signUp.username!.value = 'john';
+  signUp.password!.value = '123456';
+  signUp.passwordConfirm!.value = '12345';
+
+  await signUp.form!.validateFields();
+
+  expect(beautifyHtml(wrapper.html(), '    ')).toEqual(`\
+    <form>
+      <input name="username">
+      <li>key="0" for="username" stop="first-error"</li>
+      <ul>
+        <li>
+          <span style="text-decoration: line-through;">key="0.0" type="error"</span>
+        </li>
+        <li>
+          <span style="text-decoration: line-through;">key="0.1" type="error"</span>
+        </li>
+        <li class="async">
+          <span style="">Async</span>
+          <ul>
+            <li>
+              <span style="">key="0.3" type="error"</span>
+              <div data-feedback="0.3" class="error" style="display: inline;">Username 'john' already taken, choose another</div>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span style="text-decoration: line-through;">key="0.2" type="whenValid"</span>
+        </li>
+      </ul>
+      <input type="password" name="password">
+      <li>key="1" for="password" stop="first-error"</li>
+      <ul>
+        <li>
+          <span style="text-decoration: line-through;">key="1.0" type="error"</span>
+        </li>
+        <li>
+          <span style="text-decoration: line-through;">key="1.1" type="error"</span>
+        </li>
+        <li>
+          <span style="text-decoration: line-through;">key="1.2" type="warning"</span>
+        </li>
+        <li>
+          <span style="">key="1.3" type="warning"</span>
+          <div data-feedback="1.3" class="warning" style="display: inline;">Should contain small letters</div>
+        </li>
+        <li>
+          <span style="">key="1.4" type="warning"</span>
+          <div data-feedback="1.4" class="warning" style="display: inline;">Should contain capital letters</div>
+        </li>
+        <li>
+          <span style="">key="1.5" type="warning"</span>
+          <div data-feedback="1.5" class="warning" style="display: inline;">Should contain special characters</div>
+        </li>
+        <li>
+          <span style="text-decoration: line-through;">key="1.6" type="whenValid"</span>
+          <div data-feedback="1.6" class="valid">Looks good!</div>
+        </li>
+      </ul>
+      <input type="password" name="passwordConfirm">
+      <li>key="2" for="passwordConfirm" stop="first-error"</li>
+      <ul>
+        <li>
+          <span style="">key="2.0" type="error"</span>
+          <div data-feedback="2.0" class="error" style="display: inline;">Not the same password</div>
+        </li>
+        <li>
+          <span style="text-decoration: line-through;">key="2.1" type="whenValid"</span>
+        </li>
+      </ul>
+    </form>`
+  );
+
+  wrapper.unmount();
+});
+
+describe('Async', () => {
+  test('then', async () => {
+    const wrapper = mount(<SignUp />);
+    const signUp = wrapper.instance() as SignUp;
+
+    signUp.username!.value = 'jimmy';
+    signUp.password!.value = '12345';
+    signUp.passwordConfirm!.value = '12345';
+
+    await signUp.form!.validateFields();
+    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+      <form>
+        <input name="username">
+        <li>key="0" for="username" stop="first-error"</li>
+        <ul>
+          <li>
+            <span style="text-decoration: line-through;">key="0.0" type="error"</span>
+          </li>
+          <li>
+            <span style="text-decoration: line-through;">key="0.1" type="error"</span>
+          </li>
+          <li class="async">
+            <span style="">Async</span>
+            <ul>
+              <li>
+                <span style="">key="0.3" type="info"</span>
+                <div data-feedback="0.3" class="info" style="display: inline;">Username 'jimmy' available</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span style="text-decoration: line-through;">key="0.2" type="whenValid"</span>
+            <div data-feedback="0.2" class="valid">Looks good!</div>
+          </li>
+        </ul>
+        <input type="password" name="password">
+        <li>key="1" for="password" stop="first-error"</li>
+        <ul>
+          <li>
+            <span style="text-decoration: line-through;">key="1.0" type="error"</span>
+          </li>
+          <li>
+            <span style="text-decoration: line-through;">key="1.1" type="error"</span>
+          </li>
+          <li>
+            <span style="text-decoration: line-through;">key="1.2" type="warning"</span>
+          </li>
+          <li>
+            <span style="">key="1.3" type="warning"</span>
+            <div data-feedback="1.3" class="warning" style="display: inline;">Should contain small letters</div>
+          </li>
+          <li>
+            <span style="">key="1.4" type="warning"</span>
+            <div data-feedback="1.4" class="warning" style="display: inline;">Should contain capital letters</div>
+          </li>
+          <li>
+            <span style="">key="1.5" type="warning"</span>
+            <div data-feedback="1.5" class="warning" style="display: inline;">Should contain special characters</div>
+          </li>
+          <li>
+            <span style="text-decoration: line-through;">key="1.6" type="whenValid"</span>
+            <div data-feedback="1.6" class="valid">Looks good!</div>
+          </li>
+        </ul>
+        <input type="password" name="passwordConfirm">
+        <li>key="2" for="passwordConfirm" stop="first-error"</li>
+        <ul>
+          <li>
+            <span style="text-decoration: line-through;">key="2.0" type="error"</span>
+          </li>
+          <li>
+            <span style="text-decoration: line-through;">key="2.1" type="whenValid"</span>
+            <div data-feedback="2.1" class="valid">Looks good!</div>
+          </li>
+        </ul>
+      </form>`
+    );
+
+    wrapper.unmount();
+  });
+
+  test('catch', async () => {
+    const wrapper = mount(<SignUp />);
+    const signUp = wrapper.instance() as SignUp;
+
+    signUp.username!.value = 'error';
+    signUp.password!.value = '123456';
+    signUp.passwordConfirm!.value = '12345';
+
+    await signUp.form!.validateFields();
+    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+      <form>
+        <input name="username">
+        <li>key="0" for="username" stop="first-error"</li>
+        <ul>
+          <li>
+            <span style="text-decoration: line-through;">key="0.0" type="error"</span>
+          </li>
+          <li>
+            <span style="text-decoration: line-through;">key="0.1" type="error"</span>
+          </li>
+          <li class="async">
+            <span style="">Async</span>
+            <ul>
+              <li>
+                <span style="">key="0.3" type="error"</span>
+                <div data-feedback="0.3" class="error" style="display: inline;">Something wrong with username 'error'</div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span style="text-decoration: line-through;">key="0.2" type="whenValid"</span>
+          </li>
+        </ul>
+        <input type="password" name="password">
+        <li>key="1" for="password" stop="first-error"</li>
+        <ul>
+          <li>
+            <span style="text-decoration: line-through;">key="1.0" type="error"</span>
+          </li>
+          <li>
+            <span style="text-decoration: line-through;">key="1.1" type="error"</span>
+          </li>
+          <li>
+            <span style="text-decoration: line-through;">key="1.2" type="warning"</span>
+          </li>
+          <li>
+            <span style="">key="1.3" type="warning"</span>
+            <div data-feedback="1.3" class="warning" style="display: inline;">Should contain small letters</div>
+          </li>
+          <li>
+            <span style="">key="1.4" type="warning"</span>
+            <div data-feedback="1.4" class="warning" style="display: inline;">Should contain capital letters</div>
+          </li>
+          <li>
+            <span style="">key="1.5" type="warning"</span>
+            <div data-feedback="1.5" class="warning" style="display: inline;">Should contain special characters</div>
+          </li>
+          <li>
+            <span style="text-decoration: line-through;">key="1.6" type="whenValid"</span>
+            <div data-feedback="1.6" class="valid">Looks good!</div>
+          </li>
+        </ul>
+        <input type="password" name="passwordConfirm">
+        <li>key="2" for="passwordConfirm" stop="first-error"</li>
+        <ul>
+          <li>
+            <span style="">key="2.0" type="error"</span>
+            <div data-feedback="2.0" class="error" style="display: inline;">Not the same password</div>
+          </li>
+          <li>
+            <span style="text-decoration: line-through;">key="2.1" type="whenValid"</span>
+          </li>
+        </ul>
+      </form>`
+    );
+
+    wrapper.unmount();
   });
 });

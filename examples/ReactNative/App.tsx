@@ -2,8 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, /*TextInput,*/ View, Button, ActivityIndicator } from 'react-native';
 import { TextInput } from 'react-form-with-constraints-native/lib/react-native-TextInput-fix'; // Specific to TypeScript
 
-import { Async } from 'react-form-with-constraints';
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints-native';
+import { FormWithConstraints, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints-native';
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -25,10 +24,10 @@ export interface State {
 }
 
 export default class App extends React.Component<Props, State> {
-  form: FormWithConstraints | null | undefined;
-  username: TextInput | null | undefined;
-  password: TextInput | null | undefined;
-  passwordConfirm: TextInput | null | undefined;
+  form: FormWithConstraints | null = null;
+  username: TextInput | null = null;
+  password: TextInput | null = null;
+  passwordConfirm: TextInput | null = null;
 
   constructor(props: Props) {
     super(props);
@@ -104,7 +103,7 @@ export default class App extends React.Component<Props, State> {
       <View style={styles.container}>
         <FormWithConstraints
           ref={formWithConstraints => this.form = formWithConstraints}
-          style={feedbacksStyles}>
+          fieldFeedbackStyles={fieldFeedbackStyles}>
 
           <View style={styles.flow}>
             <Text onPress={() => this.username!.focus()}>
@@ -129,14 +128,15 @@ export default class App extends React.Component<Props, State> {
                   <FieldFeedback>Username already taken, choose another</FieldFeedback>
                 }
               />
+              <FieldFeedback when="valid">Looks good!</FieldFeedback>
             </FieldFeedbacks>
           </View>
 
           <View style={styles.flow}>
             <Text onPress={() => this.password!.focus()}>Password</Text>
             <TextInput
-              name="password"
               secureTextEntry
+              name="password"
               ref={input => this.password = input as any}
               value={this.state.password}
               onChangeText={this.handlePasswordChange}
@@ -149,14 +149,15 @@ export default class App extends React.Component<Props, State> {
               <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
               <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
               <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
+              <FieldFeedback when="valid">Looks good!</FieldFeedback>
             </FieldFeedbacks>
           </View>
 
           <View style={styles.flow}>
             <Text onPress={() => this.passwordConfirm!.focus()}>Confirm Password</Text>
             <TextInput
-              name="passwordConfirm"
               secureTextEntry
+              name="passwordConfirm"
               ref={input => this.passwordConfirm = input as any}
               value={this.state.passwordConfirm}
               onChangeText={this.handlePasswordConfirmChange}
@@ -166,18 +167,17 @@ export default class App extends React.Component<Props, State> {
               <FieldFeedback when={value => value !== this.state.password}>Not the same password</FieldFeedback>
             </FieldFeedbacks>
           </View>
+
+          <Button
+            title="Sign Up"
+            disabled={this.state.submitButtonDisabled}
+            onPress={this.handleSubmit}
+          />
+          <Button
+            title="Reset"
+            onPress={this.handleReset}
+          />
         </FormWithConstraints>
-
-        <Button
-          title="Sign Up"
-          disabled={this.state.submitButtonDisabled}
-          onPress={this.handleSubmit}
-        />
-        <Button
-          title="Reset"
-          onPress={this.handleReset}
-        />
-
       </View>
     );
   }
@@ -197,14 +197,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const feedbacksStyles = StyleSheet.create({
-  error: {
-    color: 'red'
-  },
-  warning: {
-    color: 'orange'
-  },
-  info: {
-    color: 'blue'
-  }
+const fieldFeedbackStyles = StyleSheet.create({
+  error: {color: 'red'},
+  warning: {color: 'orange'},
+  info: {color: 'blue'},
+  valid: {color: 'green'}
 });

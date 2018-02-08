@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { useStrict, observable, action, computed } from 'mobx';
+import { configure, observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
 
@@ -10,7 +10,7 @@ import { DisplayFields } from 'react-form-with-constraints-tools';
 import './index.html';
 import './style.css';
 
-useStrict(true);
+configure({enforceActions: true});
 
 type Hobby = string;
 
@@ -135,7 +135,7 @@ const Hobbies = observer(({memberIndex, member, validateField}: HobbiesProps) =>
   const checkNbHobbiesName = `member${memberIndex}.checkNbHobbies`;
 
   return (
-    <div>
+    <>
       <div className="form-group">
         <button type="button" name={checkNbHobbiesName}
                 onClick={addHobby}
@@ -147,7 +147,7 @@ const Hobbies = observer(({memberIndex, member, validateField}: HobbiesProps) =>
       <ul className="list-none">
         {member.hobbies.map((hobby, index) => renderHobby(hobby, index))}
       </ul>
-    </div>
+    </>
   );
 });
 (Hobbies as React.SFC).displayName = 'Hobbies';
@@ -220,7 +220,7 @@ const Members = observer(({club, validateField}: MembersProps) => {
   }
 
   return (
-    <div>
+    <>
       <div className="form-group">
         <button type="button" name="checkNbMembers"
                 onClick={addMember}
@@ -232,7 +232,7 @@ const Members = observer(({club, validateField}: MembersProps) => {
       <ul className="list-none">
         {club.members.map((member, index) => renderMember(member, index))}
       </ul>
-    </div>
+    </>
   );
 });
 (Members as React.SFC).displayName = 'Members';
@@ -243,7 +243,7 @@ interface DisplayClubProps {
 }
 
 const DisplayClub = observer(({club}: DisplayClubProps) =>
-  <pre>Club = {JSON.stringify(club, null, 2)}</pre>
+  <pre style={{fontSize: 'small'}}>Club = {JSON.stringify(club, null, 2)}</pre>
 );
 (DisplayClub as React.SFC).displayName = 'DisplayClub';
 
@@ -254,7 +254,7 @@ interface FormProps {
 
 @observer
 class Form extends React.Component<FormProps> {
-  form: FormWithConstraints | null | undefined;
+  form: FormWithConstraints | null = null;
 
   constructor(props: FormProps) {
     super(props);

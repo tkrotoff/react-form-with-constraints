@@ -17,7 +17,14 @@
     "react-form-with-constraints": "^0.7.0",
     "react-form-with-constraints-bootstrap4": "^0.7.0",
 
-    "webpack": "latest",
+    "bootstrap": "latest",
+    "node-sass": "latest",
+    "style-loader": "latest",
+    "css-loader": "latest",
+    "sass-loader": "latest",
+    "extract-text-webpack-plugin": "latest",
+
+    "webpack": "^3",
     "babel-loader": "latest",
     "babel-core": "latest",
     "babel-preset-react": "latest",

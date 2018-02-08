@@ -29,11 +29,11 @@
     "express": "latest",
     "@types/express": "latest",
 
-    "webpack": "latest",
+    "webpack": "^3",
     "@types/webpack": "latest",
     "webpack-node-externals": "latest",
     "@types/webpack-node-externals": "latest",
-    "ts-loader": "latest",
+    "ts-loader": "^3",
     "file-loader": "latest",
 
     "del-cli": "latest",

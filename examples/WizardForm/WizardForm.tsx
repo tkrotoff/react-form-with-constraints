@@ -60,7 +60,7 @@ class WizardForm extends React.Component<Props, State> {
     const { page } = this.state;
 
     return (
-      <div>
+      <>
         {page === 1 && <WizardFormPage1 {...this.state} onChange={this.handleChange} nextPage={this.nextPage} />}
         {page === 2 && <WizardFormPage2 {...this.state} previousPage={this.previousPage} onChange={this.handleChange} nextPage={this.nextPage} />}
         {page === 3 && <WizardFormPage3 {...this.state} previousPage={this.previousPage} onChange={this.handleChange} onSubmit={this.handleSubmit} />}
@@ -68,7 +68,7 @@ class WizardForm extends React.Component<Props, State> {
         <div>
           <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre>
         </div>
-      </div>
+      </>
     );
   }
 }

@@ -237,10 +237,10 @@ class Form extends React.Component {
 }
 
 const App = () => (
-  <div>
+  <>
     Taken and adapted from <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/The_native_form_widgets">MDN - The native form widgets</a>
     <Form />
-  </div>
+  </>
 );
 
 ReactDOM.render(<App />, document.getElementById('app'));

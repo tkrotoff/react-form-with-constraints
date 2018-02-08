@@ -1,11 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
+import { FormWithConstraints, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './index.html';
 import './style.css';
+
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// See https://en.wikipedia.org/wiki/List_of_the_most_common_passwords
+async function isACommonPassword(password: string) {
+  console.log('checkPasswordHasBeenUsed');
+  await sleep(1000);
+  return [
+    '123456',
+    'password',
+    '12345678',
+    'qwerty',
+    '12345',
+    '123456789',
+    'letmein',
+    '1234567',
+    'football',
+    'iloveyou',
+    'admin',
+    'welcome',
+    'monkey',
+    'login',
+    'abc123'
+  ].includes(password.toLowerCase());
+}
 
 interface Props {}
 
@@ -17,8 +44,8 @@ interface State {
 }
 
 class Form extends React.Component<Props, State> {
-  form: FormWithConstraints | null | undefined;
-  password: HTMLInputElement | null | undefined;
+  form: FormWithConstraints | null = null;
+  password: HTMLInputElement | null = null;
 
   constructor(props: Props) {
     super(props);
@@ -42,10 +69,10 @@ class Form extends React.Component<Props, State> {
       [target.name as any]: target.value
     });
 
-    // Validates only the given field and returns the related FieldFeedbacksValidation structures
-    const fieldFeedbacksValidations = await this.form!.validateFields(target);
+    // Validates only the given field and returns the related FieldValidation structures
+    const fields = await this.form!.validateFields(target);
 
-    const fieldIsValid = fieldFeedbacksValidations.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
+    const fieldIsValid = fields.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
     if (fieldIsValid) console.log(`Field '${target.name}' is valid`);
     else console.log(`Field '${target.name}' is invalid`);
 
@@ -62,11 +89,14 @@ class Form extends React.Component<Props, State> {
       [target.name as any]: target.value
     });
 
-    const fieldFeedbacksValidations = await this.form!.validateFields(target, 'passwordConfirm');
+    const fields = await this.form!.validateFields(target, 'passwordConfirm');
 
-    const fieldsAreValid = fieldFeedbacksValidations.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
+    const fieldsAreValid = fields.every(field => field.isValid());
     if (fieldsAreValid) console.log(`Fields '${target.name}' and 'passwordConfirm' are valid`);
     else console.log(`Fields '${target.name}' and/or 'passwordConfirm' are invalid`);
+
+    if (this.form!.isValid()) console.log('The form is valid');
+    else console.log('The form is invalid');
 
     this.setState({submitButtonDisabled: !this.form!.isValid()});
   }
@@ -74,11 +104,11 @@ class Form extends React.Component<Props, State> {
   async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // Validates the non-dirty fields and returns the related FieldFeedbacksValidation structures
-    const fieldFeedbacksValidations = await this.form!.validateForm();
+    // Validates the non-dirty fields and returns the related FieldValidation structures
+    const fields = await this.form!.validateForm();
 
     // or simply this.form.isValid();
-    const formIsValid = fieldFeedbacksValidations.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
+    const formIsValid = fields.every(field => field.isValid());
 
     if (formIsValid) console.log('The form is valid');
     else console.log('The form is invalid');
@@ -97,26 +127,35 @@ class Form extends React.Component<Props, State> {
           <label htmlFor="username">Username</label>
           <input type="email" name="username" id="username"
                  value={this.state.username} onChange={this.handleChange}
-                 required minLength={3} />
+                 required minLength={5} />
           <FieldFeedbacks for="username">
             <FieldFeedback when="tooShort">Too short</FieldFeedback>
             <FieldFeedback when="*" />
+            <FieldFeedback when="valid">Looks good!</FieldFeedback>
           </FieldFeedbacks>
         </div>
 
         <div>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Password <small>(common passwords: 123456, password, 12345678, qwerty...)</small></label>
           <input type="password" name="password" id="password"
                  ref={password => this.password = password}
                  value={this.state.password} onChange={this.handlePasswordChange}
                  required pattern=".{5,}" />
-          <FieldFeedbacks for="password" stop="first-error">
+          <FieldFeedbacks for="password">
             <FieldFeedback when="valueMissing" />
             <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
             <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
             <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
             <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
             <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
+            <Async
+              promise={isACommonPassword}
+              pending="..."
+              then={commonPassword => commonPassword ?
+                <FieldFeedback warning>This password is very common</FieldFeedback> : null
+              }
+            />
+            <FieldFeedback when="valid">Looks good!</FieldFeedback>
           </FieldFeedbacks>
         </div>
 

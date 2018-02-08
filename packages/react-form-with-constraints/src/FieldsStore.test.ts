@@ -1,48 +1,50 @@
-import { fieldWithoutFeedback, FieldsStore, FieldEvent } from './index';
+import { FieldsStore, FieldEvent, FieldFeedbackValidation, FieldFeedbackType } from './index';
+
+const validation_empty: FieldFeedbackValidation = {
+  key: '0.0',
+  type: FieldFeedbackType.Error,
+  show: true
+};
 
 test('constructor()', () => {
   const store = new FieldsStore();
-  expect(store.fields).toEqual({});
-
-  // Check Object.prototype properties don't exist
-  expect(store.fields.constructor).toEqual(undefined);
-  expect(store.fields.toString).toEqual(undefined);
+  expect(store.fields).toEqual([]);
 });
 
-test('reset()', () => {
+test('clear()', () => {
   const store = new FieldsStore();
-  const emitSpy = jest.spyOn(store, 'emit');
+
+  expect(store.fields).toEqual([]);
 
   store.addField('username');
+  const username = store.getField('username')!;
+  username.addOrReplaceValidation(validation_empty);
+
   store.addField('password');
+  const password = store.getField('password')!;
+  password.addOrReplaceValidation(validation_empty);
 
-  const fieldUpdated = {
-    dirty: true,
-    errors: new Set([1.0, 1.1, 1.2]),
-    warnings: new Set([2.0, 2.1, 2.2]),
-    infos: new Set([3.0, 3.1, 3.2]),
-    validationMessage: 'Field updated'
-  };
-
-  store.updateField('username', fieldUpdated);
-  store.updateField('password', fieldUpdated);
-
-  expect(store.fields).toEqual({
-    username: fieldUpdated,
-    password: fieldUpdated
-  });
-
-  emitSpy.mockClear();
-  store.reset();
-  expect(emitSpy).toHaveBeenCalledTimes(2);
-  expect(emitSpy.mock.calls).toEqual([
-    [FieldEvent.Updated, 'username'],
-    [FieldEvent.Updated, 'password']
+  expect(store.fields).toEqual([
+    {name: 'username', validations: [validation_empty]},
+    {name: 'password', validations: [validation_empty]}
   ]);
-  expect(store.fields).toEqual({
-    username: fieldWithoutFeedback,
-    password: fieldWithoutFeedback
-  });
+
+  store.clear();
+  expect(store.fields).toEqual([
+    {name: 'username', validations: []},
+    {name: 'password', validations: []}
+  ]);
+});
+
+test('getField()', () => {
+  const store = new FieldsStore();
+
+  store.addField('username');
+  const username = store.getField('username');
+  expect(username).toEqual({name: 'username', validations: []});
+
+  const unknown = store.getField('unknown');
+  expect(unknown).toEqual(undefined);
 });
 
 test('addField()', () => {
@@ -51,16 +53,16 @@ test('addField()', () => {
 
   store.addField('username');
   expect(emitSpy).toHaveBeenCalledTimes(1);
-  expect(emitSpy).toHaveBeenLastCalledWith(FieldEvent.Added, 'username', fieldWithoutFeedback);
+  expect(emitSpy).toHaveBeenLastCalledWith(FieldEvent.Added, {name: 'username', validations: []});
 
   store.addField('password');
   expect(emitSpy).toHaveBeenCalledTimes(2);
-  expect(emitSpy).toHaveBeenLastCalledWith(FieldEvent.Added, 'password', fieldWithoutFeedback);
+  expect(emitSpy).toHaveBeenLastCalledWith(FieldEvent.Added, {name: 'password', validations: []});
 
-  expect(store.fields).toEqual({
-    username: fieldWithoutFeedback,
-    password: fieldWithoutFeedback
-  });
+  expect(store.fields).toEqual([
+    {name: 'username', validations: []},
+    {name: 'password', validations: []}
+  ]);
 });
 
 test('addField() - existing field', () => {
@@ -69,9 +71,9 @@ test('addField() - existing field', () => {
   store.addField('username');
   store.addField('username');
 
-  expect(store.fields).toEqual({
-    username: fieldWithoutFeedback
-  });
+  expect(store.fields).toEqual([
+    {name: 'username', validations: []}
+  ]);
 });
 
 test('removeField()', () => {
@@ -82,304 +84,47 @@ test('removeField()', () => {
   expect(emitSpy).toHaveBeenCalledTimes(1);
   store.addField('password');
   expect(emitSpy).toHaveBeenCalledTimes(2);
-  expect(store.fields).toEqual({
-    username: fieldWithoutFeedback,
-    password: fieldWithoutFeedback
-  });
+  expect(store.fields).toEqual([
+    {name: 'username', validations: []},
+    {name: 'password', validations: []}
+  ]);
 
   store.removeField('username');
   expect(emitSpy).toHaveBeenCalledTimes(3);
   expect(emitSpy).toHaveBeenLastCalledWith(FieldEvent.Removed, 'username');
-  expect(store.fields).toEqual({
-    password: fieldWithoutFeedback
-  });
+  expect(store.fields).toEqual([
+    {name: 'password', validations: []}
+  ]);
 
   store.removeField('password');
   expect(emitSpy).toHaveBeenCalledTimes(4);
   expect(emitSpy).toHaveBeenLastCalledWith(FieldEvent.Removed, 'password');
-  expect(store.fields).toEqual({});
+  expect(store.fields).toEqual([]);
 });
 
 test('removeField() - unknown field', () => {
   const store = new FieldsStore();
   store.addField('username');
-  expect(() => store.removeField('password')).toThrow("Unknown field 'password'");
-  expect(store.fields).toEqual({
-    username: fieldWithoutFeedback
-  });
+
+  store.removeField('password');
+  expect(store.fields).toEqual([
+    {name: 'username', validations: []}
+  ]);
 });
 
-test('cloneField()', () => {
+test('isValid()', () => {
   const store = new FieldsStore();
 
   store.addField('username');
-  expect(store.fields).toEqual({
-    username: fieldWithoutFeedback
-  });
-
-  const field = store.cloneField('username');
-  field.dirty = true;
-  field.errors.add(1.0);
-  field.warnings.add(2.0);
-  field.infos.add(3.0);
-  field.validationMessage = "I'm a clone";
-
-  expect(field).toEqual({
-    dirty: true,
-    errors: new Set([1.0]),
-    warnings: new Set([2.0]),
-    infos: new Set([3.0]),
-    validationMessage: "I'm a clone"
-  });
-  expect(store.fields).toEqual({
-    username: {
-      dirty: false,
-      errors: new Set(),
-      warnings: new Set(),
-      infos: new Set(),
-      validationMessage: ''
-    }
-  });
-  expect(fieldWithoutFeedback).toEqual({
-    dirty: false,
-    errors: new Set(),
-    warnings: new Set(),
-    infos: new Set(),
-    validationMessage: ''
-  });
-});
-
-test('cloneField() - unknown field', () => {
-  const store = new FieldsStore();
-  expect(() => store.cloneField('username')).toThrow("Unknown field 'username'");
-  expect(store.fields).toEqual({});
-});
-
-test('updateField()', () => {
-  const store = new FieldsStore();
-  store.addField('username');
-  expect(store.fields).toEqual({
-    username: fieldWithoutFeedback
-  });
-
-  const fieldUpdated = {
-    dirty: true,
-    errors: new Set([1.0, 1.1, 1.2]),
-    warnings: new Set([2.0, 2.1, 2.2]),
-    infos: new Set([3.0, 3.1, 3.2]),
-    validationMessage: 'Field updated'
-  };
-  store.updateField('username', fieldUpdated);
-
-  expect(store.fields).toEqual({
-    username: {
-      dirty: true,
-      errors: new Set([1.0, 1.1, 1.2]),
-      warnings: new Set([2.0, 2.1, 2.2]),
-      infos: new Set([3.0, 3.1, 3.2]),
-      validationMessage: 'Field updated'
-    }
-  });
-});
-
-test('updateField() - unknown field', () => {
-  const store = new FieldsStore();
-  store.addField('username');
-  expect(store.fields).toEqual({
-    username: fieldWithoutFeedback
-  });
-
-  const fieldUpdated = {
-    dirty: false,
-    errors: new Set(),
-    warnings: new Set(),
-    infos: new Set(),
-    validationMessage: 'Field updated'
-  };
-  expect(() => store.updateField('password', fieldUpdated)).toThrow("Unknown field 'password'");
-
-  expect(store.fields).toEqual({
-    username: fieldWithoutFeedback
-  });
-});
-
-test('removeFieldFor()', () => {
-  const store = new FieldsStore();
-  store.addField('username');
-
-  store.updateField('username', {
-    dirty: false,
-    errors: new Set([0.0, 0.1, 0.2, 1.0, 1.1, 1.2, 2.0, 2.1, 2.2]),
-    warnings: new Set([0.0, 0.1, 0.2, 1.0, 1.1, 1.2, 2.0, 2.1, 2.2]),
-    infos: new Set([0.0, 0.1, 0.2, 1.0, 1.1, 1.2, 2.0, 2.1, 2.2]),
-    validationMessage: ''
-  });
-
-  const fieldFeedbacksKey = 1;
-  store.removeFieldFor('username', fieldFeedbacksKey);
-
-  expect(store.fields).toEqual({
-    username: {
-      dirty: false,
-      errors: new Set([0.0, 0.1, 0.2, 2.0, 2.1, 2.2]),
-      warnings: new Set([0.0, 0.1, 0.2, 2.0, 2.1, 2.2]),
-      infos: new Set([0.0, 0.1, 0.2, 2.0, 2.1, 2.2]),
-      validationMessage: ''
-    }
-  });
-});
-
-test('getFieldFor()', () => {
-  const store = new FieldsStore();
-  store.addField('username');
-  store.updateField('username', {
-    dirty: false,
-    errors: new Set([0.0, 0.1, 0.2, 1.0, 1.1, 1.2, 2.0, 2.1, 2.2]),
-    warnings: new Set([0.0, 0.1, 0.2, 1.0, 1.1, 1.2, 2.0, 2.1, 2.2]),
-    infos: new Set([0.0, 0.1, 0.2, 1.0, 1.1, 1.2, 2.0, 2.1, 2.2]),
-    validationMessage: ''
-  });
-
-  const fieldFeedbacksKey = 1;
-  const field = store.getFieldFor('username', fieldFeedbacksKey);
-
-  expect(field).toEqual({
-    dirty: false,
-    errors: new Set([1.0, 1.1, 1.2]),
-    warnings: new Set([1.0, 1.1, 1.2]),
-    infos: new Set([1.0, 1.1, 1.2]),
-    validationMessage: ''
-  });
-});
-
-test('contain*()', () => {
-  const store = new FieldsStore();
-  store.addField('username');
-  store.updateField('username', fieldWithoutFeedback);
   store.addField('password');
-  store.updateField('password', fieldWithoutFeedback);
-  expect(store.hasErrors('username', 'password')).toEqual(false);
-  expect(store.hasWarnings('username', 'password')).toEqual(false);
-  expect(store.hasInfos('username', 'password')).toEqual(false);
 
-  store.updateField('username', {
-    dirty: true,
-    errors: new Set([1.1]),
-    warnings: new Set(),
-    infos: new Set(),
-    validationMessage: 'Suffering from being missing'
-  });
-  store.updateField('password', {
-    dirty: true,
-    errors: new Set([1.1]),
-    warnings: new Set(),
-    infos: new Set(),
-    validationMessage: 'Suffering from being missing'
-  });
-  expect(store.hasErrors('username', 'password')).toEqual(true);
-  expect(store.hasWarnings('username', 'password')).toEqual(false);
-  expect(store.hasInfos('username', 'password')).toEqual(false);
+  expect(store.isValid()).toEqual(true);
 
-  store.updateField('username', {
-    dirty: true,
-    errors: new Set(),
-    warnings: new Set([1.1]),
-    infos: new Set(),
-    validationMessage: 'Suffering from being missing'
-  });
-  store.updateField('password', {
-    dirty: true,
-    errors: new Set(),
-    warnings: new Set([1.1]),
-    infos: new Set(),
-    validationMessage: 'Suffering from being missing'
-  });
-  expect(store.hasErrors('username', 'password')).toEqual(false);
-  expect(store.hasWarnings('username', 'password')).toEqual(true);
-  expect(store.hasInfos('username', 'password')).toEqual(false);
+  const username = store.getField('username')!;
+  username.addOrReplaceValidation(validation_empty);
+  expect(store.isValid()).toEqual(false);
 
-  store.updateField('username', {
-    dirty: true,
-    errors: new Set(),
-    warnings: new Set(),
-    infos: new Set([1.1]),
-    validationMessage: 'Suffering from being missing'
-  });
-  store.updateField('password', {
-    dirty: true,
-    errors: new Set(),
-    warnings: new Set(),
-    infos: new Set([1.1]),
-    validationMessage: 'Suffering from being missing'
-  });
-  expect(store.hasErrors('username', 'password')).toEqual(false);
-  expect(store.hasWarnings('username', 'password')).toEqual(false);
-  expect(store.hasInfos('username', 'password')).toEqual(true);
-});
-
-test('contain*() - unknown field', () => {
-  const store = new FieldsStore();
-
-  // Ignore unknown fields
-  expect(store.hasErrors('email')).toEqual(false);
-  expect(store.hasWarnings('email')).toEqual(false);
-  expect(store.hasInfos('email')).toEqual(false);
-  expect(store.areValidDirtyWithoutWarnings('email')).toEqual(false);
-});
-
-test('areValidDirtyWithoutWarnings()', () => {
-  const store = new FieldsStore();
-  store.addField('username');
-  store.updateField('username', fieldWithoutFeedback);
-  store.addField('password');
-  store.updateField('password', fieldWithoutFeedback);
-  expect(store.areValidDirtyWithoutWarnings('username', 'password')).toEqual(false);
-
-  store.updateField('username', {
-    dirty: true,
-    errors: new Set(),
-    warnings: new Set(),
-    infos: new Set(),
-    validationMessage: ''
-  });
-  store.updateField('password', {
-    dirty: true,
-    errors: new Set(),
-    warnings: new Set(),
-    infos: new Set(),
-    validationMessage: ''
-  });
-  expect(store.areValidDirtyWithoutWarnings('username', 'password')).toEqual(true);
-
-  store.updateField('username', {
-    dirty: true,
-    errors: new Set([1.1]),
-    warnings: new Set(),
-    infos: new Set(),
-    validationMessage: 'Suffering from being missing'
-  });
-  store.updateField('password', {
-    dirty: true,
-    errors: new Set([1.1]),
-    warnings: new Set(),
-    infos: new Set(),
-    validationMessage: 'Suffering from being missing'
-  });
-  expect(store.areValidDirtyWithoutWarnings('username', 'password')).toEqual(false);
-
-  store.updateField('username', {
-    dirty: true,
-    errors: new Set(),
-    warnings: new Set([1.1]),
-    infos: new Set(),
-    validationMessage: 'Suffering from being missing'
-  });
-  store.updateField('password', {
-    dirty: true,
-    errors: new Set(),
-    warnings: new Set([1.1]),
-    infos: new Set(),
-    validationMessage: 'Suffering from being missing'
-  });
-  expect(store.areValidDirtyWithoutWarnings('username', 'password')).toEqual(false);
+  const password = store.getField('password')!;
+  password.addOrReplaceValidation(validation_empty);
+  expect(store.isValid()).toEqual(false);
 });

@@ -1,101 +1,99 @@
 import React from 'react';
 import { shallow as _shallow, mount as _mount } from 'enzyme';
 
-import { FormWithConstraints, Async, AsyncProps, AsyncContext, Status, FieldFeedback, FieldFeedbacks, FieldFeedbacksContext, ValidateEvent } from './index';
-import createFieldFeedbacks from './createFieldFeedbacks';
+import {
+  FormWithConstraints, FieldFeedbacksProps, Async, AsyncProps, AsyncContext, Status,
+  FieldFeedback, FieldFeedbacksContext, ValidateFieldEvent
+} from './index';
 import checkUsernameAvailability from './checkUsernameAvailability';
-import InputMock from './InputMock';
+import { input_unknown_valueMissing, input_username_valid, input_username_error_valid } from './InputMock';
+import new_FormWithConstraints from './FormWithConstraintsEnzymeFix';
+import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 
 function shallow(node: React.ReactElement<AsyncProps<any>>, options: {context: AsyncContext}) {
   return _shallow<AsyncProps<any>>(node, options);
 }
 
-function mount(node: React.ReactElement<FieldFeedbacks>, options: {context: FieldFeedbacksContext}) {
-  return _mount<FieldFeedbacks>(node, options);
+function mount(node: React.ReactElement<FieldFeedbacksProps>, options: {context: FieldFeedbacksContext}) {
+  return _mount<FieldFeedbacksProps>(node, options);
 }
 
-let form: FormWithConstraints;
-
-function createFieldFeedbacks_username() {
-  const fieldFeedbacksKey1 = 1;
-  const fieldFeedbackKey11 = 1.1;
-  return createFieldFeedbacks({for: 'username'}, form, fieldFeedbacksKey1, fieldFeedbackKey11);
-}
+let form_username: FormWithConstraints;
+let fieldFeedbacks_username: FieldFeedbacks;
 
 beforeEach(() => {
-  form = new FormWithConstraints({});
+  form_username = new_FormWithConstraints({});
+
+  fieldFeedbacks_username = new FieldFeedbacks({for: 'username', stop: 'no'}, {form: form_username});
+  fieldFeedbacks_username.componentWillMount(); // Needed because of fieldsStore.addField() inside componentWillMount()
 });
 
 test('constructor()', () => {
   const wrapper = shallow(
     <Async promise={checkUsernameAvailability} />,
-    {context: {form, fieldFeedbacks: createFieldFeedbacks_username()}}
+    {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
   );
   const async = wrapper.instance() as Async<boolean>;
   expect(async.state).toEqual({status: Status.None});
 });
 
 test('componentWillMount() componentWillUnmount()', () => {
-  const addValidateEventListenerSpy = jest.spyOn(form, 'addValidateEventListener');
-  const removeValidateEventListenerSpy = jest.spyOn(form, 'removeValidateEventListener');
+  const addValidateFieldEventListenerSpy = jest.spyOn(fieldFeedbacks_username, 'addValidateFieldEventListener');
+  const removeValidateFieldEventListenerSpy = jest.spyOn(fieldFeedbacks_username, 'removeValidateFieldEventListener');
 
   const wrapper = shallow(
     <Async promise={checkUsernameAvailability} />,
-    {context: {form, fieldFeedbacks: createFieldFeedbacks_username()}}
+    {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
   );
-  expect(addValidateEventListenerSpy).toHaveBeenCalledTimes(1);
-  expect(removeValidateEventListenerSpy).toHaveBeenCalledTimes(0);
-  expect(form.validateEventEmitter.listeners.get(ValidateEvent)).toHaveLength(1);
+  expect(addValidateFieldEventListenerSpy).toHaveBeenCalledTimes(1);
+  expect(removeValidateFieldEventListenerSpy).toHaveBeenCalledTimes(0);
+  expect(fieldFeedbacks_username.validateFieldEventEmitter.listeners.get(ValidateFieldEvent)).toHaveLength(1);
 
   wrapper.unmount();
-  expect(addValidateEventListenerSpy).toHaveBeenCalledTimes(1);
-  expect(removeValidateEventListenerSpy).toHaveBeenCalledTimes(1);
-  expect(form.validateEventEmitter.listeners.get(ValidateEvent)).toEqual(undefined);
+  expect(addValidateFieldEventListenerSpy).toHaveBeenCalledTimes(1);
+  expect(removeValidateFieldEventListenerSpy).toHaveBeenCalledTimes(1);
+  expect(fieldFeedbacks_username.validateFieldEventEmitter.listeners.get(ValidateFieldEvent)).toEqual(undefined);
 });
 
 describe('validate()', () => {
-  test('known input name - emitValidateEvent', async () => {
-    const async = shallow(
+  test('known input name - emitValidateFieldEvent', async () => {
+    const wrapper = shallow(
       <Async promise={checkUsernameAvailability} />,
-      {context: {form, fieldFeedbacks: createFieldFeedbacks_username()}}
-    ).instance() as Async<boolean>;
+      {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
+    );
+    const async = wrapper.instance() as Async<boolean>;
 
-    const emitValidateEventSpy = jest.spyOn(async, 'emitValidateEvent');
+    const emitValidateFieldEventSpy = jest.spyOn(async, 'emitValidateFieldEvent');
 
-    expect(emitValidateEventSpy).toHaveBeenCalledTimes(0);
-    const input = new InputMock('username', 'jimmy', {valid: true}, '');
-    const fieldFeedbackValidations = await form.validateFields(input);
-    expect(fieldFeedbackValidations).toEqual([{
-      fieldName: 'username',
-      isValid: expect.any(Function),
-      fieldFeedbackValidations: []
-    }]);
-    expect(emitValidateEventSpy).toHaveBeenCalledTimes(1);
-    expect(emitValidateEventSpy).toHaveBeenLastCalledWith(input);
+    expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(0);
+    const fields = await form_username.validateFields(input_username_valid);
+
+    expect(fields).toEqual([
+      {name: 'username', validations: []}
+    ]);
+    expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(1);
+    expect(emitValidateFieldEventSpy).toHaveBeenLastCalledWith(input_username_valid);
   });
 
-  test('unknown input name - emitValidateEvent', async () => {
-    const async = shallow(
+  test('unknown input name - emitValidateFieldEvent', async () => {
+    const wrapper = shallow(
       <Async promise={checkUsernameAvailability} />,
-      {context: {form, fieldFeedbacks: createFieldFeedbacks_username()}}
-    ).instance() as Async<boolean>;
+      {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
+    );
+    const async = wrapper.instance() as Async<boolean>;
 
-    const emitValidateEventSpy = jest.spyOn(async, 'emitValidateEvent');
+    const emitValidateFieldEventSpy = jest.spyOn(async, 'emitValidateFieldEvent');
 
-    expect(emitValidateEventSpy).toHaveBeenCalledTimes(0);
-    const input = new InputMock('unknown', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-    const fieldFeedbackValidations = await form.validateFields(input);
-    expect(fieldFeedbackValidations).toEqual([{
-      fieldName: 'unknown',
-      isValid: expect.any(Function),
-      fieldFeedbackValidations: []
-    }]);
-    expect(emitValidateEventSpy).toHaveBeenCalledTimes(0);
+    expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(0);
+    const fields = await form_username.validateFields(input_unknown_valueMissing);
+    expect(fields).toEqual([]);
+    expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(0);
   });
 });
 
 describe('render()', () => {
   test('then()', async () => {
+    const form = new_FormWithConstraints({});
     const wrapper = mount(
       <FieldFeedbacks for="username">
         <Async
@@ -110,92 +108,96 @@ describe('render()', () => {
       </FieldFeedbacks>,
       {context: {form}}
     );
-    wrapper.update();
-    expect(wrapper.html()).toEqual('<div></div>');
+    expect(wrapper.html()).toEqual('<div data-feedbacks="0"></div>');
 
-    const input = new InputMock('username', 'jimmy', {valid: true}, '');
-    let fieldFeedbackValidationsPromise = form.validateFields(input);
-    wrapper.update();
-    expect(wrapper.html()).toEqual('<div>Pending...</div>');
+    const input = {...input_username_valid};
+    let fieldsPromise = form.validateFields(input);
+    expect(wrapper.html()).toEqual('<div data-feedbacks="0">Pending...</div>');
 
-    let fieldFeedbackValidations = await fieldFeedbackValidationsPromise;
-    expect(fieldFeedbackValidations).toEqual([{
-      fieldName: 'username',
-      isValid: expect.any(Function),
-      fieldFeedbackValidations: [{key: 0.0, isValid: true}]
-    }]);
-    wrapper.update();
-    expect(wrapper.html()).toEqual(`<div><div class="info">Username 'jimmy' available</div></div>`);
+    let fields = await fieldsPromise;
+    expect(fields).toEqual([
+      {
+        name: 'username',
+        validations: [
+          {key: '0.0', type: 'info', show: true}
+        ]
+      }
+    ]);
+    expect(wrapper.html()).toEqual(`<div data-feedbacks="0"><div data-feedback="0.0" class="info">Username 'jimmy' available</div></div>`);
 
     input.value = 'john';
-    fieldFeedbackValidationsPromise = form.validateFields(input);
-    wrapper.update();
-    expect(wrapper.html()).toEqual('<div>Pending...</div>');
+    fieldsPromise = form.validateFields(input);
+    expect(wrapper.html()).toEqual('<div data-feedbacks="0">Pending...</div>');
 
-    fieldFeedbackValidations = await fieldFeedbackValidationsPromise;
-    expect(fieldFeedbackValidations).toEqual([{
-      fieldName: 'username',
-      isValid: expect.any(Function),
-      fieldFeedbackValidations: [{key: 0.1, isValid: false}]
-    }]);
-    wrapper.update();
-    expect(wrapper.html()).toEqual(`<div><div class="error">Username 'john' already taken, choose another</div></div>`);
+    fields = await fieldsPromise;
+    expect(fields).toEqual([
+      {
+        name: 'username',
+        validations: [
+          {key: '0.1', type: 'error', show: true}
+        ]
+      }
+    ]);
+    expect(wrapper.html()).toEqual(`<div data-feedbacks="0"><div data-feedback="0.1" class="error">Username 'john' already taken, choose another</div></div>`);
   });
 
   test('catch()', async () => {
+    const form = new_FormWithConstraints({});
     const wrapper = mount(
       <FieldFeedbacks for="username">
         <Async
           promise={checkUsernameAvailability}
           pending={'Pending...'}
-          then={availability => availability.available ? `Username '${availability.value}' available` : `Username '${availability.value}' already taken, choose another`}
+          then={availability => availability.available ?
+            `Username '${availability.value}' available` :
+            `Username '${availability.value}' already taken, choose another`
+          }
           catch={e => <FieldFeedback>{e.message}</FieldFeedback>}
         />
       </FieldFeedbacks>,
       {context: {form}}
     );
-    wrapper.update();
-    expect(wrapper.html()).toEqual('<div></div>');
+    expect(wrapper.html()).toEqual('<div data-feedbacks="0"></div>');
 
-    const input = new InputMock('username', 'error', {valid: true}, '');
-    const fieldFeedbackValidationsPromise = form.validateFields(input);
-    wrapper.update();
-    expect(wrapper.html()).toEqual('<div>Pending...</div>');
+    const fieldsPromise = form.validateFields(input_username_error_valid);
+    expect(wrapper.html()).toEqual('<div data-feedbacks="0">Pending...</div>');
 
-    const fieldFeedbackValidations = await fieldFeedbackValidationsPromise;
-    expect(fieldFeedbackValidations).toEqual([{
-      fieldName: 'username',
-      isValid: expect.any(Function),
-      fieldFeedbackValidations: [{key: 0.0, isValid: false}]
-    }]);
-    wrapper.update();
-    expect(wrapper.html()).toEqual(`<div><div class="error">Something wrong with username 'error'</div></div>`);
+    const fields = await fieldsPromise;
+    expect(fields).toEqual([
+      {
+        name: 'username',
+        validations: [
+          {key: '0.0', type: 'error', show: true}
+        ]
+      }
+    ]);
+    expect(wrapper.html()).toEqual(`<div data-feedbacks="0"><div data-feedback="0.0" class="error">Something wrong with username 'error'</div></div>`);
   });
 
   test('no catch()', async () => {
-    const wrapper = shallow(
-      <Async
-        promise={checkUsernameAvailability}
-        pending={'Pending...'}
-        then={availability => availability.available ? `Username '${availability.value}' available` : `Username '${availability.value}' already taken, choose another`}
-      />,
-      {context: {form, fieldFeedbacks: createFieldFeedbacks_username()}}
+    const form = new_FormWithConstraints({});
+    const wrapper = mount(
+      <FieldFeedbacks for="username">
+        <Async
+          promise={checkUsernameAvailability}
+          pending={'Pending...'}
+          then={availability => availability.available ?
+            `Username '${availability.value}' available` :
+            `Username '${availability.value}' already taken, choose another`
+          }
+        />
+      </FieldFeedbacks>,
+      {context: {form}}
     );
-    wrapper.update();
-    expect(wrapper.html()).toEqual(null);
+    expect(wrapper.html()).toEqual('<div data-feedbacks="0"></div>');
 
-    const input = new InputMock('username', 'error', {valid: true}, '');
-    const fieldFeedbackValidationsPromise = form.validateFields(input);
-    wrapper.update();
-    expect(wrapper.text()).toEqual('Pending...');
+    const fieldsPromise = form.validateFields(input_username_error_valid);
+    expect(wrapper.html()).toEqual('<div data-feedbacks="0">Pending...</div>');
 
-    const fieldFeedbackValidations = await fieldFeedbackValidationsPromise;
-    expect(fieldFeedbackValidations).toEqual([{
-      fieldName: 'username',
-      isValid: expect.any(Function),
-      fieldFeedbackValidations: []
-    }]);
-    wrapper.update();
-    expect(wrapper.html()).toEqual(null);
+    const fields = await fieldsPromise;
+    expect(fields).toEqual([
+      {name: 'username', validations: []}
+    ]);
+    expect(wrapper.html()).toEqual('<div data-feedbacks="0"></div>');
   });
 });

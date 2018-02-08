@@ -13,7 +13,7 @@ export interface Props {
 }
 
 class WizardFormPage2 extends React.Component<Props> {
-  form: FormWithConstraints | null | undefined;
+  form: FormWithConstraints | null = null;
 
   constructor(props: Props) {
     super(props);

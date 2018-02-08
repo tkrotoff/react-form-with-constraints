@@ -1,4 +1,4 @@
-/* See https://github.com/twbs/bootstrap/blob/v4.0.0-beta/scss/_close.scss */
+/* See https://github.com/twbs/bootstrap/blob/v4.0.0/scss/_close.scss */
 button.close {
   float: initial;
   padding-left: .5rem;
@@ -10,20 +10,25 @@ ul.list-none {
 
 /*
  * FieldFeedbacks
- * See https://github.com/twbs/bootstrap/blob/v4.0.0-beta/scss/_forms.scss#L266
+ * See https://github.com/twbs/bootstrap/blob/v4.0.0/scss/mixins/_forms.scss#L30
  */
 div.error {
-  margin-top: .25rem;
-  font-size: .875rem;
+  margin-top: .25rem; /* $form-feedback-margin-top */
+  font-size: 80%; /* $form-feedback-font-size */
   color: #dc3545; /* $form-feedback-invalid-color */
 }
 div.warning {
   margin-top: .25rem;
-  font-size: .875rem;
-  color: orange;
+  font-size: 80%;
+  color: #ffc107; /* $warning */
 }
 div.info {
   margin-top: .25rem;
-  font-size: .875rem;
-  color: blue;
+  font-size: 80%;
+  color: #17a2b8; /* $info */
+}
+div.valid {
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #28a745; /* $form-feedback-valid-color */
 }

@@ -1,2 +1,1 @@
-import DisplayFields from './DisplayFields';
-export { DisplayFields };
+export * from './DisplayFields';

@@ -1,10 +1,15 @@
 import { Input } from './index';
 
-class InputMock implements Input {
-  type = 'input'; // Can also be checkbox;
-  validity: ValidityState;
+export class InputMock implements Input {
+  readonly type = 'input'; // Can also be checkbox;
+  readonly validity: ValidityState;
 
-  constructor(public name: string, public value: string, validity: Partial<ValidityState>, public validationMessage: string) {
+  constructor(
+    public readonly name: string,
+    public readonly value: string,
+    validity: Partial<ValidityState>,
+    public readonly validationMessage: string
+  ) {
     const defaultValidity = {
       valid: true,
       badInput: false,
@@ -25,4 +30,7 @@ class InputMock implements Input {
   }
 }
 
-export default InputMock;
+export const input_username_valueMissing = new InputMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
+export const input_username_valid = new InputMock('username', 'jimmy', {valid: true}, '');
+export const input_username_error_valid = new InputMock('username', 'error', {valid: true}, '');
+export const input_unknown_valueMissing = new InputMock('unknown', '', {valid: false, valueMissing: true}, 'Suffering from being missing');

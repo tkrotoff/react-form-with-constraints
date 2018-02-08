@@ -23,7 +23,7 @@
     "interface-name": false,
     "member-access": false,
     "object-literal-sort-keys": false,
-    "trailing-comma": false,
+    "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
     "ordered-imports": false,
     "comment-format": false,
     "arrow-parens": false,

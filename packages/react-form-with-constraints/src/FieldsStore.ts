@@ -1,140 +1,53 @@
-import { Fields, Field } from './Fields';
+import Field from './Field';
 import { EventEmitter } from './EventEmitter';
-import fieldWithoutFeedback from './fieldWithoutFeedback';
 
 export enum FieldEvent {
   Added = 'FIELD_ADDED',
-  Removed = 'FIELD_REMOVED',
-  Updated = 'FIELD_UPDATED'
+  Removed = 'FIELD_REMOVED'
 }
 
 export class FieldsStore extends EventEmitter {
-  // Why Object.create(null) insteaf of just {}? See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#Objects_and_maps_compared
-  fields: Fields = Object.create(null);
+  fields = new Array<Field>();
 
-  reset() {
-    // tslint:disable-next-line:forin
-    for (const fieldName in this.fields) {
-      this.updateField(fieldName, fieldWithoutFeedback);
-    }
+  clear() {
+    this.fields.forEach(field => field.clear());
+  }
+
+  getField(fieldName: string): Readonly<Field> | undefined {
+    const fields = this.fields.filter(_field => _field.name === fieldName);
+    //console.assert(fields.length === 1, `Unknown field '${fieldName}'`);
+    return fields.length === 1 ? fields[0] : undefined;
   }
 
   addField(fieldName: string) {
-    if (this.fields[fieldName] === undefined) {
-      const newField = fieldWithoutFeedback;
-      this.fields[fieldName] = newField;
-      this.emit(FieldEvent.Added, fieldName, newField);
+    const fields = this.fields.filter(_field => _field.name === fieldName);
+    console.assert(fields.length === 0 || fields.length === 1, `Cannot have more than 1 field matching '${fieldName}'`);
+
+    if (fields.length === 0) {
+      const newField = new Field(fieldName);
+      this.fields.push(newField);
+      this.emit(FieldEvent.Added, newField);
+    } else {
+      // We can have multiple FieldFeedbacks for the same field,
+      // thus addField() can be called multiple times
     }
   }
 
   removeField(fieldName: string) {
-    console.assert(this.fields[fieldName] !== undefined, `Unknown field '${fieldName}'`);
-    delete this.fields[fieldName];
-    this.emit(FieldEvent.Removed, fieldName);
-  }
+    const fields = this.fields.filter(_field => _field.name === fieldName);
 
-  cloneField(fieldName: string) {
-    const field = this.fields[fieldName]!;
-    console.assert(field !== undefined, `Unknown field '${fieldName}'`);
-    const newField: Field = {
-      dirty: field.dirty,
-      errors: new Set(field.errors),
-      warnings: new Set(field.warnings),
-      infos: new Set(field.infos),
-      validationMessage: field.validationMessage
-    };
-    return newField;
-  }
+    // We can have multiple FieldFeedbacks for the same field,
+    // thus removeField() can be called multiple times
+    //console.assert(fields.length === 1, `Unknown field '${fieldName}'`);
 
-  updateField(fieldName: string, field: Field) {
-    console.assert(this.fields[fieldName] !== undefined, `Unknown field '${fieldName}'`);
-    this.fields[fieldName] = field;
-    this.emit(FieldEvent.Updated, fieldName);
-  }
-
-  // Clear the errors/warnings/infos each time we re-validate the input,
-  // this solves the problem with the errors order and stop="first-error", example:
-  // <FieldFeedbacks for="username" stop="first-error"> key=0
-  //   <FieldFeedback ...> key=0.0
-  //   <FieldFeedback ...> key=0.1
-  // </FieldFeedbacks>
-  // We want the first FieldFeedback in the DOM that matches to be displayed
-  // + we have a special case where we could have multiple FieldFeedbacks for the same field
-  removeFieldFor(fieldName: string, fieldFeedbacksKey: number) {
-    const field = this.fields[fieldName]!;
-
-    // FieldFeedbacks.componentWillUnmount() is called before (instead of after) its children FieldFeedback.componentWillUnmount()
-    //console.assert(field !== undefined, `Unknown field '${fieldName}'`);
-    if (field !== undefined) {
-      // reject is the opposite of filter, see https://lodash.com/docs/#reject
-      // Example: fieldFeedbacksKey = 5, fieldFeedbackKey = 5.2, Math.floor(5.2) = 5
-      const reject = (fieldFeedbackKey: number) => fieldFeedbacksKey !== Math.floor(fieldFeedbackKey);
-
-      // FIXME
-      // With TypeScript ES5 [...set] is translated to __spread(set)
-      // and __spread(set) is buggy with react-native Android
-      // works with iOS
-      // No idea why it's buggy under Android
-      // This should be removed when TypeScript target will be changed for > ES5
-      field.errors = new Set(/*[...field.errors]*/Array.from(field.errors).filter(reject));
-      field.warnings = new Set(/*[...field.warnings]*/Array.from(field.warnings).filter(reject));
-      field.infos = new Set(/*[...field.infos]*/Array.from(field.infos).filter(reject));
-
-      this.emit(FieldEvent.Updated, fieldName);
+    const index = this.fields.indexOf(fields[0]);
+    if (index > -1) {
+      this.fields.splice(index, 1);
+      this.emit(FieldEvent.Removed, fieldName);
     }
   }
 
-  // Retrieve errors/warnings/infos only related to a given FieldFeedbacks
-  getFieldFor(fieldName: string, fieldFeedbacksKey: number) {
-    const field = this.fields[fieldName]!;
-    console.assert(field !== undefined, `Unknown field '${fieldName}'`);
-
-    // Example: fieldFeedbacksKey = 5, fieldFeedbackKey = 5.2, Math.floor(5.2) = 5
-    const filter = (fieldFeedbackKey: number) => fieldFeedbacksKey === Math.floor(fieldFeedbackKey);
-
-    const fieldFor: Readonly<Field> = {
-      dirty: field.dirty,
-
-      // FIXME
-      // With TypeScript ES5 [...set] is translated to __spread(set)
-      // and __spread(set) is buggy with react-native Android
-      // works with iOS
-      // No idea why it's buggy under Android
-      // This should be removed when TypeScript target will be changed for > ES5
-      errors: new Set(/*[...field.errors]*/Array.from(field.errors).filter(filter)),
-      warnings: new Set(/*[...field.warnings]*/Array.from(field.warnings).filter(filter)),
-      infos: new Set(/*[...field.infos]*/Array.from(field.infos).filter(filter)),
-
-      validationMessage: field.validationMessage
-    };
-    return fieldFor;
-  }
-
-  hasErrors(...fieldNames: string[]) {
-    return fieldNames.some(fieldName => {
-      const field = this.fields[fieldName];
-      return field !== undefined && field.errors.size > 0;
-    });
-  }
-
-  hasWarnings(...fieldNames: string[]) {
-    return fieldNames.some(fieldName => {
-      const field = this.fields[fieldName];
-      return field !== undefined && field.warnings.size > 0;
-    });
-  }
-
-  hasInfos(...fieldNames: string[]) {
-    return fieldNames.some(fieldName => {
-      const field = this.fields[fieldName];
-      return field !== undefined && field.infos.size > 0;
-    });
-  }
-
-  areValidDirtyWithoutWarnings(...fieldNames: string[]) {
-    return fieldNames.some(fieldName => {
-      const field = this.fields[fieldName];
-      return field !== undefined && field.dirty === true && field.errors.size === 0 && field.warnings.size === 0;
-    });
+  isValid() {
+    return this.fields.every(field => field.isValid());
   }
 }

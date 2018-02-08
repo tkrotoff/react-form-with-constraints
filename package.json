@@ -3,7 +3,7 @@
 
   "scripts": {
     "clean:lerna": "lerna clean",
-    "clean:node_modules": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && find . -name 'yarn.lock' -exec rm -f '{}' +",
+    "clean:node_modules": "find . \\( -name 'node_modules' -or -name 'yarn.lock' -or -name 'yarn-error.log' \\) -prune -exec rm -rf '{}' +",
 
     "clean": "rm -f lerna-debug.log && lerna run clean",
 

@@ -2,16 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { FormWithConstraintsChildContext } from './FormWithConstraints';
-import { FieldFeedbacksChildContext, ListenerReturnType } from './FieldFeedbacks';
-import { withValidateEventEmitter } from './withValidateEventEmitter';
+import { FieldFeedbacksChildContext } from './FieldFeedbacks';
+import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 // @ts-ignore
-// TS6133: 'FieldFeedbackValidation' is declared but its value is never read.
-// FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
-import FieldFeedbackValidation from './FieldFeedbackValidation';
-// @ts-ignore
-// TS6133: 'EventEmitter' is declared but its value is never read.
+// 'EventEmitter' is declared but its value is never read.
 // FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
 import { EventEmitter } from './EventEmitter';
+import FieldFeedbackValidation from './FieldFeedbackValidation';
 import Input from './Input';
 
 export enum Status {
@@ -47,7 +44,14 @@ export type AsyncComponentType = AsyncComponent<any>;
 // See How to render promises in React https://gist.github.com/hex13/6d46f8b54631871ea8bf87576b635c49
 // Cannot be inside a separated npm package since FieldFeedback needs to attach itself to Async
 export class AsyncComponent<T = any> extends React.Component<AsyncProps<T>, AsyncState<T>> {}
-export class Async<T> extends withValidateEventEmitter<ListenerReturnType, typeof AsyncComponent>(AsyncComponent)
+export class Async<T> extends
+                        withValidateFieldEventEmitter<
+                          // FieldFeedback returns FieldFeedbackValidation
+                          FieldFeedbackValidation,
+                          typeof AsyncComponent
+                        >(
+                          AsyncComponent
+                        )
                       implements React.ChildContextProvider<AsyncChildContext> {
   static contextTypes: React.ValidationMap<AsyncContext> = {
     form: PropTypes.object.isRequired,
@@ -75,50 +79,44 @@ export class Async<T> extends withValidateEventEmitter<ListenerReturnType, typeo
   }
 
   componentWillMount() {
-    this.context.form.addValidateEventListener(this.validate);
+    this.context.fieldFeedbacks.addValidateFieldEventListener(this.validate);
   }
 
   componentWillUnmount() {
-    this.context.form.removeValidateEventListener(this.validate);
+    this.context.fieldFeedbacks.removeValidateFieldEventListener(this.validate);
   }
 
   validate(input: Input) {
-    const { fieldFeedbacks } = this.context;
-    const fieldName = fieldFeedbacks.props.for;
+    const { form, fieldFeedbacks } = this.context;
 
-    let fieldFeedbackValidationsPromise;
+    let validations;
 
-    if (input.name === fieldName) { // Ignore the event if it's not for us
-      if (fieldFeedbacks.props.stop === 'first-error' && fieldFeedbacks.hasErrors()) {
-        // No need to perform validation if another FieldFeedback is already invalid
-      }
-      else {
-        this.setState({status: Status.Pending});
+    const field = form.fieldsStore.getField(input.name)!;
 
-        fieldFeedbackValidationsPromise = this.props.promise(input.value)
-
-          // See Make setState return a promise https://github.com/facebook/react/issues/2642
-          // The Promise returned is Promise<undefined>
-          .then(value =>
-                                                                                                // Instead of Promise<{}> given by TypeScript 2.6.2, verified inside vscode debugguer
-            new Promise(resolve => this.setState({status: Status.Resolved, value}, resolve)) as Promise<undefined>
-          )
-
-          // setState() wrapped inside a promise so validate() Promise is done when setState() is done
-          // The Promise returned is Promise<undefined>
-          .catch(e =>
-                                                                                                   // Instead of Promise<{}> given by TypeScript 2.6.2, verified inside vscode debugguer
-            new Promise(resolve => this.setState({status: Status.Rejected, value: e}, resolve)) as Promise<undefined>
-          )
-
-          // See Promises: Execute something regardless of resolve/reject? https://stackoverflow.com/q/38830314
-          // Instead of componentDidUpdate()
-          // The Promise returned is Promise<FieldFeedbackValidation[]> (Promise<{key: number, isValid: boolean}[]>)
-          .then(() => this.emitValidateEvent(input));
-      }
+    if (fieldFeedbacks.props.stop === 'first' && field.hasAnyFeedbacks(fieldFeedbacks.key) ||
+        fieldFeedbacks.props.stop === 'first-error' && field.hasErrors(fieldFeedbacks.key) ||
+        fieldFeedbacks.props.stop === 'first-warning' && field.hasWarnings(fieldFeedbacks.key) ||
+        fieldFeedbacks.props.stop === 'first-info' && field.hasInfos(fieldFeedbacks.key)) {
+      // Reset UI
+      this.setState({status: Status.None});
+    }
+    else {
+      validations = this._validate(input);
     }
 
-    return fieldFeedbackValidationsPromise;
+    return validations;
+  }
+
+  async _validate(input: Input) {
+    this.setState({status: Status.Pending});
+    try {
+      const value = await this.props.promise(input.value);
+      this.setState({status: Status.Resolved, value});
+    } catch (e) {
+      this.setState({status: Status.Rejected, value: e});
+    }
+
+    return this.emitValidateFieldEvent(input);
   }
 
   render() {

@@ -1,12 +1,14 @@
 import React from 'react';
-import { Text, TextProperties as TextProps, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { TextInput } from './react-native-TextInput-fix'; // Specific to TypeScript
 
 import {
   FormWithConstraints as _FormWithConstraints,
-  FieldFeedback as _FieldFeedback,
   FieldFeedbacks as _FieldFeedbacks,
-  FieldFeedbacksValidation
+  Async,
+  FieldFeedback as _FieldFeedback, FieldFeedbackType,
+  FieldFeedbackWhenValid as _FieldFeedbackWhenValid,
+  Field
 } from 'react-form-with-constraints';
 
 // Recursive React.Children.forEach()
@@ -34,15 +36,15 @@ export class FormWithConstraints extends _FormWithConstraints {
   // @ts-ignore
   // TS2416: Property 'validateFields' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'
   validateFields(...inputsOrNames: Array<TextInput | string>) {
-    return this._validateFields(true /* validateDirtyFields */, ...inputsOrNames);
+    return this._validateFields(true /* forceValidateFields */, ...inputsOrNames);
   }
 
-  private _validateFields(validateDirtyFields: boolean, ...inputsOrNames: Array<TextInput | string>) {
-    const fieldFeedbacksValidationPromises = new Array<Promise<FieldFeedbacksValidation>>();
+  private async _validateFields(forceValidateFields: boolean, ...inputsOrNames: Array<TextInput | string>) {
+    const fields = new Array<Readonly<Field>>();
 
     const inputs = this.normalizeInputs(...inputsOrNames);
 
-    inputs.forEach(input => {
+    for (const input of inputs) {
       const fieldName = input.props.name;
 
       const _input = {
@@ -53,37 +55,17 @@ export class FormWithConstraints extends _FormWithConstraints {
         validationMessage: undefined as any
       };
 
-      const field = this.fieldsStore.fields[fieldName];
-      if (validateDirtyFields || (field !== undefined && field.dirty === false)) {
-        const fieldFeedbackValidationsPromise = this.emitValidateEvent(_input)
-          .filter(fieldFeedbackValidations => fieldFeedbackValidations !== undefined) // Remove undefined results
-          .map(fieldFeedbackValidations => Promise.resolve(fieldFeedbackValidations!)); // Transforms all results into Promises
+      const field = await this.validateField(forceValidateFields, _input);
+      if (field !== undefined) fields.push(field);
+    }
 
-        const _fieldFeedbacksValidationPromises = Promise.all(fieldFeedbackValidationsPromise)
-          .then(validations =>
-            // See Merge/flatten an array of arrays in JavaScript? https://stackoverflow.com/q/10865025/990356
-            validations.reduce((prev, curr) => prev.concat(curr), [])
-          )
-          .then(fieldFeedbackValidations =>
-            ({
-              fieldName,
-              isValid: () => fieldFeedbackValidations.every(fieldFeedbackValidation => fieldFeedbackValidation.isValid!),
-              fieldFeedbackValidations
-            })
-          );
-
-        fieldFeedbacksValidationPromises.push(_fieldFeedbacksValidationPromises);
-      }
-    });
-
-    return Promise.all(fieldFeedbacksValidationPromises);
+    return fields;
   }
 
+  // If called without arguments, returns all fields
+  // Returns the inputs in the same order they were given
   private normalizeInputs(...inputsOrNames: Array<TextInput | string>) {
-    const inputs = inputsOrNames.filter(inputOrName => typeof inputOrName !== 'string') as any as React.ReactElement<Input>[];
-    const fieldNames = inputsOrNames.filter(inputOrName => typeof inputOrName === 'string') as string[];
-
-    const otherInputs: React.ReactElement<Input>[] = [];
+    const inputs: React.ReactElement<Input>[] = [];
 
     if (inputsOrNames.length === 0) {
       // Find all children with a name
@@ -91,62 +73,95 @@ export class FormWithConstraints extends _FormWithConstraints {
         if (child.props !== undefined) {
           const fieldName = child.props.name;
           if (fieldName !== undefined && fieldName.length > 0) {
-            otherInputs.push(child);
+            inputs.push(child);
           }
         }
       });
-    }
-    if (fieldNames.length > 0) {
-      deepForEach(this.props.children, (child: React.ReactElement<Input>) => {
-        if (child.props !== undefined) {
-          const fieldName = child.props.name;
-          const matches = fieldNames.filter(_fieldName => _fieldName === fieldName);
-
-          console.assert(matches.length === 0 || matches.length === 1, `Multiple matches for ${fieldName}`);
-
-          if (matches.length === 1) {
-            otherInputs.push(child);
-          }
+    } else {
+      inputsOrNames.forEach(input => {
+        if (typeof input === 'string') {
+          deepForEach(this.props.children, (child: React.ReactElement<Input>) => {
+            if (child.props !== undefined) {
+              const fieldName = child.props.name;
+              if (input === fieldName) {
+                inputs.push(child);
+              }
+            }
+          });
+        } else {
+          inputs.push(input as any as React.ReactElement<Input>);
         }
       });
     }
 
-    return [
-      ...inputs,
-      ...otherInputs
-    ];
+    // Checks
+
+    const namesFound = inputs.map(input => input.props.name);
+    namesFound.forEach((name, index, self) => {
+      if (self.indexOf(name) !== index) {
+        throw new Error(`Multiple elements matching '[name="${name}"]' inside the form`);
+      }
+    });
+
+    const names = inputsOrNames.filter(input => typeof input === 'string') as string[];
+    names.forEach(name => {
+      if (!namesFound.includes(name)) {
+        throw new Error(`Could not find field '[name="${name}"]' inside the form`);
+      }
+    });
+
+    return inputs;
   }
 
   render() {
-    const { children } = this.props;
-    return <View>{children}</View>;
+    // FIXME See Support for Fragments in react native instead of view https://react-native.canny.io/feature-requests/p/support-for-fragments-in-react-native-instead-of-view
+    return <View {...this.props as any} />;
   }
 }
 
+
+// FIXME See Support for Fragments in react native instead of view https://react-native.canny.io/feature-requests/p/support-for-fragments-in-react-native-instead-of-view
 export class FieldFeedbacks extends _FieldFeedbacks {
   render() {
-    const { children } = this.props;
-    return <View>{children}</View>;
+    return <View {...this.props} />;
   }
 }
+
+
+export { Async };
 
 
 export class FieldFeedback extends _FieldFeedback {
+  // Copied and adapted from core/FieldFeedback.render()
   render() {
-    const { when, error, warning, info, className: _, children, ...textProps } = this.props;
-                      // React Native implementation needs to access props thus the cast
-    const { style } = (this.context.form as any as FormWithConstraints).props;
+    const { when, error, warning, info, ...otherProps } = this.props;
+    const { validation } = this.state;
 
-    const className = this.className();
-
-    let feedback = null;
-    if (className !== undefined) { // Means the FieldFeedback should be displayed
-      const tmp = style !== undefined ? style[className] : undefined;
-
-      // The last style property is the one applied
-      feedback = children !== undefined ? <Text style={tmp} {...textProps as TextProps}>{children}</Text> : null;
+    // Special case for when="valid": always displayed, then FieldFeedbackWhenValid decides what to do
+    if (validation.type === FieldFeedbackType.WhenValid) {
+      return <FieldFeedbackWhenValid data-feedback={this.key} {...otherProps} />;
     }
 
-    return feedback;
+    if (validation.show) {
+      const { fieldFeedbackStyles, fieldFeedbackClassNames } = this.context.form.props;
+      const style = fieldFeedbackStyles !== undefined ? fieldFeedbackStyles[fieldFeedbackClassNames![validation.type]] : undefined;
+
+                   // The last style property is the one applied
+      return <Text data-feedback={this.key} style={style} {...otherProps as any} />;
+    }
+
+    return null;
+  }
+}
+
+export class FieldFeedbackWhenValid extends _FieldFeedbackWhenValid {
+  // Copied and adapted from core/FieldFeedbackWhenValid.render()
+  render() {
+    const { fieldFeedbackStyles, fieldFeedbackClassNames } = this.context.form.props;
+
+    const style = fieldFeedbackStyles !== undefined ? fieldFeedbackStyles[fieldFeedbackClassNames!.valid] : undefined;
+
+                                           // The last style property is the one applied
+    return this.state.fieldIsValid ? <Text style={style} {...this.props as any} /> : null;
   }
 }

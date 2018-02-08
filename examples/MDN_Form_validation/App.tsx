@@ -8,7 +8,7 @@ import './index.html';
 import './original.html';
 
 class Form extends React.Component {
-  form: FormWithConstraints | null | undefined;
+  form: FormWithConstraints | null = null;
 
   constructor(props: {}) {
     super(props);
@@ -98,10 +98,10 @@ class Form extends React.Component {
 }
 
 const App = () => (
-  <div>
+  <>
     Taken and adapted from <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation">MDN - Form data validation</a>: <a href="original.html">original demo</a>
     <Form />
-  </div>
+  </>
 );
 
 ReactDOM.render(<App />, document.getElementById('app'));

@@ -15,7 +15,7 @@ interface State {
 }
 
 class Form extends React.Component<Props, State> {
-  form: FormWithConstraints | null | undefined;
+  form: FormWithConstraints | null = null;
 
   constructor(props: Props) {
     super(props);
@@ -73,12 +73,12 @@ class Form extends React.Component<Props, State> {
 }
 
 const App = () => (
-  <div>
+  <>
     <p>
       Inspired by <a href="http://codepen.io/nukos/pen/RPwxBp">http://codepen.io/nukos/pen/RPwxBp</a>
     </p>
     <Form />
-  </div>
+  </>
 );
 
 ReactDOM.render(<App />, document.getElementById('app'));
