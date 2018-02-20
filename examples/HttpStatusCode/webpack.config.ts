@@ -18,6 +18,7 @@ const config: Configuration = {
   module: {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader', options: {onlyCompileBundledFiles: true, compilerOptions: {noEmit: false, module: 'esnext', declaration: false}} },
+      { test: /\.js$/, loader: 'source-map-loader' },
       { test: /\.(html|css|png)$/, loader: 'file-loader', options: {name: '[name].[ext]'} }
     ]
   }

@@ -24,8 +24,10 @@ module.exports = {
   module: {
     rules: [
       { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader', options: {presets: ['react']} },
+      { test: /\.js$/, loader: 'source-map-loader' },
       { test: /\.(html|css|png)$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} },
       {
+        // FIXME Don't know how to make source maps work
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',

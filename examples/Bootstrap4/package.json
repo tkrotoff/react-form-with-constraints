@@ -29,6 +29,7 @@
     "babel-core": "latest",
     "babel-preset-react": "latest",
     "file-loader": "latest",
+    "source-map-loader": "latest",
 
     "del-cli": "latest",
     "cross-env": "latest"

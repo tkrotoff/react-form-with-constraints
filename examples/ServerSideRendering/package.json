@@ -35,6 +35,7 @@
     "@types/webpack-node-externals": "latest",
     "ts-loader": "^3",
     "file-loader": "latest",
+    "source-map-loader": "latest",
 
     "del-cli": "latest",
     "cross-env": "latest"

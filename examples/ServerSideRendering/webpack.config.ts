@@ -41,7 +41,8 @@ const config: Configuration[] = [
     resolve: {extensions},
     module: {
       rules: [
-        tsLoaderRule
+        tsLoaderRule,
+        { test: /\.js$/, loader: 'source-map-loader' }
       ]
     }
   }
