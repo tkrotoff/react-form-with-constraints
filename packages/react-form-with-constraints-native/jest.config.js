@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'react-native',
 
-  setupFiles: ['../react-form-with-constraints/src/SetupEnzyme.ts'],
+  setupFiles: ['../react-form-with-constraints/src/JestSetup.ts'],
 
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
@@ -12,6 +12,5 @@ module.exports = {
 
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}'
-  ],
-  mapCoverage: true
+  ]
 };
