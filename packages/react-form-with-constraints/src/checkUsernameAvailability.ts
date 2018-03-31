@@ -1,6 +1,4 @@
-function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+import sleep from './sleep';
 
 export default async function checkUsernameAvailability(value: string) {
   await sleep(10);
