@@ -1,3 +1,6 @@
+// See Export default config https://github.com/facebook/jest/issues/5943
+const defaults = require('jest-config/build/defaults').default;
+
 module.exports = {
   preset: 'react-native',
 
@@ -8,9 +11,5 @@ module.exports = {
     '^.+\\.jsx?$': 'babel-jest'
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
-  moduleFileExtensions: ['ts', 'tsx', 'js'],
-
-  collectCoverageFrom: [
-    'src/**/*.{ts,tsx}'
-  ]
+  moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx']
 };
