@@ -18,18 +18,14 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "node node_modules/jest/bin/jest.js --no-cache --watch"
-  },
-
-  "jest": {
-    "preset": "jest-expo-ts"
+    "test": "jest"
   },
 
   "dependencies": {
-    "expo": "^25",
+    "expo": "^26",
 
-    "react": "16.2.0",
-    "react-native": "^0.52",
+    "react": "16.3.1",
+    "react-native": "^0.54",
 
     "react-form-with-constraints": "../../packages/react-form-with-constraints",
     "react-form-with-constraints-native": "../../packages/react-form-with-constraints-native"
@@ -46,10 +42,8 @@
 
     "@types/jest": "latest",
     "jest-expo": "latest",
-    "jest-expo-ts": "latest",
-    "babel-core": "latest",
 
-    "react-test-renderer": "16.2.0",
+    "react-test-renderer": "16.3.1",
     "@types/react-test-renderer": "latest"
   }
 }
