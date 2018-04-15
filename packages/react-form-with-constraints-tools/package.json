@@ -50,6 +50,7 @@
     "rollup-plugin-uglify": "latest",
     "rollup-plugin-gzip": "latest",
     "rollup-plugin-filesize": "latest",
+    "rollup-plugin-strip": "rollup/rollup-plugin-strip",
 
     "del-cli": "latest",
     "cross-env": "latest",

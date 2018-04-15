@@ -4,6 +4,7 @@ import typescript from 'rollup-plugin-typescript2';
 import uglify from 'rollup-plugin-uglify';
 import gzip from 'rollup-plugin-gzip';
 import filesize from 'rollup-plugin-filesize';
+import strip from 'rollup-plugin-strip';
 
 const __PROD__ = process.env.NODE_ENV === 'production';
 
@@ -37,6 +38,9 @@ export default {
     }),
     __PROD__ && uglify(),
     gzip({algorithm: 'zopfli'}),
-    filesize()
+    filesize(),
+    __PROD__ && strip({
+      include: ['**/*.js', '**/*.ts', '**/*.tsx'] // See https://github.com/rollup/rollup-plugin-strip/pull/7
+    })
   ]
 };

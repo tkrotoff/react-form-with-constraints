@@ -2,6 +2,8 @@
   "private": true,
 
   "scripts": {
+    "postinstall": "cd node_modules/rollup-plugin-strip && yarn && yarn build",
+
     "clean:lerna": "lerna clean",
     "clean:node_modules": "find . \\( -name 'node_modules' -or -name 'yarn.lock' -or -name 'yarn-error.log' \\) -prune -exec rm -rf '{}' +",
 

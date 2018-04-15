@@ -4,6 +4,7 @@
 
 - Async support
 - Rewrite to allow nested `FieldFeedbacks`
+- Strip console.* in production thanks to rollup-plugin-strip
 
 ### Breaking Changes
 
