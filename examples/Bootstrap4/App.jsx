@@ -94,8 +94,8 @@ class Form extends React.Component {
               promise={checkUsernameAvailability}
               pending="..."
               then={available => available ?
-                <FieldFeedback info style={{color: '#28a745'}}>Username available</FieldFeedback> :
-                <FieldFeedback>Username already taken, choose another</FieldFeedback>
+                <FieldFeedback key="1" info style={{color: '#28a745'}}>Username available</FieldFeedback> :
+                <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>
               }
             />
             <FieldFeedback when="valid">Looks good!</FieldFeedback>

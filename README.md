@@ -131,8 +131,9 @@ Async support works as follow:
   <Async
     promise={checkUsernameAvailability} /* Function that returns a promise */
     then={available => available ?
-      <FieldFeedback info style={{color: 'green'}}>Username available</FieldFeedback> :
-      <FieldFeedback>Username already taken, choose another</FieldFeedback>
+      <FieldFeedback key="1" info style={{color: 'green'}}>Username available</FieldFeedback> :
+      <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>
+      // Why key=*? React keys are needed otherwise it can get buggy when the user rapidly changes the input
     }
   />
 </FieldFeedbacks>
@@ -184,8 +185,8 @@ class MyForm extends React.Component {
           <Async
             promise={checkUsernameAvailability}
             then={available => available ?
-              <FieldFeedback info style={{color: 'green'}}>Username available</FieldFeedback> :
-              <FieldFeedback>Username already taken, choose another</FieldFeedback>
+              <FieldFeedback key="1" info style={{color: 'green'}}>Username available</FieldFeedback> :
+              <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>
             }
           />
           <FieldFeedback when="*" />
@@ -263,6 +264,7 @@ class MyForm extends React.Component {
   - `error?: boolean` => treats the feedback as an error (default)
   - `warning?: boolean` => treats the feedback as a warning
   - `info?: boolean` => treats the feedback as an info
+  - `children` => what to display when the constraint matches; if missing, displays the [HTML5 error message](https://www.w3.org/TR/html51/sec-forms.html#the-constraint-validation-api) if any
 
 - [`Async<T>`](packages/react-form-with-constraints/src/Async.tsx) => Async version of `FieldFeedback`, similar API as [react-promise](https://github.com/capaj/react-promise)
   - `promise: (value: string) => Promise<T>` => a promise you want to wait for

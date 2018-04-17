@@ -60,6 +60,7 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps, FieldFeed
   };
   context!: FieldFeedbackContext;
 
+  // Tested: there is no conflict with React key prop (https://reactjs.org/docs/lists-and-keys.html)
   readonly key: string; // '0.1', '1.0', '3.5'...
 
   constructor(props: FieldFeedbackProps, context: FieldFeedbackContext) {

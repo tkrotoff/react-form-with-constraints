@@ -59,7 +59,9 @@ export class FieldFeedbacks extends
     };
   }
 
+  // Tested: there is no conflict with React key prop (https://reactjs.org/docs/lists-and-keys.html)
   readonly key: string; // '0', '1', '2'...
+
   readonly fieldName: string; // Instead of reading props each time
 
   constructor(props: FieldFeedbacksProps, context: FieldFeedbacksContext) {

@@ -124,8 +124,8 @@ export default class App extends React.Component<Props, State> {
                 promise={checkUsernameAvailability}
                 pending={<ActivityIndicator size="small" color="blue" />}
                 then={available => available ?
-                  <FieldFeedback info style={{color: 'green'}}>Username available</FieldFeedback> :
-                  <FieldFeedback>Username already taken, choose another</FieldFeedback>
+                  <FieldFeedback key="1" info style={{color: 'green'}}>Username available</FieldFeedback> :
+                  <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>
                 }
               />
               <FieldFeedback when="valid">Looks good!</FieldFeedback>

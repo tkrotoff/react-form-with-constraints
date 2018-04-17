@@ -43,8 +43,8 @@ export class SignUp extends React.Component<SignUpProps, SignUpState> {
             promise={checkUsernameAvailability}
             pending="..."
             then={availability => availability.available ?
-              <FieldFeedback info>Username '{availability.value}' available</FieldFeedback> :
-              <FieldFeedback>Username '{availability.value}' already taken, choose another</FieldFeedback>
+              <FieldFeedback key="1" info>Username '{availability.value}' available</FieldFeedback> :
+              <FieldFeedback key="2">Username '{availability.value}' already taken, choose another</FieldFeedback>
             }
             catch={e => <FieldFeedback>{e.message}</FieldFeedback>}
           />

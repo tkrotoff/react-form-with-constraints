@@ -245,8 +245,8 @@ class SignUp extends React.Component<Props, State> {
               <Async
                 promise={checkUsernameAvailability}
                 then={available => available ?
-                  <FieldFeedback info style={{color: 'green'}}>{t('Username available')}</FieldFeedback> :
-                  <FieldFeedback>{t('Username already taken, choose another')}</FieldFeedback>
+                  <FieldFeedback key="1" info style={{color: 'green'}}>{t('Username available')}</FieldFeedback> :
+                  <FieldFeedback key="2">{t('Username already taken, choose another')}</FieldFeedback>
                 }
               />
               <FieldFeedback when="valid">{t('Looks good!')}</FieldFeedback>
