@@ -13,5 +13,4 @@ export * from './withFieldDidValidateEventEmitter';
 export * from './withResetEventEmitter';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 export { FieldFeedbackValidation };
-import Input from './Input';
-export { Input };
+export * from './Input';

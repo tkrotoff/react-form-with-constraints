@@ -7,7 +7,7 @@ import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 // 'EventEmitter' is declared but its value is never read.
 // FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
 import { EventEmitter } from './EventEmitter';
-import Input from './Input';
+import { Input } from './Input';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 import flattenDeep from './flattenDeep';
 

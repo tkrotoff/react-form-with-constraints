@@ -48,9 +48,9 @@ describe('FormWithConstraints', () => {
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [signUp.username],
-      [signUp.password],
-      [signUp.passwordConfirm]
+      [{name: 'username', type: 'text', value: ''}],
+      [{name: 'password', type: 'password', value: ''}],
+      [{name: 'passwordConfirm', type: 'password', value: ''}]
     ]);
 
     emitValidateFieldEventSpy.mockClear();
@@ -92,9 +92,9 @@ describe('FormWithConstraints', () => {
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [signUp.username],
-      [signUp.password],
-      [signUp.passwordConfirm]
+      [{name: 'username', type: 'text', value: 'john'}],
+      [{name: 'password', type: 'password', value: '123456'}],
+      [{name: 'passwordConfirm', type: 'password', value: '12345'}]
     ]);
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
@@ -277,9 +277,9 @@ describe('Async', () => {
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [signUp.username],
-      [signUp.password],
-      [signUp.passwordConfirm]
+      [{name: 'username', type: 'text', value: 'jimmy'}],
+      [{name: 'password', type: 'password', value: '12345'}],
+      [{name: 'passwordConfirm', type: 'password', value: '12345'}]
     ]);
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
@@ -348,9 +348,9 @@ describe('Async', () => {
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [signUp.username],
-      [signUp.password],
-      [signUp.passwordConfirm]
+      [{name: 'username', type: 'text', value: 'error'}],
+      [{name: 'password', type: 'password', value: '123456'}],
+      [{name: 'passwordConfirm', type: 'password', value: '12345'}]
     ]);
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\

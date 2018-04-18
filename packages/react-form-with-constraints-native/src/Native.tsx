@@ -1,14 +1,13 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { TextInput } from './react-native-TextInput-fix'; // Specific to TypeScript
+import { TextInput } from './TextInput'; // Specific to TypeScript
 
 import {
   FormWithConstraints as _FormWithConstraints,
   FieldFeedbacks as _FieldFeedbacks,
   Async,
   FieldFeedback as _FieldFeedback, FieldFeedbackType,
-  FieldFeedbackWhenValid as _FieldFeedbackWhenValid,
-  Field
+  FieldFeedbackWhenValid as _FieldFeedbackWhenValid
 } from 'react-form-with-constraints';
 
 // Recursive React.Children.forEach()
@@ -23,73 +22,42 @@ function deepForEach(children: React.ReactNode, fn: (child: React.ReactElement<a
   });
 }
 
-// Overrides Input and remove type, validity and validationMessage properties
-export interface Input {
-  name: string;
-
-  // Tested: TextInput props.value is always a string and never undefined (empty string instead)
-  // Still need to make it optional
-  value?: string;
-}
-
 export class FormWithConstraints extends _FormWithConstraints {
   // @ts-ignore
-  // TS2416: Property 'validateFields' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'
-  validateFields(...inputsOrNames: Array<TextInput | string>) {
-    return this._validateFields(true /* forceValidateFields */, ...inputsOrNames);
-  }
+  // Property 'validateFields' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'.
+  validateFields(...inputsOrNames: Array<TextInput | string>);
 
-  private async _validateFields(forceValidateFields: boolean, ...inputsOrNames: Array<TextInput | string>) {
-    const fields = new Array<Readonly<Field>>();
-
-    const inputs = this.normalizeInputs(...inputsOrNames);
-
-    for (const input of inputs) {
-      const fieldName = input.props.name;
-
-      const _input = {
-        name: fieldName,
-        type: undefined as any,
-        value: input.props.value!, // Tested: TextInput props.value is always a string and never undefined (empty string instead)
-        validity: undefined as any,
-        validationMessage: undefined as any
-      };
-
-      const field = await this.validateField(forceValidateFields, _input);
-      if (field !== undefined) fields.push(field);
-    }
-
-    return fields;
-  }
-
+  // @ts-ignore
+  // Property 'normalizeInputs' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'.
+  //
   // If called without arguments, returns all fields
   // Returns the inputs in the same order they were given
-  private normalizeInputs(...inputsOrNames: Array<TextInput | string>) {
-    const inputs: React.ReactElement<Input>[] = [];
+  protected normalizeInputs(...inputsOrNames: Array<TextInput | string>) {
+    const inputs: TextInput[] = [];
 
     if (inputsOrNames.length === 0) {
       // Find all children with a name
-      deepForEach(this.props.children, (child: React.ReactElement<Input>) => {
+      deepForEach(this.props.children, child => {
         if (child.props !== undefined) {
           const fieldName = child.props.name;
           if (fieldName !== undefined && fieldName.length > 0) {
-            inputs.push(child);
+            inputs.push(child as any);
           }
         }
       });
     } else {
       inputsOrNames.forEach(input => {
         if (typeof input === 'string') {
-          deepForEach(this.props.children, (child: React.ReactElement<Input>) => {
+          deepForEach(this.props.children, child => {
             if (child.props !== undefined) {
               const fieldName = child.props.name;
               if (input === fieldName) {
-                inputs.push(child);
+                inputs.push(child as any);
               }
             }
           });
         } else {
-          inputs.push(input as any as React.ReactElement<Input>);
+          inputs.push(input);
         }
       });
     }

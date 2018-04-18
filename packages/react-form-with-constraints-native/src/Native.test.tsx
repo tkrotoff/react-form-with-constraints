@@ -1,10 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { StyleSheet } from 'react-native';
-import { TextInput } from './react-native-TextInput-fix'; // Specific to TypeScript
 import renderer from 'react-test-renderer';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback, FieldFeedbackWhenValid } from './index';
+import { FormWithConstraints, FieldFeedbacks, FieldFeedback, FieldFeedbackWhenValid, TextInput } from './index';
 import new_FormWithConstraints from './FormWithConstraintsEnzymeFix';
 import { SignUp } from './SignUp';
 import beautifyHtml from '../../react-form-with-constraints/src/beautifyHtml';
@@ -56,9 +55,9 @@ describe('FormWithConstraints', () => {
         ]);
         expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
         expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-          [{name: 'username', type: undefined, value: 'john', validity: undefined, validationMessage: undefined}],
-          [{name: 'password', type: undefined, value: '123456', validity: undefined, validationMessage: undefined}],
-          [{name: 'passwordConfirm', type: undefined, value: '12345', validity: undefined, validationMessage: undefined}]
+          [{name: 'username', value: 'john'}],
+          [{name: 'password', value: '123456'}],
+          [{name: 'passwordConfirm', value: '12345'}]
         ]);
 
         wrapper.unmount();
@@ -106,9 +105,9 @@ describe('FormWithConstraints', () => {
         ]);
         expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
         expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-          [{name: 'username', type: undefined, value: 'john', validity: undefined, validationMessage: undefined}],
-          [{name: 'password', type: undefined, value: '123456', validity: undefined, validationMessage: undefined}],
-          [{name: 'passwordConfirm', type: undefined, value: '12345', validity: undefined, validationMessage: undefined}]
+          [{name: 'username', value: 'john'}],
+          [{name: 'password', value: '123456'}],
+          [{name: 'passwordConfirm', value: '12345'}]
         ]);
 
         wrapper.unmount();
@@ -156,9 +155,9 @@ describe('FormWithConstraints', () => {
         ]);
         expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
         expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-          [{name: 'username', type: undefined, value: 'john', validity: undefined, validationMessage: undefined}],
-          [{name: 'password', type: undefined, value: '123456', validity: undefined, validationMessage: undefined}],
-          [{name: 'passwordConfirm', type: undefined, value: '12345', validity: undefined, validationMessage: undefined}]
+          [{name: 'username', value: 'john'}],
+          [{name: 'password', value: '123456'}],
+          [{name: 'passwordConfirm', value: '12345'}]
         ]);
 
         wrapper.unmount();
@@ -206,9 +205,9 @@ describe('FormWithConstraints', () => {
         ]);
         expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
         expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-          [{name: 'username', type: undefined, value: 'john', validity: undefined, validationMessage: undefined}],
-          [{name: 'password', type: undefined, value: '123456', validity: undefined, validationMessage: undefined}],
-          [{name: 'passwordConfirm', type: undefined, value: '12345', validity: undefined, validationMessage: undefined}]
+          [{name: 'username', value: 'john'}],
+          [{name: 'password', value: '123456'}],
+          [{name: 'passwordConfirm', value: '12345'}]
         ]);
 
         wrapper.unmount();
@@ -255,9 +254,9 @@ describe('FormWithConstraints', () => {
         ]);
         expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
         expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-          [{name: 'username', type: undefined, value: '', validity: undefined, validationMessage: undefined}],
-          [{name: 'password', type: undefined, value: '', validity: undefined, validationMessage: undefined}],
-          [{name: 'passwordConfirm', type: undefined, value: '', validity: undefined, validationMessage: undefined}]
+          [{name: 'username', value: ''}],
+          [{name: 'password', value: ''}],
+          [{name: 'passwordConfirm', value: ''}]
         ]);
 
         emitValidateFieldEventSpy.mockClear();
@@ -299,9 +298,9 @@ describe('FormWithConstraints', () => {
         ]);
         expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
         expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-          [{name: 'username', type: undefined, value: 'john', validity: undefined, validationMessage: undefined}],
-          [{name: 'password', type: undefined, value: '123456', validity: undefined, validationMessage: undefined}],
-          [{name: 'passwordConfirm', type: undefined, value: '12345', validity: undefined, validationMessage: undefined}]
+          [{name: 'username', value: 'john'}],
+          [{name: 'password', value: '123456'}],
+          [{name: 'passwordConfirm', value: '12345'}]
         ]);
 
         wrapper.unmount();
@@ -350,9 +349,9 @@ describe('FormWithConstraints', () => {
       ]);
       expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: undefined, value: 'john', validity: undefined, validationMessage: undefined}],
-        [{name: 'password', type: undefined, value: '123456', validity: undefined, validationMessage: undefined}],
-        [{name: 'passwordConfirm', type: undefined, value: '12345', validity: undefined, validationMessage: undefined}]
+        [{name: 'username', value: 'john'}],
+        [{name: 'password', value: '123456'}],
+        [{name: 'passwordConfirm', value: '12345'}]
       ]);
 
       // Fields are already dirty so calling validateForm() again won't do anything
@@ -468,9 +467,9 @@ describe('FormWithConstraints', () => {
       ]);
       expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: undefined, value: 'jimmy', validity: undefined, validationMessage: undefined}],
-        [{name: 'password', type: undefined, value: '12345', validity: undefined, validationMessage: undefined}],
-        [{name: 'passwordConfirm', type: undefined, value: '12345', validity: undefined, validationMessage: undefined}]
+        [{name: 'username', value: 'jimmy'}],
+        [{name: 'password', value: '12345'}],
+        [{name: 'passwordConfirm', value: '12345'}]
       ]);
 
       wrapper.unmount();
@@ -518,9 +517,9 @@ describe('FormWithConstraints', () => {
       ]);
       expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: undefined, value: 'error', validity: undefined, validationMessage: undefined}],
-        [{name: 'password', type: undefined, value: '123456', validity: undefined, validationMessage: undefined}],
-        [{name: 'passwordConfirm', type: undefined, value: '12345', validity: undefined, validationMessage: undefined}]
+        [{name: 'username', value: 'error'}],
+        [{name: 'password', value: '123456'}],
+        [{name: 'passwordConfirm', value: '12345'}]
       ]);
 
       wrapper.unmount();

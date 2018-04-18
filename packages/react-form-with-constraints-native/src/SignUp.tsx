@@ -1,7 +1,6 @@
 import React from 'react';
-import { TextInput } from './react-native-TextInput-fix'; // Specific to TypeScript
 
-import { FormWithConstraints, Async, FieldFeedback } from './index';
+import { FormWithConstraints, Async, FieldFeedback, TextInput } from './index';
 import checkUsernameAvailability from '../../react-form-with-constraints/src/checkUsernameAvailability';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 
@@ -35,7 +34,7 @@ export class SignUp extends React.Component<SignUpProps, SignUpState> {
 
     return (
       <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}>
-        <TextInput name="username" ref={_username => this.username = _username as any} value={username} />
+        <TextInput name="username" ref={_username => this.username = _username} value={username} />
         <FieldFeedbacks for="username">
           <FieldFeedback when={value => value.length === 0}>Cannot be empty</FieldFeedback>
           <FieldFeedback when={value => value.length < 3}>Should be at least 3 characters long</FieldFeedback>
@@ -51,7 +50,7 @@ export class SignUp extends React.Component<SignUpProps, SignUpState> {
           <FieldFeedback when="valid">Looks good!</FieldFeedback>
         </FieldFeedbacks>
 
-        <TextInput secureTextEntry name="password" ref={_password => this.password = _password as any} value={password} />
+        <TextInput secureTextEntry name="password" ref={_password => this.password = _password} value={password} />
         <FieldFeedbacks for="password">
           <FieldFeedback when={value => value.length === 0}>Cannot be empty</FieldFeedback>
           <FieldFeedback when={value => value.length < 5}>Should be at least 5 characters long</FieldFeedback>
@@ -62,7 +61,7 @@ export class SignUp extends React.Component<SignUpProps, SignUpState> {
           <FieldFeedback when="valid">Looks good!</FieldFeedback>
         </FieldFeedbacks>
 
-        <TextInput secureTextEntry name="passwordConfirm" ref={_passwordConfirm => this.passwordConfirm = _passwordConfirm as any} value={passwordConfirm} />
+        <TextInput secureTextEntry name="passwordConfirm" ref={_passwordConfirm => this.passwordConfirm = _passwordConfirm} value={passwordConfirm} />
         <FieldFeedbacks for="passwordConfirm">
           <FieldFeedback when={value => value !== password}>Not the same password</FieldFeedback>
           <FieldFeedback when="valid">Looks good!</FieldFeedback>

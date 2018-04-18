@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, /*TextInput,*/ View, Button, ActivityIndicator } from 'react-native';
-import { TextInput } from 'react-form-with-constraints-native/lib/react-native-TextInput-fix'; // Specific to TypeScript
+import { StyleSheet, Text, TextInput, View, Button, ActivityIndicator } from 'react-native';
 
 import { FormWithConstraints, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints-native';
 
@@ -112,7 +111,7 @@ export default class App extends React.Component<Props, State> {
             <TextInput
               name="username"
               keyboardType="email-address"
-              ref={input => this.username = input as any}
+              ref={input => this.username = input}
               value={this.state.username}
               onChangeText={this.handleUsernameChange}
               style={styles.input}
@@ -137,7 +136,7 @@ export default class App extends React.Component<Props, State> {
             <TextInput
               secureTextEntry
               name="password"
-              ref={input => this.password = input as any}
+              ref={input => this.password = input}
               value={this.state.password}
               onChangeText={this.handlePasswordChange}
               style={styles.input}
@@ -158,7 +157,7 @@ export default class App extends React.Component<Props, State> {
             <TextInput
               secureTextEntry
               name="passwordConfirm"
-              ref={input => this.passwordConfirm = input as any}
+              ref={input => this.passwordConfirm = input}
               value={this.state.passwordConfirm}
               onChangeText={this.handlePasswordConfirmChange}
               style={styles.input}

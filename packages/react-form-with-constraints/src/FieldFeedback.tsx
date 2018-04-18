@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FormWithConstraintsChildContext } from './FormWithConstraints';
 import { FieldFeedbacksChildContext } from './FieldFeedbacks';
 import { AsyncChildContext } from './Async';
-import Input from './Input';
+import { Input } from './Input';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 import { FieldFeedbackWhenValid } from './FieldFeedbackWhenValid';
 

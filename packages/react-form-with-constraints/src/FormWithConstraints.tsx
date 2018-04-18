@@ -13,7 +13,7 @@ import { EventEmitter } from './EventEmitter';
 // 'Field' is declared but its value is never read.
 // FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
 import Field from './Field';
-import Input from './Input';
+import { Input } from './Input';
 import { FieldsStore } from './FieldsStore';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 import flattenDeep from './flattenDeep';
@@ -106,7 +106,20 @@ export class FormWithConstraints
     return this._validateFields(/* forceValidateFields */ false);
   }
 
-  async validateField(forceValidateFields: boolean, input: Input) {
+  private async _validateFields(forceValidateFields: boolean, ...inputsOrNames: Array<Input | string>) {
+    const fields = new Array<Readonly<Field>>();
+
+    const inputs = this.normalizeInputs(...inputsOrNames);
+
+    for (const input of inputs) {
+      const field = await this.validateField(forceValidateFields, new Input(input));
+      if (field !== undefined) fields.push(field);
+    }
+
+    return fields;
+  }
+
+  private async validateField(forceValidateFields: boolean, input: Input) {
     const fieldName = input.name;
     const field = this.fieldsStore.getField(fieldName);
 
@@ -130,7 +143,7 @@ export class FormWithConstraints
         ===
         JSON.stringify(field.validations) /* validationsFromStore */
         ,
-        'FieldsStore does not match emitValidateFieldEvent() result, did the user changed the input rapidly?'
+        `FieldsStore does not match emitValidateFieldEvent() result, did the user changed the input rapidly?`
       );
 
       this.emitFieldDidValidateEvent(field);
@@ -139,21 +152,9 @@ export class FormWithConstraints
     return field;
   }
 
-  private async _validateFields(forceValidateFields: boolean, ...inputsOrNames: Array<Input | string>) {
-    const fields = new Array<Readonly<Field>>();
-
-    const inputs = this.normalizeInputs(...inputsOrNames);
-    for (const input of inputs) {
-      const field = await this.validateField(forceValidateFields, input);
-      if (field !== undefined) fields.push(field);
-    }
-
-    return fields;
-  }
-
   // If called without arguments, returns all fields ($('[name]'))
   // Returns the inputs in the same order they were given
-  private normalizeInputs(...inputsOrNames: Array<Input | string>) {
+  protected normalizeInputs(...inputsOrNames: Array<Input | string>) {
     let inputs;
 
     if (inputsOrNames.length === 0) {
