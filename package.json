@@ -19,7 +19,7 @@
     "test": "lerna run test --stream",
     "coverage": "lerna run coverage --stream",
 
-    "tslint": "tslint --config tslint.json '**/*.ts{,x}' --exclude '**/node_modules/**' --exclude 'lib/**'"
+    "tslint": "tslint --config tslint.json '**/*.ts{,x}' --exclude '**/node_modules/**' --exclude '**/lib/**'"
   },
 
   "workspaces": [
