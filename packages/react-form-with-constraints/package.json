@@ -29,12 +29,11 @@
   },
 
   "peerDependencies": {
-    "react": ">=15"
+    "react": ">=16"
   },
 
   "dependencies": {
-    "prop-types": "latest",
-    "@types/prop-types": "latest"
+    "prop-types": "^15.6.1"
   },
 
   "devDependencies": {
@@ -42,6 +41,7 @@
 
     "react": "latest",
     "@types/react": "latest",
+    "@types/prop-types": "latest",
 
     "node-zopfli": "latest",
     "node-gyp": "latest",
