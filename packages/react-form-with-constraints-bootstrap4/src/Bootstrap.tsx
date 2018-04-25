@@ -6,23 +6,23 @@ import {
   FieldFeedbacks, Async, FieldFeedback, Field
 } from 'react-form-with-constraints';
 
-export interface FormControlInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   innerRef?: React.Ref<HTMLInputElement>;
 }
 
-export interface FormControlInputState {
+export interface FormInputState {
   field: Field | undefined;
 }
 
-export type FormControlInputContext = FormWithConstraintsChildContext;
+export type FormInputContext = FormWithConstraintsChildContext;
 
-export class FormControlInput extends React.Component<FormControlInputProps, FormControlInputState> {
-  static contextTypes: React.ValidationMap<FormControlInputContext> = {
+export class FormInput extends React.Component<FormInputProps, FormInputState> {
+  static contextTypes: React.ValidationMap<FormInputContext> = {
     form: PropTypes.object.isRequired
   };
-  context!: FormControlInputContext;
+  context!: FormInputContext;
 
-  constructor(props: FormControlInputProps) {
+  constructor(props: FormInputProps) {
     super(props);
 
     this.state = {
@@ -62,14 +62,14 @@ export class FormControlInput extends React.Component<FormControlInputProps, For
     this.setState({field: undefined});
   }
 
-  className() {
+  validationStateClassName() {
     const { field } = this.state;
 
-    let className = 'form-control';
+    let className;
 
     if (field !== undefined) {
       if (field.hasErrors()) {
-        className += ' is-invalid';
+        className = 'is-invalid';
       }
       else if (field.hasWarnings()) {
         // form-control-warning did exist in Bootstrap v4.0.0-alpha.6:
@@ -78,10 +78,10 @@ export class FormControlInput extends React.Component<FormControlInputProps, For
         // In Bootstrap 3 it was done on form-group not an the input directly:
         // see https://getbootstrap.com/docs/3.3/css/#forms-control-validation
         // see https://github.com/twbs/bootstrap/blob/v3.3.7/less/forms.less#L431
-        className += ' is-warning';
+        className = 'is-warning';
       }
       else if (field.isValid()) {
-        className += ' is-valid';
+        className = 'is-valid';
       }
     }
     return className;
@@ -89,7 +89,14 @@ export class FormControlInput extends React.Component<FormControlInputProps, For
 
   render() {
     const { innerRef, className, children, ...inputProps } = this.props;
-    const classNames = className !== undefined ? `${className} ${this.className()}` : this.className();
+    const validationStateClassName = this.validationStateClassName();
+
+    let classNames = className;
+    if (validationStateClassName !== undefined) {
+      if (className !== undefined) classNames += ` ${validationStateClassName}`;
+      else classNames = validationStateClassName;
+    }
+
     return (
       <input ref={innerRef} {...inputProps} className={classNames} />
     );

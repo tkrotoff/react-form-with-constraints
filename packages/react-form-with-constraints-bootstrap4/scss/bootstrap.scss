@@ -1,6 +1,6 @@
 // Bootstrap 4 likes to hide feedbacks, we don't like it, especially react-form-with-constraints-tools's DisplayFields
 .valid-feedback, .invalid-feedback {
-  display: unset !important; // See Is there an opposite to display:none? https://stackoverflow.com/a/37289654/990356
+  display: block !important; // See Is there an opposite to display:none? https://stackoverflow.com/a/37289654/990356
 }
 
 // See v4-beta form-validation-state() mixin does not work https://github.com/twbs/bootstrap/issues/23371
