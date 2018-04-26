@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    App: './App.jsx'
+    App: ['babel-polyfill', './App.jsx']
   },
 
   output: {
@@ -23,7 +23,7 @@ module.exports = {
 
   module: {
     rules: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader', options: {presets: ['react']} },
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader', options: {presets: ['env', 'react']} },
       { test: /\.js$/, loader: 'source-map-loader' },
       { test: /\.(html|css|png)$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} },
       {
