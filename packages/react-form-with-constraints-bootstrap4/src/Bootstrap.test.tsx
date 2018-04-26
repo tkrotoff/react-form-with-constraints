@@ -110,7 +110,7 @@ describe('FormWithConstraints', () => {
           <div data-feedback="1.5" class="warning-feedback">Should contain special characters</div>
           <div data-feedback="1.6" class="valid-feedback">Looks good!</div>
         </div>
-        <input type="password" name="passwordConfirm" class="form-control is-invalid">
+        <input type="password" name="passwordConfirm" class="is-invalid">
         <div data-feedbacks="2">
           <div data-feedback="2.0" class="invalid-feedback">Not the same password</div>
         </div>
@@ -143,7 +143,7 @@ describe('FormWithConstraints', () => {
           <div data-feedback="1.5" class="warning-feedback">Should contain special characters</div>
           <div data-feedback="1.6" class="valid-feedback">Looks good!</div>
         </div>
-        <input type="password" name="passwordConfirm" class="form-control is-invalid">
+        <input type="password" name="passwordConfirm" class="is-invalid">
         <div data-feedbacks="2">
           <div data-feedback="2.0" class="invalid-feedback">Not the same password</div>
         </div>
@@ -158,7 +158,7 @@ describe('FormWithConstraints', () => {
         <div data-feedbacks="0"></div>
         <input type="password" name="password" class="form-control">
         <div data-feedbacks="1"></div>
-        <input type="password" name="passwordConfirm" class="form-control">
+        <input type="password" name="passwordConfirm">
         <div data-feedbacks="2"></div>
       </form>`
     );
@@ -191,7 +191,7 @@ describe('FormWithConstraints', () => {
           <div data-feedback="1.5" class="warning-feedback">Should contain special characters</div>
           <div data-feedback="1.6" class="valid-feedback">Looks good!</div>
         </div>
-        <input type="password" name="passwordConfirm" class="form-control is-valid">
+        <input type="password" name="passwordConfirm" class="is-valid">
         <div data-feedbacks="2">
           <div data-feedback="2.1" class="valid-feedback">Looks good!</div>
         </div>
@@ -296,7 +296,7 @@ describe('Async', () => {
           <div data-feedback="1.5" class="warning-feedback">Should contain special characters</div>
           <div data-feedback="1.6" class="valid-feedback">Looks good!</div>
         </div>
-        <input type="password" name="passwordConfirm" class="form-control is-valid">
+        <input type="password" name="passwordConfirm" class="is-valid">
         <div data-feedbacks="2">
           <div data-feedback="2.1" class="valid-feedback">Looks good!</div>
         </div>
@@ -366,7 +366,7 @@ describe('Async', () => {
           <div data-feedback="1.5" class="warning-feedback">Should contain special characters</div>
           <div data-feedback="1.6" class="valid-feedback">Looks good!</div>
         </div>
-        <input type="password" name="passwordConfirm" class="form-control is-invalid">
+        <input type="password" name="passwordConfirm" class="is-invalid">
         <div data-feedbacks="2">
           <div data-feedback="2.0" class="invalid-feedback">Not the same password</div>
         </div>

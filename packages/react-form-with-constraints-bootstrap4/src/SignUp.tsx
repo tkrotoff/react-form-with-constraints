@@ -43,7 +43,7 @@ export class SignUp extends React.Component<SignUpProps> {
           <FieldFeedback when="valid">Looks good!</FieldFeedback>
         </FieldFeedbacks>
 
-        <FormInput type="password" name="passwordConfirm" innerRef={passwordConfirm => this.passwordConfirm = passwordConfirm} className="form-control" />
+        <FormInput type="password" name="passwordConfirm" innerRef={passwordConfirm => this.passwordConfirm = passwordConfirm} />
         <FieldFeedbacks for="passwordConfirm">
           <FieldFeedback when={value => value !== this.password!.value}>Not the same password</FieldFeedback>
           <FieldFeedback when="valid">Looks good!</FieldFeedback>
