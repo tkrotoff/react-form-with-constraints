@@ -1,6 +1,8 @@
 {
-  "extends": ["tslint:latest", "tslint-react"],
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended", "tslint:latest", "tslint-react"],
   "rules": {
+    "deprecation": true,
     // Copy-pasted from Blueprint, see https://github.com/palantir/blueprint/blob/d5a6c02e8750415dfe3af9846749f50525e9a95b/tslint.json
     "ban": [true,
       ["Object", "assign", "use TS2.1 object spread { ...a, ...b }"],
