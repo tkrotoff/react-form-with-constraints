@@ -19,7 +19,7 @@
     "test": "lerna run test --stream",
     "coverage": "lerna run coverage --stream",
 
-    "tslint": "tslint --config tslint.json '**/*.ts{,x}' --exclude '**/node_modules/**' --exclude '**/lib/**'",
+    "tslint": "find . -name 'tsconfig.json' -not -path '*/node_modules/*' -print -exec tslint --config tslint.json --project '{}' \\;",
 
     "publish:lerna": "lerna publish --npm-tag=next --skip-git # Custom example: 0.8.0-beta.1"
   },
