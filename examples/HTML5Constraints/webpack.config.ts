@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 import { Configuration } from 'webpack';
 
 const config: Configuration = {
@@ -17,7 +17,7 @@ const config: Configuration = {
 
   module: {
     rules: [
-      { test: /\.tsx?$/, loader: 'ts-loader', options: {onlyCompileBundledFiles: true, compilerOptions: {noEmit: false, module: 'esnext', declaration: false}} },
+      { test: /\.tsx?$/, loader: 'ts-loader', options: {onlyCompileBundledFiles: true, compilerOptions: {noEmit: false, module: 'esnext', sourceMap: true}} },
       { test: /\.js$/, loader: 'source-map-loader' },
       { test: /\.(html|css|png)$/, loader: 'file-loader', options: {name: '[name].[ext]'} }
     ]

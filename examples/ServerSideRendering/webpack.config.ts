@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 import { Configuration } from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 
@@ -9,7 +9,7 @@ const output = {
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
-const tsLoaderRule = { test: /\.tsx?$/, loader: 'ts-loader', options: {onlyCompileBundledFiles: true, compilerOptions: {noEmit: false, module: 'esnext', declaration: false}} };
+const tsLoaderRule = { test: /\.tsx?$/, loader: 'ts-loader', options: {onlyCompileBundledFiles: true, compilerOptions: {noEmit: false, module: 'esnext', sourceMap: true}} };
 
 const config: Configuration[] = [
   {

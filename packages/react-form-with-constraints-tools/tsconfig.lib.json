@@ -2,7 +2,10 @@
   "extends": "./tsconfig",
   "compilerOptions": {
     "noEmit": false,
-    "outDir": "lib"
+    "outDir": "lib",
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "declaration": true
   },
   "include": []
 }
