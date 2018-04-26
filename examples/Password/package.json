@@ -20,8 +20,8 @@
     "react-dom": "latest",
     "@types/react-dom": "latest",
 
-    "react-form-with-constraints": "^0.7.0",
-    "react-form-with-constraints-tools": "^0.7.0",
+    "react-form-with-constraints": "^0.8.0",
+    "react-form-with-constraints-tools": "^0.8.0",
 
     "ts-node": "latest",
     "@types/node": "latest",
