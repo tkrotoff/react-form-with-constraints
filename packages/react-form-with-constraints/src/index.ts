@@ -14,3 +14,5 @@ export * from './withResetEventEmitter';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 export { FieldFeedbackValidation };
 export * from './Input';
+import Constructor from './Constructor';
+export { Constructor };
