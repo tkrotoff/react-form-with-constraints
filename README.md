@@ -42,7 +42,7 @@ Resources:
 - Warnings and infos: `<FieldFeedback ... warning>`, `<FieldFeedback ... info>`
 - Async validation
 - No dependency beside React (no Redux, MobX...)
-- No special component like `<TextField>`, just plain old `<input>` or whatever you like
+- No special field component, just plain old `<input>` or whatever you like
 - Re-render only what's necessary
 - Support for [React Native](examples/ReactNative) with npm package `react-form-with-constraints-native`
 - Easily extendable
@@ -65,9 +65,6 @@ Resources:
   </FieldFeedback>
   <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>
     Should contain capital letters
-  </FieldFeedback>
-  <FieldFeedback when={value => !/\W/.test(value)} warning>
-    Should contain special characters
   </FieldFeedback>
 </FieldFeedbacks>
 ```
@@ -133,7 +130,7 @@ Async support works as follow:
     then={available => available ?
       <FieldFeedback key="1" info style={{color: 'green'}}>Username available</FieldFeedback> :
       <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>
-      // Why key=*? React keys are needed otherwise it can get buggy when the user rapidly changes the input
+      // Why key=*? Needed otherwise React gets buggy when the user rapidly changes the field
     }
   />
 </FieldFeedbacks>
@@ -202,57 +199,27 @@ class MyForm extends React.Component {
   - `stop?: 'first' | 'first-error' | 'first-warning' | 'first-info' | 'no'` =>
     when to stop rendering `FieldFeedback`s, by default stops at the first error encountered (`FieldFeedback`s order matters)
 
-  Note: you can place `FieldFeedbacks` anywhere, have as many as you want for the same `field`, nest them, mix them with `FieldFeedback`... Dirty example:
+  Note: you can place `FieldFeedbacks` anywhere, have as many as you want for the same `field`, nest them, mix them with `FieldFeedback`... Example:
 
   ```JSX
-  <div>
-    <input name="username" ... />
-  </div>
+  <input name="username" ... />
 
   <FieldFeedbacks for="username" stop="first-warning">
-
-    <FieldFeedbacks stop="no">
-      <div>
-        <FieldFeedbacks stop="first-error">
-          <FieldFeedbacks>
-            <div><FieldFeedback ... /></div>
-            <div><Async ... /></div>
-            <div><FieldFeedback ... /></div>
-          </FieldFeedbacks>
-        </FieldFeedbacks>
-      </div>
-      <FieldFeedbacks>
-        <FieldFeedback ... />
-        <Async ... />
-        <FieldFeedback ... />
-
-        <FieldFeedbacks stop="first-info">
-          <FieldFeedback ... />
-          <Async ... />
-          <FieldFeedback ... />
-        </FieldFeedbacks>
-
-        <FieldFeedback ... />
-        <Async ... />
-        <FieldFeedback ... />
+    <FieldFeedbacks>
+      <FieldFeedback ... />
+      <Async ... />
+      <FieldFeedbacks stop="first-info">
+        ...
       </FieldFeedbacks>
     </FieldFeedbacks>
 
-    <FieldFeedbacks stop="first-info">
-      <FieldFeedbacks>
-        <FieldFeedback ... />
-        <Async ... />
-        <FieldFeedback ... />
-      </FieldFeedbacks>
-    </FieldFeedbacks>
-
+    <FieldFeedback ... />
+    <Async ... />
   </FieldFeedbacks>
 
-  <div>
-    <FieldFeedbacks for="username" stop="no">
-      ...
-    </FieldFeedbacks>
-  </div>
+  <FieldFeedbacks for="username" stop="no">
+    ...
+  </FieldFeedbacks>
   ```
 
 - [`FieldFeedback`](packages/react-form-with-constraints/src/FieldFeedback.tsx)
