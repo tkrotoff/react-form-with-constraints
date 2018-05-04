@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FormWithConstraintsChildContext } from './FormWithConstraints';
 import { FieldFeedbacksChildContext } from './FieldFeedbacks';
 import { AsyncChildContext } from './Async';
-import { Input } from './Input';
+import { InputElement } from './InputElement';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 import { FieldFeedbackWhenValid } from './FieldFeedbackWhenValid';
 
@@ -111,7 +111,7 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps, FieldFeed
     form.removeResetEventListener(this.reset);
   }
 
-  async validate(input: Input) {
+  async validate(input: InputElement) {
     const { when } = this.props;
     const { form, fieldFeedbacks } = this.context;
 

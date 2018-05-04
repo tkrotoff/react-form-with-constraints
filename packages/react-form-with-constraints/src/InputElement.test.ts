@@ -1,4 +1,4 @@
-import { Input } from './Input';
+import { InputElement } from './InputElement';
 
 test('constructor() HTMLInputElement', () => {
   const htmlInputElement = {
@@ -9,7 +9,7 @@ test('constructor() HTMLInputElement', () => {
     validity: {valid: true} as ValidityState,
     validationMessage: ''
   };
-  const input = new Input(htmlInputElement);
+  const input = new InputElement(htmlInputElement);
   expect(input).toEqual({
     name: 'username',
     type: 'text',
@@ -30,7 +30,7 @@ test('constructor() TextInput', () => {
       value: 'john'
     }
   };
-  const input = new Input(textInput);
+  const input = new InputElement(textInput);
   expect(input).toEqual({
     name: 'username',
     type: undefined,

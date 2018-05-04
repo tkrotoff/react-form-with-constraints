@@ -7,7 +7,7 @@ import { FormWithConstraints, FieldFeedbacks, FieldFeedback, FieldFeedbackWhenVa
 import new_FormWithConstraints from './FormWithConstraintsEnzymeFix';
 import { SignUp } from './SignUp';
 import beautifyHtml from '../../react-form-with-constraints/src/beautifyHtml';
-import { input_username_valueMissing, input_username_valid } from '../../react-form-with-constraints/src/InputMock';
+import { input_username_valueMissing, input_username_valid } from '../../react-form-with-constraints/src/InputElementMock';
 
 // Taken and adapted from FormWithConstraints.test.tsx
 describe('FormWithConstraints', () => {

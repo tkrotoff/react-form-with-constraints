@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Input, FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
+import { InputElement, FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
 
 export interface Props {
   firstName: string;
   lastName: string;
-  onChange: (input: Input) => void;
+  onChange: (input: InputElement) => void;
   nextPage: () => void;
 }
 

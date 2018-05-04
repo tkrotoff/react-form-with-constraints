@@ -7,7 +7,7 @@ import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 // 'EventEmitter' is declared but its value is never read.
 // FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
 import { EventEmitter } from './EventEmitter';
-import { Input } from './Input';
+import { InputElement } from './InputElement';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 import flattenDeep from './flattenDeep';
 
@@ -109,7 +109,7 @@ export class FieldFeedbacks extends
     parent.removeValidateFieldEventListener(this.validate);
   }
 
-  async validate(input: Input) {
+  async validate(input: InputElement) {
     const { form, fieldFeedbacks: fieldFeedbacksParent } = this.context;
 
     let validations;
@@ -132,7 +132,7 @@ export class FieldFeedbacks extends
     return validations;
   }
 
-  async _validate(input: Input) {
+  async _validate(input: InputElement) {
     const arrayOfArrays = await this.emitValidateFieldEvent(input);
     const validations = flattenDeep<FieldFeedbackValidation | undefined>(arrayOfArrays);
     return validations;

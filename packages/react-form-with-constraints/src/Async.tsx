@@ -9,7 +9,7 @@ import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 // FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
 import { EventEmitter } from './EventEmitter';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
-import { Input } from './Input';
+import { InputElement } from './InputElement';
 
 export enum Status {
   None,
@@ -86,7 +86,7 @@ export class Async<T> extends
     this.context.fieldFeedbacks.removeValidateFieldEventListener(this.validate);
   }
 
-  validate(input: Input) {
+  validate(input: InputElement) {
     const { form, fieldFeedbacks } = this.context;
 
     let validations;
@@ -107,7 +107,7 @@ export class Async<T> extends
     return validations;
   }
 
-  async _validate(input: Input) {
+  async _validate(input: InputElement) {
     this.setState({status: Status.Pending});
     try {
       const value = await this.props.promise(input.value);

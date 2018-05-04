@@ -1,6 +1,6 @@
-import { Input } from './index';
+import { InputElement } from './index';
 
-export class InputMock implements Input {
+export class InputElementMock implements InputElement {
   readonly type = 'input'; // Can also be checkbox;
   readonly validity: ValidityState;
 
@@ -30,7 +30,7 @@ export class InputMock implements Input {
   }
 }
 
-export const input_username_valueMissing = new InputMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
-export const input_username_valid = new InputMock('username', 'jimmy', {valid: true}, '');
-export const input_username_error_valid = new InputMock('username', 'error', {valid: true}, '');
-export const input_unknown_valueMissing = new InputMock('unknown', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
+export const input_username_valueMissing = new InputElementMock('username', '', {valid: false, valueMissing: true}, 'Suffering from being missing');
+export const input_username_valid = new InputElementMock('username', 'jimmy', {valid: true}, '');
+export const input_username_error_valid = new InputElementMock('username', 'error', {valid: true}, '');
+export const input_unknown_valueMissing = new InputElementMock('unknown', '', {valid: false, valueMissing: true}, 'Suffering from being missing');

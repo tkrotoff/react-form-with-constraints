@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow as _shallow, mount as _mount } from 'enzyme';
 
 import { FormWithConstraints, Field, FieldFeedback, FieldFeedbackContext, FieldFeedbackProps, ValidateFieldEvent } from './index';
-import { InputMock, input_username_valueMissing, input_username_valid } from './InputMock';
+import { InputElementMock, input_username_valueMissing, input_username_valid } from './InputElementMock';
 import new_FormWithConstraints from './FormWithConstraintsEnzymeFix';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 
@@ -128,7 +128,7 @@ describe('validate()', () => {
           <FieldFeedback when="badInput" />,
           {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
         );
-        const input = new InputMock('username', '', {valid: false, badInput: true}, 'Suffering from bad input');
+        const input = new InputElementMock('username', '', {valid: false, badInput: true}, 'Suffering from bad input');
         const validations = await fieldFeedbacks_username.emitValidateFieldEvent(input);
 
         expect(validations).toEqual([
@@ -141,7 +141,7 @@ describe('validate()', () => {
           <FieldFeedback when="patternMismatch" />,
           {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
         );
-        const input = new InputMock('username', '', {valid: false, patternMismatch: true}, 'Suffering from a pattern mismatch');
+        const input = new InputElementMock('username', '', {valid: false, patternMismatch: true}, 'Suffering from a pattern mismatch');
         const validations = await fieldFeedbacks_username.emitValidateFieldEvent(input);
 
         expect(validations).toEqual([
@@ -154,7 +154,7 @@ describe('validate()', () => {
           <FieldFeedback when="rangeOverflow" />,
           {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
         );
-        const input = new InputMock('username', '', {valid: false, rangeOverflow: true}, 'Suffering from an overflow');
+        const input = new InputElementMock('username', '', {valid: false, rangeOverflow: true}, 'Suffering from an overflow');
         const validations = await fieldFeedbacks_username.emitValidateFieldEvent(input);
 
         expect(validations).toEqual([
@@ -167,7 +167,7 @@ describe('validate()', () => {
           <FieldFeedback when="rangeUnderflow" />,
           {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
         );
-        const input = new InputMock('username', '', {valid: false, rangeUnderflow: true}, 'Suffering from an underflow');
+        const input = new InputElementMock('username', '', {valid: false, rangeUnderflow: true}, 'Suffering from an underflow');
         const validations = await fieldFeedbacks_username.emitValidateFieldEvent(input);
 
         expect(validations).toEqual([
@@ -180,7 +180,7 @@ describe('validate()', () => {
           <FieldFeedback when="stepMismatch" />,
           {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
         );
-        const input = new InputMock('username', '', {valid: false, stepMismatch: true}, 'Suffering from a step mismatch');
+        const input = new InputElementMock('username', '', {valid: false, stepMismatch: true}, 'Suffering from a step mismatch');
         const validations = await fieldFeedbacks_username.emitValidateFieldEvent(input);
 
         expect(validations).toEqual([
@@ -193,7 +193,7 @@ describe('validate()', () => {
           <FieldFeedback when="tooLong" />,
           {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
         );
-        const input = new InputMock('username', '', {valid: false, tooLong: true}, 'Suffering from being too long');
+        const input = new InputElementMock('username', '', {valid: false, tooLong: true}, 'Suffering from being too long');
         const validations = await fieldFeedbacks_username.emitValidateFieldEvent(input);
 
         expect(validations).toEqual([
@@ -206,7 +206,7 @@ describe('validate()', () => {
           <FieldFeedback when="tooShort" />,
           {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
         );
-        const input = new InputMock('username', '', {valid: false, tooShort: true}, 'Suffering from being too short');
+        const input = new InputElementMock('username', '', {valid: false, tooShort: true}, 'Suffering from being too short');
         const validations = await fieldFeedbacks_username.emitValidateFieldEvent(input);
 
         expect(validations).toEqual([
@@ -219,7 +219,7 @@ describe('validate()', () => {
           <FieldFeedback when="typeMismatch" />,
           {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
         );
-        const input = new InputMock('username', '', {valid: false, typeMismatch: true}, 'Suffering from bad input');
+        const input = new InputElementMock('username', '', {valid: false, typeMismatch: true}, 'Suffering from bad input');
         const validations = await fieldFeedbacks_username.emitValidateFieldEvent(input);
 
         expect(validations).toEqual([

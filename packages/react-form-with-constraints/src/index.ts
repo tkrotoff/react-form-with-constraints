@@ -13,6 +13,6 @@ export * from './withFieldDidValidateEventEmitter';
 export * from './withResetEventEmitter';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 export { FieldFeedbackValidation };
-export * from './Input';
+export * from './InputElement';
 import Constructor from './Constructor';
 export { Constructor };

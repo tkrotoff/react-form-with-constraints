@@ -6,7 +6,7 @@ import {
   FieldFeedback, FieldFeedbacksContext, ValidateFieldEvent
 } from './index';
 import checkUsernameAvailability from './checkUsernameAvailability';
-import { input_unknown_valueMissing, input_username_valid, input_username_error_valid } from './InputMock';
+import { input_unknown_valueMissing, input_username_valid, input_username_error_valid } from './InputElementMock';
 import new_FormWithConstraints from './FormWithConstraintsEnzymeFix';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 

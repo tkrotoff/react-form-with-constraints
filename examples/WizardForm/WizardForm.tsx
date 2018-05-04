@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Input } from 'react-form-with-constraints';
+import { InputElement } from 'react-form-with-constraints';
 
 import { Color } from './Color';
 import WizardFormPage1 from './WizardFormPage1';
@@ -38,7 +38,7 @@ class WizardForm extends React.Component<Props, State> {
     };
   }
 
-  handleChange(input: Input) {
+  handleChange(input: InputElement) {
     const value = input.type === 'checkbox' ? (input as HTMLInputElement).checked : input.value;
 
     this.setState({[input.name]: value} as any);

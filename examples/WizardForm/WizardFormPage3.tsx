@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Input, FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
+import { InputElement, FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
 
 import { Color, colorKeys } from './Color';
 
@@ -9,7 +9,7 @@ export interface Props {
   employed?: boolean;
   notes?: string;
   previousPage: () => void;
-  onChange: (input: Input) => void;
+  onChange: (input: InputElement) => void;
   onSubmit: () => void;
 }
 

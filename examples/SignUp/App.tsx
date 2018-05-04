@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { debounce } from 'lodash';
 import { translate, Trans, InjectedTranslateProps, InjectedI18nProps } from 'react-i18next';
 
-import { Input, FormWithConstraints, FieldFeedbacks, FieldFeedback, Async as Async_, AsyncProps } from 'react-form-with-constraints';
+import { InputElement, FormWithConstraints, FieldFeedbacks, FieldFeedback, Async as Async_, AsyncProps } from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import Gender from '../WizardForm/Gender';
@@ -111,7 +111,7 @@ class SignUp extends React.Component<Props, State> {
     // Flush the previous debounce if input is not the same otherwise validateFields(input2) will overwrite validateFields(input1)
     // if the user changes input2 before validateFields(input1) is called
     if (this.previousValidateFields !== target.name) {
-      (this.validateFields as ((target: Input) => Promise<void>) & _.Cancelable).flush();
+      (this.validateFields as ((target: InputElement) => Promise<void>) & _.Cancelable).flush();
     }
     this.previousValidateFields = target.name;
 
@@ -127,7 +127,7 @@ class SignUp extends React.Component<Props, State> {
     });
   }
 
-  async validateFields(target: Input) {
+  async validateFields(target: InputElement) {
     await this.form!.validateFields(target);
     this.setState({submitButtonDisabled: !this.form!.isValid()});
   }

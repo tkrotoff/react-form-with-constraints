@@ -8,7 +8,7 @@ export interface TextInput {
   };
 }
 
-export class Input {
+export class InputElement {
   readonly name: string;
   readonly type: string; // Not needed internally, can be text, radio...
   readonly value: string;
@@ -17,9 +17,9 @@ export class Input {
 
   // Need to duplicate the input when the user changes rapidly the input
   // otherwise we will treat only the last input value instead of every input value change
-  constructor(input: /*HTMLInputElement*/ Input | TextInput) {
+  constructor(input: /*HTMLInputElement*/ InputElement | TextInput) {
     if ((input as any).props === undefined) {
-      input = input as Input;
+      input = input as InputElement;
       this.name = input.name;
       this.type = input.type;
       this.value = input.value;

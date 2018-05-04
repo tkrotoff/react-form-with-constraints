@@ -2,7 +2,7 @@ import React from 'react';
 import { mount as _mount, shallow as _shallow } from 'enzyme';
 
 import { FormWithConstraintsChildContext, FieldFeedback, FieldFeedbacksProps, ValidateFieldEvent } from './index';
-import { input_username_valueMissing, input_unknown_valueMissing, input_username_valid } from './InputMock';
+import { input_username_valueMissing, input_unknown_valueMissing, input_username_valid } from './InputElementMock';
 import new_FormWithConstraints from './FormWithConstraintsEnzymeFix';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 
