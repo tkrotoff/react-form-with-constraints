@@ -46,6 +46,7 @@ export default class Field {
            this.hasInfos(fieldFeedbacksKey);
   }
 
+  // Does not check if field is dirty
   isValid() {
     return !this.hasErrors();
   }
