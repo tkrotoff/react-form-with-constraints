@@ -5,11 +5,12 @@
 - Async support
 - Rewrite to allow nested `FieldFeedbacks`
 - Strip console.* in production thanks to rollup-plugin-strip
+- Add `reset()`, see #22
 
 ### Breaking Changes
 
 - `FieldFeedbacks` `show` attribute replaced by `stop`
-- `validateFields()` now returns a list of promises
+- `validateFields()` returns `Promise<Field[]>`
 - Add `validateForm()`: does not re-validate fields already validated contrary to `validateFields()`
 - Improve typings, see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16318#issuecomment-362060939
 
@@ -17,7 +18,6 @@
 
 - Fix `computeFieldFeedbackKey()` implementation
 - Fix possible crash with React Native, see 03d72e1
-- Fix form reset #22 by introducing `reset()`
 
 ## 0.7.1 (2017/11/27)
 
