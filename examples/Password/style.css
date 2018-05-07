@@ -10,16 +10,15 @@ form > div > label {
   display: block;
 }
 
-/* FieldFeedbacks */
-div.error {
+[data-feedback].error {
   color: red;
 }
-div.warning {
+[data-feedback].warning {
   color: orange;
 }
-div.info {
+[data-feedback].info {
   color: blue;
 }
-div.valid {
+[data-feedback].valid {
   color: green;
 }

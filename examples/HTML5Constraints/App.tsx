@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './index.html';
-import '../Password/style.css';
+import '../NoFramework/style.css';
 
 // Inspired by ReactJS Form Validation Approaches https://moduscreate.com/reactjs-form-validation-approaches/
 

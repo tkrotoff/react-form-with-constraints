@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './index.html';
-import '../Password/style.css';
+import './style.css';
 
 // Inspired by
 // - Validating a React form upon submit https://goshakkk.name/submit-time-validation-react/
