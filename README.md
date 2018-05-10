@@ -294,8 +294,7 @@ You can use HTML5 attributes like `type="email"`, `required`, `pattern`..., in t
 
 In the last case you will have to manage translations yourself (see SignUp example).
 
-react-form-with-constraints, like React 16, depends on the collection types [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) and [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).
-If you support older browsers (<IE11) you will need a polyfill such as [core-js](https://github.com/zloirock/core-js) or [babel-polyfill](https://babeljs.io/docs/usage/polyfill/).
+react-form-with-constraints needs a polyfill such as [core-js](https://github.com/zloirock/core-js) or [babel-polyfill](https://babeljs.io/docs/usage/polyfill/) to support IE 11 and lower. See also [React JavaScript Environment Requirements](https://reactjs.org/docs/javascript-environment-requirements.html).
 
 ## Notes
 
