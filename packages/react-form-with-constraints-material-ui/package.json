@@ -1,0 +1,68 @@
+{
+  "name": "react-form-with-constraints-material-ui",
+  "version": "0.8.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tkrotoff/react-form-with-constraints.git"
+  },
+  "description": "Simple form validation for React",
+  "license": "MIT",
+
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "dist/",
+    "lib/"
+  ],
+
+  "scripts": {
+    "clean": "del-cli lib dist coverage .rpt2_cache",
+
+    "tsc": "tsc",
+    "build": "tsc --project tsconfig.lib.json",
+    "dist": "cross-env NODE_ENV=development rollup --config && cross-env NODE_ENV=production rollup --config",
+    "prepublishOnly": "npm run clean && npm run tsc && npm run build && npm run dist",
+
+    "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
+    "coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"
+  },
+
+  "peerDependencies": {
+    "react-form-with-constraints": "^0.8.0"
+  },
+
+  "devDependencies": {
+    "typescript": "latest",
+
+    "react": "latest",
+    "@types/react": "latest",
+
+    "react-form-with-constraints": "^0.8.0",
+
+    "material-ui": "next",
+
+    "node-zopfli": "latest",
+    "node-gyp": "latest",
+
+    "rollup": "latest",
+    "rollup-pluginutils": "latest",
+    "rollup-plugin-typescript2": "latest",
+    "rollup-plugin-uglify": "latest",
+    "rollup-plugin-gzip": "latest",
+    "rollup-plugin-filesize": "latest",
+    "rollup-plugin-strip": "rollup/rollup-plugin-strip",
+
+    "del-cli": "latest",
+    "cross-env": "latest",
+
+    "jest": "latest",
+    "@types/jest": "latest",
+    "ts-jest": "latest",
+
+    "enzyme": "latest",
+    "@types/enzyme": "latest",
+    "enzyme-adapter-react-16": "latest",
+    "@types/enzyme-adapter-react-16": "latest",
+    "react-dom": "latest"
+  }
+}

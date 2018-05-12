@@ -41,7 +41,7 @@ class WizardForm extends React.Component<Props, State> {
   handleChange(input: InputElement) {
     const value = input.type === 'checkbox' ? (input as HTMLInputElement).checked : input.value;
 
-    this.setState({[input.name]: value} as any);
+    this.setState({[input.name as any]: value});
   }
 
   handleSubmit() {

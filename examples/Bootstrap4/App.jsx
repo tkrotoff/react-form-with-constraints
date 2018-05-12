@@ -5,7 +5,7 @@ import 'raf/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { FormWithConstraints, FormInput, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints-bootstrap4';
+import { FormWithConstraints, Input, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints-bootstrap4';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './index.html';
@@ -86,10 +86,10 @@ class Form extends React.Component {
                            onSubmit={this.handleSubmit} noValidate>
         <div className="form-group">
           <label htmlFor="username">Username <small>(already taken: john, paul, george, ringo)</small></label>
-          <FormInput id="username" name="username"
-                     value={this.state.username} onChange={this.handleChange}
-                     required minLength={3}
-                     className="form-control" />
+          <Input id="username" name="username"
+                 value={this.state.username} onChange={this.handleChange}
+                 required minLength={3}
+                 className="form-control" />
           <FieldFeedbacks for="username">
             <FieldFeedback when="tooShort">Too short</FieldFeedback>
             <FieldFeedback when="*" />
@@ -107,11 +107,11 @@ class Form extends React.Component {
 
         <div className="form-group">
           <label htmlFor="password">Password</label>
-          <FormInput type="password" id="password" name="password"
-                     innerRef={password => this.password = password}
-                     value={this.state.password} onChange={this.handlePasswordChange}
-                     required pattern=".{5,}"
-                     className="form-control" />
+          <Input type="password" id="password" name="password"
+                 innerRef={password => this.password = password}
+                 value={this.state.password} onChange={this.handlePasswordChange}
+                 required pattern=".{5,}"
+                 className="form-control" />
           <FieldFeedbacks for="password">
             <FieldFeedback when="valueMissing" />
             <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
@@ -125,9 +125,9 @@ class Form extends React.Component {
 
         <div className="form-group">
           <label htmlFor="password-confirm">Confirm Password</label>
-          <FormInput type="password" id="password-confirm" name="passwordConfirm"
-                     value={this.state.passwordConfirm} onChange={this.handleChange}
-                     required className="form-control" />
+          <Input type="password" id="password-confirm" name="passwordConfirm"
+                 value={this.state.passwordConfirm} onChange={this.handleChange}
+                 required className="form-control" />
           <FieldFeedbacks for="passwordConfirm">
             <FieldFeedback when="*" />
             <FieldFeedback when={value => value !== this.password.value}>Not the same password</FieldFeedback>

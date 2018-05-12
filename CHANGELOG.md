@@ -1,3 +1,17 @@
+## 0.9.0 (2018/05/14)
+
+### Features
+
+- `<Input>` component for easy field styling
+- Material-UI integration with `react-form-with-constraints-material-ui`
+
+### Breaking Changes
+
+- `FieldFeedback` uses `<span style="display: block">` instead of `<div>` in order to be a child of `<p>`
+- HTML: styling done on `FieldFeedback` with `classes` props instead of `FormWithConstraints.fieldFeedbackClassNames`
+- React Native: styling done on `FieldFeedback` with `theme` props instead of `FormWithConstraints.fieldFeedbackStyles`
+- Rename TypeScript `Input` to `InputElement`
+
 ## 0.8.0 (2018/04/26)
 
 ### Features

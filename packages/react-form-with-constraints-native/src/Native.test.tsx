@@ -4,7 +4,6 @@ import { StyleSheet } from 'react-native';
 import renderer from 'react-test-renderer';
 
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback, FieldFeedbackWhenValid, TextInput } from './index';
-import new_FormWithConstraints from './FormWithConstraintsEnzymeFix';
 import { SignUp } from './SignUp';
 import beautifyHtml from '../../react-form-with-constraints/src/beautifyHtml';
 import { input_username_valueMissing, input_username_valid } from '../../react-form-with-constraints/src/InputElementMock';
@@ -531,7 +530,7 @@ describe('FieldFeedbacks', () => {
   let form_username: FormWithConstraints;
 
   beforeEach(() => {
-    form_username = new_FormWithConstraints({});
+    form_username = new FormWithConstraints({});
   });
 
   test('render()', () => {
@@ -557,7 +556,7 @@ describe('FieldFeedback', () => {
   let fieldFeedbacks_username: FieldFeedbacks;
 
   beforeEach(() => {
-    form_username = new_FormWithConstraints({});
+    form_username = new FormWithConstraints({});
 
     fieldFeedbacks_username = new FieldFeedbacks({for: 'username', stop: 'no'}, {form: form_username as any});
     fieldFeedbacks_username.componentWillMount(); // Needed because of fieldsStore.addField() inside componentWillMount()
@@ -638,20 +637,20 @@ describe('FieldFeedback', () => {
       expect(wrapper.props().style).toEqual({color: 'yellow'});
     });
 
-    test('with global style', async () => {
-      const fieldFeedbackStyles = StyleSheet.create({
+    test('with theme', async () => {
+      const fieldFeedbackTheme = StyleSheet.create({
         error: {color: 'red'},
         warning: {color: 'orange'},
         info: {color: 'blue'},
-        valid: {color: 'green'}
+        whenValid: {color: 'green'}
       });
 
-      const form = new_FormWithConstraints({fieldFeedbackStyles});
+      const form = new FormWithConstraints({});
       const fieldFeedbacks = new FieldFeedbacks({for: 'username', stop: 'no'}, {form: form as any});
       fieldFeedbacks.componentWillMount(); // Needed because of fieldsStore.addField() inside componentWillMount()
 
       const wrapper = shallow(
-        <FieldFeedback when={value => value.length === 0}>Cannot be empty</FieldFeedback>,
+        <FieldFeedback when={value => value.length === 0} theme={fieldFeedbackTheme}>Cannot be empty</FieldFeedback>,
         {context: {form, fieldFeedbacks}}
       );
       const validations = await fieldFeedbacks.emitValidateFieldEvent(input_username_valueMissing);
@@ -679,7 +678,7 @@ describe('FieldFeedbackWhenValid', () => {
   let fieldFeedbacks_username: FieldFeedbacks;
 
   beforeEach(() => {
-    form_username = new_FormWithConstraints({});
+    form_username = new FormWithConstraints({});
 
     fieldFeedbacks_username = new FieldFeedbacks({for: 'username', stop: 'no'}, {form: form_username as any});
     //fieldFeedbacks_username.componentWillMount(); // Needed because of fieldsStore.addField() inside componentWillMount()
@@ -698,25 +697,13 @@ describe('FieldFeedbackWhenValid', () => {
 
     wrapper.setState({fieldIsValid: true});
     expect(beautifyHtml(wrapper.debug(), '      ')).toEqual(`\
-      <Text style={[undefined]} accessible={true} allowFontScaling={true} ellipsizeMode="tail">
+      <Text accessible={true} allowFontScaling={true} ellipsizeMode="tail">
         Looks good!
       </Text>`
     );
 
     wrapper.setState({fieldIsValid: false});
     expect(wrapper.html()).toEqual(null);
-
-    // With className
-    wrapper = shallow(
-      <FieldFeedbackWhenValid className="hello">Looks good!</FieldFeedbackWhenValid>,
-      {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
-    );
-    wrapper.setState({fieldIsValid: true});
-    expect(beautifyHtml(wrapper.debug(), '      ')).toEqual(`\
-      <Text style={[undefined]} className="hello" accessible={true} allowFontScaling={true} ellipsizeMode="tail">
-        Looks good!
-      </Text>`
-    );
 
     // With div props
     wrapper = shallow(
@@ -729,30 +716,5 @@ describe('FieldFeedbackWhenValid', () => {
         Looks good!
       </Text>`
     );
-  });
-
-  test('render() with global style', () => {
-    const fieldFeedbackStyles = StyleSheet.create({
-      error: {color: 'red'},
-      warning: {color: 'orange'},
-      info: {color: 'blue'},
-      valid: {color: 'green'}
-    });
-
-    const form = new_FormWithConstraints({fieldFeedbackStyles});
-    const fieldFeedbacks = new FieldFeedbacks({for: 'username', stop: 'no'}, {form: form as any});
-
-    const wrapper = shallow(
-      <FieldFeedbackWhenValid>Looks good!</FieldFeedbackWhenValid>,
-      {context: {form, fieldFeedbacks}}
-    );
-
-    wrapper.setState({fieldIsValid: true});
-    expect(beautifyHtml(wrapper.debug(), '      ')).toEqual(`\
-      <Text style={{...}} accessible={true} allowFontScaling={true} ellipsizeMode="tail">
-        Looks good!
-      </Text>`
-    );
-    expect(wrapper.props().style).toEqual({color: 'green'});
   });
 });

@@ -14,7 +14,6 @@ import beautifyHtml from '../../react-form-with-constraints/src/beautifyHtml';
 
 import { DisplayFields } from './index';
 import { SignUp } from './SignUp';
-import new_FormWithConstraints from './FormWithConstraintsEnzymeFix';
 
 function mount(node: React.ReactElement<FormWithConstraintsProps>) {
   return _mount<FormWithConstraintsProps, {}>(node);
@@ -24,7 +23,7 @@ function shallow(node: React.ReactElement<{}>, options: {context: FormWithConstr
 }
 
 test('componentWillMount() componentWillUnmount()', () => {
-  const form = new_FormWithConstraints({});
+  const form = new FormWithConstraints({});
   const fieldsStoreAddListenerSpy = jest.spyOn(form.fieldsStore, 'addListener');
   const fieldsStoreRemoveListenerSpy = jest.spyOn(form.fieldsStore, 'removeListener');
 
@@ -61,7 +60,7 @@ describe('render()', () => {
   };
 
   beforeEach(() => {
-    form_username = new_FormWithConstraints({});
+    form_username = new FormWithConstraints({});
   });
 
   test('0 field', () => {
@@ -251,7 +250,7 @@ test('SignUp', async () => {
           <ul>
             <li>
               <span style="">key="0.3" type="error"</span>
-              <div data-feedback="0.3" class="error" style="display: inline;">Username 'john' already taken, choose another</div>
+              <span data-feedback="0.3" class="error" style="display: inline;">Username 'john' already taken, choose another</span>
             </li>
           </ul>
         </li>
@@ -273,19 +272,19 @@ test('SignUp', async () => {
         </li>
         <li>
           <span style="">key="1.3" type="warning"</span>
-          <div data-feedback="1.3" class="warning" style="display: inline;">Should contain small letters</div>
+          <span data-feedback="1.3" class="warning" style="display: inline;">Should contain small letters</span>
         </li>
         <li>
           <span style="">key="1.4" type="warning"</span>
-          <div data-feedback="1.4" class="warning" style="display: inline;">Should contain capital letters</div>
+          <span data-feedback="1.4" class="warning" style="display: inline;">Should contain capital letters</span>
         </li>
         <li>
           <span style="">key="1.5" type="warning"</span>
-          <div data-feedback="1.5" class="warning" style="display: inline;">Should contain special characters</div>
+          <span data-feedback="1.5" class="warning" style="display: inline;">Should contain special characters</span>
         </li>
         <li>
           <span style="text-decoration: line-through;">key="1.6" type="whenValid"</span>
-          <div data-feedback="1.6" class="valid">Looks good!</div>
+          <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
         </li>
       </ul>
       <input type="password" name="passwordConfirm">
@@ -293,7 +292,7 @@ test('SignUp', async () => {
       <ul>
         <li>
           <span style="">key="2.0" type="error"</span>
-          <div data-feedback="2.0" class="error" style="display: inline;">Not the same password</div>
+          <span data-feedback="2.0" class="error" style="display: inline;">Not the same password</span>
         </li>
         <li>
           <span style="text-decoration: line-through;">key="2.1" type="whenValid"</span>
@@ -331,13 +330,13 @@ describe('Async', () => {
             <ul>
               <li>
                 <span style="">key="0.3" type="info"</span>
-                <div data-feedback="0.3" class="info" style="display: inline;">Username 'jimmy' available</div>
+                <span data-feedback="0.3" class="info" style="display: inline;">Username 'jimmy' available</span>
               </li>
             </ul>
           </li>
           <li>
             <span style="text-decoration: line-through;">key="0.2" type="whenValid"</span>
-            <div data-feedback="0.2" class="valid">Looks good!</div>
+            <span data-feedback="0.2" class="when-valid" style="display: block;">Looks good!</span>
           </li>
         </ul>
         <input type="password" name="password">
@@ -354,19 +353,19 @@ describe('Async', () => {
           </li>
           <li>
             <span style="">key="1.3" type="warning"</span>
-            <div data-feedback="1.3" class="warning" style="display: inline;">Should contain small letters</div>
+            <span data-feedback="1.3" class="warning" style="display: inline;">Should contain small letters</span>
           </li>
           <li>
             <span style="">key="1.4" type="warning"</span>
-            <div data-feedback="1.4" class="warning" style="display: inline;">Should contain capital letters</div>
+            <span data-feedback="1.4" class="warning" style="display: inline;">Should contain capital letters</span>
           </li>
           <li>
             <span style="">key="1.5" type="warning"</span>
-            <div data-feedback="1.5" class="warning" style="display: inline;">Should contain special characters</div>
+            <span data-feedback="1.5" class="warning" style="display: inline;">Should contain special characters</span>
           </li>
           <li>
             <span style="text-decoration: line-through;">key="1.6" type="whenValid"</span>
-            <div data-feedback="1.6" class="valid">Looks good!</div>
+            <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
           </li>
         </ul>
         <input type="password" name="passwordConfirm">
@@ -377,7 +376,7 @@ describe('Async', () => {
           </li>
           <li>
             <span style="text-decoration: line-through;">key="2.1" type="whenValid"</span>
-            <div data-feedback="2.1" class="valid">Looks good!</div>
+            <span data-feedback="2.1" class="when-valid" style="display: block;">Looks good!</span>
           </li>
         </ul>
       </form>`
@@ -411,7 +410,7 @@ describe('Async', () => {
             <ul>
               <li>
                 <span style="">key="0.3" type="error"</span>
-                <div data-feedback="0.3" class="error" style="display: inline;">Something wrong with username 'error'</div>
+                <span data-feedback="0.3" class="error" style="display: inline;">Something wrong with username 'error'</span>
               </li>
             </ul>
           </li>
@@ -433,19 +432,19 @@ describe('Async', () => {
           </li>
           <li>
             <span style="">key="1.3" type="warning"</span>
-            <div data-feedback="1.3" class="warning" style="display: inline;">Should contain small letters</div>
+            <span data-feedback="1.3" class="warning" style="display: inline;">Should contain small letters</span>
           </li>
           <li>
             <span style="">key="1.4" type="warning"</span>
-            <div data-feedback="1.4" class="warning" style="display: inline;">Should contain capital letters</div>
+            <span data-feedback="1.4" class="warning" style="display: inline;">Should contain capital letters</span>
           </li>
           <li>
             <span style="">key="1.5" type="warning"</span>
-            <div data-feedback="1.5" class="warning" style="display: inline;">Should contain special characters</div>
+            <span data-feedback="1.5" class="warning" style="display: inline;">Should contain special characters</span>
           </li>
           <li>
             <span style="text-decoration: line-through;">key="1.6" type="whenValid"</span>
-            <div data-feedback="1.6" class="valid">Looks good!</div>
+            <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
           </li>
         </ul>
         <input type="password" name="passwordConfirm">
@@ -453,7 +452,7 @@ describe('Async', () => {
         <ul>
           <li>
             <span style="">key="2.0" type="error"</span>
-            <div data-feedback="2.0" class="error" style="display: inline;">Not the same password</div>
+            <span data-feedback="2.0" class="error" style="display: inline;">Not the same password</span>
           </li>
           <li>
             <span style="text-decoration: line-through;">key="2.1" type="whenValid"</span>

@@ -3,7 +3,6 @@ import { mount as _mount } from 'enzyme';
 
 import { FormWithConstraints, FormWithConstraintsProps, FieldFeedbacksProps, FieldFeedback, Async } from './index';
 import { SignUp } from './SignUp';
-import new_FormWithConstraints from './FormWithConstraintsEnzymeFix';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 import sleep from './sleep';
 import beautifyHtml from './beautifyHtml';
@@ -13,12 +12,12 @@ function mount(node: React.ReactElement<FormWithConstraintsProps>) {
 }
 
 test('constructor()', () => {
-  const form = new_FormWithConstraints({});
+  const form = new FormWithConstraints({});
   expect(form.fieldsStore.fields).toEqual([]);
 });
 
 test('computeFieldFeedbacksKey()', () => {
-  const form = new_FormWithConstraints({});
+  const form = new FormWithConstraints({});
   expect(form.computeFieldFeedbacksKey()).toEqual('0');
   expect(form.computeFieldFeedbacksKey()).toEqual('1');
   expect(form.computeFieldFeedbacksKey()).toEqual('2');
@@ -62,9 +61,9 @@ describe('FormWithBeforeAsync', () => {
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Error before Async</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Error before Async</span>
+        </span>
       </form>`
     );
 
@@ -80,9 +79,9 @@ describe('FormWithBeforeAsync', () => {
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Error before Async</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Error before Async</span>
+        </span>
       </form>`
     );
 
@@ -98,10 +97,10 @@ describe('FormWithBeforeAsync', () => {
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Error before Async</div>
-          <div data-feedback="0.1" class="warning">Warning before Async</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Error before Async</span>
+          <span data-feedback="0.1" class="warning" style="display: block;">Warning before Async</span>
+        </span>
       </form>`
     );
 
@@ -117,11 +116,11 @@ describe('FormWithBeforeAsync', () => {
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Error before Async</div>
-          <div data-feedback="0.1" class="warning">Warning before Async</div>
-          <div data-feedback="0.2" class="info">Info before Async</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Error before Async</span>
+          <span data-feedback="0.1" class="warning" style="display: block;">Warning before Async</span>
+          <span data-feedback="0.2" class="info" style="display: block;">Info before Async</span>
+        </span>
       </form>`
     );
 
@@ -137,12 +136,12 @@ describe('FormWithBeforeAsync', () => {
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Error before Async</div>
-          <div data-feedback="0.1" class="warning">Warning before Async</div>
-          <div data-feedback="0.2" class="info">Info before Async</div>
-          <div data-feedback="0.3" class="error">Async error</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Error before Async</span>
+          <span data-feedback="0.1" class="warning" style="display: block;">Warning before Async</span>
+          <span data-feedback="0.2" class="info" style="display: block;">Info before Async</span>
+          <span data-feedback="0.3" class="error" style="display: block;">Async error</span>
+        </span>
       </form>`
     );
 
@@ -184,9 +183,9 @@ describe('FormWithAfterAsync', () => {
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.3" class="error">Async error</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.3" class="error" style="display: block;">Async error</span>
+        </span>
       </form>`
     );
 
@@ -202,9 +201,9 @@ describe('FormWithAfterAsync', () => {
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.3" class="error">Async error</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.3" class="error" style="display: block;">Async error</span>
+        </span>
       </form>`
     );
 
@@ -220,11 +219,11 @@ describe('FormWithAfterAsync', () => {
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.3" class="error">Async error</div>
-          <div data-feedback="0.0" class="error">Error after Async</div>
-          <div data-feedback="0.1" class="warning">Warning after Async</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.3" class="error" style="display: block;">Async error</span>
+          <span data-feedback="0.0" class="error" style="display: block;">Error after Async</span>
+          <span data-feedback="0.1" class="warning" style="display: block;">Warning after Async</span>
+        </span>
       </form>`
     );
 
@@ -240,12 +239,12 @@ describe('FormWithAfterAsync', () => {
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.3" class="error">Async error</div>
-          <div data-feedback="0.0" class="error">Error after Async</div>
-          <div data-feedback="0.1" class="warning">Warning after Async</div>
-          <div data-feedback="0.2" class="info">Info after Async</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.3" class="error" style="display: block;">Async error</span>
+          <span data-feedback="0.0" class="error" style="display: block;">Error after Async</span>
+          <span data-feedback="0.1" class="warning" style="display: block;">Warning after Async</span>
+          <span data-feedback="0.2" class="info" style="display: block;">Info after Async</span>
+        </span>
       </form>`
     );
 
@@ -261,12 +260,12 @@ describe('FormWithAfterAsync', () => {
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.3" class="error">Async error</div>
-          <div data-feedback="0.0" class="error">Error after Async</div>
-          <div data-feedback="0.1" class="warning">Warning after Async</div>
-          <div data-feedback="0.2" class="info">Info after Async</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.3" class="error" style="display: block;">Async error</span>
+          <span data-feedback="0.0" class="error" style="display: block;">Error after Async</span>
+          <span data-feedback="0.1" class="warning" style="display: block;">Warning after Async</span>
+          <span data-feedback="0.2" class="info" style="display: block;">Info after Async</span>
+        </span>
       </form>`
     );
 
@@ -315,20 +314,20 @@ describe('FormWithMultipleNestedFieldFeedbacks - test FieldFeedbacks.validate() 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedbacks="0.0">
-            <div data-feedback="0.0.0" class="error">Error 1</div>
-            <div data-feedback="0.0.1" class="warning">Warning 1</div>
-            <div data-feedback="0.0.2" class="info">Info 1</div>
-          </div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedbacks="1.0">
-            <div data-feedback="1.0.0" class="error">Error 2</div>
-            <div data-feedback="1.0.1" class="warning">Warning 2</div>
-            <div data-feedback="1.0.2" class="info">Info 2</div>
-          </div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedbacks="0.0">
+            <span data-feedback="0.0.0" class="error" style="display: block;">Error 1</span>
+            <span data-feedback="0.0.1" class="warning" style="display: block;">Warning 1</span>
+            <span data-feedback="0.0.2" class="info" style="display: block;">Info 1</span>
+          </span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedbacks="1.0">
+            <span data-feedback="1.0.0" class="error" style="display: block;">Error 2</span>
+            <span data-feedback="1.0.1" class="warning" style="display: block;">Warning 2</span>
+            <span data-feedback="1.0.2" class="info" style="display: block;">Info 2</span>
+          </span>
+        </span>
       </form>`
     );
 
@@ -344,20 +343,20 @@ describe('FormWithMultipleNestedFieldFeedbacks - test FieldFeedbacks.validate() 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedbacks="0.0">
-            <div data-feedback="0.0.0" class="error">Error 1</div>
-            <div data-feedback="0.0.1" class="warning">Warning 1</div>
-            <div data-feedback="0.0.2" class="info">Info 1</div>
-          </div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedbacks="1.0">
-            <div data-feedback="1.0.0" class="error">Error 2</div>
-            <div data-feedback="1.0.1" class="warning">Warning 2</div>
-            <div data-feedback="1.0.2" class="info">Info 2</div>
-          </div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedbacks="0.0">
+            <span data-feedback="0.0.0" class="error" style="display: block;">Error 1</span>
+            <span data-feedback="0.0.1" class="warning" style="display: block;">Warning 1</span>
+            <span data-feedback="0.0.2" class="info" style="display: block;">Info 1</span>
+          </span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedbacks="1.0">
+            <span data-feedback="1.0.0" class="error" style="display: block;">Error 2</span>
+            <span data-feedback="1.0.1" class="warning" style="display: block;">Warning 2</span>
+            <span data-feedback="1.0.2" class="info" style="display: block;">Info 2</span>
+          </span>
+        </span>
       </form>`
     );
 
@@ -373,20 +372,20 @@ describe('FormWithMultipleNestedFieldFeedbacks - test FieldFeedbacks.validate() 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedbacks="0.0">
-            <div data-feedback="0.0.0" class="error">Error 1</div>
-            <div data-feedback="0.0.1" class="warning">Warning 1</div>
-            <div data-feedback="0.0.2" class="info">Info 1</div>
-          </div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedbacks="1.0">
-            <div data-feedback="1.0.0" class="error">Error 2</div>
-            <div data-feedback="1.0.1" class="warning">Warning 2</div>
-            <div data-feedback="1.0.2" class="info">Info 2</div>
-          </div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedbacks="0.0">
+            <span data-feedback="0.0.0" class="error" style="display: block;">Error 1</span>
+            <span data-feedback="0.0.1" class="warning" style="display: block;">Warning 1</span>
+            <span data-feedback="0.0.2" class="info" style="display: block;">Info 1</span>
+          </span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedbacks="1.0">
+            <span data-feedback="1.0.0" class="error" style="display: block;">Error 2</span>
+            <span data-feedback="1.0.1" class="warning" style="display: block;">Warning 2</span>
+            <span data-feedback="1.0.2" class="info" style="display: block;">Info 2</span>
+          </span>
+        </span>
       </form>`
     );
 
@@ -402,20 +401,20 @@ describe('FormWithMultipleNestedFieldFeedbacks - test FieldFeedbacks.validate() 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedbacks="0.0">
-            <div data-feedback="0.0.0" class="error">Error 1</div>
-            <div data-feedback="0.0.1" class="warning">Warning 1</div>
-            <div data-feedback="0.0.2" class="info">Info 1</div>
-          </div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedbacks="1.0">
-            <div data-feedback="1.0.0" class="error">Error 2</div>
-            <div data-feedback="1.0.1" class="warning">Warning 2</div>
-            <div data-feedback="1.0.2" class="info">Info 2</div>
-          </div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedbacks="0.0">
+            <span data-feedback="0.0.0" class="error" style="display: block;">Error 1</span>
+            <span data-feedback="0.0.1" class="warning" style="display: block;">Warning 1</span>
+            <span data-feedback="0.0.2" class="info" style="display: block;">Info 1</span>
+          </span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedbacks="1.0">
+            <span data-feedback="1.0.0" class="error" style="display: block;">Error 2</span>
+            <span data-feedback="1.0.1" class="warning" style="display: block;">Warning 2</span>
+            <span data-feedback="1.0.2" class="info" style="display: block;">Info 2</span>
+          </span>
+        </span>
       </form>`
     );
 
@@ -431,20 +430,20 @@ describe('FormWithMultipleNestedFieldFeedbacks - test FieldFeedbacks.validate() 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedbacks="0.0">
-            <div data-feedback="0.0.0" class="error">Error 1</div>
-            <div data-feedback="0.0.1" class="warning">Warning 1</div>
-            <div data-feedback="0.0.2" class="info">Info 1</div>
-          </div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedbacks="1.0">
-            <div data-feedback="1.0.0" class="error">Error 2</div>
-            <div data-feedback="1.0.1" class="warning">Warning 2</div>
-            <div data-feedback="1.0.2" class="info">Info 2</div>
-          </div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedbacks="0.0">
+            <span data-feedback="0.0.0" class="error" style="display: block;">Error 1</span>
+            <span data-feedback="0.0.1" class="warning" style="display: block;">Warning 1</span>
+            <span data-feedback="0.0.2" class="info" style="display: block;">Info 1</span>
+          </span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedbacks="1.0">
+            <span data-feedback="1.0.0" class="error" style="display: block;">Error 2</span>
+            <span data-feedback="1.0.1" class="warning" style="display: block;">Warning 2</span>
+            <span data-feedback="1.0.2" class="info" style="display: block;">Info 2</span>
+          </span>
+        </span>
       </form>`
     );
 
@@ -489,12 +488,12 @@ describe('FormWithMultipleNestedAsync - test Async.validate() has*(fieldFeedback
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Async1 error</div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedback="1.0" class="error">Async2 error</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Async1 error</span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedback="1.0" class="error" style="display: block;">Async2 error</span>
+        </span>
       </form>`
     );
 
@@ -510,12 +509,12 @@ describe('FormWithMultipleNestedAsync - test Async.validate() has*(fieldFeedback
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Async1 error</div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedback="1.0" class="error">Async2 error</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Async1 error</span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedback="1.0" class="error" style="display: block;">Async2 error</span>
+        </span>
       </form>`
     );
 
@@ -531,14 +530,14 @@ describe('FormWithMultipleNestedAsync - test Async.validate() has*(fieldFeedback
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Async1 error</div>
-          <div data-feedback="0.1" class="warning">Async1 warning</div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedback="1.0" class="error">Async2 error</div>
-          <div data-feedback="1.1" class="warning">Async2 warning</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Async1 error</span>
+          <span data-feedback="0.1" class="warning" style="display: block;">Async1 warning</span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedback="1.0" class="error" style="display: block;">Async2 error</span>
+          <span data-feedback="1.1" class="warning" style="display: block;">Async2 warning</span>
+        </span>
       </form>`
     );
 
@@ -554,16 +553,16 @@ describe('FormWithMultipleNestedAsync - test Async.validate() has*(fieldFeedback
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Async1 error</div>
-          <div data-feedback="0.1" class="warning">Async1 warning</div>
-          <div data-feedback="0.2" class="info">Async1 info</div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedback="1.0" class="error">Async2 error</div>
-          <div data-feedback="1.1" class="warning">Async2 warning</div>
-          <div data-feedback="1.2" class="info">Async2 info</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Async1 error</span>
+          <span data-feedback="0.1" class="warning" style="display: block;">Async1 warning</span>
+          <span data-feedback="0.2" class="info" style="display: block;">Async1 info</span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedback="1.0" class="error" style="display: block;">Async2 error</span>
+          <span data-feedback="1.1" class="warning" style="display: block;">Async2 warning</span>
+          <span data-feedback="1.2" class="info" style="display: block;">Async2 info</span>
+        </span>
       </form>`
     );
 
@@ -579,16 +578,16 @@ describe('FormWithMultipleNestedAsync - test Async.validate() has*(fieldFeedback
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Async1 error</div>
-          <div data-feedback="0.1" class="warning">Async1 warning</div>
-          <div data-feedback="0.2" class="info">Async1 info</div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedback="1.0" class="error">Async2 error</div>
-          <div data-feedback="1.1" class="warning">Async2 warning</div>
-          <div data-feedback="1.2" class="info">Async2 info</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Async1 error</span>
+          <span data-feedback="0.1" class="warning" style="display: block;">Async1 warning</span>
+          <span data-feedback="0.2" class="info" style="display: block;">Async1 info</span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedback="1.0" class="error" style="display: block;">Async2 error</span>
+          <span data-feedback="1.1" class="warning" style="display: block;">Async2 warning</span>
+          <span data-feedback="1.2" class="info" style="display: block;">Async2 info</span>
+        </span>
       </form>`
     );
 
@@ -633,12 +632,12 @@ describe('FormWithMultipleNestedFieldFeedback - test FieldFeedback.validate() ha
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Error 1</div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedback="1.0" class="error">Error 2</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Error 1</span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedback="1.0" class="error" style="display: block;">Error 2</span>
+        </span>
       </form>`
     );
 
@@ -654,12 +653,12 @@ describe('FormWithMultipleNestedFieldFeedback - test FieldFeedback.validate() ha
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Error 1</div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedback="1.0" class="error">Error 2</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Error 1</span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedback="1.0" class="error" style="display: block;">Error 2</span>
+        </span>
       </form>`
     );
 
@@ -675,14 +674,14 @@ describe('FormWithMultipleNestedFieldFeedback - test FieldFeedback.validate() ha
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Error 1</div>
-          <div data-feedback="0.1" class="warning">Warning 1</div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedback="1.0" class="error">Error 2</div>
-          <div data-feedback="1.1" class="warning">Warning 2</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Error 1</span>
+          <span data-feedback="0.1" class="warning" style="display: block;">Warning 1</span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedback="1.0" class="error" style="display: block;">Error 2</span>
+          <span data-feedback="1.1" class="warning" style="display: block;">Warning 2</span>
+        </span>
       </form>`
     );
 
@@ -698,16 +697,16 @@ describe('FormWithMultipleNestedFieldFeedback - test FieldFeedback.validate() ha
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Error 1</div>
-          <div data-feedback="0.1" class="warning">Warning 1</div>
-          <div data-feedback="0.2" class="info">Info 1</div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedback="1.0" class="error">Error 2</div>
-          <div data-feedback="1.1" class="warning">Warning 2</div>
-          <div data-feedback="1.2" class="info">Info 2</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Error 1</span>
+          <span data-feedback="0.1" class="warning" style="display: block;">Warning 1</span>
+          <span data-feedback="0.2" class="info" style="display: block;">Info 1</span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedback="1.0" class="error" style="display: block;">Error 2</span>
+          <span data-feedback="1.1" class="warning" style="display: block;">Warning 2</span>
+          <span data-feedback="1.2" class="info" style="display: block;">Info 2</span>
+        </span>
       </form>`
     );
 
@@ -723,16 +722,16 @@ describe('FormWithMultipleNestedFieldFeedback - test FieldFeedback.validate() ha
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="input">
-        <div data-feedbacks="0">
-          <div data-feedback="0.0" class="error">Error 1</div>
-          <div data-feedback="0.1" class="warning">Warning 1</div>
-          <div data-feedback="0.2" class="info">Info 1</div>
-        </div>
-        <div data-feedbacks="1">
-          <div data-feedback="1.0" class="error">Error 2</div>
-          <div data-feedback="1.1" class="warning">Warning 2</div>
-          <div data-feedback="1.2" class="info">Info 2</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Error 1</span>
+          <span data-feedback="0.1" class="warning" style="display: block;">Warning 1</span>
+          <span data-feedback="0.2" class="info" style="display: block;">Info 1</span>
+        </span>
+        <span data-feedbacks="1">
+          <span data-feedback="1.0" class="error" style="display: block;">Error 2</span>
+          <span data-feedback="1.1" class="warning" style="display: block;">Warning 2</span>
+          <span data-feedback="1.2" class="info" style="display: block;">Info 2</span>
+        </span>
       </form>`
     );
 
@@ -792,20 +791,20 @@ describe('validate', () => {
       expect(beautifyHtml(wrapper.html(), '        ')).toEqual(`\
         <form>
           <input name="username">
-          <div data-feedbacks="0">
-            <div data-feedback="0.3" class="error">Username 'john' already taken, choose another</div>
-          </div>
+          <span data-feedbacks="0">
+            <span data-feedback="0.3" class="error" style="display: block;">Username 'john' already taken, choose another</span>
+          </span>
           <input type="password" name="password">
-          <div data-feedbacks="1">
-            <div data-feedback="1.3" class="warning">Should contain small letters</div>
-            <div data-feedback="1.4" class="warning">Should contain capital letters</div>
-            <div data-feedback="1.5" class="warning">Should contain special characters</div>
-            <div data-feedback="1.6" class="valid">Looks good!</div>
-          </div>
+          <span data-feedbacks="1">
+            <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
+            <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
+            <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
+            <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+          </span>
           <input type="password" name="passwordConfirm">
-          <div data-feedbacks="2">
-            <div data-feedback="2.0" class="error">Not the same password</div>
-          </div>
+          <span data-feedbacks="2">
+            <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
+          </span>
         </form>`
       );
 
@@ -1055,20 +1054,20 @@ describe('validate', () => {
       expect(beautifyHtml(wrapper.html(), '        ')).toEqual(`\
         <form>
           <input name="username">
-          <div data-feedbacks="0">
-            <div data-feedback="0.3" class="error">Username 'john' already taken, choose another</div>
-          </div>
+          <span data-feedbacks="0">
+            <span data-feedback="0.3" class="error" style="display: block;">Username 'john' already taken, choose another</span>
+          </span>
           <input type="password" name="password">
-          <div data-feedbacks="1">
-            <div data-feedback="1.3" class="warning">Should contain small letters</div>
-            <div data-feedback="1.4" class="warning">Should contain capital letters</div>
-            <div data-feedback="1.5" class="warning">Should contain special characters</div>
-            <div data-feedback="1.6" class="valid">Looks good!</div>
-          </div>
+          <span data-feedbacks="1">
+            <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
+            <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
+            <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
+            <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+          </span>
           <input type="password" name="passwordConfirm">
-          <div data-feedbacks="2">
-            <div data-feedback="2.0" class="error">Not the same password</div>
-          </div>
+          <span data-feedbacks="2">
+            <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
+          </span>
         </form>`
       );
 
@@ -1318,21 +1317,21 @@ describe('Async', () => {
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username">
-        <div data-feedbacks="0">
-          <div data-feedback="0.3" class="info">Username 'jimmy' available</div>
-          <div data-feedback="0.2" class="valid">Looks good!</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.3" class="info" style="display: block;">Username 'jimmy' available</span>
+          <span data-feedback="0.2" class="when-valid" style="display: block;">Looks good!</span>
+        </span>
         <input type="password" name="password">
-        <div data-feedbacks="1">
-          <div data-feedback="1.3" class="warning">Should contain small letters</div>
-          <div data-feedback="1.4" class="warning">Should contain capital letters</div>
-          <div data-feedback="1.5" class="warning">Should contain special characters</div>
-          <div data-feedback="1.6" class="valid">Looks good!</div>
-        </div>
+        <span data-feedbacks="1">
+          <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
+          <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
+          <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
+          <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+        </span>
         <input type="password" name="passwordConfirm">
-        <div data-feedbacks="2">
-          <div data-feedback="2.1" class="valid">Looks good!</div>
-        </div>
+        <span data-feedbacks="2">
+          <span data-feedback="2.1" class="when-valid" style="display: block;">Looks good!</span>
+        </span>
       </form>`
     );
 
@@ -1389,20 +1388,20 @@ describe('Async', () => {
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username">
-        <div data-feedbacks="0">
-          <div data-feedback="0.3" class="error">Something wrong with username 'error'</div>
-        </div>
+        <span data-feedbacks="0">
+          <span data-feedback="0.3" class="error" style="display: block;">Something wrong with username 'error'</span>
+        </span>
         <input type="password" name="password">
-        <div data-feedbacks="1">
-          <div data-feedback="1.3" class="warning">Should contain small letters</div>
-          <div data-feedback="1.4" class="warning">Should contain capital letters</div>
-          <div data-feedback="1.5" class="warning">Should contain special characters</div>
-          <div data-feedback="1.6" class="valid">Looks good!</div>
-        </div>
+        <span data-feedbacks="1">
+          <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
+          <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
+          <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
+          <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+        </span>
         <input type="password" name="passwordConfirm">
-        <div data-feedbacks="2">
-          <div data-feedback="2.0" class="error">Not the same password</div>
-        </div>
+        <span data-feedbacks="2">
+          <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
+        </span>
       </form>`
     );
 
@@ -1446,20 +1445,20 @@ test('reset()', async () => {
   expect(beautifyHtml(wrapper.html(), '    ')).toEqual(`\
     <form>
       <input name="username">
-      <div data-feedbacks="0">
-        <div data-feedback="0.3" class="error">Username 'john' already taken, choose another</div>
-      </div>
+      <span data-feedbacks="0">
+        <span data-feedback="0.3" class="error" style="display: block;">Username 'john' already taken, choose another</span>
+      </span>
       <input type="password" name="password">
-      <div data-feedbacks="1">
-        <div data-feedback="1.3" class="warning">Should contain small letters</div>
-        <div data-feedback="1.4" class="warning">Should contain capital letters</div>
-        <div data-feedback="1.5" class="warning">Should contain special characters</div>
-        <div data-feedback="1.6" class="valid">Looks good!</div>
-      </div>
+      <span data-feedbacks="1">
+        <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
+        <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
+        <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
+        <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+      </span>
       <input type="password" name="passwordConfirm">
-      <div data-feedbacks="2">
-        <div data-feedback="2.0" class="error">Not the same password</div>
-      </div>
+      <span data-feedbacks="2">
+        <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
+      </span>
     </form>`
   );
 
@@ -1468,11 +1467,11 @@ test('reset()', async () => {
   expect(beautifyHtml(wrapper.html(), '    ')).toEqual(`\
     <form>
       <input name="username">
-      <div data-feedbacks="0"></div>
+      <span data-feedbacks="0"></span>
       <input type="password" name="password">
-      <div data-feedbacks="1"></div>
+      <span data-feedbacks="1"></span>
       <input type="password" name="passwordConfirm">
-      <div data-feedbacks="2"></div>
+      <span data-feedbacks="2"></span>
     </form>`
   );
 
@@ -1485,21 +1484,21 @@ test('reset()', async () => {
   expect(beautifyHtml(wrapper.html(), '    ')).toEqual(`\
     <form>
       <input name="username">
-      <div data-feedbacks="0">
-        <div data-feedback="0.4" class="info">Username 'jimmy' available</div>
-        <div data-feedback="0.2" class="valid">Looks good!</div>
-      </div>
+      <span data-feedbacks="0">
+        <span data-feedback="0.4" class="info" style="display: block;">Username 'jimmy' available</span>
+        <span data-feedback="0.2" class="when-valid" style="display: block;">Looks good!</span>
+      </span>
       <input type="password" name="password">
-      <div data-feedbacks="1">
-        <div data-feedback="1.3" class="warning">Should contain small letters</div>
-        <div data-feedback="1.4" class="warning">Should contain capital letters</div>
-        <div data-feedback="1.5" class="warning">Should contain special characters</div>
-        <div data-feedback="1.6" class="valid">Looks good!</div>
-      </div>
+      <span data-feedbacks="1">
+        <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
+        <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
+        <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
+        <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+      </span>
       <input type="password" name="passwordConfirm">
-      <div data-feedbacks="2">
-        <div data-feedback="2.1" class="valid">Looks good!</div>
-      </div>
+      <span data-feedbacks="2">
+        <span data-feedback="2.1" class="when-valid" style="display: block;">Looks good!</span>
+      </span>
     </form>`
   );
 

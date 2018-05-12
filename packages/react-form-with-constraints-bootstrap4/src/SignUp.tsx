@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormWithConstraints, FieldFeedback, Async, FormInput } from './index';
+import { FormWithConstraints, FieldFeedback, Async, Input } from './index';
 import checkUsernameAvailability from '../../react-form-with-constraints/src/checkUsernameAvailability';
 import FieldFeedbacks from '../../react-form-with-constraints/src/FieldFeedbacksEnzymeFix';
 
@@ -16,7 +16,7 @@ export class SignUp extends React.Component<SignUpProps> {
   render() {
     return (
       <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}>
-        <FormInput name="username" innerRef={username => this.username = username} className="form-control" />
+        <Input name="username" innerRef={username => this.username = username} className="form-control" />
         <FieldFeedbacks for="username">
           <FieldFeedback when={value => value.length === 0}>Cannot be empty</FieldFeedback>
           <FieldFeedback when={value => value.length < 3}>Should be at least 3 characters long</FieldFeedback>
@@ -32,7 +32,7 @@ export class SignUp extends React.Component<SignUpProps> {
           <FieldFeedback when="valid">Looks good!</FieldFeedback>
         </FieldFeedbacks>
 
-        <FormInput type="password" name="password" innerRef={password => this.password = password} className="form-control" />
+        <Input type="password" name="password" innerRef={password => this.password = password} className="form-control" />
         <FieldFeedbacks for="password">
           <FieldFeedback when={value => value.length === 0}>Cannot be empty</FieldFeedback>
           <FieldFeedback when={value => value.length < 5}>Should be at least 5 characters long</FieldFeedback>
@@ -43,7 +43,7 @@ export class SignUp extends React.Component<SignUpProps> {
           <FieldFeedback when="valid">Looks good!</FieldFeedback>
         </FieldFeedbacks>
 
-        <FormInput type="password" name="passwordConfirm" innerRef={passwordConfirm => this.passwordConfirm = passwordConfirm} />
+        <Input type="password" name="passwordConfirm" innerRef={passwordConfirm => this.passwordConfirm = passwordConfirm} />
         <FieldFeedbacks for="passwordConfirm">
           <FieldFeedback when={value => value !== this.password!.value}>Not the same password</FieldFeedback>
           <FieldFeedback when="valid">Looks good!</FieldFeedback>

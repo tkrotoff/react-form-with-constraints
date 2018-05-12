@@ -3,7 +3,6 @@ import { shallow as _shallow, mount as _mount } from 'enzyme';
 
 import { FormWithConstraints, Field, FieldFeedback, FieldFeedbackContext, FieldFeedbackProps, ValidateFieldEvent } from './index';
 import { InputElementMock, input_username_valueMissing, input_username_valid } from './InputElementMock';
-import new_FormWithConstraints from './FormWithConstraintsEnzymeFix';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 
 function shallow(node: React.ReactElement<FieldFeedbackProps>, options: {context: FieldFeedbackContext}) {
@@ -17,7 +16,7 @@ let form_username: FormWithConstraints;
 let fieldFeedbacks_username: FieldFeedbacks;
 
 beforeEach(() => {
-  form_username = new_FormWithConstraints({});
+  form_username = new FormWithConstraints({});
 
   fieldFeedbacks_username = new FieldFeedbacks({for: 'username', stop: 'no'}, {form: form_username});
   fieldFeedbacks_username.componentWillMount(); // Needed because of fieldsStore.addField() inside componentWillMount()
@@ -310,7 +309,9 @@ describe('validate()', () => {
       {key: '0.0', type: 'error', show: true}
     ]);
 
-    expect(wrapper.html()).toEqual('<div data-feedback="0.0" class="error">Suffering from being missing</div>');
+    expect(wrapper.html()).toEqual(
+      '<span data-feedback="0.0" class="error" style="display: block;">Suffering from being missing</span>'
+    );
   });
 
   test('warning prop', async () => {
@@ -349,7 +350,9 @@ describe('render()', () => {
     expect(validations).toEqual([
       {key: '0.0', type: 'error', show: true}
     ]);
-    expect(wrapper.html()).toEqual('<div data-feedback="0.0" class="error">Cannot be empty</div>');
+    expect(wrapper.html()).toEqual(
+      '<span data-feedback="0.0" class="error" style="display: block;">Cannot be empty</span>'
+    );
   });
 
   test('warning', async () => {
@@ -362,7 +365,9 @@ describe('render()', () => {
     expect(validations).toEqual([
       {key: '0.0', type: 'warning', show: true}
     ]);
-    expect(wrapper.html()).toEqual('<div data-feedback="0.0" class="warning">Cannot be empty</div>');
+    expect(wrapper.html()).toEqual(
+      '<span data-feedback="0.0" class="warning" style="display: block;">Cannot be empty</span>'
+    );
   });
 
   test('info', async () => {
@@ -375,7 +380,9 @@ describe('render()', () => {
     expect(validations).toEqual([
       {key: '0.0', type: 'info', show: true}
     ]);
-    expect(wrapper.html()).toEqual('<div data-feedback="0.0" class="info">Cannot be empty</div>');
+    expect(wrapper.html()).toEqual(
+      '<span data-feedback="0.0" class="info" style="display: block;">Cannot be empty</span>'
+    );
   });
 
   test('no error', async () => {
@@ -401,7 +408,9 @@ describe('render()', () => {
     expect(validations).toEqual([
       {key: '0.0', type: 'error', show: true}
     ]);
-    expect(wrapper.html()).toEqual('<div data-feedback="0.0" class="error">Suffering from being missing</div>');
+    expect(wrapper.html()).toEqual(
+      '<span data-feedback="0.0" class="error" style="display: block;">Suffering from being missing</span>'
+    );
   });
 
   test('with already existing class', async () => {
@@ -414,7 +423,9 @@ describe('render()', () => {
     expect(validations).toEqual([
       {key: '0.0', type: 'error', show: true}
     ]);
-    expect(wrapper.html()).toEqual('<div data-feedback="0.0" class="alreadyExistingClassName error">Cannot be empty</div>');
+    expect(wrapper.html()).toEqual(
+      '<span data-feedback="0.0" class="alreadyExistingClassName error" style="display: block;">Cannot be empty</span>'
+    );
   });
 
   test('with div props', async () => {
@@ -427,7 +438,9 @@ describe('render()', () => {
     expect(validations).toEqual([
       {key: '0.0', type: 'error', show: true}
     ]);
-    expect(wrapper.html()).toEqual('<div data-feedback="0.0" class="error" style="color: yellow;">Cannot be empty</div>');
+    expect(wrapper.html()).toEqual(
+      '<span data-feedback="0.0" class="error" style="display: block; color: yellow;">Cannot be empty</span>'
+    );
     expect(wrapper.props().style).toEqual({color: 'yellow'});
   });
 
@@ -439,6 +452,8 @@ describe('render()', () => {
 
     const noReturn = await form_username.emitFieldDidValidateEvent(new Field(fieldFeedbacks_username.fieldName));
     expect(noReturn).toEqual([undefined]);
-    expect(wrapper.html()).toEqual('<div data-feedback="0.0" class="valid">Looks good!</div>');
+    expect(wrapper.html()).toEqual(
+      '<span data-feedback="0.0" class="when-valid" style="display: block;">Looks good!</span>'
+    );
   });
 });

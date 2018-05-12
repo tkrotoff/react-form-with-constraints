@@ -1,0 +1,41 @@
+{
+  "name": "material-ui-example",
+  "version": "1.0.0",
+  "private": true,
+
+  "scripts": {
+    "clean": "del-cli build",
+
+    "tsc": "tsc",
+
+    "build": "cross-env NODE_ENV=development webpack -d",
+    "build:watch": "cross-env NODE_ENV=development webpack -d --watch"
+  },
+
+  "devDependencies": {
+    "typescript": "latest",
+
+    "react": "latest",
+    "@types/react": "latest",
+    "react-dom": "latest",
+    "@types/react-dom": "latest",
+
+    "material-ui": "next",
+
+    "react-form-with-constraints": "^0.8.0",
+    "react-form-with-constraints-material-ui": "^0.8.0",
+    "react-form-with-constraints-tools": "^0.8.0",
+
+    "ts-node": "latest",
+    "@types/node": "latest",
+
+    "webpack": "^3",
+    "@types/webpack": "latest",
+    "ts-loader": "^3",
+    "file-loader": "latest",
+    "source-map-loader": "latest",
+
+    "del-cli": "latest",
+    "cross-env": "latest"
+  }
+}

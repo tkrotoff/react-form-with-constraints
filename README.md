@@ -44,8 +44,10 @@ Resources:
 - No dependency beside React (no Redux, MobX...)
 - No special field component, just plain old `<input>` or whatever you like
 - Re-render only what's necessary
-- Support for [React Native](examples/ReactNative) with npm package `react-form-with-constraints-native`
 - Easily extendable
+- Support for [React Native](examples/ReactNative) with npm package `react-form-with-constraints-native`
+- [Bootstrap 4](examples/Bootstrap4) styling with npm package `react-form-with-constraints-bootstrap4`
+- [Material-UI](examples/MaterialUI) integration with npm package `react-form-with-constraints-material-ui`
 - ...
 
 ```JSX
@@ -76,6 +78,7 @@ Resources:
   ![example-password](doc/example-password.png)
 
 - CodeSandbox Bootstrap 4 example: https://codesandbox.io/s/qk0zro1qm4
+- CodeSandbox Material-UI example: https://codesandbox.io/s/zx62rw4k64
 - CodeSandbox WizardForm example: https://codesandbox.io/s/my0ojyzq6p
 - CodeSandbox SignUp example: https://codesandbox.io/s/62qwozvm0k
 - CodeSandbox ClubMembers example: https://codesandbox.io/s/q8364yn60j
@@ -257,14 +260,22 @@ class MyForm extends React.Component {
     ```TypeScript
     {
       name: string;
-      validations: {
+      validations: { // FieldFeedbackValidation[]
         key: number;
         type: 'error' | 'warning' | 'info' | 'whenValid';
         show: boolean | undefined;
-      }[]; // FieldFeedbackValidation[],
+      }[];
       isValid: () => boolean
     }
     ```
+
+- [`Input`](packages/react-form-with-constraints/src/Input.tsx)
+
+  If you want to style `<input>`, use `<Input>` instead: it will add classes `has-errors`, `has-warnings`, `has-infos` and/or `is-valid` on `<input>` when the field is validated.
+
+  Example: `<Input name="username" />` can generate `<input name="username" class="has-errors has-warnings">`
+
+  FYI `react-form-with-constraints-bootstrap4` and `react-form-with-constraints-material-ui` already style the fields to match their respective frameworks.
 
 ## Browser support
 

@@ -6,7 +6,6 @@ import {
   FieldWillValidateEvent, FieldDidValidateEvent, ResetEvent,
   FieldFeedbackWhenValid, FieldFeedbackWhenValidProps, FieldFeedbackWhenValidContext
 } from './index';
-import new_FormWithConstraints from './FormWithConstraintsEnzymeFix';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 
 function shallow(node: React.ReactElement<FieldFeedbackWhenValidProps>, options: {context: FieldFeedbackWhenValidContext}) {
@@ -17,7 +16,7 @@ let form_username: FormWithConstraints;
 let fieldFeedbacks_username: FieldFeedbacks;
 
 beforeEach(() => {
-  form_username = new_FormWithConstraints({});
+  form_username = new FormWithConstraints({});
   fieldFeedbacks_username = new FieldFeedbacks({for: 'username', stop: 'no'}, {form: form_username});
 });
 
@@ -113,7 +112,9 @@ test('render()', () => {
   expect(wrapper.html()).toEqual(null);
 
   wrapper.setState({fieldIsValid: true});
-  expect(wrapper.html()).toEqual('<div class="valid">Looks good!</div>');
+  expect(wrapper.html()).toEqual(
+    '<span style="display:block">Looks good!</span>'
+  );
 
   wrapper.setState({fieldIsValid: false});
   expect(wrapper.html()).toEqual(null);
@@ -124,7 +125,9 @@ test('render()', () => {
     {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
   );
   wrapper.setState({fieldIsValid: true});
-  expect(wrapper.html()).toEqual('<div class="hello valid">Looks good!</div>');
+  expect(wrapper.html()).toEqual(
+    '<span class="hello" style="display:block">Looks good!</span>'
+  );
 
   // With div props
   wrapper = shallow(
@@ -132,5 +135,7 @@ test('render()', () => {
     {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
   );
   wrapper.setState({fieldIsValid: true});
-  expect(wrapper.html()).toEqual('<div style="color:green" class="valid">Looks good!</div>');
+  expect(wrapper.html()).toEqual(
+    '<span style="display:block;color:green">Looks good!</span>'
+  );
 });

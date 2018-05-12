@@ -24,25 +24,6 @@ export interface FormWithConstraintsChildContext {
 }
 
 export interface FormWithConstraintsProps extends React.FormHTMLAttributes<HTMLFormElement> {
-  fieldFeedbackClassNames?: {
-    [index: string]: string;
-    error: string;
-    warning: string;
-    info: string;
-    valid: string;
-  };
-
-  // FIXME Should be moved inside native/Native.tsx
-  // I don't know how to implement this:
-  // See React/TypeScript: extending a component with additional properties https://stackoverflow.com/q/39123667
-  // and having mixins at the same time (with*(FooBar))
-  fieldFeedbackStyles?: {
-    [index: string]: object;
-    error: object,
-    warning: object,
-    info: object,
-    valid: object
-  };
 }
 
 export class FormWithConstraintsComponent extends React.Component<FormWithConstraintsProps> {}
@@ -64,15 +45,6 @@ export class FormWithConstraints
       )
     )
   implements React.ChildContextProvider<FormWithConstraintsChildContext> {
-
-  static defaultProps: FormWithConstraintsProps = {
-    fieldFeedbackClassNames: {
-      error: 'error',
-      warning: 'warning',
-      info: 'info',
-      valid: 'valid'
-    }
-  };
 
   static childContextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
     form: PropTypes.object.isRequired
@@ -202,7 +174,6 @@ export class FormWithConstraints
   }
 
   render() {
-    const { fieldFeedbackClassNames, ...otherProps } = this.props;
-    return <form ref={form => this.form = form} {...otherProps} />;
+    return <form ref={form => this.form = form} {...this.props} />;
   }
 }

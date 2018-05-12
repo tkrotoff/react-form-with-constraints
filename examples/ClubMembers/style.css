@@ -26,7 +26,7 @@ ul.list-none {
   font-size: 80%;
   color: #17a2b8; /* $info */
 }
-[data-feedback].valid {
+[data-feedback].when-valid {
   margin-top: .25rem;
   font-size: 80%;
   color: #28a745; /* $form-feedback-valid-color */

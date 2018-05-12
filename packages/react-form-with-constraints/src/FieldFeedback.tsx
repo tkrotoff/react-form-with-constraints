@@ -30,11 +30,24 @@ export type WhenString =
 export type WhenFn = (value: string) => boolean;
 export type When = WhenString | WhenFn;
 
-export interface FieldFeedbackProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface FieldFeedbackClasses {
+  classes?: {
+    [index: string]: string | undefined;
+    error?: string;
+    warning?: string;
+    info?: string;
+    whenValid?: string;
+  };
+}
+
+export interface FieldFeedbackBaseProps {
   when?: When;
   error?: boolean;
   warning?: boolean;
   info?: boolean;
+}
+
+export interface FieldFeedbackProps extends FieldFeedbackBaseProps, FieldFeedbackClasses, React.HTMLAttributes<HTMLSpanElement> {
 }
 
 export interface FieldFeedbackState {
@@ -48,9 +61,15 @@ export interface FieldFeedbackState {
 
 export type FieldFeedbackContext = FormWithConstraintsChildContext & FieldFeedbacksChildContext & Partial<AsyncChildContext>;
 
-export class FieldFeedback extends React.Component<FieldFeedbackProps, FieldFeedbackState> {
-  static defaultProps: Partial<FieldFeedbackProps> = {
-    when: () => true
+export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackProps> extends React.Component<Props, FieldFeedbackState> {
+  static defaultProps: FieldFeedbackProps = {
+    when: () => true,
+    classes: {
+      error: 'error',
+      warning: 'warning',
+      info: 'info',
+      whenValid: 'when-valid'
+    }
   };
 
   static contextTypes: React.ValidationMap<FieldFeedbackContext> = {
@@ -63,7 +82,7 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps, FieldFeed
   // Tested: there is no conflict with React key prop (https://reactjs.org/docs/lists-and-keys.html)
   readonly key: string; // '0.1', '1.0', '3.5'...
 
-  constructor(props: FieldFeedbackProps, context: FieldFeedbackContext) {
+  constructor(props: Props, context: FieldFeedbackContext) {
     super(props, context);
 
     this.key = context.fieldFeedbacks.addFieldFeedback();
@@ -186,19 +205,22 @@ export class FieldFeedback extends React.Component<FieldFeedbackProps, FieldFeed
 
   // Don't forget to update native/FieldFeedback.render()
   render() {
-    const { when, error, warning, info, className, children, ...divProps } = this.props;
+    const { when, error, warning, info, className, classes, style, children, ...otherProps } = this.props as FieldFeedbackProps;
     const { validation, validationMessage } = this.state;
+
+    const fieldFeedbackClassName = classes![validation.type]!;
+    const classNames = className !== undefined ? `${className} ${fieldFeedbackClassName}` : fieldFeedbackClassName;
 
     // Special case for when="valid": always displayed, then FieldFeedbackWhenValid decides what to do
     if (validation.type === FieldFeedbackType.WhenValid) {
-      return <FieldFeedbackWhenValid data-feedback={this.key} {...divProps}>{children}</FieldFeedbackWhenValid>;
+      return <FieldFeedbackWhenValid data-feedback={this.key} style={style} className={classNames} {...otherProps}>{children}</FieldFeedbackWhenValid>;
     }
 
     if (validation.show) {
-      const fieldFeedbackClassName = this.context.form.props.fieldFeedbackClassNames![validation.type];
-      const classNames = className !== undefined ? `${className} ${fieldFeedbackClassName}` : fieldFeedbackClassName;
       const feedback = children !== undefined ? children : validationMessage;
-      return <div data-feedback={this.key} className={classNames} {...divProps}>{feedback}</div>;
+
+      // <span style="display: block"> instead of <div> so FieldFeedback can be wrapped inside a <p>
+      return <span data-feedback={this.key} className={classNames} style={{display: 'block', ...style}} {...otherProps}>{feedback}</span>;
     }
 
     return null;

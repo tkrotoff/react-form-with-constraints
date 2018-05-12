@@ -19,6 +19,6 @@ form > div > label {
 [data-feedback].info {
   color: blue;
 }
-[data-feedback].valid {
+[data-feedback].when-valid {
   color: green;
 }

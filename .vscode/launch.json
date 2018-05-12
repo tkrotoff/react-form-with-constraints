@@ -44,6 +44,16 @@
       "cwd": "${workspaceRoot}/packages/react-form-with-constraints-tools",
       "runtimeArgs": ["--nolazy"],
       "env": {"NODE_ENV": "development"}
+    },
+    {
+      "name": "Jest react-form-with-constraints-material-ui",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/packages/react-form-with-constraints-material-ui/node_modules/.bin/jest",
+      "args": ["--runInBand", "--no-cache"],
+      "cwd": "${workspaceRoot}/packages/react-form-with-constraints-material-ui",
+      "runtimeArgs": ["--nolazy"],
+      "env": {"NODE_ENV": "development"}
     }
   ]
 }

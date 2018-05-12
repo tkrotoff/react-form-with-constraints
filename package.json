@@ -35,7 +35,8 @@
     "examples/PasswordNoState",
     "examples/ServerSideRendering",
     "examples/SignUp",
-    "examples/WizardForm"
+    "examples/WizardForm",
+    "examples/MaterialUI"
   ],
 
   "devDependencies": {

@@ -125,14 +125,11 @@ export class FieldFeedback extends _FieldFeedback {
   componentDidUpdate() {
     const el = ReactDOM.findDOMNode(this) as HTMLLIElement;
 
-    // Hack: make FieldFeedback div 'display: inline' because FieldFeedback is prefixed with a <span>
-    // and we want both on the same line.
+    // Hack: make FieldFeedback <span style="display: inline">
     // Also make Bootstrap 4 happy because it sets 'display: none', see https://github.com/twbs/bootstrap/blob/v4.0.0/scss/mixins/_forms.scss#L31
-    // => d'une pierre, deux coups :-)
-    const fieldFeedbackDivs = el.querySelectorAll<HTMLDivElement>('[data-feedback]');
-    //console.log('fieldFeedbackDivs=', fieldFeedbackDivs, '////', el);
-    for (const fieldFeedbackDiv of fieldFeedbackDivs) {
-      fieldFeedbackDiv.style.display = 'inline';
+    const fieldFeedbackSpans = el.querySelectorAll<HTMLSpanElement>('[data-feedback]');
+    for (const fieldFeedbackSpan of fieldFeedbackSpans) {
+      fieldFeedbackSpan.style.display = 'inline';
     }
 
     // Change Async parent style
@@ -146,7 +143,7 @@ export class FieldFeedback extends _FieldFeedback {
     const { type } = this.state.validation;
     if (type === FieldFeedbackType.WhenValid) {
       const span = el.querySelector<HTMLSpanElement>('span[style]');
-      const whenValid = el.querySelector<HTMLSpanElement>(`div.${this.context.form.props.fieldFeedbackClassNames!.valid}`);
+      const whenValid = el.querySelector<HTMLSpanElement>(`span.${this.props.classes!.valid}`);
       span!.style.textDecoration = whenValid !== null ? '' : 'line-through';
     }
   }

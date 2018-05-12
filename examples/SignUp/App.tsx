@@ -77,7 +77,7 @@ class SignUp extends React.Component<Props, State> {
   }
 
   private getInitialState() {
-    const state: State = {
+    const state = {
       language: this.props.i18n.language.substring(0, 2), // en-US => en, fr-FR => fr
       firstName: '',
       lastName: '',

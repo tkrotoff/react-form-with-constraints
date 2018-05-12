@@ -1,10 +1,10 @@
 import React from 'react';
 import { mount as _mount, shallow as _shallow } from 'enzyme';
 
-import { FormWithConstraintsChildContext, FieldFeedback, FieldFeedbacksProps, ValidateFieldEvent } from './index';
+import { FormWithConstraints, FormWithConstraintsChildContext, FieldFeedback, FieldFeedbacksProps, ValidateFieldEvent } from './index';
 import { input_username_valueMissing, input_unknown_valueMissing, input_username_valid } from './InputElementMock';
-import new_FormWithConstraints from './FormWithConstraintsEnzymeFix';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
+import beautifyHtml from './beautifyHtml';
 
 function shallow(node: React.ReactElement<FieldFeedbacksProps>, options: {context: FormWithConstraintsChildContext}) {
   return _shallow<FieldFeedbacksProps>(node, options);
@@ -17,7 +17,7 @@ describe('constructor()', () => {
   test('no error', () => {
     const wrapper = shallow(
       <FieldFeedbacks for="username" />,
-      {context: {form: new_FormWithConstraints({})}}
+      {context: {form: new FormWithConstraints({})}}
     );
     const fieldFeedbacks = wrapper.instance() as FieldFeedbacks;
     expect(fieldFeedbacks.key).toEqual('0');
@@ -33,7 +33,7 @@ describe('constructor()', () => {
         <FieldFeedbacks for="username">
           <FieldFeedbacks for="username" />
         </FieldFeedbacks>,
-        {context: {form: new_FormWithConstraints({})}}
+        {context: {form: new FormWithConstraints({})}}
       )
     ).toThrow("FieldFeedbacks cannot have a parent and a 'for' prop");
     */
@@ -43,7 +43,7 @@ describe('constructor()', () => {
     expect(() =>
       shallow(
         <FieldFeedbacks />,
-        {context: {form: new_FormWithConstraints({})}}
+        {context: {form: new FormWithConstraints({})}}
       )
     ).toThrow("FieldFeedbacks cannot be without parent and without 'for' prop");
   });
@@ -52,7 +52,7 @@ describe('constructor()', () => {
 test('computeFieldFeedbackKey()', () => {
   const wrapper = shallow(
     <FieldFeedbacks for="username" />,
-    {context: {form: new_FormWithConstraints({})}}
+    {context: {form: new FormWithConstraints({})}}
   );
   const fieldFeedbacks = wrapper.instance() as FieldFeedbacks;
   expect(fieldFeedbacks.computeFieldFeedbackKey()).toEqual('0.0');
@@ -70,7 +70,7 @@ test('computeFieldFeedbackKey()', () => {
 
 describe('componentWillMount()', () => {
   test('initialize FieldsStore', () => {
-    const form = new_FormWithConstraints({});
+    const form = new FormWithConstraints({});
     expect(form.fieldsStore.fields).toEqual([]);
 
     const wrapper = shallow(
@@ -86,7 +86,7 @@ describe('componentWillMount()', () => {
   });
 
   test('componentWillUnmount()', () => {
-    const form = new_FormWithConstraints({});
+    const form = new FormWithConstraints({});
     const addValidateFieldEventListenerSpy = jest.spyOn(form, 'addValidateFieldEventListener');
     const removeValidateFieldEventListenerSpy = jest.spyOn(form, 'removeValidateFieldEventListener');
 
@@ -107,7 +107,7 @@ describe('componentWillMount()', () => {
 
 describe('validate()', () => {
   test('known input name', async () => {
-    const form = new_FormWithConstraints({});
+    const form = new FormWithConstraints({});
     const wrapper = shallow(
       <FieldFeedbacks for="username">
         <FieldFeedback when="*" />
@@ -129,7 +129,7 @@ describe('validate()', () => {
   });
 
   test('known input name - mount', async () => {
-    const form = new_FormWithConstraints({});
+    const form = new FormWithConstraints({});
     mount(
       <FieldFeedbacks for="username">
         <FieldFeedback when="*" />
@@ -150,7 +150,7 @@ describe('validate()', () => {
   });
 
   test('unknown input name - emitValidateFieldEvent', async () => {
-    const form = new_FormWithConstraints({});
+    const form = new FormWithConstraints({});
     const wrapper = shallow(
       <FieldFeedbacks for="username">
         <FieldFeedback when="*" />
@@ -171,7 +171,7 @@ describe('validate()', () => {
   });
 
   test('unknown input name - mount', async () => {
-    const form = new_FormWithConstraints({});
+    const form = new FormWithConstraints({});
     mount(
       <FieldFeedbacks for="username">
         <FieldFeedback when="*" />
@@ -189,19 +189,19 @@ describe('validate()', () => {
 
 describe('render()', () => {
   test('without children', () => {
-    const form = new_FormWithConstraints({});
+    const form = new FormWithConstraints({});
     const wrapper = mount(
       <FieldFeedbacks for="username" />,
       {context: {form}}
     );
 
     expect(wrapper.html()).toEqual(
-      '<div data-feedbacks="0"></div>'
+      '<span data-feedbacks="0"></span>'
     );
   });
 
   test('children', async () => {
-    const form = new_FormWithConstraints({});
+    const form = new FormWithConstraints({});
     const wrapper = mount(
       <FieldFeedbacks for="username">
         <FieldFeedback when="*" />
@@ -218,13 +218,15 @@ describe('render()', () => {
       }
     ]);
 
-    expect(wrapper.html()).toEqual(
-      '<div data-feedbacks="0"><div data-feedback="0.0" class="error">Suffering from being missing</div></div>'
+    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+      <span data-feedbacks="0">
+        <span data-feedback="0.0" class="error" style="display: block;">Suffering from being missing</span>
+      </span>`
     );
   });
 
   test('children with <div> inside hierarchy', async () => {
-    const form = new_FormWithConstraints({});
+    const form = new FormWithConstraints({});
     const wrapper = mount(
       <FieldFeedbacks for="username">
         <div>
@@ -243,13 +245,17 @@ describe('render()', () => {
       }
     ]);
 
-    expect(wrapper.html()).toEqual(
-      '<div data-feedbacks="0"><div><div data-feedback="0.0" class="error">Suffering from being missing</div></div></div>'
+    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+      <span data-feedbacks="0">
+        <div>
+          <span data-feedback="0.0" class="error" style="display: block;">Suffering from being missing</span>
+        </div>
+      </span>`
     );
   });
 
   test('unknown input name', async () => {
-    const form = new_FormWithConstraints({});
+    const form = new FormWithConstraints({});
     const wrapper = mount(
       <FieldFeedbacks for="username">
         <FieldFeedback when="*" />
@@ -260,13 +266,13 @@ describe('render()', () => {
     expect(fields).toEqual([]);
 
     expect(wrapper.html()).toEqual(
-      '<div data-feedbacks="0"></div>'
+      '<span data-feedbacks="0"></span>'
     );
   });
 
   describe('stop prop', () => {
     test('stop="no" multiple FieldFeedback', async () => {
-      const form = new_FormWithConstraints({});
+      const form = new FormWithConstraints({});
       const wrapper = mount(
         <FieldFeedbacks for="username" stop="no">
           <FieldFeedback when="*" />
@@ -287,17 +293,17 @@ describe('render()', () => {
         }
       ]);
 
-      expect(wrapper.html()).toEqual(
-        '<div data-feedbacks="0">' +
-          '<div data-feedback="0.0" class="error">Suffering from being missing</div>' +
-          '<div data-feedback="0.1" class="error">Suffering from being missing</div>' +
-          '<div data-feedback="0.2" class="error">Suffering from being missing</div>' +
-        '</div>'
+      expect(beautifyHtml(wrapper.html(), '        ')).toEqual(`\
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Suffering from being missing</span>
+          <span data-feedback="0.1" class="error" style="display: block;">Suffering from being missing</span>
+          <span data-feedback="0.2" class="error" style="display: block;">Suffering from being missing</span>
+        </span>`
       );
     });
 
     test('stop="first-error" multiple FieldFeedback', async () => {
-      const form = new_FormWithConstraints({});
+      const form = new FormWithConstraints({});
       const wrapper = mount(
         <FieldFeedbacks for="username" stop="first-error">
           <FieldFeedback when="*" />
@@ -318,13 +324,15 @@ describe('render()', () => {
         }
       ]);
 
-      expect(wrapper.html()).toEqual(
-        '<div data-feedbacks="0"><div data-feedback="0.0" class="error">Suffering from being missing</div></div>'
+      expect(beautifyHtml(wrapper.html(), '        ')).toEqual(`\
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="error" style="display: block;">Suffering from being missing</span>
+        </span>`
       );
     });
 
     test('stop="first-error" multiple FieldFeedback with error, warning, info', async () => {
-      const form = new_FormWithConstraints({});
+      const form = new FormWithConstraints({});
       const wrapper = mount(
         <FieldFeedbacks for="username" stop="first-error">
           <FieldFeedback when="*" warning />
@@ -345,8 +353,11 @@ describe('render()', () => {
         }
       ]);
 
-      expect(wrapper.html()).toEqual(
-        '<div data-feedbacks="0"><div data-feedback="0.0" class="warning">Suffering from being missing</div><div data-feedback="0.1" class="error">Suffering from being missing</div></div>'
+      expect(beautifyHtml(wrapper.html(), '        ')).toEqual(`\
+        <span data-feedbacks="0">
+          <span data-feedback="0.0" class="warning" style="display: block;">Suffering from being missing</span>
+          <span data-feedback="0.1" class="error" style="display: block;">Suffering from being missing</span>
+        </span>`
       );
     });
   });

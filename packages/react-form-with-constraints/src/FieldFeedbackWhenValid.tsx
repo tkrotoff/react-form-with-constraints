@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 
 import { FormWithConstraintsChildContext } from './FormWithConstraints';
 import { FieldFeedbacksChildContext } from './FieldFeedbacks';
+import { FieldFeedbackClasses } from './FieldFeedback';
 import Field from './Field';
 
-export interface FieldFeedbackWhenValidProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface FieldFeedbackWhenValidBaseProps {
+}
+
+export interface FieldFeedbackWhenValidProps extends FieldFeedbackWhenValidBaseProps, FieldFeedbackClasses, React.HTMLAttributes<HTMLSpanElement> {
 }
 
 export interface FieldFeedbackWhenValidState {
@@ -14,14 +18,15 @@ export interface FieldFeedbackWhenValidState {
 
 export type FieldFeedbackWhenValidContext = FormWithConstraintsChildContext & FieldFeedbacksChildContext;
 
-export class FieldFeedbackWhenValid extends React.Component<FieldFeedbackWhenValidProps, FieldFeedbackWhenValidState> {
+export class FieldFeedbackWhenValid<Props extends FieldFeedbackWhenValidBaseProps = FieldFeedbackWhenValidProps>
+       extends React.Component<Props, FieldFeedbackWhenValidState> {
   static contextTypes: React.ValidationMap<FieldFeedbackWhenValidContext> = {
     form: PropTypes.object.isRequired,
     fieldFeedbacks: PropTypes.object.isRequired
   };
   context!: FieldFeedbackWhenValidContext;
 
-  constructor(props: FieldFeedbackWhenValidProps) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -67,12 +72,12 @@ export class FieldFeedbackWhenValid extends React.Component<FieldFeedbackWhenVal
 
   // Don't forget to update native/FieldFeedbackWhenValid.render()
   render() {
-    const { className, ...otherProps } = this.props;
+    const { style, ...otherProps } = this.props as FieldFeedbackWhenValidProps;
 
-    let classNames = this.context.form.props.fieldFeedbackClassNames!.valid;
-    classNames = className !== undefined ? `${className} ${classNames}` : classNames;
-
-                                          // otherProps before className because otherProps contains data-feedback
-    return this.state.fieldIsValid ? <div {...otherProps} className={classNames} /> : null;
+    return this.state.fieldIsValid ?
+      // <span style="display: block"> instead of <div> so FieldFeedbackWhenValid can be wrapped inside a <p>
+      // otherProps before className because otherProps contains data-feedback
+      <span {...otherProps} style={{display: 'block', ...style}} />
+      : null;
   }
 }

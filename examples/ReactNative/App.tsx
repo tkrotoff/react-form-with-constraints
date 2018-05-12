@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, Button, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Button, ActivityIndicator } from 'react-native';
 
-import { FormWithConstraints, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints-native';
+import { TextInput, FormWithConstraints, FieldFeedbacks, Async, FieldFeedback as _FieldFeedback, FieldFeedbackProps } from 'react-form-with-constraints-native';
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -41,7 +41,7 @@ export default class App extends React.Component<Props, State> {
   }
 
   private getInitialState() {
-    const state: State = {
+    const state = {
       username: '',
       password: '',
       passwordConfirm: '',
@@ -101,8 +101,7 @@ export default class App extends React.Component<Props, State> {
     return (
       <View style={styles.container}>
         <FormWithConstraints
-          ref={formWithConstraints => this.form = formWithConstraints}
-          fieldFeedbackStyles={fieldFeedbackStyles}>
+          ref={formWithConstraints => this.form = formWithConstraints}>
 
           <View style={styles.flow}>
             <Text onPress={() => this.username!.focus()}>
@@ -196,9 +195,17 @@ const styles = StyleSheet.create({
   }
 });
 
-const fieldFeedbackStyles = StyleSheet.create({
+const fieldFeedbackTheme = StyleSheet.create({
   error: {color: 'red'},
   warning: {color: 'orange'},
   info: {color: 'blue'},
-  valid: {color: 'green'}
+  whenValid: {color: 'green'}
 });
+
+class FieldFeedback extends React.Component<FieldFeedbackProps> {
+  render() {
+    return (
+      <_FieldFeedback theme={fieldFeedbackTheme} {...this.props} />
+    );
+  }
+}
