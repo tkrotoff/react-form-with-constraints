@@ -62,22 +62,10 @@ class SignUp extends React.Component<Props, State> {
   form: FormWithConstraints | null = null;
   passwordInput: HTMLInputElement | null = null;
 
-  constructor(props: Props) {
-    super(props);
-
-    this.state = this.getInitialState();
-
-    this.validateFields = debounce(this.validateFields, VALIDATE_DEBOUNCE_WAIT);
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleLanguageChange = this.handleLanguageChange.bind(this);
-    this.handleHasWebsiteChange = this.handleHasWebsiteChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-  }
+  state: State = this.getInitialState();
 
   private getInitialState() {
-    const state = {
+    return {
       language: this.props.i18n.language.substring(0, 2), // en-US => en, fr-FR => fr
       firstName: '',
       lastName: '',
@@ -95,12 +83,11 @@ class SignUp extends React.Component<Props, State> {
       passwordConfirm: '',
       submitButtonDisabled: false
     };
-    return state;
   }
 
   previousValidateFields: string | undefined;
 
-  handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const target = e.currentTarget;
     const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
 
@@ -111,14 +98,14 @@ class SignUp extends React.Component<Props, State> {
     // Flush the previous debounce if input is not the same otherwise validateFields(input2) will overwrite validateFields(input1)
     // if the user changes input2 before validateFields(input1) is called
     if (this.previousValidateFields !== target.name) {
-      (this.validateFields as ((target: InputElement) => Promise<void>) & _.Cancelable).flush();
+      this.validateFields.flush();
     }
     this.previousValidateFields = target.name;
 
     this.validateFields(target);
   }
 
-  handleLanguageChange(e: React.ChangeEvent<HTMLSelectElement>) {
+  handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const target = e.currentTarget;
 
     this.props.i18n.changeLanguage(target.value);
@@ -127,12 +114,13 @@ class SignUp extends React.Component<Props, State> {
     });
   }
 
-  async validateFields(target: InputElement) {
+  async _validateFields(target: InputElement) {
     await this.form!.validateFields(target);
     this.setState({submitButtonDisabled: !this.form!.isValid()});
   }
+  validateFields = debounce(this._validateFields, VALIDATE_DEBOUNCE_WAIT);
 
-  handleHasWebsiteChange(e: React.ChangeEvent<HTMLInputElement>) {
+  handleHasWebsiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const hasWebsite = e.currentTarget.checked;
 
     if (!hasWebsite) {
@@ -143,7 +131,7 @@ class SignUp extends React.Component<Props, State> {
     this.handleChange(e);
   }
 
-  async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     await this.form!.validateForm();
@@ -154,7 +142,7 @@ class SignUp extends React.Component<Props, State> {
     }
   }
 
-  handleReset() {
+  handleReset = () => {
     this.setState(this.getInitialState());
     this.form!.reset();
   }

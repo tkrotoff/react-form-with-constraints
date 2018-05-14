@@ -4,7 +4,7 @@ import { configure, observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
+import { FormWithConstraints, FieldFeedbacks, FieldFeedback, Input as _Input, InputProps } from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './index.html';
@@ -115,7 +115,7 @@ const Hobbies = observer(({memberIndex, member, validateField}: HobbiesProps) =>
     return (
       <li key={index} className="form-group">
         <div className="form-inline">
-          <input name={hobbyName} id={hobbyName} placeholder={hobbyLabel}
+          <Input name={hobbyName} id={hobbyName} placeholder={hobbyLabel}
                  value={hobby} onChange={e => updateHobby(e, index)}
                  required minLength={3}
                  className="form-control" style={{width: 'auto'}} />
@@ -195,7 +195,7 @@ const Members = observer(({club, validateField}: MembersProps) => {
         </h4>
 
         <div className="form-group">
-          <input name={memberFirstNameName} placeholder="First Name"
+          <Input name={memberFirstNameName} placeholder="First Name"
                  value={member.firstName} onChange={e => updateMemberFirstName(e, member)}
                  required minLength={3}
                  className="form-control" />
@@ -205,7 +205,7 @@ const Members = observer(({club, validateField}: MembersProps) => {
         </div>
 
         <div className="form-group">
-          <input name={memberLastNameName} placeholder="Last Name"
+          <Input name={memberLastNameName} placeholder="Last Name"
                  value={member.lastName} onChange={e => updateMemberLastName(e, member)}
                  required minLength={3}
                  className="form-control" />
@@ -256,19 +256,12 @@ interface FormProps {
 class Form extends React.Component<FormProps> {
   form: FormWithConstraints | null = null;
 
-  constructor(props: FormProps) {
-    super(props);
-
-    this.validateField = this.validateField.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  validateField(e: React.ChangeEvent<HTMLInputElement> | string) {
+  validateField = (e: React.ChangeEvent<HTMLInputElement> | string) => {
     const target = typeof e === 'string' ? e : e.currentTarget;
     this.form!.validateFields(target);
   }
 
-  async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  handleSubmit = async (e: React.FormEvent<HTMLFormElement>) =>  {
     e.preventDefault();
 
     await this.form!.validateForm();
@@ -290,7 +283,7 @@ class Form extends React.Component<FormProps> {
       <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div className="form-group">
-          <input name="clubName" placeholder="Club Name"
+          <Input name="clubName" placeholder="Club Name"
                  value={club.name} onChange={e => this.updateClubName(e)}
                  required minLength={3}
                  className="form-control" />
@@ -309,6 +302,20 @@ class Form extends React.Component<FormProps> {
       </FormWithConstraints>
     );
   }
+}
+
+export class Input extends _Input {
+  static defaultProps: InputProps = {
+    // See https://github.com/facebook/react/issues/3725#issuecomment-169163998
+    // See React.Component.defaultProps objects are overridden, not merged? https://stackoverflow.com/q/40428847
+    ..._Input.defaultProps,
+    classes: {
+      hasErrors: 'is-invalid',
+      //hasWarnings: 'is-warning',
+      //hasInfos: 'is-info',
+      isValid: 'is-valid'
+    }
+  };
 }
 
 const App = () => (

@@ -22,16 +22,7 @@ async function checkUsernameAvailability(value) {
 }
 
 class Form extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = this.getInitialState();
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-  }
+  state = this.getInitialState();
 
   getInitialState() {
     return {
@@ -42,7 +33,7 @@ class Form extends React.Component {
     };
   }
 
-  async handleChange(e) {
+  handleChange = async e => {
     const target = e.currentTarget;
 
     this.setState({
@@ -53,7 +44,7 @@ class Form extends React.Component {
     this.setState({submitButtonDisabled: !this.form.isValid()});
   }
 
-  async handlePasswordChange(e) {
+  handlePasswordChange = async e => {
     const target = e.currentTarget;
 
     this.setState({
@@ -64,7 +55,7 @@ class Form extends React.Component {
     this.setState({submitButtonDisabled: !this.form.isValid()});
   }
 
-  async handleSubmit(e) {
+  handleSubmit = async e => {
     e.preventDefault();
 
     await this.form.validateForm();
@@ -75,7 +66,7 @@ class Form extends React.Component {
     }
   }
 
-  handleReset() {
+  handleReset = () => {
     this.setState(this.getInitialState());
     this.form.reset();
   }

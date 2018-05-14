@@ -40,24 +40,15 @@ class Form extends React.Component<Props, State> {
   password: HTMLInputElement | null = null;
   passwordConfirm: HTMLInputElement | null = null;
 
-  constructor(props: Props) {
-    super(props);
+  state: State = {
+    errors: {
+      username: [],
+      password: [],
+      passwordConfirm: []
+    }
+  };
 
-    this.state = {
-      errors: {
-        username: [],
-        password: [],
-        passwordConfirm: []
-      }
-    };
-
-    this.handleUsernameChange = this.handleUsernameChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handlePasswordConfirmChange = this.handlePasswordConfirmChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleUsernameChange(e: React.ChangeEvent<HTMLInputElement>) {
+  handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
     this.setState(prevState => {
       return {
@@ -69,7 +60,7 @@ class Form extends React.Component<Props, State> {
     });
   }
 
-  handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+  handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
     this.setState(prevState => {
       return {
@@ -82,7 +73,7 @@ class Form extends React.Component<Props, State> {
     });
   }
 
-  handlePasswordConfirmChange(e: React.ChangeEvent<HTMLInputElement>) {
+  handlePasswordConfirmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
     this.setState(prevState => {
       return {
@@ -94,7 +85,7 @@ class Form extends React.Component<Props, State> {
     });
   }
 
-  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     this.setState(

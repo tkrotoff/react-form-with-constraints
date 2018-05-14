@@ -28,29 +28,18 @@ export default class App extends React.Component<Props, State> {
   password: TextInput | null = null;
   passwordConfirm: TextInput | null = null;
 
-  constructor(props: Props) {
-    super(props);
-
-    this.state = this.getInitialState();
-
-    this.handleUsernameChange = this.handleUsernameChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handlePasswordConfirmChange = this.handlePasswordConfirmChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-  }
+  state: State = this.getInitialState();
 
   private getInitialState() {
-    const state = {
+    return {
       username: '',
       password: '',
       passwordConfirm: '',
       submitButtonDisabled: false
     };
-    return state;
   }
 
-  handleUsernameChange(text: string) {
+  handleUsernameChange = (text: string) => {
     this.setState(
       {username: text},
       async () => {
@@ -61,7 +50,7 @@ export default class App extends React.Component<Props, State> {
     );
   }
 
-  handlePasswordChange(text: string) {
+  handlePasswordChange = (text: string) => {
     this.setState(
       {password: text},
       async () => {
@@ -72,7 +61,7 @@ export default class App extends React.Component<Props, State> {
     );
   }
 
-  handlePasswordConfirmChange(text: string) {
+  handlePasswordConfirmChange = (text: string) => {
     this.setState(
       {passwordConfirm: text},
       async () => {
@@ -83,7 +72,7 @@ export default class App extends React.Component<Props, State> {
     );
   }
 
-  async handleSubmit() {
+  handleSubmit = async () => {
     await this.form!.validateForm();
     const formIsValid = this.form!.isValid();
     this.setState({submitButtonDisabled: !formIsValid});
@@ -92,7 +81,7 @@ export default class App extends React.Component<Props, State> {
     }
   }
 
-  handleReset() {
+  handleReset = () => {
     this.setState(this.getInitialState());
     this.form!.reset();
   }

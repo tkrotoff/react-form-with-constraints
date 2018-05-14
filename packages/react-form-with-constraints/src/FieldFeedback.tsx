@@ -107,9 +107,6 @@ export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackP
       },
       validationMessage: ''
     };
-
-    this.validate = this.validate.bind(this);
-    this.reset = this.reset.bind(this);
   }
 
   componentWillMount() {
@@ -130,7 +127,7 @@ export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackP
     form.removeResetEventListener(this.reset);
   }
 
-  async validate(input: InputElement) {
+  validate = (input: InputElement) => {
     const { when } = this.props;
     const { form, fieldFeedbacks } = this.context;
 
@@ -196,7 +193,7 @@ export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackP
     return validation;
   }
 
-  reset() {
+  reset = () => {
     this.setState(prevState => ({
       validation: {...prevState.validation, ...{show: undefined}},
       validationMessage: ''

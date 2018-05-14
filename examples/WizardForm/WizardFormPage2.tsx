@@ -15,14 +15,7 @@ export interface Props {
 class WizardFormPage2 extends React.Component<Props> {
   form: FormWithConstraints | null = null;
 
-  constructor(props: Props) {
-    super(props);
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
 
     this.props.onChange(target);
@@ -30,7 +23,7 @@ class WizardFormPage2 extends React.Component<Props> {
     this.form!.validateFields(target);
   }
 
-  async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     await this.form!.validateForm();

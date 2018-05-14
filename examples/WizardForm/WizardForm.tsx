@@ -19,40 +19,30 @@ export interface State {
 }
 
 class WizardForm extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+  state: State = {
+    page: 1,
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    firstName: '',
+    lastName: '',
+    email: '',
+    favoriteColor: ''
+  };
 
-    this.nextPage = this.nextPage.bind(this);
-    this.previousPage = this.previousPage.bind(this);
-
-    this.state = {
-      page: 1,
-
-      firstName: '',
-      lastName: '',
-      email: '',
-      favoriteColor: ''
-    };
-  }
-
-  handleChange(input: InputElement) {
+  handleChange = (input: InputElement) => {
     const value = input.type === 'checkbox' ? (input as HTMLInputElement).checked : input.value;
 
     this.setState({[input.name as any]: value});
   }
 
-  handleSubmit() {
+  handleSubmit = () => {
     alert(`Form submitted\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
   }
 
-  nextPage() {
+  nextPage = () => {
     this.setState({page: this.state.page + 1});
   }
 
-  previousPage() {
+  previousPage = () => {
     this.setState({page: this.state.page - 1});
   }
 

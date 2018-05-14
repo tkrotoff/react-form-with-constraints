@@ -68,15 +68,9 @@ export class Async<T> extends
     };
   }
 
-  constructor(props: AsyncProps<T>) {
-    super(props);
-
-    this.state = {
-      status: Status.None
-    };
-
-    this.validate = this.validate.bind(this);
-  }
+  state: AsyncState<T> = {
+    status: Status.None
+  };
 
   componentWillMount() {
     this.context.fieldFeedbacks.addValidateFieldEventListener(this.validate);
@@ -86,7 +80,7 @@ export class Async<T> extends
     this.context.fieldFeedbacks.removeValidateFieldEventListener(this.validate);
   }
 
-  validate(input: InputElement) {
+  validate = (input: InputElement) => {
     const { form, fieldFeedbacks } = this.context;
 
     let validations;

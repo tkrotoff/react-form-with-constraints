@@ -18,22 +18,14 @@ class Form extends React.Component<Props, State> {
   form: FormWithConstraints | null = null;
   password: HTMLInputElement | null = null;
 
-  constructor(props: Props) {
-    super(props);
+  state: State = {
+    username: '',
+    password: '',
+    passwordConfirm: '',
+    submitButtonDisabled: false
+  };
 
-    this.state = {
-      username: '',
-      password: '',
-      passwordConfirm: '',
-      submitButtonDisabled: false
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  async handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
 
     this.setState({
@@ -53,7 +45,7 @@ class Form extends React.Component<Props, State> {
     this.setState({submitButtonDisabled: !this.form!.isValid()});
   }
 
-  async handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+  handlePasswordChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
 
     this.setState({
@@ -69,7 +61,7 @@ class Form extends React.Component<Props, State> {
     this.setState({submitButtonDisabled: !this.form!.isValid()});
   }
 
-  async handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Validates the non-dirty fields and returns the related FieldValidation structures

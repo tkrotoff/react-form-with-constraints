@@ -19,12 +19,6 @@ export class DisplayFields extends React.Component<DisplayFieldsProps> {
   };
   context!: FormWithConstraintsChildContext;
 
-  constructor(props: DisplayFieldsProps) {
-    super(props);
-
-    this.reRender = this.reRender.bind(this);
-  }
-
   componentWillMount() {
     const { form } = this.context;
     form.fieldsStore.addListener(FieldEvent.Added, this.reRender);
@@ -41,7 +35,7 @@ export class DisplayFields extends React.Component<DisplayFieldsProps> {
     form.removeResetEventListener(this.reRender);
   }
 
-  reRender() {
+  reRender = () => {
     this.forceUpdate();
   }
 

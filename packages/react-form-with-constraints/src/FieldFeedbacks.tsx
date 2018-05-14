@@ -78,8 +78,6 @@ export class FieldFeedbacks extends
       if (props.for === undefined) throw new Error("FieldFeedbacks cannot be without parent and without 'for' prop");
       else this.fieldName = props.for;
     }
-
-    this.validate = this.validate.bind(this);
   }
 
   private fieldFeedbackKeyCounter = 0;
@@ -109,7 +107,7 @@ export class FieldFeedbacks extends
     parent.removeValidateFieldEventListener(this.validate);
   }
 
-  async validate(input: InputElement) {
+  validate = async (input: InputElement) => {
     const { form, fieldFeedbacks: fieldFeedbacksParent } = this.context;
 
     let validations;

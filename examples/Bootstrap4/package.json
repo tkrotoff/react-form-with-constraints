@@ -29,6 +29,7 @@
     "babel-loader": "latest",
     "babel-core": "latest",
     "babel-polyfill": "latest",
+    "babel-plugin-transform-class-properties": "latest",
     "raf": "latest",
     "babel-preset-env": "latest",
     "babel-preset-react": "latest",

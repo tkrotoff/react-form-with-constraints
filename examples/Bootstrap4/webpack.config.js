@@ -23,7 +23,15 @@ module.exports = {
 
   module: {
     rules: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader', options: {presets: ['env', 'react']} },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['env', 'react'],
+          plugins: [require('babel-plugin-transform-class-properties')]
+        }
+      },
       { test: /\.js$/, loader: 'source-map-loader' },
       { test: /\.(html|css|png)$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} },
       {

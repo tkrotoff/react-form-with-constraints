@@ -26,17 +26,9 @@ export class FieldFeedbackWhenValid<Props extends FieldFeedbackWhenValidBaseProp
   };
   context!: FieldFeedbackWhenValidContext;
 
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      fieldIsValid: undefined
-    };
-
-    this.fieldWillValidate = this.fieldWillValidate.bind(this);
-    this.fieldDidValidate = this.fieldDidValidate.bind(this);
-    this.reset = this.reset.bind(this);
-  }
+  state: FieldFeedbackWhenValidState = {
+    fieldIsValid: undefined
+  };
 
   componentWillMount() {
     const { form } = this.context;
@@ -54,19 +46,19 @@ export class FieldFeedbackWhenValid<Props extends FieldFeedbackWhenValidBaseProp
     form.removeResetEventListener(this.reset);
   }
 
-  fieldWillValidate(fieldName: string) {
+  fieldWillValidate = (fieldName: string) => {
     if (fieldName === this.context.fieldFeedbacks.fieldName) { // Ignore the event if it's not for us
       this.setState({fieldIsValid: undefined});
     }
   }
 
-  fieldDidValidate(field: Field) {
+  fieldDidValidate = (field: Field) => {
     if (field.name === this.context.fieldFeedbacks.fieldName) { // Ignore the event if it's not for us
       this.setState({fieldIsValid: field.isValid()});
     }
   }
 
-  reset() {
+  reset = () => {
     this.setState({fieldIsValid: undefined});
   }
 
