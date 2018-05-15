@@ -15,6 +15,11 @@ class Form extends React.Component {
     this.form!.validateFields(target);
   }
 
+  handlePasswordChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.currentTarget;
+    this.form!.validateFields(target, 'passwordConfirm');
+  }
+
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -46,7 +51,7 @@ class Form extends React.Component {
           <label htmlFor="password">Password</label>
           <input type="password" name="password" id="password"
                  ref={password => this.password = password}
-                 onChange={this.handleChange}
+                 onChange={this.handlePasswordChange}
                  required pattern=".{5,}" />
           <FieldFeedbacks for="password">
             <FieldFeedback when="valueMissing" />
