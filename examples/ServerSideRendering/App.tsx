@@ -1,9 +1,36 @@
 import React from 'react';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
+import { FormWithConstraints, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
 // Copy-pasted from Password/App.tsx example
+
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// See https://en.wikipedia.org/wiki/List_of_the_most_common_passwords
+async function isACommonPassword(password: string) {
+  console.log('checkPasswordHasBeenUsed');
+  await sleep(1000);
+  return [
+    '123456',
+    'password',
+    '12345678',
+    'qwerty',
+    '12345',
+    '123456789',
+    'letmein',
+    '1234567',
+    'football',
+    'iloveyou',
+    'admin',
+    'welcome',
+    'monkey',
+    'login',
+    'abc123'
+  ].includes(password.toLowerCase());
+}
 
 interface Props {}
 
@@ -54,9 +81,12 @@ class Form extends React.Component<Props, State> {
 
     const fields = await this.form!.validateFields(target, 'passwordConfirm');
 
-    const fieldsAreValid = fields.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
+    const fieldsAreValid = fields.every(field => field.isValid());
     if (fieldsAreValid) console.log(`Fields '${target.name}' and 'passwordConfirm' are valid`);
     else console.log(`Fields '${target.name}' and/or 'passwordConfirm' are invalid`);
+
+    if (this.form!.isValid()) console.log('The form is valid');
+    else console.log('The form is invalid');
 
     this.setState({submitButtonDisabled: !this.form!.isValid()});
   }
@@ -68,7 +98,7 @@ class Form extends React.Component<Props, State> {
     const fields = await this.form!.validateForm();
 
     // or simply this.form.isValid();
-    const formIsValid = fields.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
+    const formIsValid = fields.every(field => field.isValid());
 
     if (formIsValid) console.log('The form is valid');
     else console.log('The form is invalid');
@@ -96,7 +126,7 @@ class Form extends React.Component<Props, State> {
         </div>
 
         <div>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Password <small>(common passwords: 123456, password, 12345678, qwerty...)</small></label>
           <input type="password" name="password" id="password"
                  ref={password => this.password = password}
                  value={this.state.password} onChange={this.handlePasswordChange}
@@ -108,6 +138,13 @@ class Form extends React.Component<Props, State> {
             <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
             <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
             <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
+            <Async
+              promise={isACommonPassword}
+              pending="..."
+              then={commonPassword => commonPassword ?
+                <FieldFeedback warning>This password is very common</FieldFeedback> : null
+              }
+            />
             <FieldFeedback when="valid">Looks good!</FieldFeedback>
           </FieldFeedbacks>
         </div>
