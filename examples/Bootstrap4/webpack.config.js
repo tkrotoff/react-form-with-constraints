@@ -1,7 +1,7 @@
 // @ts-check
 
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
@@ -14,7 +14,7 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin({filename: '[name].css'})
+    new MiniCssExtractPlugin({filename: '[name].css'})
   ],
 
   resolve: {
@@ -36,14 +36,13 @@ module.exports = {
       { test: /\.(html|css|png)$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} },
       {
         // FIXME Don't know how to make source maps work
+        // See SourceMap not working with Webpack 4.8.1 https://github.com/webpack-contrib/mini-css-extract-plugin/issues/141
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            { loader: 'css-loader', options: { sourceMap: true } },
-            { loader: 'sass-loader', options: { sourceMap: true } }
-          ]
-        })
+        use: [
+          MiniCssExtractPlugin.loader,
+          { loader: 'css-loader', options: {sourceMap: true} },
+          { loader: 'sass-loader', options: {sourceMap: true} }
+        ]
       }
     ]
   }

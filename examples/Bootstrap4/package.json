@@ -23,9 +23,10 @@
     "style-loader": "latest",
     "css-loader": "latest",
     "sass-loader": "latest",
-    "extract-text-webpack-plugin": "latest",
+    "mini-css-extract-plugin": "latest",
 
-    "webpack": "^3",
+    "webpack-cli": "latest",
+    "webpack": "latest",
     "babel-loader": "latest",
     "babel-core": "latest",
     "babel-polyfill": "latest",

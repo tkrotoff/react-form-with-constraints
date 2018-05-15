@@ -29,11 +29,12 @@
     "express": "latest",
     "@types/express": "latest",
 
-    "webpack": "^3",
+    "webpack-cli": "latest",
+    "webpack": "latest",
     "@types/webpack": "latest",
     "webpack-node-externals": "latest",
     "@types/webpack-node-externals": "latest",
-    "ts-loader": "^3",
+    "ts-loader": "latest",
     "file-loader": "latest",
     "source-map-loader": "latest",
 

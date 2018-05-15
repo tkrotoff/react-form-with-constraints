@@ -25,9 +25,10 @@
     "ts-node": "latest",
     "@types/node": "latest",
 
-    "webpack": "^3",
+    "webpack-cli": "latest",
+    "webpack": "latest",
     "@types/webpack": "latest",
-    "ts-loader": "^3",
+    "ts-loader": "latest",
     "file-loader": "latest",
     "source-map-loader": "latest",
 
