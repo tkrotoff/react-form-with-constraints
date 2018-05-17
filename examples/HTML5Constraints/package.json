@@ -12,12 +12,15 @@
     "build:watch": "cross-env NODE_ENV=development webpack -d --watch"
   },
 
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest"
+  },
+
   "devDependencies": {
     "typescript": "latest",
 
-    "react": "latest",
     "@types/react": "latest",
-    "react-dom": "latest",
     "@types/react-dom": "latest",
 
     "ts-node": "latest",

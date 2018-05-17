@@ -12,15 +12,18 @@
     "build:watch": "cross-env NODE_ENV=development webpack -d --watch"
   },
 
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest",
+
+    "react-form-with-constraints": "^0.8.0"
+  },
+
   "devDependencies": {
     "typescript": "latest",
 
-    "react": "latest",
     "@types/react": "latest",
-    "react-dom": "latest",
     "@types/react-dom": "latest",
-
-    "react-form-with-constraints": "^0.8.0",
 
     "ts-node": "latest",
     "@types/node": "latest",

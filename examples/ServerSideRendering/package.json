@@ -13,21 +13,25 @@
     "start": "npm run clean && npm run build && cd build && node server"
   },
 
-  "devDependencies": {
-    "typescript": "latest",
-
+  "dependencies": {
     "react": "latest",
-    "@types/react": "latest",
     "react-dom": "latest",
-    "@types/react-dom": "latest",
 
     "react-form-with-constraints": "^0.8.0",
 
+    "express": "latest"
+  },
+
+  "devDependencies": {
+    "typescript": "latest",
+
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+
+    "@types/express": "latest",
+
     "ts-node": "latest",
     "@types/node": "latest",
-
-    "express": "latest",
-    "@types/express": "latest",
 
     "webpack-cli": "latest",
     "webpack": "latest",

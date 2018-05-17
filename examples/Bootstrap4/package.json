@@ -10,7 +10,7 @@
     "build:watch": "cross-env NODE_ENV=development webpack -d --watch"
   },
 
-  "devDependencies": {
+  "dependencies": {
     "react": "latest",
     "react-dom": "latest",
 
@@ -19,6 +19,12 @@
     "react-form-with-constraints-tools": "^0.8.0",
 
     "bootstrap": "latest",
+
+    "babel-polyfill": "latest",
+    "raf": "latest"
+  },
+
+  "devDependencies": {
     "node-sass": "latest",
     "style-loader": "latest",
     "css-loader": "latest",
@@ -28,14 +34,13 @@
     "webpack-cli": "latest",
     "webpack": "latest",
     "babel-loader": "latest",
-    "babel-core": "latest",
-    "babel-polyfill": "latest",
-    "babel-plugin-transform-class-properties": "latest",
-    "raf": "latest",
-    "babel-preset-env": "latest",
-    "babel-preset-react": "latest",
     "file-loader": "latest",
     "source-map-loader": "latest",
+
+    "babel-core": "latest",
+    "babel-plugin-transform-class-properties": "latest",
+    "babel-preset-env": "latest",
+    "babel-preset-react": "latest",
 
     "del-cli": "latest",
     "cross-env": "latest"
