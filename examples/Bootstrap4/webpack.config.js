@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
-    App: ['babel-polyfill', './App.jsx']
+    App: './App.jsx'
   },
 
   output: {
@@ -28,7 +28,16 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets: ['env', 'react'],
+          presets: [
+            ['env', {
+              targets: {
+                browsers: ['> 1%', 'IE >= 10']
+              },
+              useBuiltIns: true,
+              debug: true
+            }],
+            'react',
+          ],
           plugins: [require('babel-plugin-transform-class-properties')]
         }
       },
