@@ -4,6 +4,7 @@ import { mount } from 'enzyme';
 import { SignUp } from './SignUp';
 import beautifyHtml from '../../react-form-with-constraints/src/beautifyHtml';
 import sleep from '../../react-form-with-constraints/src/sleep';
+import { validValidityState } from '../../react-form-with-constraints/src/InputElementMock';
 
 describe('FormWithConstraints', () => {
   test('change inputs', async () => {
@@ -47,9 +48,9 @@ describe('FormWithConstraints', () => {
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: ''}],
-      [{name: 'password', type: 'password', value: ''}],
-      [{name: 'passwordConfirm', type: 'password', value: ''}]
+      [{name: 'username', type: 'text', value: '', validity: validValidityState, validationMessage: ''}],
+      [{name: 'password', type: 'password', value: '', validity: validValidityState, validationMessage: ''}],
+      [{name: 'passwordConfirm', type: 'password', value: '', validity: validValidityState, validationMessage: ''}]
     ]);
 
     emitValidateFieldEventSpy.mockClear();
@@ -91,9 +92,9 @@ describe('FormWithConstraints', () => {
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: 'john'}],
-      [{name: 'password', type: 'password', value: '123456'}],
-      [{name: 'passwordConfirm', type: 'password', value: '12345'}]
+      [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
+      [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
+      [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
     ]);
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
@@ -253,9 +254,9 @@ describe('Async', () => {
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: 'jimmy'}],
-      [{name: 'password', type: 'password', value: '12345'}],
-      [{name: 'passwordConfirm', type: 'password', value: '12345'}]
+      [{name: 'username', type: 'text', value: 'jimmy', validity: validValidityState, validationMessage: ''}],
+      [{name: 'password', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}],
+      [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
     ]);
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
@@ -324,9 +325,9 @@ describe('Async', () => {
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: 'error'}],
-      [{name: 'password', type: 'password', value: '123456'}],
-      [{name: 'passwordConfirm', type: 'password', value: '12345'}]
+      [{name: 'username', type: 'text', value: 'error', validity: validValidityState, validationMessage: ''}],
+      [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
+      [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
     ]);
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
