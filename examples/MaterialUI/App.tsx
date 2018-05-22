@@ -6,7 +6,7 @@ import {
   /*TextField, FormControl,*/
   Button,
   Theme, withStyles, WithStyles
-} from 'material-ui';
+} from '@material-ui/core';
 
 import {
   FormWithConstraints, FieldFeedbacks, Async, FieldFeedback,

@@ -39,7 +39,7 @@
 
     "react-form-with-constraints": "^0.8.0",
 
-    "material-ui": "next",
+    "@material-ui/core": "latest",
 
     "node-zopfli": "latest",
     "node-gyp": "latest",

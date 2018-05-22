@@ -3,12 +3,12 @@ import React from 'react';
 import {
   Input, InputLabel, FormHelperText
   /*TextField, FormControl,*/
-} from 'material-ui';
+} from '@material-ui/core';
 
 import {
   FormWithConstraints, Async, FieldFeedback,
   TextField, FormControl
- } from './index';
+} from './index';
 import checkUsernameAvailability from '../../react-form-with-constraints/src/checkUsernameAvailability';
 import FieldFeedbacks from '../../react-form-with-constraints/src/FieldFeedbacksEnzymeFix';
 
