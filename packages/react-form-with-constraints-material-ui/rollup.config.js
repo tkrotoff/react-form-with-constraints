@@ -1,7 +1,7 @@
 // @ts-check
 
 import typescript from 'rollup-plugin-typescript2';
-import uglify from 'rollup-plugin-uglify';
+import { uglify } from 'rollup-plugin-uglify';
 import gzip from 'rollup-plugin-gzip';
 import filesize from 'rollup-plugin-filesize';
 import strip from 'rollup-plugin-strip';

@@ -393,7 +393,11 @@ acorn-globals@^4.1.0:
   dependencies:
     acorn "^5.0.0"
 
-acorn@^5.0.0, acorn@^5.3.0, acorn@^5.4.1:
+acorn@^3.1.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-3.3.0.tgz#45e37fb39e8da3f25baee3ff5369e2bb5f22017a"
+
+acorn@^5.0.0, acorn@^5.3.0:
   version "5.5.3"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.5.3.tgz#f473dd47e0277a08e28e9bec5aeeb04751f0b8c9"
 
@@ -3526,7 +3530,11 @@ estraverse@^4.1.0, estraverse@^4.1.1, estraverse@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/estraverse/-/estraverse-4.2.0.tgz#0dee3fed31fcd469618ce7342099fc1afa0bdb13"
 
-estree-walker@^0.5.1, estree-walker@^0.5.2:
+estree-walker@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.2.1.tgz#bdafe8095383d8414d5dc2ecf4c9173b6db9412e"
+
+estree-walker@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.5.2.tgz#d3850be7529c9580d815600b53126515e146dd39"
 
@@ -6320,11 +6328,11 @@ macos-release@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/macos-release/-/macos-release-1.1.0.tgz#831945e29365b470aa8724b0ab36c8f8959d10fb"
 
-magic-string@^0.22.4:
-  version "0.22.5"
-  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.22.5.tgz#8e9cf5afddf44385c1da5bc2a6a0dbd10b03657e"
+magic-string@^0.15.0:
+  version "0.15.2"
+  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.15.2.tgz#0681d7388741bbc3addaa65060992624c6c09e9c"
   dependencies:
-    vlq "^0.2.2"
+    vlq "^0.2.1"
 
 make-dir@^1.0.0, make-dir@^1.1.0:
   version "1.3.0"
@@ -8736,14 +8744,14 @@ rollup-plugin-gzip@latest:
   optionalDependencies:
     node-zopfli "^2.0.2"
 
-rollup-plugin-strip@rollup/rollup-plugin-strip:
+rollup-plugin-strip@latest:
   version "1.1.1"
-  resolved "https://codeload.github.com/rollup/rollup-plugin-strip/tar.gz/e54f493ad971acae1f7a7bf9f681985bb9a75caa"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-strip/-/rollup-plugin-strip-1.1.1.tgz#b965d9caa5971d626ed1b703ee73d3421e3fefd1"
   dependencies:
-    acorn "^5.4.1"
-    estree-walker "^0.5.1"
-    magic-string "^0.22.4"
-    rollup-pluginutils "^2.0.1"
+    acorn "^3.1.0"
+    estree-walker "^0.2.1"
+    magic-string "^0.15.0"
+    rollup-pluginutils "^1.3.1"
 
 rollup-plugin-typescript2@latest:
   version "0.14.0"
@@ -8760,6 +8768,13 @@ rollup-plugin-uglify@latest:
   dependencies:
     "@babel/code-frame" "^7.0.0-beta.47"
     uglify-js "^3.3.25"
+
+rollup-pluginutils@^1.3.1:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/rollup-pluginutils/-/rollup-pluginutils-1.5.2.tgz#1e156e778f94b7255bfa1b3d0178be8f5c552408"
+  dependencies:
+    estree-walker "^0.2.1"
+    minimatch "^3.0.2"
 
 rollup-pluginutils@^2.0.1, rollup-pluginutils@latest:
   version "2.3.0"
@@ -10163,7 +10178,7 @@ vinyl@~2.0.1:
     remove-trailing-separator "^1.0.1"
     replace-ext "^1.0.0"
 
-vlq@^0.2.2:
+vlq@^0.2.1:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/vlq/-/vlq-0.2.3.tgz#8f3e4328cf63b1540c0d67e1b2778386f8975b26"
 
