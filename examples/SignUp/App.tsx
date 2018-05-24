@@ -300,8 +300,9 @@ class SignUp extends React.Component<Props, State> {
             <label>
               {t('Favorite Color')}
               <br />
+              {/* See https://github.com/facebook/react/issues/4085#issuecomment-262990423 */}
               <select name="favoriteColor"
-                      value={favoriteColor} defaultValue={''} onChange={this.handleChange}
+                      value={favoriteColor ? favoriteColor : ''} onChange={this.handleChange}
                       required>
                 <option value="" disabled>{t('Select a color...')}</option>
                 {colorKeys.map(colorKey => <option value={colorKey} key={colorKey}>{Color[colorKey]}</option>)}
