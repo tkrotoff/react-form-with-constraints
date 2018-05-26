@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { InputElement, FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
+import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
 
 import Gender from './Gender';
 
@@ -8,7 +8,7 @@ export interface Props {
   email: string;
   gender?: Gender;
   previousPage: () => void;
-  onChange: (input: InputElement) => void;
+  onChange: (input: HTMLInputElement) => void;
   nextPage: () => void;
 }
 
