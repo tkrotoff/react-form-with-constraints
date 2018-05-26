@@ -18,10 +18,10 @@
     "react": "latest",
     "react-dom": "latest",
 
+    "lodash": "latest",
+
     "react-form-with-constraints": "^0.8.0",
     "react-form-with-constraints-tools": "^0.8.0",
-
-    "lodash": "latest",
 
     "i18next": "latest",
     "react-i18next": "latest",

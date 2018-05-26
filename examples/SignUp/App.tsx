@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { debounce } from 'lodash';
+import { debounce, isEqual, omit } from 'lodash';
 import { translate, Trans, InjectedTranslateProps, InjectedI18nProps } from 'react-i18next';
 
-import { InputElement, FormWithConstraints, FieldFeedbacks, FieldFeedback, Async as Async_, AsyncProps } from 'react-form-with-constraints';
+import { FormWithConstraints, FieldFeedbacks, FieldFeedback, Async as Async_, AsyncProps } from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import Gender from '../WizardForm/Gender';
@@ -56,6 +56,7 @@ interface State {
   password: string;
   passwordConfirm: string;
   submitButtonDisabled: boolean;
+  resetButtonDisabled: boolean;
 }
 
 class SignUp extends React.Component<Props, State> {
@@ -81,7 +82,8 @@ class SignUp extends React.Component<Props, State> {
       website: '',
       password: '',
       passwordConfirm: '',
-      submitButtonDisabled: false
+      submitButtonDisabled: false,
+      resetButtonDisabled: true
     };
   }
 
@@ -114,9 +116,18 @@ class SignUp extends React.Component<Props, State> {
     });
   }
 
-  async _validateFields(target: InputElement) {
+  private shouldDisableResetButton(state: State) {
+    const omitList = ['submitButtonDisabled', 'resetButtonDisabled'];
+    return isEqual(omit(this.getInitialState(), omitList), omit(state, omitList)) && !this.form!.hasFeedbacks();
+  }
+
+  async _validateFields(target: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) {
     await this.form!.validateFields(target);
-    this.setState({submitButtonDisabled: !this.form!.isValid()});
+
+    this.setState(prevState => ({
+      submitButtonDisabled: !this.form!.isValid(),
+      resetButtonDisabled: this.shouldDisableResetButton(prevState)
+    }));
   }
   validateFields = debounce(this._validateFields, VALIDATE_DEBOUNCE_WAIT);
 
@@ -136,7 +147,12 @@ class SignUp extends React.Component<Props, State> {
 
     await this.form!.validateForm();
     const formIsValid = this.form!.isValid();
-    this.setState({submitButtonDisabled: !formIsValid});
+
+    this.setState(prevState => ({
+      submitButtonDisabled: !formIsValid,
+      resetButtonDisabled: this.shouldDisableResetButton(prevState)
+    }));
+
     if (formIsValid) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     }
@@ -145,6 +161,7 @@ class SignUp extends React.Component<Props, State> {
   handleReset = () => {
     this.setState(this.getInitialState());
     this.form!.reset();
+    this.setState({resetButtonDisabled: true});
   }
 
   render() {
@@ -166,7 +183,8 @@ class SignUp extends React.Component<Props, State> {
       website,
       password,
       passwordConfirm,
-      submitButtonDisabled
+      submitButtonDisabled,
+      resetButtonDisabled
     } = this.state;
 
     const Color: {[index: string]: string} = {
@@ -386,7 +404,7 @@ class SignUp extends React.Component<Props, State> {
           </div>
 
           <button disabled={submitButtonDisabled}>{t('Sign Up')}</button>
-          <button type="button" onClick={this.handleReset}>{t('Reset')}</button>
+          <button type="button" onClick={this.handleReset} disabled={resetButtonDisabled}>{t('Reset')}</button>
 
           <div>
             <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre>

@@ -1,7 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, ActivityIndicator } from 'react-native';
+import { isEqual, omit } from 'lodash';
 
-import { TextInput, FormWithConstraints, FieldFeedbacks, Async, FieldFeedback as _FieldFeedback, FieldFeedbackProps } from 'react-form-with-constraints-native';
+import {
+  TextInput, FormWithConstraints, FieldFeedbacks, Async,
+  FieldFeedback as _FieldFeedback, FieldFeedbackProps
+} from 'react-form-with-constraints-native';
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -20,6 +24,7 @@ export interface State {
   password: string;
   passwordConfirm: string;
   submitButtonDisabled: boolean;
+  resetButtonDisabled: boolean;
 }
 
 export default class App extends React.Component<Props, State> {
@@ -35,8 +40,14 @@ export default class App extends React.Component<Props, State> {
       username: '',
       password: '',
       passwordConfirm: '',
-      submitButtonDisabled: false
+      submitButtonDisabled: false,
+      resetButtonDisabled: true
     };
+  }
+
+  private shouldDisableResetButton(state: State) {
+    const omitList = ['submitButtonDisabled', 'resetButtonDisabled'];
+    return isEqual(omit(this.getInitialState(), omitList), omit(state, omitList)) && !this.form!.hasFeedbacks();
   }
 
   handleUsernameChange = (text: string) => {
@@ -45,7 +56,11 @@ export default class App extends React.Component<Props, State> {
       async () => {
         // or this.form!.validateFields('username')
         await this.form!.validateFields(this.username!);
-        this.setState({submitButtonDisabled: !this.form!.isValid()});
+
+        this.setState(prevState => ({
+          submitButtonDisabled: !this.form!.isValid(),
+          resetButtonDisabled: this.shouldDisableResetButton(prevState)
+        }));
       }
     );
   }
@@ -56,7 +71,11 @@ export default class App extends React.Component<Props, State> {
       async () => {
         // or this.form!.validateFields('password', 'passwordConfirm')
         await this.form!.validateFields(this.password!, this.passwordConfirm!);
-        this.setState({submitButtonDisabled: !this.form!.isValid()});
+
+        this.setState(prevState => ({
+          submitButtonDisabled: !this.form!.isValid(),
+          resetButtonDisabled: this.shouldDisableResetButton(prevState)
+        }));
       }
     );
   }
@@ -67,7 +86,11 @@ export default class App extends React.Component<Props, State> {
       async () => {
         // or this.form!.validateFields('passwordConfirm')
         await this.form!.validateFields(this.passwordConfirm!);
-        this.setState({submitButtonDisabled: !this.form!.isValid()});
+
+        this.setState(prevState => ({
+          submitButtonDisabled: !this.form!.isValid(),
+          resetButtonDisabled: this.shouldDisableResetButton(prevState)
+        }));
       }
     );
   }
@@ -75,7 +98,12 @@ export default class App extends React.Component<Props, State> {
   handleSubmit = async () => {
     await this.form!.validateForm();
     const formIsValid = this.form!.isValid();
-    this.setState({submitButtonDisabled: !formIsValid});
+
+    this.setState(prevState => ({
+      submitButtonDisabled: !formIsValid,
+      resetButtonDisabled: this.shouldDisableResetButton(prevState)
+    }));
+
     if (formIsValid) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     }
@@ -84,9 +112,12 @@ export default class App extends React.Component<Props, State> {
   handleReset = () => {
     this.setState(this.getInitialState());
     this.form!.reset();
+    this.setState({resetButtonDisabled: true});
   }
 
   render() {
+    const { username, password, passwordConfirm, submitButtonDisabled, resetButtonDisabled } = this.state;
+
     return (
       <View style={styles.container}>
         <FormWithConstraints
@@ -100,7 +131,7 @@ export default class App extends React.Component<Props, State> {
               name="username"
               keyboardType="email-address"
               ref={input => this.username = input}
-              value={this.state.username}
+              value={username}
               onChangeText={this.handleUsernameChange}
               style={styles.input}
             />
@@ -125,7 +156,7 @@ export default class App extends React.Component<Props, State> {
               secureTextEntry
               name="password"
               ref={input => this.password = input}
-              value={this.state.password}
+              value={password}
               onChangeText={this.handlePasswordChange}
               style={styles.input}
             />
@@ -146,23 +177,24 @@ export default class App extends React.Component<Props, State> {
               secureTextEntry
               name="passwordConfirm"
               ref={input => this.passwordConfirm = input}
-              value={this.state.passwordConfirm}
+              value={passwordConfirm}
               onChangeText={this.handlePasswordConfirmChange}
               style={styles.input}
             />
             <FieldFeedbacks for="passwordConfirm">
-              <FieldFeedback when={value => value !== this.state.password}>Not the same password</FieldFeedback>
+              <FieldFeedback when={value => value !== password}>Not the same password</FieldFeedback>
             </FieldFeedbacks>
           </View>
 
           <Button
             title="Sign Up"
-            disabled={this.state.submitButtonDisabled}
             onPress={this.handleSubmit}
+            disabled={submitButtonDisabled}
           />
           <Button
             title="Reset"
             onPress={this.handleReset}
+            disabled={resetButtonDisabled}
           />
         </FormWithConstraints>
       </View>

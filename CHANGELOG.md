@@ -2,8 +2,9 @@
 
 ### Features
 
-- `<Input>` component for easy field styling
+- `<Input>` component for field styling
 - Material-UI integration with `react-form-with-constraints-material-ui`
+- `hasFeedbacks()` to implement reset button
 
 ### Breaking Changes
 

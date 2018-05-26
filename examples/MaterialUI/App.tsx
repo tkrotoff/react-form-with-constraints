@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { isEqual, omit } from 'lodash';
 
 import {
   Input, InputLabel, FormHelperText,
@@ -41,6 +42,7 @@ interface State {
   password: string;
   passwordConfirm: string;
   submitButtonDisabled: boolean;
+  resetButtonDisabled: boolean;
 }
 
 class Form extends React.Component<PropsWithStyles, State> {
@@ -49,13 +51,19 @@ class Form extends React.Component<PropsWithStyles, State> {
   form: FormWithConstraints | null = null;
   password: HTMLInputElement | null = null;
 
-  getInitialState() {
+  private getInitialState() {
     return {
       username: '',
       password: '',
       passwordConfirm: '',
-      submitButtonDisabled: false
+      submitButtonDisabled: false,
+      resetButtonDisabled: true
     };
+  }
+
+  private shouldDisableResetButton(state: State) {
+    const omitList = ['submitButtonDisabled', 'resetButtonDisabled'];
+    return isEqual(omit(this.getInitialState(), omitList), omit(state, omitList)) && !this.form!.hasFeedbacks();
   }
 
   handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,7 +76,11 @@ class Form extends React.Component<PropsWithStyles, State> {
     console.log(target.name, target.value);
 
     await this.form!.validateFields(target);
-    this.setState({submitButtonDisabled: !this.form!.isValid()});
+
+    this.setState(prevState => ({
+      submitButtonDisabled: !this.form!.isValid(),
+      resetButtonDisabled: this.shouldDisableResetButton(prevState)
+    }));
   }
 
   handlePasswordChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +93,11 @@ class Form extends React.Component<PropsWithStyles, State> {
     console.log(target.name, target.value);
 
     await this.form!.validateFields(target, 'passwordConfirm');
-    this.setState({submitButtonDisabled: !this.form!.isValid()});
+
+    this.setState(prevState => ({
+      submitButtonDisabled: !this.form!.isValid(),
+      resetButtonDisabled: this.shouldDisableResetButton(prevState)
+    }));
   }
 
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -89,7 +105,12 @@ class Form extends React.Component<PropsWithStyles, State> {
 
     await this.form!.validateForm();
     const formIsValid = this.form!.isValid();
-    this.setState({submitButtonDisabled: !formIsValid});
+
+    this.setState(prevState => ({
+      submitButtonDisabled: !formIsValid,
+      resetButtonDisabled: this.shouldDisableResetButton(prevState)
+    }));
+
     if (formIsValid) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     }
@@ -98,10 +119,12 @@ class Form extends React.Component<PropsWithStyles, State> {
   handleReset = () => {
     this.setState(this.getInitialState());
     this.form!.reset();
+    this.setState({resetButtonDisabled: true});
   }
 
   render() {
     const { classes } = this.props;
+    const { username, password, passwordConfirm, submitButtonDisabled, resetButtonDisabled } = this.state;
 
     return (
       <FormWithConstraints
@@ -110,7 +133,7 @@ class Form extends React.Component<PropsWithStyles, State> {
       >
         <TextField
           name="username" label={<>Username <small>(already taken: john, paul, george, ringo)</small></>}
-          value={this.state.username} onChange={this.handleChange}
+          value={username} onChange={this.handleChange}
           fullWidth margin="dense"
           inputProps={{
             required: true,
@@ -138,8 +161,8 @@ class Form extends React.Component<PropsWithStyles, State> {
           <InputLabel htmlFor="password">Password</InputLabel>
           <Input
             type="password" id="password" name="password"
-            inputRef={password => this.password = password}
-            value={this.state.password} onChange={this.handlePasswordChange}
+            inputRef={_password => this.password = _password}
+            value={password} onChange={this.handlePasswordChange}
             inputProps={{
               required: true,
               pattern: '.{5,}'
@@ -160,7 +183,7 @@ class Form extends React.Component<PropsWithStyles, State> {
 
         <TextField
           type="password" name="passwordConfirm" label="Confirm Password"
-          value={this.state.passwordConfirm} onChange={this.handleChange}
+          value={passwordConfirm} onChange={this.handleChange}
           fullWidth margin="dense"
           helperText={
             <FieldFeedbacks for="passwordConfirm">
@@ -170,12 +193,12 @@ class Form extends React.Component<PropsWithStyles, State> {
         />
 
         <Button
-          type="submit" disabled={this.state.submitButtonDisabled}
+          type="submit" disabled={submitButtonDisabled}
           color="primary" variant="raised" className={classes.button}
         >
           Submit
         </Button>
-        <Button onClick={this.handleReset} variant="raised" className={classes.button}>Reset</Button>
+        <Button onClick={this.handleReset} disabled={resetButtonDisabled} variant="raised" className={classes.button}>Reset</Button>
 
         <DisplayFields />
       </FormWithConstraints>

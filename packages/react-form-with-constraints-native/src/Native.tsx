@@ -26,7 +26,6 @@ export class FormWithConstraints extends _FormWithConstraints {
 
     if (inputsOrNames.length === 0) {
       // Find all children with a name
-
       deepForEach(this.props.children, child => {
         if (child.props !== undefined) {
           const fieldName = child.props.name;

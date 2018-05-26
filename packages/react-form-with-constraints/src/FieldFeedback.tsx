@@ -135,7 +135,7 @@ export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackP
 
     const validation = {...this.state.validation}; // Copy state so we don't modify it directly (use of setState() instead)
 
-    if (fieldFeedbacks.props.stop === 'first' && field.hasAnyFeedbacks(fieldFeedbacks.key) ||
+    if (fieldFeedbacks.props.stop === 'first' && field.hasFeedbacks(fieldFeedbacks.key) ||
         fieldFeedbacks.props.stop === 'first-error' && field.hasErrors(fieldFeedbacks.key) ||
         fieldFeedbacks.props.stop === 'first-warning' && field.hasWarnings(fieldFeedbacks.key) ||
         fieldFeedbacks.props.stop === 'first-info' && field.hasInfos(fieldFeedbacks.key)) {

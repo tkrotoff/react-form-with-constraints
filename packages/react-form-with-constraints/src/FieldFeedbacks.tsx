@@ -116,7 +116,7 @@ export class FieldFeedbacks extends
       const field = form.fieldsStore.getField(this.fieldName)!;
 
       if (fieldFeedbacksParent !== undefined && (
-          fieldFeedbacksParent.props.stop === 'first' && field.hasAnyFeedbacks(fieldFeedbacksParent.key) ||
+          fieldFeedbacksParent.props.stop === 'first' && field.hasFeedbacks(fieldFeedbacksParent.key) ||
           fieldFeedbacksParent.props.stop === 'first-error' && field.hasErrors(fieldFeedbacksParent.key) ||
           fieldFeedbacksParent.props.stop === 'first-warning' && field.hasWarnings(fieldFeedbacksParent.key) ||
           fieldFeedbacksParent.props.stop === 'first-info' && field.hasInfos(fieldFeedbacksParent.key))) {

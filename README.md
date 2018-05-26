@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/react-form-with-constraints.svg)](https://badge.fury.io/js/react-form-with-constraints)
 [![Build Status](https://travis-ci.org/tkrotoff/react-form-with-constraints.svg?branch=master)](https://travis-ci.org/tkrotoff/react-form-with-constraints)
 [![codecov](https://codecov.io/gh/tkrotoff/react-form-with-constraints/branch/master/graph/badge.svg)](https://codecov.io/gh/tkrotoff/react-form-with-constraints)
-[![gzip size](http://img.badgesize.io/https://unpkg.com/react-form-with-constraints@latest/dist/react-form-with-constraints.production.min.js.gz?compression=gzip)](https://unpkg.com/react-form-with-constraints/dist/react-form-with-constraints.production.min.js.gz)
+[![gzip size](http://img.badgesize.io/https://unpkg.com/react-form-with-constraints@latest/dist/react-form-with-constraints.production.min.js.gz?compression=gzip)](https://unpkg.com/react-form-with-constraints/dist/)
 
 Simple form validation for React
 
@@ -37,12 +37,12 @@ Resources:
 ## What react-form-with-constraints brings
 
 - Minimal API and footprint
+- Unobtrusive: easy to adapt regular [React code](https://reactjs.org/docs/forms.html)
 - Control HTML5 error messages: `<FieldFeedback when="valueMissing">My custom error message</FieldFeedback>`
 - Custom constraints: `<FieldFeedback when={value => ...}>`
 - Warnings and infos: `<FieldFeedback ... warning>`, `<FieldFeedback ... info>`
 - Async validation
 - No dependency beside React (no Redux, MobX...)
-- No special field component, just plain old `<input>` or whatever you like
 - Re-render only what's necessary
 - Easily extendable
 - Support for [React Native](examples/ReactNative) with npm package `react-form-with-constraints-native`
@@ -119,7 +119,7 @@ The API reads like this: "for field when constraint violation display feedback",
 ```
 ```
 for field "password"
-  when constraint violation "valueMissing"    display "the HTML5 error message (*)"
+  when constraint violation "valueMissing"    display <the HTML5 error message (*)>
   when constraint violation "patternMismatch" display "Should be at least 5 characters long"
 ```
 
@@ -249,10 +249,12 @@ class MyForm extends React.Component {
     Without arguments, all fields (`$('[name]')`) are validated.
 
   - `validateForm(): Promise<Field[]>` =>
-    Should be called before to submit the `form`. Validates only all non-dirty fields (won't re-validate fields that have been already validated with `validateFields()`),
+    Should be called before to submit the `form`. Validates only all non-dirty fields (won't re-validate fields that have been already validated with `validateFields(...)`),
     If you want to force re-validate all fields, use `validateFields()` without arguments.
 
-  - `isValid(): boolean` => should be called after `validateForm()` or `validateFields()`, tells if the known fields are valid (thanks to internal `FieldsStore`)
+  - `isValid(): boolean` => should be called after `validateForm()` or `validateFields()`, tells if the fields are valid
+
+  - `hasFeedbacks(): boolean` => tells if the fields have any kind of feedback
 
   - `reset(): Promise` => resets internal `FieldsStore` and re-render all `FieldFeedback`s
 

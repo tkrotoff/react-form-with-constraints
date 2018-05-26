@@ -1433,6 +1433,26 @@ test('isValid()', async () => {
   wrapper.unmount();
 });
 
+test('hasFeedbacks()', async () => {
+  const wrapper = mount(<SignUp />);
+  const signUp = wrapper.instance() as SignUp;
+
+  expect(signUp.form!.hasFeedbacks()).toEqual(false);
+
+  signUp.username!.value = 'john';
+  signUp.password!.value = '123456';
+  signUp.passwordConfirm!.value = '12345';
+
+  const fields = await signUp.form!.validateFields(signUp.username!, signUp.password!, signUp.passwordConfirm!);
+  expect(fields.every(field => field.hasFeedbacks())).toEqual(true);
+  expect(signUp.form!.hasFeedbacks()).toEqual(true);
+
+  signUp.form!.reset();
+  expect(signUp.form!.hasFeedbacks()).toEqual(false);
+
+  wrapper.unmount();
+});
+
 test('reset()', async () => {
   const wrapper = mount(<SignUp />);
   const signUp = wrapper.instance() as SignUp;

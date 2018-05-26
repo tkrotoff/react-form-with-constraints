@@ -16,6 +16,8 @@
     "react": "latest",
     "react-dom": "latest",
 
+    "lodash": "latest",
+
     "@material-ui/core": "latest",
 
     "react-form-with-constraints": "^0.8.0",
@@ -28,6 +30,8 @@
 
     "@types/react": "latest",
     "@types/react-dom": "latest",
+
+    "@types/lodash": "latest",
 
     "ts-node": "latest",
     "@types/node": "latest",

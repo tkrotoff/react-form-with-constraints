@@ -2,6 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { isEqual, omit } from 'lodash';
 
 import { FormWithConstraints, Input, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints-bootstrap4';
 import { DisplayFields } from 'react-form-with-constraints-tools';
@@ -27,8 +28,14 @@ class Form extends React.Component {
       username: '',
       password: '',
       passwordConfirm: '',
-      submitButtonDisabled: false
+      submitButtonDisabled: false,
+      resetButtonDisabled: true
     };
+  }
+
+  shouldDisableResetButton(state) {
+    const omitList = ['submitButtonDisabled', 'resetButtonDisabled'];
+    return isEqual(omit(this.getInitialState(), omitList), omit(state, omitList)) && !this.form.hasFeedbacks();
   }
 
   handleChange = async e => {
@@ -39,7 +46,11 @@ class Form extends React.Component {
     });
 
     await this.form.validateFields(target);
-    this.setState({submitButtonDisabled: !this.form.isValid()});
+
+    this.setState(prevState => ({
+      submitButtonDisabled: !this.form.isValid(),
+      resetButtonDisabled: this.shouldDisableResetButton(prevState)
+    }));
   }
 
   handlePasswordChange = async e => {
@@ -50,7 +61,11 @@ class Form extends React.Component {
     });
 
     await this.form.validateFields(target, 'passwordConfirm');
-    this.setState({submitButtonDisabled: !this.form.isValid()});
+
+    this.setState(prevState => ({
+      submitButtonDisabled: !this.form.isValid(),
+      resetButtonDisabled: this.shouldDisableResetButton(prevState)
+    }));
   }
 
   handleSubmit = async e => {
@@ -58,7 +73,12 @@ class Form extends React.Component {
 
     await this.form.validateForm();
     const formIsValid = this.form.isValid();
-    this.setState({submitButtonDisabled: !formIsValid});
+
+    this.setState(prevState => ({
+      submitButtonDisabled: !formIsValid,
+      resetButtonDisabled: this.shouldDisableResetButton(prevState)
+    }));
+
     if (formIsValid) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     }
@@ -67,16 +87,19 @@ class Form extends React.Component {
   handleReset = () => {
     this.setState(this.getInitialState());
     this.form.reset();
+    this.setState({resetButtonDisabled: true});
   }
 
   render() {
+    const { username, password, passwordConfirm, submitButtonDisabled, resetButtonDisabled } = this.state;
+
     return (
       <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div className="form-group">
           <label htmlFor="username">Username <small>(already taken: john, paul, george, ringo)</small></label>
           <Input id="username" name="username"
-                 value={this.state.username} onChange={this.handleChange}
+                 value={username} onChange={this.handleChange}
                  required minLength={3}
                  className="form-control" />
           <FieldFeedbacks for="username">
@@ -98,7 +121,7 @@ class Form extends React.Component {
           <label htmlFor="password">Password</label>
           <Input type="password" id="password" name="password"
                  innerRef={password => this.password = password}
-                 value={this.state.password} onChange={this.handlePasswordChange}
+                 value={password} onChange={this.handlePasswordChange}
                  required pattern=".{5,}"
                  className="form-control" />
           <FieldFeedbacks for="password">
@@ -115,7 +138,7 @@ class Form extends React.Component {
         <div className="form-group">
           <label htmlFor="password-confirm">Confirm Password</label>
           <Input type="password" id="password-confirm" name="passwordConfirm"
-                 value={this.state.passwordConfirm} onChange={this.handleChange}
+                 value={passwordConfirm} onChange={this.handleChange}
                  required className="form-control" />
           <FieldFeedbacks for="passwordConfirm">
             <FieldFeedback when="*" />
@@ -124,8 +147,8 @@ class Form extends React.Component {
           </FieldFeedbacks>
         </div>
 
-        <button disabled={this.state.submitButtonDisabled} className="btn btn-primary">Submit</button>{' '}
-        <button type="button" onClick={this.handleReset} className="btn btn-secondary">Reset</button>
+        <button disabled={submitButtonDisabled} className="btn btn-primary">Submit</button>{' '}
+        <button type="button" onClick={this.handleReset} disabled={resetButtonDisabled} className="btn btn-secondary">Reset</button>
 
         <DisplayFields />
       </FormWithConstraints>

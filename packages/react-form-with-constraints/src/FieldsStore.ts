@@ -9,8 +9,8 @@ export enum FieldEvent {
 export class FieldsStore extends EventEmitter {
   fields = new Array<Field>();
 
-  clear() {
-    this.fields.forEach(field => field.clear());
+  clearFieldsValidations() {
+    this.fields.forEach(field => field.clearValidations());
   }
 
   getField(fieldName: string): Readonly<Field> | undefined {
@@ -49,5 +49,9 @@ export class FieldsStore extends EventEmitter {
 
   isValid() {
     return this.fields.every(field => field.isValid());
+  }
+
+  hasFeedbacks() {
+    return this.fields.some(field => field.hasFeedbacks());
   }
 }

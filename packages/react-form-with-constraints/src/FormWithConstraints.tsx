@@ -100,8 +100,8 @@ export class FormWithConstraints
       // so let's ignore this field
     }
 
-    else if (forceValidateFields || !field.hasAnyFeedbacks()) {
-      field.clear();
+    else if (forceValidateFields || !field.hasFeedbacks()) {
+      field.clearValidations();
 
       this.emitFieldWillValidateEvent(fieldName);
 
@@ -126,13 +126,15 @@ export class FormWithConstraints
 
   // If called without arguments, returns all fields ($('[name]'))
   // Returns the inputs in the same order they were given
-  protected normalizeInputs(...inputsOrNames: Array<InputElement | string>) {
+  protected normalizeInputs(...inputsOrNames: Array<InputElement /* HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement... */ | string>) {
     let inputs;
 
     if (inputsOrNames.length === 0) {
       // [name] matches <input name="...">, <select name="...">, <button name="...">, ...
       // See Convert JavaScript NodeList to Array? https://stackoverflow.com/a/33822526/990356
       inputs = [...this.form!.querySelectorAll<HTMLInputElement>('[name]')];
+
+      // Check we have unique names
       inputs
         .filter(input => input.type !== 'checkbox' && input.type !== 'radio')
         .map(input => input.name)
@@ -146,6 +148,9 @@ export class FormWithConstraints
         if (typeof input === 'string') {
           const query = `[name="${input}"]`;
           const elements = [...this.form!.querySelectorAll<HTMLInputElement>(query)];
+
+          // Checks
+
           if (elements.filter(el => el.type !== 'checkbox' && el.type !== 'radio').length > 1) {
             throw new Error(`Multiple elements matching '${query}' inside the form`);
           }
@@ -153,6 +158,7 @@ export class FormWithConstraints
           if (element === undefined) {
             throw new Error(`Could not find field '${query}' inside the form`);
           }
+
           return element;
         } else {
           return input;
@@ -163,13 +169,17 @@ export class FormWithConstraints
     return inputs;
   }
 
-  // Does not check if fields are dirty
+  // More like seemsToBeValid(): return true if fields are untouched
   isValid() {
     return this.fieldsStore.isValid();
   }
 
+  hasFeedbacks() {
+    return this.fieldsStore.hasFeedbacks();
+  }
+
   reset() {
-    this.fieldsStore.clear();
+    this.fieldsStore.clearFieldsValidations();
     return this.emitResetEvent();
   }
 

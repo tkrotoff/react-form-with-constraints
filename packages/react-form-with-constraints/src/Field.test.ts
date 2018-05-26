@@ -64,7 +64,7 @@ test('addOrReplaceValidation()', () => {
   });
 });
 
-test('clear()', () => {
+test('clearValidations()', () => {
   const field = new Field('password');
   field.addOrReplaceValidation(validation_empty);
   field.addOrReplaceValidation(validation_length);
@@ -73,7 +73,7 @@ test('clear()', () => {
 
   expect(field.validations).toEqual([validation_empty, validation_length, validation_letters, validation_numbers]);
 
-  field.clear();
+  field.clearValidations();
   expect(field).toEqual({
     name: 'password',
     validations: []
@@ -94,9 +94,9 @@ test('has*() + isValid()', () => {
   expect(field.hasInfos()).toEqual(false);
   expect(field.hasInfos('0')).toEqual(false);
   expect(field.hasInfos('1')).toEqual(false);
-  expect(field.hasAnyFeedbacks()).toEqual(false);
-  expect(field.hasAnyFeedbacks('0')).toEqual(false);
-  expect(field.hasAnyFeedbacks('1')).toEqual(false);
+  expect(field.hasFeedbacks()).toEqual(false);
+  expect(field.hasFeedbacks('0')).toEqual(false);
+  expect(field.hasFeedbacks('1')).toEqual(false);
   expect(field.isValid()).toEqual(true);
 
 
@@ -116,9 +116,9 @@ test('has*() + isValid()', () => {
   expect(field.hasInfos()).toEqual(false);
   expect(field.hasInfos('0')).toEqual(false);
   expect(field.hasInfos('1')).toEqual(false);
-  expect(field.hasAnyFeedbacks()).toEqual(true);
-  expect(field.hasAnyFeedbacks('0')).toEqual(true);
-  expect(field.hasAnyFeedbacks('1')).toEqual(true);
+  expect(field.hasFeedbacks()).toEqual(true);
+  expect(field.hasFeedbacks('0')).toEqual(true);
+  expect(field.hasFeedbacks('1')).toEqual(true);
   expect(field.isValid()).toEqual(false);
 
 
@@ -140,9 +140,9 @@ test('has*() + isValid()', () => {
   expect(field.hasInfos()).toEqual(false);
   expect(field.hasInfos('0')).toEqual(false);
   expect(field.hasInfos('1')).toEqual(false);
-  expect(field.hasAnyFeedbacks()).toEqual(true);
-  expect(field.hasAnyFeedbacks('0')).toEqual(true);
-  expect(field.hasAnyFeedbacks('1')).toEqual(true);
+  expect(field.hasFeedbacks()).toEqual(true);
+  expect(field.hasFeedbacks('0')).toEqual(true);
+  expect(field.hasFeedbacks('1')).toEqual(true);
   expect(field.isValid()).toEqual(false);
 
 
@@ -164,9 +164,9 @@ test('has*() + isValid()', () => {
   expect(field.hasInfos()).toEqual(false);
   expect(field.hasInfos('0')).toEqual(false);
   expect(field.hasInfos('1')).toEqual(false);
-  expect(field.hasAnyFeedbacks()).toEqual(true);
-  expect(field.hasAnyFeedbacks('0')).toEqual(false);
-  expect(field.hasAnyFeedbacks('1')).toEqual(true);
+  expect(field.hasFeedbacks()).toEqual(true);
+  expect(field.hasFeedbacks('0')).toEqual(false);
+  expect(field.hasFeedbacks('1')).toEqual(true);
   expect(field.isValid()).toEqual(true);
 
 
@@ -188,9 +188,9 @@ test('has*() + isValid()', () => {
   expect(field.hasInfos()).toEqual(false);
   expect(field.hasInfos('0')).toEqual(false);
   expect(field.hasInfos('1')).toEqual(false);
-  expect(field.hasAnyFeedbacks()).toEqual(true);
-  expect(field.hasAnyFeedbacks('0')).toEqual(false);
-  expect(field.hasAnyFeedbacks('1')).toEqual(true);
+  expect(field.hasFeedbacks()).toEqual(true);
+  expect(field.hasFeedbacks('0')).toEqual(false);
+  expect(field.hasFeedbacks('1')).toEqual(true);
   expect(field.isValid()).toEqual(true);
 
 
@@ -212,8 +212,8 @@ test('has*() + isValid()', () => {
   expect(field.hasInfos()).toEqual(false);
   expect(field.hasInfos('0')).toEqual(false);
   expect(field.hasInfos('1')).toEqual(false);
-  expect(field.hasAnyFeedbacks()).toEqual(false);
-  expect(field.hasAnyFeedbacks('0')).toEqual(false);
-  expect(field.hasAnyFeedbacks('1')).toEqual(false);
+  expect(field.hasFeedbacks()).toEqual(false);
+  expect(field.hasFeedbacks('0')).toEqual(false);
+  expect(field.hasFeedbacks('1')).toEqual(false);
   expect(field.isValid()).toEqual(true);
 });

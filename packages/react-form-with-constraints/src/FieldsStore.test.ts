@@ -11,7 +11,7 @@ test('constructor()', () => {
   expect(store.fields).toEqual([]);
 });
 
-test('clear()', () => {
+test('clearFieldsValidations()', () => {
   const store = new FieldsStore();
 
   expect(store.fields).toEqual([]);
@@ -29,7 +29,7 @@ test('clear()', () => {
     {name: 'password', validations: [validation_empty]}
   ]);
 
-  store.clear();
+  store.clearFieldsValidations();
   expect(store.fields).toEqual([
     {name: 'username', validations: []},
     {name: 'password', validations: []}
@@ -127,4 +127,24 @@ test('isValid()', () => {
   const password = store.getField('password')!;
   password.addOrReplaceValidation(validation_empty);
   expect(store.isValid()).toEqual(false);
+});
+
+test('hasFeedbacks()', () => {
+  const store = new FieldsStore();
+
+  store.addField('username');
+  store.addField('password');
+
+  expect(store.hasFeedbacks()).toEqual(false);
+
+  const username = store.getField('username')!;
+  username.addOrReplaceValidation(validation_empty);
+  expect(store.hasFeedbacks()).toEqual(true);
+
+  const password = store.getField('password')!;
+  password.addOrReplaceValidation(validation_empty);
+  expect(store.hasFeedbacks()).toEqual(true);
+
+  store.clearFieldsValidations();
+  expect(store.hasFeedbacks()).toEqual(false);
 });

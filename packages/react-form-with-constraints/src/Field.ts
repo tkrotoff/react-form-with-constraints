@@ -17,7 +17,7 @@ export default class Field {
     else this.validations.push(validation);
   }
 
-  clear() {
+  clearValidations() {
     clearArray(this.validations);
   }
 
@@ -40,13 +40,12 @@ export default class Field {
     return this.hasFeedbacksOfType(FieldFeedbackType.Info, fieldFeedbacksKey);
   }
 
-  hasAnyFeedbacks(fieldFeedbacksKey?: string) {
+  hasFeedbacks(fieldFeedbacksKey?: string) {
     return this.hasErrors(fieldFeedbacksKey) ||
            this.hasWarnings(fieldFeedbacksKey) ||
            this.hasInfos(fieldFeedbacksKey);
   }
 
-  // Does not check if field is dirty
   isValid() {
     return !this.hasErrors();
   }
