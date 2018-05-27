@@ -1,5 +1,4 @@
-// See Export default config https://github.com/facebook/jest/issues/5943
-const defaults = require('jest-config/build/defaults').default;
+const { defaults } = require('jest-config');
 
 module.exports = {
   preset: 'react-native',
