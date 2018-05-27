@@ -8,7 +8,8 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest'
   },
+
   // See https://github.com/facebook/jest/blob/v18.1.0/packages/jest-config/src/defaults.js#L53
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+  testRegex: '\\.test\\.tsx?$',
   moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx']
 };
