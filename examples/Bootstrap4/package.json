@@ -7,7 +7,10 @@
     "clean": "del-cli build",
 
     "build": "cross-env NODE_ENV=development webpack -d",
-    "build:watch": "cross-env NODE_ENV=development webpack -d --watch"
+    "build:watch": "cross-env NODE_ENV=development webpack -d --watch",
+
+    "pretest:e2e": "npm run build",
+    "test:e2e": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose --config jest-e2e.config.js"
   },
 
   "dependencies": {
@@ -27,6 +30,16 @@
   },
 
   "devDependencies": {
+    "jest": "latest",
+    "puppeteer": "latest",
+    "jest-puppeteer": "latest",
+    "http-server": "latest",
+
+    "babel-core": "latest",
+    "babel-plugin-transform-class-properties": "latest",
+    "babel-preset-env": "latest",
+    "babel-preset-react": "latest",
+
     "node-sass": "latest",
     "style-loader": "latest",
     "css-loader": "latest",
@@ -38,11 +51,6 @@
     "babel-loader": "latest",
     "file-loader": "latest",
     "source-map-loader": "latest",
-
-    "babel-core": "latest",
-    "babel-plugin-transform-class-properties": "latest",
-    "babel-preset-env": "latest",
-    "babel-preset-react": "latest",
 
     "del-cli": "latest",
     "cross-env": "latest"

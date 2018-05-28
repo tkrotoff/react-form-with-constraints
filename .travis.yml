@@ -14,7 +14,9 @@ before_script:
 script:
   - yarn tslint
   - yarn prepublishOnly
+  - yarn build
   - yarn coverage
+  - yarn test:e2e
 
 after_success:
   - yarn add codecov --ignore-workspace-root-check
