@@ -22,7 +22,7 @@
     "prepublishOnly": "npm run clean && npm run tsc && npm run build",
 
     "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
-    "coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"
+    "test:coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"
   },
 
   "peerDependencies": {

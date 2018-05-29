@@ -16,7 +16,7 @@
 
     "test": "lerna run test --stream",
     "test:e2e": "lerna run test:e2e --stream",
-    "coverage": "lerna run coverage --stream",
+    "test:coverage": "lerna run test:coverage --stream",
 
     "tslint": "find . -name 'tsconfig.json' -not -path '*/node_modules/*' -print -exec tslint --config tslint.json --project '{}' \\;",
 

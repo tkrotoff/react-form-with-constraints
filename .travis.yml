@@ -15,7 +15,7 @@ script:
   - yarn tslint
   - yarn prepublishOnly
   - yarn build
-  - yarn coverage
+  - yarn test:coverage
   - yarn test:e2e
 
 after_success:
