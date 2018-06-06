@@ -104,7 +104,7 @@ const Hobbies = observer(({memberIndex, member, validateField}: HobbiesProps) =>
   }
 
   function updateHobby(e: React.ChangeEvent<HTMLInputElement>, index: number) {
-    member.updateHobby(index, e.currentTarget.value);
+    member.updateHobby(index, e.target.value);
     validateField(e);
   }
 
@@ -170,12 +170,12 @@ const Members = observer(({club, validateField}: MembersProps) => {
   }
 
   function updateMemberFirstName(e: React.ChangeEvent<HTMLInputElement>, member: Member) {
-    member.firstName = e.currentTarget.value;
+    member.firstName = e.target.value;
     validateField(e);
   }
 
   function updateMemberLastName(e: React.ChangeEvent<HTMLInputElement>, member: Member) {
-    member.lastName = e.currentTarget.value;
+    member.lastName = e.target.value;
     validateField(e);
   }
 
@@ -257,7 +257,7 @@ class Form extends React.Component<FormProps> {
   form: FormWithConstraints | null = null;
 
   validateField = (e: React.ChangeEvent<HTMLInputElement> | string) => {
-    const target = typeof e === 'string' ? e : e.currentTarget;
+    const target = typeof e === 'string' ? e : e.target;
     this.form!.validateFields(target);
   }
 
@@ -272,7 +272,7 @@ class Form extends React.Component<FormProps> {
 
   updateClubName(e: React.ChangeEvent<HTMLInputElement>) {
     const { club } = this.props;
-    club.name = e.currentTarget.value;
+    club.name = e.target.value;
     this.validateField(e);
   }
 

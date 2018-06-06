@@ -143,7 +143,7 @@ Trigger validation:
 ```JSX
 class MyForm extends React.Component {
   async handleChange(e) {
-    const target = e.currentTarget;
+    const target = e.target;
 
     // Validates only the given fields and returns Promise<Field[]>
     const fields = await this.form.validateFields(target);

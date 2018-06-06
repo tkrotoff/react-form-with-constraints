@@ -39,7 +39,7 @@ class Form extends React.Component {
   }
 
   handleChange = async e => {
-    const target = e.currentTarget;
+    const target = e.target;
 
     this.setState({
       [target.name]: target.value
@@ -54,7 +54,7 @@ class Form extends React.Component {
   }
 
   handlePasswordChange = async e => {
-    const target = e.currentTarget;
+    const target = e.target;
 
     this.setState({
       [target.name]: target.value

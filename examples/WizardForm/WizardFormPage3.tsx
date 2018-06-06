@@ -17,7 +17,7 @@ class WizardFormPage3 extends React.Component<Props> {
   form: FormWithConstraints | null = null;
 
   handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => {
-    const target = e.currentTarget;
+    const target = e.target;
 
     this.props.onChange(target);
 

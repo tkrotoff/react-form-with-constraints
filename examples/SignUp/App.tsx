@@ -90,11 +90,13 @@ class SignUp extends React.Component<Props, State> {
   previousValidateFields: string | undefined;
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const target = e.currentTarget;
+    const target = e.target;
     const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
 
+    // FIXME See Computed property key names should not be widened https://github.com/Microsoft/TypeScript/issues/13948
+    // @ts-ignore
     this.setState({
-      [target.name as any]: value
+      [target.name as keyof State]: value
     });
 
     // Flush the previous debounce if input is not the same otherwise validateFields(input2) will overwrite validateFields(input1)
@@ -108,11 +110,14 @@ class SignUp extends React.Component<Props, State> {
   }
 
   handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const target = e.currentTarget;
+    const target = e.target;
 
     this.props.i18n.changeLanguage(target.value);
+
+    // FIXME See Computed property key names should not be widened https://github.com/Microsoft/TypeScript/issues/13948
+    // @ts-ignore
     this.setState({
-      [target.name as any]: target.value
+      [target.name as keyof State]: target.value
     });
   }
 
@@ -132,7 +137,7 @@ class SignUp extends React.Component<Props, State> {
   validateFields = debounce(this._validateFields, VALIDATE_DEBOUNCE_WAIT);
 
   handleHasWebsiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const hasWebsite = e.currentTarget.checked;
+    const hasWebsite = e.target.checked;
 
     if (!hasWebsite) {
       // Reset this.state.website if it was previously filled

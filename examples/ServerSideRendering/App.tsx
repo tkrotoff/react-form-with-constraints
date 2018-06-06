@@ -53,10 +53,12 @@ class Form extends React.Component<Props, State> {
   };
 
   handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.currentTarget;
+    const target = e.target;
 
+    // FIXME See Computed property key names should not be widened https://github.com/Microsoft/TypeScript/issues/13948
+    // @ts-ignore
     this.setState({
-      [target.name as any]: target.value
+      [target.name as keyof State]: target.value
     });
 
     // Validates only the given field and returns the related FieldValidation structures
@@ -73,10 +75,12 @@ class Form extends React.Component<Props, State> {
   }
 
   handlePasswordChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.currentTarget;
+    const target = e.target;
 
+    // FIXME See Computed property key names should not be widened https://github.com/Microsoft/TypeScript/issues/13948
+    // @ts-ignore
     this.setState({
-      [target.name as any]: target.value
+      [target.name as keyof State]: target.value
     });
 
     const fields = await this.form!.validateFields(target, 'passwordConfirm');

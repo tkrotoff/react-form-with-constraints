@@ -49,7 +49,7 @@ class Form extends React.Component<Props, State> {
   };
 
   handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.currentTarget;
+    const target = e.target;
     this.setState(prevState => {
       return {
         errors: {
@@ -61,7 +61,7 @@ class Form extends React.Component<Props, State> {
   }
 
   handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.currentTarget;
+    const target = e.target;
     this.setState(prevState => {
       return {
         errors: {
@@ -74,7 +74,7 @@ class Form extends React.Component<Props, State> {
   }
 
   handlePasswordConfirmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.currentTarget;
+    const target = e.target;
     this.setState(prevState => {
       return {
         errors: {

@@ -11,12 +11,12 @@ class Form extends React.Component {
   password: HTMLInputElement | null = null;
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.currentTarget;
+    const target = e.target;
     this.form!.validateFields(target);
   }
 
   handlePasswordChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.currentTarget;
+    const target = e.target;
     this.form!.validateFields(target, 'passwordConfirm');
   }
 
