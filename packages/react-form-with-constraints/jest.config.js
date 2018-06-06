@@ -1,8 +1,8 @@
 const { defaults } = require('jest-config');
 
 module.exports = {
-  setupFiles: ['./src/JestSetup.ts'],
-  coveragePathIgnorePatterns: [...defaults.coveragePathIgnorePatterns, './src/JestSetup.ts'],
+  setupFiles: ['./jest.setup.ts'],
+  coveragePathIgnorePatterns: [...defaults.coveragePathIgnorePatterns, './jest.setup.ts'],
 
   transform: {
     '^.+\\.tsx?$': 'ts-jest'

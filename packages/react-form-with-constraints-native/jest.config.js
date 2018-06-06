@@ -3,7 +3,7 @@ const { defaults } = require('jest-config');
 module.exports = {
   preset: 'react-native',
 
-  setupFiles: ['../react-form-with-constraints/src/JestSetup.ts'],
+  setupFiles: ['../react-form-with-constraints/jest.setup.ts'],
 
   transform: {
     '^.+\\.tsx?$': 'ts-jest',

@@ -1,7 +1,7 @@
 const { defaults } = require('jest-config');
 
 module.exports = {
-  setupFiles: ['../react-form-with-constraints/src/JestSetup.ts'],
+  setupFiles: ['../react-form-with-constraints/jest.setup.ts'],
 
   transform: {
     '^.+\\.tsx?$': 'ts-jest'
