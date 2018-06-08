@@ -13,7 +13,7 @@ export interface Props {
   onSubmit: () => void;
 }
 
-class WizardFormPage3 extends React.Component<Props> {
+class WizardFormStep3 extends React.Component<Props> {
   form: FormWithConstraints | null = null;
 
   handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => {
@@ -77,4 +77,4 @@ class WizardFormPage3 extends React.Component<Props> {
   }
 }
 
-export default WizardFormPage3;
+export default WizardFormStep3;

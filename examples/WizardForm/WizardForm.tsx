@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { Color } from './Color';
-import WizardFormPage1 from './WizardFormPage1';
-import WizardFormPage2 from './WizardFormPage2';
-import WizardFormPage3 from './WizardFormPage3';
+import WizardFormStep1 from './WizardFormStep1';
+import WizardFormStep2 from './WizardFormStep2';
+import WizardFormStep3 from './WizardFormStep3';
 
 export interface Props {}
 
 export interface State {
-  page: number;
+  step: number;
 
   firstName: string;
   lastName: string;
@@ -18,7 +18,7 @@ export interface State {
 
 class WizardForm extends React.Component<Props, State> {
   state: State = {
-    page: 1,
+    step: 1,
 
     firstName: '',
     lastName: '',
@@ -40,22 +40,22 @@ class WizardForm extends React.Component<Props, State> {
     alert(`Form submitted\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
   }
 
-  nextPage = () => {
-    this.setState({page: this.state.page + 1});
+  nextStep = () => {
+    this.setState({step: this.state.step + 1});
   }
 
-  previousPage = () => {
-    this.setState({page: this.state.page - 1});
+  previousStep = () => {
+    this.setState({step: this.state.step - 1});
   }
 
   render() {
-    const { page } = this.state;
+    const { step } = this.state;
 
     return (
       <>
-        {page === 1 && <WizardFormPage1 {...this.state} onChange={this.handleChange} nextPage={this.nextPage} />}
-        {page === 2 && <WizardFormPage2 {...this.state} previousPage={this.previousPage} onChange={this.handleChange} nextPage={this.nextPage} />}
-        {page === 3 && <WizardFormPage3 {...this.state} previousPage={this.previousPage} onChange={this.handleChange} onSubmit={this.handleSubmit} />}
+        {step === 1 && <WizardFormStep1 {...this.state} onChange={this.handleChange} nextPage={this.nextStep} />}
+        {step === 2 && <WizardFormStep2 {...this.state} previousPage={this.previousStep} onChange={this.handleChange} nextPage={this.nextStep} />}
+        {step === 3 && <WizardFormStep3 {...this.state} previousPage={this.previousStep} onChange={this.handleChange} onSubmit={this.handleSubmit} />}
 
         <div>
           <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre>
