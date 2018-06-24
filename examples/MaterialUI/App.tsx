@@ -17,15 +17,13 @@ import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './index.html';
 
-function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-async function checkUsernameAvailability(value: string) {
+const checkUsernameAvailability = async (value: string) => {
   console.log('checkUsernameAvailability');
   await sleep(1000);
   return !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase());
-}
+};
 
 const styles = (theme: Theme) => ({
   button: {

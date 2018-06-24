@@ -2,9 +2,7 @@ import { EventEmitter } from './index';
 import clearArray from './clearArray';
 
 // See How to convert a plain object into an ES6 Map? https://stackoverflow.com/questions/36644438
-function toMap(object: object) {
-  return new Map(Object.entries(object));
-}
+const toMap = (object: object) => new Map(Object.entries(object));
 
 const listener10 = jest.fn().mockReturnValue(10);
 const listener11 = jest.fn().mockReturnValue(11);

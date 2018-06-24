@@ -5,10 +5,12 @@
 
 export interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
 
-export default function flattenDeep<T>(arrayOfArrays: RecursiveArray<T>): T[] {
+const flattenDeep = <T>(arrayOfArrays: RecursiveArray<T>): T[] => {
   return arrayOfArrays
     .reduce<T[]>(
       (prev, curr) => prev.concat(Array.isArray(curr) ? flattenDeep(curr) : curr),
       []
     );
-}
+};
+
+export default flattenDeep;

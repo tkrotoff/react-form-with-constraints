@@ -10,15 +10,13 @@ import { DisplayFields } from 'react-form-with-constraints-tools';
 import './index.html';
 import './App.scss';
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-async function checkUsernameAvailability(value) {
+const checkUsernameAvailability = async value => {
   console.log('checkUsernameAvailability');
   await sleep(1000);
   return !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase());
-}
+};
 
 class Form extends React.Component {
   state = this.getInitialState();
@@ -120,7 +118,7 @@ class Form extends React.Component {
         <div className="form-group">
           <label htmlFor="password">Password</label>
           <Input type="password" id="password" name="password"
-                 innerRef={password => this.password = password}
+                 innerRef={_password => this.password = _password}
                  value={password} onChange={this.handlePasswordChange}
                  required pattern=".{5,}"
                  className="form-control" />

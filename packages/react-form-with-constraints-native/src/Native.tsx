@@ -102,10 +102,10 @@ export interface FieldFeedbackProps extends _FieldFeedbackBaseProps, TextProps {
 
 
 // See Clone a js object except for one key https://stackoverflow.com/q/34698905
-function omitClassesDefaultProps() {
+const omitClassesDefaultProps = () => {
   const { classes, ...otherProps } = _FieldFeedback.defaultProps;
   return otherProps;
-}
+};
 
 export class FieldFeedback extends _FieldFeedback<FieldFeedbackProps> {
   // Remove classes props: not relevant with React Native

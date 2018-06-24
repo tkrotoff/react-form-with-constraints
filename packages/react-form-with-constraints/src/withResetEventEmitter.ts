@@ -4,7 +4,7 @@ import Constructor from './Constructor';
 export const ResetEvent = 'RESET_EVENT';
 
 // See TypeScript 2.2 Support for Mix-in classes https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html
-export function withResetEventEmitter<TBase extends Constructor<{}>>(Base: TBase) {
+const withResetEventEmitter = <TBase extends Constructor<{}>>(Base: TBase) => {
   type Listener = () => void;
 
   return class ResetEvenEmitter extends Base {
@@ -22,4 +22,6 @@ export function withResetEventEmitter<TBase extends Constructor<{}>>(Base: TBase
       this.resetEventEmitter.removeListener(ResetEvent, listener);
     }
   };
-}
+};
+
+export { withResetEventEmitter };

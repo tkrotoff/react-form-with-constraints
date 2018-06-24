@@ -14,29 +14,29 @@ interface Errors {
   passwordConfirm: string[];
 }
 
-function validateUsername(username: string) {
+const validateUsername = (username: string) => {
   const errors = [] as string[];
   if (username.length === 0) errors.push("Can't be empty");
   if (!username.includes('@')) errors.push('Should contain @');
   return errors;
-}
+};
 
-function validatePassword(password: string) {
+const validatePassword = (password: string) => {
   const errors = [] as string[];
   if (password.length === 0) errors.push("Can't be empty");
   if (password.length < 5) errors.push('Should be at least 5 characters long');
   return errors;
-}
+};
 
-function validatePasswordConfirm(password: string, passwordConfirm: string) {
+const validatePasswordConfirm = (password: string, passwordConfirm: string) => {
   const errors = [] as string[];
   if (passwordConfirm !== password) errors.push('Not the same password');
   return errors;
-}
+};
 
-function hasErrors(errors: Errors) {
+const hasErrors = (errors: Errors) => {
   return errors.username.length > 0 || errors.password.length > 0 || errors.passwordConfirm.length > 0;
-}
+};
 
 
 interface Props {}

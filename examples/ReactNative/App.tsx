@@ -7,15 +7,13 @@ import {
   FieldFeedback as _FieldFeedback, FieldFeedbackProps
 } from 'react-form-with-constraints-native';
 
-function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-async function checkUsernameAvailability(value: string) {
+const checkUsernameAvailability = async (value: string) => {
   console.log('checkUsernameAvailability');
   await sleep(1000);
   return !['john@beatles', 'paul@beatles', 'george@beatles', 'ringo@beatles'].includes(value.toLowerCase());
-}
+};
 
 export interface Props {}
 

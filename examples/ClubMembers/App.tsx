@@ -93,22 +93,22 @@ interface HobbiesProps {
 }
 
 const Hobbies = observer(({memberIndex, member, validateField}: HobbiesProps) => {
-  function addHobby() {
+  const addHobby = () => {
     member.addHobby();
     validateField(`member${memberIndex}.checkNbHobbies`);
-  }
+  };
 
-  function removeHobby(index: number) {
+  const removeHobby = (index: number) => {
     member.removeHobby(index);
     validateField(`member${memberIndex}.checkNbHobbies`);
-  }
+  };
 
-  function updateHobby(e: React.ChangeEvent<HTMLInputElement>, index: number) {
+  const updateHobby = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     member.updateHobby(index, e.target.value);
     validateField(e);
-  }
+  };
 
-  function renderHobby(hobby: Hobby, index: number) {
+  const renderHobby = (hobby: Hobby, index: number) => {
     const hobbyLabel = `Hobby #${index + 1}`;
     const hobbyName = `member${memberIndex}.hobby${index}`;
 
@@ -130,7 +130,7 @@ const Hobbies = observer(({memberIndex, member, validateField}: HobbiesProps) =>
         </FieldFeedbacks>
       </li>
     );
-  }
+  };
 
   const checkNbHobbiesName = `member${memberIndex}.checkNbHobbies`;
 
@@ -159,27 +159,27 @@ interface MembersProps {
 }
 
 const Members = observer(({club, validateField}: MembersProps) => {
-  function addMember() {
+  const addMember = () => {
     club.addMember();
     validateField('checkNbMembers');
-  }
+  };
 
-  function removeMember(index: number) {
+  const removeMember = (index: number) => {
     club.removeMember(index);
     validateField('checkNbMembers');
-  }
+  };
 
-  function updateMemberFirstName(e: React.ChangeEvent<HTMLInputElement>, member: Member) {
+  const updateMemberFirstName = (e: React.ChangeEvent<HTMLInputElement>, member: Member) => {
     member.firstName = e.target.value;
     validateField(e);
-  }
+  };
 
-  function updateMemberLastName(e: React.ChangeEvent<HTMLInputElement>, member: Member) {
+  const updateMemberLastName = (e: React.ChangeEvent<HTMLInputElement>, member: Member) => {
     member.lastName = e.target.value;
     validateField(e);
-  }
+  };
 
-  function renderMember(member: Member, index: number) {
+  const renderMember = (member: Member, index: number) => {
     const memberFirstNameName = `member${index}.firstName`;
     const memberLastNameName = `member${index}.lastName`;
 
@@ -217,7 +217,7 @@ const Members = observer(({club, validateField}: MembersProps) => {
         <Hobbies memberIndex={index} member={member} validateField={validateField} />
       </li>
     );
-  }
+  };
 
   return (
     <>

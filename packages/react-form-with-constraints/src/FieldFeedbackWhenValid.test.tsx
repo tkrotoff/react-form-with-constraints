@@ -8,9 +8,8 @@ import {
 } from './index';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 
-function shallow(node: React.ReactElement<FieldFeedbackWhenValidProps>, options: {context: FieldFeedbackWhenValidContext}) {
-  return _shallow<FieldFeedbackWhenValidProps>(node, options);
-}
+const shallow = (node: React.ReactElement<FieldFeedbackWhenValidProps>, options: {context: FieldFeedbackWhenValidContext}) =>
+  _shallow<FieldFeedbackWhenValidProps>(node, options);
 
 let form_username: FormWithConstraints;
 let fieldFeedbacks_username: FieldFeedbacks;

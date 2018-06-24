@@ -60,12 +60,12 @@ export class DisplayFields extends React.Component<DisplayFieldsProps> {
 
 // See Preserving undefined that JSON.stringify otherwise removes https://stackoverflow.com/q/26540706
 // See JSON.stringify without quotes on properties? https://stackoverflow.com/q/11233498
-function stringifyWithUndefinedAndWithoutPropertyQuotes(obj: object, space?: string | number) {
+const stringifyWithUndefinedAndWithoutPropertyQuotes = (obj: object, space?: string | number) => {
   let str = JSON.stringify(obj, (_key, value) => value === undefined ? '__undefined__' : value, space);
   str = str.replace(/"__undefined__"/g, 'undefined');
   str = str.replace(/"([^"]+)":/g, '$1:');
   return str;
-}
+};
 
 export { FormWithConstraints };
 

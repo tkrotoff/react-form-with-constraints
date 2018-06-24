@@ -3,9 +3,8 @@ import { shallow as _shallow } from 'enzyme';
 
 import { Input, InputProps, InputContext, FormWithConstraints, Field, FieldFeedbackValidation, FieldFeedbackType } from './index';
 
-function shallow(node: React.ReactElement<InputProps>, options: {context: InputContext}) {
-  return _shallow<InputProps>(node, options);
-}
+const shallow = (node: React.ReactElement<InputProps>, options: {context: InputContext}) =>
+  _shallow<InputProps>(node, options);
 
 test('fieldWillValidate() fieldDidValidate()', () => {
   const wrapper = shallow(

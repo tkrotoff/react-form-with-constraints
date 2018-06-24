@@ -5,12 +5,11 @@ import { FormWithConstraints, Field, FieldFeedback, FieldFeedbackContext, FieldF
 import { InputElementMock, input_username_valueMissing, input_username_valid } from './InputElementMock';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 
-function shallow(node: React.ReactElement<FieldFeedbackProps>, options: {context: FieldFeedbackContext}) {
-  return _shallow<FieldFeedbackProps>(node, options);
-}
-function mount(node: React.ReactElement<FieldFeedbackProps>, options: {context: FieldFeedbackContext}) {
-  return _mount<FieldFeedbackProps>(node, options);
-}
+const shallow = (node: React.ReactElement<FieldFeedbackProps>, options: {context: FieldFeedbackContext}) =>
+  _shallow<FieldFeedbackProps>(node, options);
+
+const mount = (node: React.ReactElement<FieldFeedbackProps>, options: {context: FieldFeedbackContext}) =>
+  _mount<FieldFeedbackProps>(node, options);
 
 let form_username: FormWithConstraints;
 let fieldFeedbacks_username: FieldFeedbacks;

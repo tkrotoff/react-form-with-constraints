@@ -12,21 +12,21 @@ interface Errors {
   passwordConfirm: string[];
 }
 
-function validateHTML5Field(field: HTMLInputElement) {
+const validateHTML5Field = (field: HTMLInputElement) => {
   const errors = [];
   if (field.validationMessage !== '') errors.push(field.validationMessage);
   return errors;
-}
+};
 
-function validatePasswordConfirm(password: HTMLInputElement, passwordConfirm: HTMLInputElement) {
+const validatePasswordConfirm = (password: HTMLInputElement, passwordConfirm: HTMLInputElement) => {
   const errors = [];
   if (passwordConfirm.value !== password.value) errors.push('Not the same password');
   return errors;
-}
+};
 
-function hasErrors(errors: Errors) {
+const hasErrors = (errors: Errors) => {
   return errors.username.length > 0 || errors.password.length > 0 || errors.passwordConfirm.length > 0;
-}
+};
 
 
 interface Props {}
