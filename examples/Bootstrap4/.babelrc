@@ -1,0 +1,16 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": ["> 1%", "IE >= 10"]
+        },
+        "useBuiltIns": true,
+        "debug": false
+      }
+    ],
+    "react"
+  ],
+  "plugins": ["babel-plugin-transform-class-properties"]
+}

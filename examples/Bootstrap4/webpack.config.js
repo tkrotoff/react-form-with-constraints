@@ -23,24 +23,7 @@ module.exports = {
 
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            ['env', {
-              targets: {
-                browsers: ['> 1%', 'IE >= 10']
-              },
-              useBuiltIns: true,
-              debug: true
-            }],
-            'react',
-          ],
-          plugins: [require('babel-plugin-transform-class-properties')]
-        }
-      },
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
       { test: /\.js$/, loader: 'source-map-loader' },
       { test: /\.(html|css|png)$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} },
       {
