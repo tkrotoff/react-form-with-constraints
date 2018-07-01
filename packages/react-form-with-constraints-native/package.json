@@ -45,10 +45,6 @@
     "@types/jest": "latest",
     "ts-jest": "latest",
 
-    "babel-jest": "latest",
-    "babel-core": "latest",
-    "babel-preset-react-native": "latest",
-
     "react-test-renderer": "16.0.0",
     "@types/react-test-renderer": "latest",
 
@@ -56,6 +52,10 @@
     "@types/enzyme": "latest",
     "enzyme-adapter-react-16": "latest",
     "@types/enzyme-adapter-react-16": "latest",
+
+    "babel-jest": "latest",
+    "babel-core": "latest",
+    "babel-preset-react-native": "latest",
 
     "del-cli": "latest",
     "cross-env": "latest"

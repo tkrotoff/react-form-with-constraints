@@ -42,6 +42,19 @@
     "@types/react": "latest",
     "@types/prop-types": "latest",
 
+    "jest": "latest",
+    "@types/jest": "latest",
+    "ts-jest": "latest",
+
+    "enzyme": "latest",
+    "@types/enzyme": "latest",
+    "enzyme-adapter-react-16": "latest",
+    "@types/enzyme-adapter-react-16": "latest",
+    "react-dom": "latest",
+
+    "js-beautify": "latest",
+    "@types/js-beautify": "latest",
+
     "node-zopfli": "latest",
     "node-gyp": "latest",
 
@@ -54,19 +67,6 @@
     "rollup-plugin-strip": "latest",
 
     "del-cli": "latest",
-    "cross-env": "latest",
-
-    "jest": "latest",
-    "@types/jest": "latest",
-    "ts-jest": "latest",
-
-    "enzyme": "latest",
-    "@types/enzyme": "latest",
-    "enzyme-adapter-react-16": "latest",
-    "@types/enzyme-adapter-react-16": "latest",
-    "react-dom": "latest",
-
-    "js-beautify": "latest",
-    "@types/js-beautify": "latest"
+    "cross-env": "latest"
   }
 }
