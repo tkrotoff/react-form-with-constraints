@@ -3,5 +3,9 @@
 
   "files": [
     "App.tsx"
+  ],
+
+  "include": [
+    "*.test.e2e.ts"
   ]
 }

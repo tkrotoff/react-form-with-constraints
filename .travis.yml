@@ -16,7 +16,7 @@ script:
   - yarn prepublishOnly
   - yarn build
   - yarn test:coverage
-  - yarn test:e2e
+  - yarn test:e2e --concurrency 1
 
 after_success:
   - yarn add codecov --ignore-workspace-root-check

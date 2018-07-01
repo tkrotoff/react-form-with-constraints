@@ -9,7 +9,10 @@
     "tsc": "tsc",
 
     "build": "cross-env NODE_ENV=development webpack -d",
-    "build:watch": "cross-env NODE_ENV=development webpack -d --watch"
+    "build:watch": "cross-env NODE_ENV=development webpack -d --watch",
+
+    "pretest:e2e": "npm run build",
+    "test:e2e": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose --config jest-e2e.config.js"
   },
 
   "dependencies": {
@@ -25,6 +28,16 @@
 
     "@types/react": "latest",
     "@types/react-dom": "latest",
+
+    "jest": "latest",
+    "@types/jest": "latest",
+    "ts-jest": "latest",
+    "puppeteer": "latest",
+    "@types/puppeteer": "latest",
+    "jest-puppeteer": "latest",
+    "@types/jest-environment-puppeteer": "latest",
+    "@types/expect-puppeteer": "latest",
+    "http-server": "latest",
 
     "ts-node": "latest",
     "@types/node": "latest",
