@@ -147,7 +147,7 @@ class Form extends React.Component<PropsWithStyles, State> {
               <FieldFeedback when="*" />
               <Async
                 promise={checkUsernameAvailability}
-                pending="..."
+                pending={<span style={{display: 'block'}}>...</span>}
                 then={available => available ?
                   <FieldFeedback key="1" info style={{color: 'green'}}>Username available</FieldFeedback> :
                   <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>

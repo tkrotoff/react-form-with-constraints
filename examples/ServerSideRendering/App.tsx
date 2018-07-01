@@ -142,7 +142,7 @@ class Form extends React.Component<Props, State> {
             <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
             <Async
               promise={isACommonPassword}
-              pending="..."
+              pending={<span style={{display: 'block'}}>...</span>}
               then={commonPassword => commonPassword ?
                 <FieldFeedback warning>This password is very common</FieldFeedback> : null
               }
