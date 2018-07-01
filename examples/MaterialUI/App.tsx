@@ -39,7 +39,7 @@ interface State {
   username: string;
   password: string;
   passwordConfirm: string;
-  submitButtonDisabled: boolean;
+  signUpButtonDisabled: boolean;
   resetButtonDisabled: boolean;
 }
 
@@ -54,13 +54,13 @@ class Form extends React.Component<PropsWithStyles, State> {
       username: '',
       password: '',
       passwordConfirm: '',
-      submitButtonDisabled: false,
+      signUpButtonDisabled: false,
       resetButtonDisabled: true
     };
   }
 
   private shouldDisableResetButton(state: State) {
-    const omitList = ['submitButtonDisabled', 'resetButtonDisabled'];
+    const omitList = ['signUpButtonDisabled', 'resetButtonDisabled'];
     return isEqual(omit(this.getInitialState(), omitList), omit(state, omitList)) && !this.form!.hasFeedbacks();
   }
 
@@ -78,7 +78,7 @@ class Form extends React.Component<PropsWithStyles, State> {
     await this.form!.validateFields(target);
 
     this.setState(prevState => ({
-      submitButtonDisabled: !this.form!.isValid(),
+      signUpButtonDisabled: !this.form!.isValid(),
       resetButtonDisabled: this.shouldDisableResetButton(prevState)
     }));
   }
@@ -97,7 +97,7 @@ class Form extends React.Component<PropsWithStyles, State> {
     await this.form!.validateFields(target, 'passwordConfirm');
 
     this.setState(prevState => ({
-      submitButtonDisabled: !this.form!.isValid(),
+      signUpButtonDisabled: !this.form!.isValid(),
       resetButtonDisabled: this.shouldDisableResetButton(prevState)
     }));
   }
@@ -109,7 +109,7 @@ class Form extends React.Component<PropsWithStyles, State> {
     const formIsValid = this.form!.isValid();
 
     this.setState(prevState => ({
-      submitButtonDisabled: !formIsValid,
+      signUpButtonDisabled: !formIsValid,
       resetButtonDisabled: this.shouldDisableResetButton(prevState)
     }));
 
@@ -126,7 +126,7 @@ class Form extends React.Component<PropsWithStyles, State> {
 
   render() {
     const { classes } = this.props;
-    const { username, password, passwordConfirm, submitButtonDisabled, resetButtonDisabled } = this.state;
+    const { username, password, passwordConfirm, signUpButtonDisabled, resetButtonDisabled } = this.state;
 
     return (
       <FormWithConstraints
@@ -195,10 +195,10 @@ class Form extends React.Component<PropsWithStyles, State> {
         />
 
         <Button
-          type="submit" disabled={submitButtonDisabled}
+          type="submit" disabled={signUpButtonDisabled}
           color="primary" variant="raised" className={classes.button}
         >
-          Submit
+          Sign Up
         </Button>
         <Button onClick={this.handleReset} disabled={resetButtonDisabled} variant="raised" className={classes.button}>Reset</Button>
 

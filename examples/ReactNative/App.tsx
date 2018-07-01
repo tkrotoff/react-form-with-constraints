@@ -21,7 +21,7 @@ export interface State {
   username: string;
   password: string;
   passwordConfirm: string;
-  submitButtonDisabled: boolean;
+  signUpButtonDisabled: boolean;
   resetButtonDisabled: boolean;
 }
 
@@ -38,13 +38,13 @@ export default class App extends React.Component<Props, State> {
       username: '',
       password: '',
       passwordConfirm: '',
-      submitButtonDisabled: false,
+      signUpButtonDisabled: false,
       resetButtonDisabled: true
     };
   }
 
   private shouldDisableResetButton(state: State) {
-    const omitList = ['submitButtonDisabled', 'resetButtonDisabled'];
+    const omitList = ['signUpButtonDisabled', 'resetButtonDisabled'];
     return isEqual(omit(this.getInitialState(), omitList), omit(state, omitList)) && !this.form!.hasFeedbacks();
   }
 
@@ -56,7 +56,7 @@ export default class App extends React.Component<Props, State> {
         await this.form!.validateFields(this.username!);
 
         this.setState(prevState => ({
-          submitButtonDisabled: !this.form!.isValid(),
+          signUpButtonDisabled: !this.form!.isValid(),
           resetButtonDisabled: this.shouldDisableResetButton(prevState)
         }));
       }
@@ -71,7 +71,7 @@ export default class App extends React.Component<Props, State> {
         await this.form!.validateFields(this.password!, this.passwordConfirm!);
 
         this.setState(prevState => ({
-          submitButtonDisabled: !this.form!.isValid(),
+          signUpButtonDisabled: !this.form!.isValid(),
           resetButtonDisabled: this.shouldDisableResetButton(prevState)
         }));
       }
@@ -86,7 +86,7 @@ export default class App extends React.Component<Props, State> {
         await this.form!.validateFields(this.passwordConfirm!);
 
         this.setState(prevState => ({
-          submitButtonDisabled: !this.form!.isValid(),
+          signUpButtonDisabled: !this.form!.isValid(),
           resetButtonDisabled: this.shouldDisableResetButton(prevState)
         }));
       }
@@ -98,7 +98,7 @@ export default class App extends React.Component<Props, State> {
     const formIsValid = this.form!.isValid();
 
     this.setState(prevState => ({
-      submitButtonDisabled: !formIsValid,
+      signUpButtonDisabled: !formIsValid,
       resetButtonDisabled: this.shouldDisableResetButton(prevState)
     }));
 
@@ -114,7 +114,7 @@ export default class App extends React.Component<Props, State> {
   }
 
   render() {
-    const { username, password, passwordConfirm, submitButtonDisabled, resetButtonDisabled } = this.state;
+    const { username, password, passwordConfirm, signUpButtonDisabled, resetButtonDisabled } = this.state;
 
     return (
       <View style={styles.container}>
@@ -187,7 +187,7 @@ export default class App extends React.Component<Props, State> {
           <Button
             title="Sign Up"
             onPress={this.handleSubmit}
-            disabled={submitButtonDisabled}
+            disabled={signUpButtonDisabled}
           />
           <Button
             title="Reset"

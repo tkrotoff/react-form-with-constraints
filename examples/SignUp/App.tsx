@@ -53,7 +53,7 @@ interface State {
   website: string;
   password: string;
   passwordConfirm: string;
-  submitButtonDisabled: boolean;
+  signUpButtonDisabled: boolean;
   resetButtonDisabled: boolean;
 }
 
@@ -80,7 +80,7 @@ class SignUp extends React.Component<Props, State> {
       website: '',
       password: '',
       passwordConfirm: '',
-      submitButtonDisabled: false,
+      signUpButtonDisabled: false,
       resetButtonDisabled: true
     };
   }
@@ -120,7 +120,7 @@ class SignUp extends React.Component<Props, State> {
   }
 
   private shouldDisableResetButton(state: State) {
-    const omitList = ['submitButtonDisabled', 'resetButtonDisabled'];
+    const omitList = ['signUpButtonDisabled', 'resetButtonDisabled'];
     return isEqual(omit(this.getInitialState(), omitList), omit(state, omitList)) && !this.form!.hasFeedbacks();
   }
 
@@ -128,7 +128,7 @@ class SignUp extends React.Component<Props, State> {
     await this.form!.validateFields(target);
 
     this.setState(prevState => ({
-      submitButtonDisabled: !this.form!.isValid(),
+      signUpButtonDisabled: !this.form!.isValid(),
       resetButtonDisabled: this.shouldDisableResetButton(prevState)
     }));
   }
@@ -152,7 +152,7 @@ class SignUp extends React.Component<Props, State> {
     const formIsValid = this.form!.isValid();
 
     this.setState(prevState => ({
-      submitButtonDisabled: !formIsValid,
+      signUpButtonDisabled: !formIsValid,
       resetButtonDisabled: this.shouldDisableResetButton(prevState)
     }));
 
@@ -186,7 +186,7 @@ class SignUp extends React.Component<Props, State> {
       website,
       password,
       passwordConfirm,
-      submitButtonDisabled,
+      signUpButtonDisabled,
       resetButtonDisabled
     } = this.state;
 
@@ -406,7 +406,7 @@ class SignUp extends React.Component<Props, State> {
             </FieldFeedbacks>
           </div>
 
-          <button disabled={submitButtonDisabled}>{t('Sign Up')}</button>
+          <button disabled={signUpButtonDisabled}>{t('Sign Up')}</button>
           <button type="button" onClick={this.handleReset} disabled={resetButtonDisabled}>{t('Reset')}</button>
 
           <div>

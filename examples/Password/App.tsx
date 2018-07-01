@@ -38,7 +38,7 @@ interface State {
   username: string;
   password: string;
   passwordConfirm: string;
-  submitButtonDisabled: boolean;
+  signUpButtonDisabled: boolean;
 }
 
 class Form extends React.Component<Props, State> {
@@ -49,7 +49,7 @@ class Form extends React.Component<Props, State> {
     username: '',
     password: '',
     passwordConfirm: '',
-    submitButtonDisabled: false
+    signUpButtonDisabled: false
   };
 
   handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +71,7 @@ class Form extends React.Component<Props, State> {
     if (this.form!.isValid()) console.log('The form is valid');
     else console.log('The form is invalid');
 
-    this.setState({submitButtonDisabled: !this.form!.isValid()});
+    this.setState({signUpButtonDisabled: !this.form!.isValid()});
   }
 
   handlePasswordChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +92,7 @@ class Form extends React.Component<Props, State> {
     if (this.form!.isValid()) console.log('The form is valid');
     else console.log('The form is invalid');
 
-    this.setState({submitButtonDisabled: !this.form!.isValid()});
+    this.setState({signUpButtonDisabled: !this.form!.isValid()});
   }
 
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -107,7 +107,7 @@ class Form extends React.Component<Props, State> {
     if (formIsValid) console.log('The form is valid');
     else console.log('The form is invalid');
 
-    this.setState({submitButtonDisabled: !formIsValid});
+    this.setState({signUpButtonDisabled: !formIsValid});
     if (formIsValid) {
       alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
     }
@@ -162,7 +162,7 @@ class Form extends React.Component<Props, State> {
           </FieldFeedbacks>
         </div>
 
-        <button disabled={this.state.submitButtonDisabled}>Sign Up</button>
+        <button disabled={this.state.signUpButtonDisabled}>Sign Up</button>
 
         <DisplayFields />
       </FormWithConstraints>

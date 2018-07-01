@@ -38,9 +38,9 @@ test('john/123456/12345', async () => {
   expect(passwordConfirmFeedbacks).toHaveLength(1);
   await expect(passwordConfirmFeedbacks[0]).toMatch('Not the same password');
 
-  const submit = (await page.$x("//button[text() = 'Submit']"))[0];
+  const signUp = (await page.$x("//button[text() = 'Sign Up']"))[0];
   // See Get Custom Attribute value https://github.com/GoogleChrome/puppeteer/issues/1451
-  const disabled = await page.evaluate(el => el.getAttribute('disabled'), submit);
+  const disabled = await page.evaluate(el => el.getAttribute('disabled'), signUp);
   expect(disabled).toEqual('');
 });
 
@@ -73,13 +73,13 @@ test('jimmy/12345/12345', async () => {
   expect(passwordConfirmFeedbacks).toHaveLength(1);
   await expect(passwordConfirmFeedbacks[0]).toMatch('Looks good!');
 
-  const submit = (await page.$x("//button[text() = 'Submit']"))[0];
+  const signUp = (await page.$x("//button[text() = 'Sign Up']"))[0];
   // See Get Custom Attribute value https://github.com/GoogleChrome/puppeteer/issues/1451
-  const disabled = await page.evaluate(el => el.getAttribute('disabled'), submit);
+  const disabled = await page.evaluate(el => el.getAttribute('disabled'), signUp);
   expect(disabled).toEqual(null);
 
   const dialog = await expect(page).toDisplayDialog(async () => {
-    await submit.click();
+    await signUp.click();
   });
   expect(indent(dialog.message(), '    ')).toEqual(`\
     Valid form
@@ -89,7 +89,7 @@ test('jimmy/12345/12345', async () => {
       "username": "jimmy",
       "password": "12345",
       "passwordConfirm": "12345",
-      "submitButtonDisabled": false,
+      "signUpButtonDisabled": false,
       "resetButtonDisabled": false
     }`
   );
