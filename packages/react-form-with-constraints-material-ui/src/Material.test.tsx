@@ -103,7 +103,7 @@ describe('FormWithConstraints', () => {
       <form>
         <div class="MuiFormControl-root-\\d+">
           <div class="MuiInput-root-\\d+ MuiInput-error-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="true" aria-required="false" class="MuiInput-input-\\d+" name="username" type="text" value="">
+            <input aria-invalid="true" class="MuiInput-input-\\d+" name="username" type="text" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+ MuiFormHelperText-error-\\d+">
             <span data-feedbacks="0">
@@ -114,7 +114,7 @@ describe('FormWithConstraints', () => {
         <div class="MuiFormControl-root-\\d+">
           <label class="MuiFormLabel-root-\\d+ MuiInputLabel-root-\\d+ MuiInputLabel-formControl-\\d+ MuiInputLabel-animated-\\d+" data-shrink="false" for="password">Password</label>
           <div class="MuiInput-root-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="false" aria-required="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" id="password" name="password" type="password" value="">
+            <input aria-invalid="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" id="password" name="password" type="password" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="1">
@@ -127,7 +127,7 @@ describe('FormWithConstraints', () => {
         </div>
         <div class="MuiFormControl-root-\\d+">
           <div class="MuiInput-root-\\d+ MuiInput-error-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="true" aria-required="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" name="passwordConfirm" type="password" value="">
+            <input aria-invalid="true" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" name="passwordConfirm" type="password" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+ MuiFormHelperText-error-\\d+">
             <span data-feedbacks="2">
@@ -155,7 +155,7 @@ describe('FormWithConstraints', () => {
       <form>
         <div class="MuiFormControl-root-\\d+">
           <div class="MuiInput-root-\\d+ MuiInput-error-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="true" aria-required="false" class="MuiInput-input-\\d+" name="username" type="text" value="">
+            <input aria-invalid="true" class="MuiInput-input-\\d+" name="username" type="text" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+ MuiFormHelperText-error-\\d+">
             <span data-feedbacks="0">
@@ -166,7 +166,7 @@ describe('FormWithConstraints', () => {
         <div class="MuiFormControl-root-\\d+">
           <label class="MuiFormLabel-root-\\d+ MuiInputLabel-root-\\d+ MuiInputLabel-formControl-\\d+ MuiInputLabel-animated-\\d+" data-shrink="false" for="password">Password</label>
           <div class="MuiInput-root-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="false" aria-required="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" id="password" name="password" type="password" value="">
+            <input aria-invalid="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" id="password" name="password" type="password" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="1">
@@ -179,7 +179,7 @@ describe('FormWithConstraints', () => {
         </div>
         <div class="MuiFormControl-root-\\d+">
           <div class="MuiInput-root-\\d+ MuiInput-error-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="true" aria-required="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" name="passwordConfirm" type="password" value="">
+            <input aria-invalid="true" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" name="passwordConfirm" type="password" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+ MuiFormHelperText-error-\\d+">
             <span data-feedbacks="2">
@@ -196,7 +196,7 @@ describe('FormWithConstraints', () => {
       <form>
         <div class="MuiFormControl-root-\\d+">
           <div class="MuiInput-root-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="false" aria-required="false" class="MuiInput-input-\\d+" name="username" type="text" value="">
+            <input aria-invalid="false" class="MuiInput-input-\\d+" name="username" type="text" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="0"></span>
@@ -205,7 +205,7 @@ describe('FormWithConstraints', () => {
         <div class="MuiFormControl-root-\\d+">
           <label class="MuiFormLabel-root-\\d+ MuiInputLabel-root-\\d+ MuiInputLabel-formControl-\\d+ MuiInputLabel-animated-\\d+" data-shrink="false" for="password">Password</label>
           <div class="MuiInput-root-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="false" aria-required="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" id="password" name="password" type="password" value="">
+            <input aria-invalid="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" id="password" name="password" type="password" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="1"></span>
@@ -213,7 +213,7 @@ describe('FormWithConstraints', () => {
         </div>
         <div class="MuiFormControl-root-\\d+">
           <div class="MuiInput-root-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="false" aria-required="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" name="passwordConfirm" type="password" value="">
+            <input aria-invalid="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" name="passwordConfirm" type="password" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="2"></span>
@@ -240,7 +240,7 @@ describe('FormWithConstraints', () => {
       <form>
         <div class="MuiFormControl-root-\\d+">
           <div class="MuiInput-root-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="false" aria-required="false" class="MuiInput-input-\\d+" name="username" type="text" value="">
+            <input aria-invalid="false" class="MuiInput-input-\\d+" name="username" type="text" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="0">
@@ -252,7 +252,7 @@ describe('FormWithConstraints', () => {
         <div class="MuiFormControl-root-\\d+">
           <label class="MuiFormLabel-root-\\d+ MuiInputLabel-root-\\d+ MuiInputLabel-formControl-\\d+ MuiInputLabel-animated-\\d+" data-shrink="false" for="password">Password</label>
           <div class="MuiInput-root-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="false" aria-required="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" id="password" name="password" type="password" value="">
+            <input aria-invalid="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" id="password" name="password" type="password" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="1">
@@ -265,7 +265,7 @@ describe('FormWithConstraints', () => {
         </div>
         <div class="MuiFormControl-root-\\d+">
           <div class="MuiInput-root-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="false" aria-required="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" name="passwordConfirm" type="password" value="">
+            <input aria-invalid="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" name="passwordConfirm" type="password" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="2">
@@ -341,7 +341,7 @@ describe('Async', () => {
       <form>
         <div class="MuiFormControl-root-\\d+">
           <div class="MuiInput-root-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="false" aria-required="false" class="MuiInput-input-\\d+" name="username" type="text" value="">
+            <input aria-invalid="false" class="MuiInput-input-\\d+" name="username" type="text" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="0">
@@ -353,7 +353,7 @@ describe('Async', () => {
         <div class="MuiFormControl-root-\\d+">
           <label class="MuiFormLabel-root-\\d+ MuiInputLabel-root-\\d+ MuiInputLabel-formControl-\\d+ MuiInputLabel-animated-\\d+" data-shrink="false" for="password">Password</label>
           <div class="MuiInput-root-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="false" aria-required="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" id="password" name="password" type="password" value="">
+            <input aria-invalid="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" id="password" name="password" type="password" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="1">
@@ -366,7 +366,7 @@ describe('Async', () => {
         </div>
         <div class="MuiFormControl-root-\\d+">
           <div class="MuiInput-root-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="false" aria-required="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" name="passwordConfirm" type="password" value="">
+            <input aria-invalid="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" name="passwordConfirm" type="password" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="2">
@@ -431,7 +431,7 @@ describe('Async', () => {
       <form>
         <div class="MuiFormControl-root-\\d+">
           <div class="MuiInput-root-\\d+ MuiInput-error-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="true" aria-required="false" class="MuiInput-input-\\d+" name="username" type="text" value="">
+            <input aria-invalid="true" class="MuiInput-input-\\d+" name="username" type="text" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+ MuiFormHelperText-error-\\d+">
             <span data-feedbacks="0">
@@ -442,7 +442,7 @@ describe('Async', () => {
         <div class="MuiFormControl-root-\\d+">
           <label class="MuiFormLabel-root-\\d+ MuiInputLabel-root-\\d+ MuiInputLabel-formControl-\\d+ MuiInputLabel-animated-\\d+" data-shrink="false" for="password">Password</label>
           <div class="MuiInput-root-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="false" aria-required="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" id="password" name="password" type="password" value="">
+            <input aria-invalid="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" id="password" name="password" type="password" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="1">
@@ -455,7 +455,7 @@ describe('Async', () => {
         </div>
         <div class="MuiFormControl-root-\\d+">
           <div class="MuiInput-root-\\d+ MuiInput-error-\\d+ MuiInput-formControl-\\d+ MuiInput-underline-\\d+">
-            <input aria-invalid="true" aria-required="false" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" name="passwordConfirm" type="password" value="">
+            <input aria-invalid="true" class="MuiInput-input-\\d+ MuiInput-inputType-\\d+" name="passwordConfirm" type="password" value="">
           </div>
           <p class="MuiFormHelperText-root-\\d+ MuiFormHelperText-error-\\d+">
             <span data-feedbacks="2">

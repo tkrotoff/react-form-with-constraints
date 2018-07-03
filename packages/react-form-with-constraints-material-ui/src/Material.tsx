@@ -5,10 +5,7 @@ import {
   FormControl as _FormControl,
   TextField as _TextField,
   MuiThemeProvider, createMuiTheme, Theme,
-  // @ts-ignore
-  // 'StyledComponentProps' is declared but its value is never read.
-  // FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
-  withStyles, WithStyles, StyledComponentProps
+  createStyles, withStyles, WithStyles
 } from '@material-ui/core';
 import { FormControlProps } from '@material-ui/core/FormControl';
 import { TextFieldProps } from '@material-ui/core/TextField';
@@ -162,7 +159,7 @@ export class FormWithConstraints extends _FormWithConstraints {
   }
 }
 
-const fieldFeedbackStyles = (theme: Theme) => ({
+const fieldFeedbackStyles = (theme: Theme) => createStyles({
   root: {
     // Simulates FormHelperText margin
     // See https://github.com/mui-org/material-ui/blob/v1.0.0-beta.44/packages/material-ui/src/Form/FormHelperText.js#L12
@@ -172,7 +169,7 @@ const fieldFeedbackStyles = (theme: Theme) => ({
   }
 });
 
-export type FieldFeedbackPropsWithStyles = FieldFeedbackBaseProps & React.HTMLAttributes<HTMLSpanElement> & WithStyles<'root'>;
+type FieldFeedbackPropsWithStyles = FieldFeedbackBaseProps & React.HTMLAttributes<HTMLSpanElement> & WithStyles<typeof fieldFeedbackStyles>;
 
 export const FieldFeedback = withStyles(fieldFeedbackStyles, {name: 'FieldFeedback'})<FieldFeedbackBaseProps & React.HTMLAttributes<HTMLSpanElement>>(
   class extends React.Component<FieldFeedbackPropsWithStyles> {

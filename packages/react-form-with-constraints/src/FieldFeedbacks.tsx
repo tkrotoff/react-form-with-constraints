@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 
 import { FormWithConstraintsChildContext } from './FormWithConstraints';
 import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
-// @ts-ignore
-// 'EventEmitter' is declared but its value is never read.
-// FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
-import { EventEmitter } from './EventEmitter';
 import { InputElement } from './InputElement';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 import flattenDeep from './flattenDeep';

@@ -6,7 +6,7 @@ import {
   Input, InputLabel, FormHelperText,
   /*TextField, FormControl,*/
   Button,
-  Theme, withStyles, WithStyles
+  Theme, createStyles, withStyles, WithStyles
 } from '@material-ui/core';
 
 import {
@@ -25,7 +25,7 @@ const checkUsernameAvailability = async (value: string) => {
   return !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase());
 };
 
-const styles = (theme: Theme) => ({
+const styles = (theme: Theme) => createStyles({
   button: {
     marginTop: theme.spacing.unit,
     marginRight: theme.spacing.unit
@@ -33,7 +33,7 @@ const styles = (theme: Theme) => ({
 });
 
 interface Props {}
-type PropsWithStyles = Props & WithStyles<'button'>;
+type PropsWithStyles = Props & WithStyles<typeof styles>;
 
 interface State {
   username: string;

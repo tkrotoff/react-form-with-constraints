@@ -5,13 +5,6 @@ import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 import { withFieldWillValidateEventEmitter } from './withFieldWillValidateEventEmitter';
 import { withFieldDidValidateEventEmitter } from './withFieldDidValidateEventEmitter';
 import { withResetEventEmitter } from './withResetEventEmitter';
-// @ts-ignore
-// 'EventEmitter' is declared but its value is never read.
-// FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
-import { EventEmitter } from './EventEmitter';
-// @ts-ignore
-// 'Field' is declared but its value is never read.
-// FIXME See https://github.com/Microsoft/TypeScript/issues/9944#issuecomment-309903027
 import Field from './Field';
 import { InputElement } from './InputElement';
 import { FieldsStore } from './FieldsStore';
