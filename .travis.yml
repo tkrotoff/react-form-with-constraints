@@ -15,6 +15,7 @@ script:
   - yarn tslint
   - yarn prepublishOnly
   - yarn build
+  - yarn tsc
   - yarn test:coverage
   - yarn test:e2e --concurrency 1
 
