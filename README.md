@@ -77,7 +77,7 @@ Resources:
 
   ![example-password](doc/example-password.png)
 
-- CodeSandbox Bootstrap 4 example: https://codesandbox.io/s/qk0zro1qm4
+- CodeSandbox Bootstrap 4 example: https://codesandbox.io/s/nkqrr17qqj
 - CodeSandbox Material-UI example: https://codesandbox.io/s/zx62rw4k64
 - CodeSandbox WizardForm example: https://codesandbox.io/s/my0ojyzq6p
 - CodeSandbox SignUp example: https://codesandbox.io/s/62qwozvm0k
