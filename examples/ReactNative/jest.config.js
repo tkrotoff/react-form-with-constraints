@@ -1,4 +1,6 @@
-const { defaults } = require('jest-config');
+//const { defaults } = require('jest-config');
+// FIXME See Export default config https://github.com/facebook/jest/issues/5943
+const defaults = require('jest-config/build/defaults').default;
 
 module.exports = {
   preset: 'jest-expo',
