@@ -17,7 +17,7 @@ script:
   - yarn build
   - yarn tsc
   - yarn test:coverage
-  - yarn test:e2e --concurrency 1
+  - yarn test:e2e
 
 after_success:
   - yarn add codecov --ignore-workspace-root-check
