@@ -17,7 +17,7 @@
     "react": "latest",
     "react-dom": "latest",
 
-    "react-form-with-constraints": "^0.8.0",
+    "react-form-with-constraints": "^0.9.1",
 
     "express": "latest"
   },
