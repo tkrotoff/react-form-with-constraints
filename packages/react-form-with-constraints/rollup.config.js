@@ -22,12 +22,11 @@ export default {
     format: 'umd',
     sourcemap: true,
     globals: {
-      react: 'React',
-      'prop-types': 'PropTypes'
+      react: 'React'
     }
   },
 
-  external: ['react', 'prop-types'],
+  external: ['react'],
 
   plugins: [
     typescript({

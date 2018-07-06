@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 import { withFieldWillValidateEventEmitter } from './withFieldWillValidateEventEmitter';

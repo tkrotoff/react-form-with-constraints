@@ -23,12 +23,11 @@ export default {
     sourcemap: true,
     globals: {
       'react-form-with-constraints': 'ReactFormWithConstraints',
-      react: 'React',
-      'prop-types': 'PropTypes'
+      react: 'React'
     }
   },
 
-  external: ['react-form-with-constraints', 'react', 'prop-types'],
+  external: ['react-form-with-constraints', 'react'],
 
   plugins: [
     typescript({

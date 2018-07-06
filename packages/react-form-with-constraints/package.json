@@ -31,16 +31,11 @@
     "react": ">=16"
   },
 
-  "dependencies": {
-    "prop-types": "^15.6.1"
-  },
-
   "devDependencies": {
     "typescript": "latest",
 
     "react": "latest",
     "@types/react": "latest",
-    "@types/prop-types": "latest",
 
     "jest": "latest",
     "@types/jest": "latest",
