@@ -160,4 +160,9 @@ class Form extends React.Component<Props, State> {
   }
 }
 
-ReactDOM.render(<Form />, document.getElementById('app'));
+ReactDOM.render(
+  <React.StrictMode>
+    <Form />
+  </React.StrictMode>,
+  document.getElementById('app')
+);

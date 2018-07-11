@@ -210,4 +210,9 @@ class Form extends React.Component<PropsWithStyles, State> {
 
 const App = withStyles(styles)<Props>(Form);
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('app')
+);

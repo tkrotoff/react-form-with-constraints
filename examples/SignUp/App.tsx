@@ -421,4 +421,9 @@ class SignUp extends React.Component<Props, State> {
 }
 
 const SignUpTranslated = translate()(SignUp);
-ReactDOM.render(<SignUpTranslated />, document.getElementById('app'));
+ReactDOM.render(
+  <React.StrictMode>
+    <SignUpTranslated />
+  </React.StrictMode>,
+  document.getElementById('app')
+);

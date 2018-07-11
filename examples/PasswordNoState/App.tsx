@@ -79,4 +79,9 @@ class Form extends React.Component {
   }
 }
 
-ReactDOM.render(<Form />, document.getElementById('app'));
+ReactDOM.render(
+  <React.StrictMode>
+    <Form />
+  </React.StrictMode>,
+  document.getElementById('app')
+);
