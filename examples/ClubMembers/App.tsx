@@ -92,7 +92,7 @@ interface HobbiesProps {
   validateField: (e: React.ChangeEvent<HTMLInputElement> | string) => void;
 }
 
-const Hobbies = observer(({memberIndex, member, validateField}: HobbiesProps) => {
+const Hobbies = observer<React.SFC<HobbiesProps>>(({memberIndex, member, validateField}) => {
   const addHobby = () => {
     member.addHobby();
     validateField(`member${memberIndex}.checkNbHobbies`);
@@ -150,7 +150,7 @@ const Hobbies = observer(({memberIndex, member, validateField}: HobbiesProps) =>
     </>
   );
 });
-(Hobbies as React.SFC).displayName = 'Hobbies';
+Hobbies.displayName = 'Hobbies';
 
 
 interface MembersProps {
@@ -158,7 +158,7 @@ interface MembersProps {
   validateField: (e: React.ChangeEvent<HTMLInputElement> | string) => void;
 }
 
-const Members = observer(({club, validateField}: MembersProps) => {
+const Members = observer<React.SFC<MembersProps>>(({club, validateField}) => {
   const addMember = () => {
     club.addMember();
     validateField('checkNbMembers');
@@ -235,17 +235,17 @@ const Members = observer(({club, validateField}: MembersProps) => {
     </>
   );
 });
-(Members as React.SFC).displayName = 'Members';
+Members.displayName = 'Members';
 
 
 interface DisplayClubProps {
   club: Club;
 }
 
-const DisplayClub = observer(({club}: DisplayClubProps) =>
+const DisplayClub = observer<React.SFC<DisplayClubProps>>(({club}) =>
   <pre style={{fontSize: 'small'}}>Club = {JSON.stringify(club, null, 2)}</pre>
 );
-(DisplayClub as React.SFC).displayName = 'DisplayClub';
+DisplayClub.displayName = 'DisplayClub';
 
 
 interface FormProps {
