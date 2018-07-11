@@ -3,23 +3,27 @@ import ReactDOM from 'react-dom';
 
 import {
   FormWithConstraints,
-  FormWithConstraintsChildContext,
-  FieldFeedback as _FieldFeedback, FieldFeedbackType,
-  FieldFeedbacks as _FieldFeedbacks,
-  Async as _Async,
+  FormWithConstraintsContext,
+  FieldFeedbacksPrivate,
+  AsyncPrivate,
+  FieldFeedbackPrivate, FieldFeedbackType,
   FieldEvent
 } from 'react-form-with-constraints';
 
-export interface DisplayFieldsProps {}
+interface DisplayFieldsProps {}
 
-export class DisplayFields extends React.Component<DisplayFieldsProps> {
-  static contextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
-    form: PropTypes.object.isRequired
-  };
-  context!: FormWithConstraintsChildContext;
+const DisplayFields: React.SFC<DisplayFieldsProps> = props =>
+  <FormWithConstraintsContext.Consumer>
+    {form => <DisplayFieldsInternal {...props} form={form!} />}
+  </FormWithConstraintsContext.Consumer>;
 
+interface Context {
+  form: FormWithConstraints;
+}
+
+class DisplayFieldsInternal extends React.Component<DisplayFieldsProps & Context> {
   componentWillMount() {
-    const { form } = this.context;
+    const { form } = this.props;
     form.fieldsStore.addListener(FieldEvent.Added, this.reRender);
     form.fieldsStore.addListener(FieldEvent.Removed, this.reRender);
     form.addFieldDidValidateEventListener(this.reRender);
@@ -27,7 +31,7 @@ export class DisplayFields extends React.Component<DisplayFieldsProps> {
   }
 
   componentWillUnmount() {
-    const { form } = this.context;
+    const { form } = this.props;
     form.fieldsStore.removeListener(FieldEvent.Added, this.reRender);
     form.fieldsStore.removeListener(FieldEvent.Removed, this.reRender);
     form.removeFieldDidValidateEventListener(this.reRender);
@@ -39,7 +43,7 @@ export class DisplayFields extends React.Component<DisplayFieldsProps> {
   }
 
   render() {
-    let str = stringifyWithUndefinedAndWithoutPropertyQuotes(this.context.form.fieldsStore.fields, 2);
+    let str = stringifyWithUndefinedAndWithoutPropertyQuotes(this.props.form.fieldsStore.fields, 2);
 
     // Cosmetic: improve formatting
     //
@@ -66,9 +70,7 @@ const stringifyWithUndefinedAndWithoutPropertyQuotes = (obj: object, space?: str
   return str;
 };
 
-export { FormWithConstraints };
-
-export class FieldFeedbacks extends _FieldFeedbacks {
+class FieldFeedbacks extends FieldFeedbacksPrivate {
   render() {
     const { for: fieldName, stop } = this.props;
 
@@ -87,7 +89,7 @@ export class FieldFeedbacks extends _FieldFeedbacks {
   }
 }
 
-export class FieldFeedback extends _FieldFeedback {
+class FieldFeedback extends FieldFeedbackPrivate {
   private getTextDecoration() {
     const { show } = this.state.validation;
 
@@ -142,7 +144,7 @@ export class FieldFeedback extends _FieldFeedback {
   }
 }
 
-export class Async<T> extends _Async<T> {
+class Async<T> extends AsyncPrivate<T> {
   private getTextDecoration() {
     return 'line-through dotted';
   }
@@ -166,3 +168,11 @@ export class Async<T> extends _Async<T> {
     );
   }
 }
+
+export {
+  DisplayFields,
+  FormWithConstraints,
+  FieldFeedbacks,
+  Async,
+  FieldFeedback
+};

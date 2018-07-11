@@ -1,54 +1,59 @@
 import React from 'react';
 
-import { FormWithConstraintsChildContext } from './FormWithConstraints';
+import { FormWithConstraints, FormWithConstraintsContext } from './FormWithConstraints';
 import Field from './Field';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  innerRef?: React.Ref<HTMLInputElement>;
+interface InputClasses {
   classes?: {
     [index: string]: string | undefined;
-    hasErrors?: string;
-    hasWarnings?: string;
-    hasInfos?: string;
-    isValid?: string;
+    error?: string;
+    warning?: string;
+    info?: string;
+    whenValid?: string;
   };
 }
 
-export interface InputState {
+interface InputProps extends InputClasses, React.InputHTMLAttributes<HTMLInputElement> {
+  innerRef?: React.Ref<HTMLInputElement>;
+}
+
+interface Context {
+  formWithConstraints: FormWithConstraints;
+}
+
+interface State {
   field: Field | undefined;
 }
 
-export type InputContext = FormWithConstraintsChildContext;
+const Input: React.SFC<InputProps> = props =>
+  <FormWithConstraintsContext.Consumer>
+    {form => <InputPrivate {...props} formWithConstraints={form!} />}
+  </FormWithConstraintsContext.Consumer>;
 
-export class Input extends React.Component<InputProps, InputState> {
-  static contextTypes: React.ValidationMap<InputContext> = {
-    form: PropTypes.object.isRequired
-  };
-  context!: InputContext;
+Input.defaultProps = {
+  classes: {
+    hasErrors: 'has-errors',
+    hasWarnings: 'has-warnings',
+    hasInfos: 'has-infos',
+    isValid: 'is-valid'
+  }
+};
 
-  static defaultProps: InputProps = {
-    classes: {
-      hasErrors: 'has-errors',
-      hasWarnings: 'has-warnings',
-      hasInfos: 'has-infos',
-      isValid: 'is-valid'
-    }
-  };
-
-  state: InputState = {
+class InputPrivate extends React.Component<InputProps & Context, State> {
+  state: State = {
     field: undefined
   };
 
   componentWillMount() {
-    this.context.form.addFieldWillValidateEventListener(this.fieldWillValidate);
-    this.context.form.addFieldDidValidateEventListener(this.fieldDidValidate);
-    this.context.form.addResetEventListener(this.reset);
+    this.props.formWithConstraints.addFieldWillValidateEventListener(this.fieldWillValidate);
+    this.props.formWithConstraints.addFieldDidValidateEventListener(this.fieldDidValidate);
+    this.props.formWithConstraints.addResetEventListener(this.reset);
   }
 
   componentWillUnmount() {
-    this.context.form.removeFieldWillValidateEventListener(this.fieldWillValidate);
-    this.context.form.removeFieldDidValidateEventListener(this.fieldDidValidate);
-    this.context.form.removeResetEventListener(this.reset);
+    this.props.formWithConstraints.removeFieldWillValidateEventListener(this.fieldWillValidate);
+    this.props.formWithConstraints.removeFieldDidValidateEventListener(this.fieldDidValidate);
+    this.props.formWithConstraints.removeResetEventListener(this.reset);
   }
 
   fieldWillValidate = (fieldName: string) => {
@@ -82,7 +87,7 @@ export class Input extends React.Component<InputProps, InputState> {
   }
 
   render() {
-    const { innerRef, className, classes, ...inputProps } = this.props;
+    const { formWithConstraints, innerRef, className, classes, ...inputProps } = this.props;
     const validationStates = this.fieldValidationStates();
 
     let classNames = className;
@@ -98,3 +103,8 @@ export class Input extends React.Component<InputProps, InputState> {
     );
   }
 }
+
+export {
+  Input,
+  InputProps
+};

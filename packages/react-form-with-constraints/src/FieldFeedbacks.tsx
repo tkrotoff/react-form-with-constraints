@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { FormWithConstraintsChildContext } from './FormWithConstraints';
 import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 import { InputElement } from './InputElement';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
+import { FormWithConstraints, FormWithConstraintsContext } from './FormWithConstraints';
 import flattenDeep from './flattenDeep';
 
-export interface FieldFeedbacksProps {
+interface FieldFeedbacksProps {
   for?: string;
 
   /**
@@ -17,52 +17,46 @@ export interface FieldFeedbacksProps {
   stop?: 'first' | 'first-error' | 'first-warning' | 'first-info' | 'no';
 }
 
-export type FieldFeedbacksContext = FormWithConstraintsChildContext & Partial<FieldFeedbacksChildContext>;
+const FieldFeedbacks: React.SFC<FieldFeedbacksProps> = props =>
+  <FormWithConstraintsContext.Consumer>
+    {form =>
+      <FieldFeedbacksContext.Consumer>
+        {fieldFeedbacks => <FieldFeedbacksPrivate {...props} form={form!} fieldFeedbacks={fieldFeedbacks} />}
+      </FieldFeedbacksContext.Consumer>
+    }
+  </FormWithConstraintsContext.Consumer>;
 
-export interface FieldFeedbacksChildContext {
-  fieldFeedbacks: FieldFeedbacks;
+FieldFeedbacks.defaultProps = {
+  stop: 'first-error'
+};
+
+const FieldFeedbacksContext = React.createContext<FieldFeedbacksPrivate | undefined>(undefined);
+
+interface Context {
+  form: FormWithConstraints;
+  fieldFeedbacks?: FieldFeedbacksPrivate;
 }
 
-export class FieldFeedbacksComponent extends React.Component<FieldFeedbacksProps> {}
-export class FieldFeedbacks extends
-                              withValidateFieldEventEmitter<
-                                // FieldFeedback returns FieldFeedbackValidation
-                                // Async returns FieldFeedbackValidation[] | undefined
-                                // FieldFeedbacks returns (FieldFeedbackValidation | undefined)[]
-                                FieldFeedbackValidation | (FieldFeedbackValidation | undefined)[] | undefined,
-                                typeof FieldFeedbacksComponent
-                              >(
-                                FieldFeedbacksComponent
-                              )
-                            implements React.ChildContextProvider<FieldFeedbacksChildContext> {
-  static defaultProps: FieldFeedbacksProps = {
-    stop: 'first-error'
-  };
-
-  static contextTypes: React.ValidationMap<FieldFeedbacksContext> = {
-    form: PropTypes.object.isRequired,
-    fieldFeedbacks: PropTypes.object
-  };
-  context!: FieldFeedbacksContext;
-
-  static childContextTypes: React.ValidationMap<FieldFeedbacksChildContext> = {
-    fieldFeedbacks: PropTypes.object.isRequired
-  };
-  getChildContext(): FieldFeedbacksChildContext {
-    return {
-      fieldFeedbacks: this
-    };
-  }
+class FieldFeedbacksPrivateComponent extends React.Component<FieldFeedbacksProps & Context> {}
+class FieldFeedbacksPrivate
+  extends
+    withValidateFieldEventEmitter<
+      // FieldFeedback returns FieldFeedbackValidation
+      // Async returns FieldFeedbackValidation[] | undefined
+      // FieldFeedbacks returns (FieldFeedbackValidation | undefined)[]
+      FieldFeedbackValidation | (FieldFeedbackValidation | undefined)[] | undefined,
+      typeof FieldFeedbacksPrivateComponent
+    >(FieldFeedbacksPrivateComponent) {
 
   // Tested: there is no conflict with React key prop (https://reactjs.org/docs/lists-and-keys.html)
   readonly key: string; // '0', '1', '2'...
 
   readonly fieldName: string; // Instead of reading props each time
 
-  constructor(props: FieldFeedbacksProps, context: FieldFeedbacksContext) {
-    super(props, context);
+  constructor(props: FieldFeedbacksProps & Context) {
+    super(props);
 
-    const { form, fieldFeedbacks: fieldFeedbacksParent } = context;
+    const { form, fieldFeedbacks: fieldFeedbacksParent } = props;
 
     this.key = fieldFeedbacksParent ? fieldFeedbacksParent.computeFieldFeedbackKey() : form.computeFieldFeedbacksKey();
 
@@ -85,7 +79,7 @@ export class FieldFeedbacks extends
   }
 
   componentWillMount() {
-    const { form, fieldFeedbacks: fieldFeedbacksParent } = this.context;
+    const { form, fieldFeedbacks: fieldFeedbacksParent } = this.props;
 
     form.fieldsStore.addField(this.fieldName);
 
@@ -94,7 +88,7 @@ export class FieldFeedbacks extends
   }
 
   componentWillUnmount() {
-    const { form, fieldFeedbacks: fieldFeedbacksParent } = this.context;
+    const { form, fieldFeedbacks: fieldFeedbacksParent } = this.props;
 
     form.fieldsStore.removeField(this.fieldName);
 
@@ -103,7 +97,7 @@ export class FieldFeedbacks extends
   }
 
   validate = async (input: InputElement) => {
-    const { form, fieldFeedbacks: fieldFeedbacksParent } = this.context;
+    const { form, fieldFeedbacks: fieldFeedbacksParent } = this.props;
 
     let validations;
 
@@ -133,7 +127,21 @@ export class FieldFeedbacks extends
 
   render() {
     const { children } = this.props;
-    // See https://codepen.io/tkrotoff/pen/yzKKdB
-    return children !== undefined ? children : null;
+
+    return (
+      <FieldFeedbacksContext.Provider value={this}>
+        {
+          // See https://codepen.io/tkrotoff/pen/yzKKdB
+          children !== undefined ? children : null
+        }
+      </FieldFeedbacksContext.Provider>
+    );
   }
 }
+
+export {
+  FieldFeedbacksProps,
+  FieldFeedbacks,
+  FieldFeedbacksContext,
+  FieldFeedbacksPrivate
+};

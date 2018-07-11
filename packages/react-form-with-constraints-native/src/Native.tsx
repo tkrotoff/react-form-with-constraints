@@ -1,17 +1,17 @@
 import React from 'react';
-import { Text, View, TextProps, StyleProp } from 'react-native';
+import { Text, TextProps, StyleProp } from 'react-native';
 import { TextInput } from './TextInput'; // Specific to TypeScript
 
 import {
-  FormWithConstraints as _FormWithConstraints,
-  FieldFeedbacks as _FieldFeedbacks,
-  Async,
-  FieldFeedback as _FieldFeedback, FieldFeedbackBaseProps as _FieldFeedbackBaseProps, FieldFeedbackType,
+  FormWithConstraints as _FormWithConstraints, FormWithConstraintsContext,
+  FieldFeedbacks, FieldFeedbacksContext,
+  Async, AsyncContext,
+  FieldFeedback as _FieldFeedback, FieldFeedbackBaseProps as _FieldFeedbackBaseProps, FieldFeedbackType, FieldFeedbackPrivate as _FieldFeedbackPrivate,
   FieldFeedbackWhenValid as _FieldFeedbackWhenValid, FieldFeedbackWhenValidBaseProps as _FieldFeedbackWhenValidBaseProps,
   deepForEach
 } from 'react-form-with-constraints';
 
-export class FormWithConstraints extends _FormWithConstraints {
+class FormWithConstraints extends _FormWithConstraints {
   // @ts-ignore
   // Property 'validateFields' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'.
   validateFields(...inputsOrNames: Array<TextInput | string>);
@@ -69,48 +69,45 @@ export class FormWithConstraints extends _FormWithConstraints {
 
     return inputs;
   }
-
-  render() {
-    // FIXME See Support for Fragments in react native instead of view https://react-native.canny.io/feature-requests/p/support-for-fragments-in-react-native-instead-of-view
-    return <View {...this.props as any} />;
-  }
 }
-
-
-// FIXME See Support for Fragments in react native instead of view https://react-native.canny.io/feature-requests/p/support-for-fragments-in-react-native-instead-of-view
-export class FieldFeedbacks extends _FieldFeedbacks {
-  render() {
-    return <View {...this.props} />;
-  }
-}
-
-
-export { Async };
-
 
 // See Tips for styling your React Native apps https://medium.com/the-react-native-log/tips-for-styling-your-react-native-apps-3f61608655eb
-export interface FieldFeedbackTheme {
+interface FieldFeedbackTheme {
   error?: StyleProp<{color: string}>;
   warning?: StyleProp<{color: string}>;
   info?: StyleProp<{color: string}>;
   whenValid?: StyleProp<{color: string}>;
 }
 
-export interface FieldFeedbackProps extends _FieldFeedbackBaseProps, TextProps {
+interface FieldFeedbackProps extends _FieldFeedbackBaseProps, TextProps {
   theme?: FieldFeedbackTheme;
 }
 
-
 // See Clone a js object except for one key https://stackoverflow.com/q/34698905
 const omitClassesDefaultProps = () => {
-  const { classes, ...otherProps } = _FieldFeedback.defaultProps;
+  // let's remove classes prop: not relevant with React Native
+  // Also remove style to please TypeScript, otherwise:
+  // Types of property 'style' are incompatible [...] Type 'CSSProperties' is not assignable to type 'StyleProp<TextStyle>'
+  const { classes, style, ...otherProps } = _FieldFeedback.defaultProps!;
   return otherProps;
 };
 
-export class FieldFeedback extends _FieldFeedback<FieldFeedbackProps> {
-  // Remove classes props: not relevant with React Native
-  static defaultProps = omitClassesDefaultProps();
+const FieldFeedback: React.SFC<FieldFeedbackProps> = props =>
+  <FormWithConstraintsContext.Consumer>
+    {form =>
+      <FieldFeedbacksContext.Consumer>
+        {fieldFeedbacks =>
+          <AsyncContext.Consumer>
+            {async => <FieldFeedbackPrivate {...props} form={form!} fieldFeedbacks={fieldFeedbacks!} async={async} />}
+          </AsyncContext.Consumer>
+        }
+      </FieldFeedbacksContext.Consumer>
+    }
+  </FormWithConstraintsContext.Consumer>;
 
+FieldFeedback.defaultProps = omitClassesDefaultProps();
+
+class FieldFeedbackPrivate extends _FieldFeedbackPrivate<FieldFeedbackProps> {
   // Copied and adapted from core/FieldFeedback.render()
   render() {
     const { when, error, warning, info, theme, ...otherProps } = this.props;
@@ -134,12 +131,20 @@ export class FieldFeedback extends _FieldFeedback<FieldFeedbackProps> {
 }
 
 
-export interface FieldFeedbackWhenValidProps extends _FieldFeedbackWhenValidBaseProps, TextProps {
-}
+type FieldFeedbackWhenValidProps = _FieldFeedbackWhenValidBaseProps & TextProps;
 
-export class FieldFeedbackWhenValid extends _FieldFeedbackWhenValid<FieldFeedbackWhenValidProps> {
+class FieldFeedbackWhenValid extends _FieldFeedbackWhenValid<FieldFeedbackWhenValidProps> {
   // Copied and adapted from core/FieldFeedbackWhenValid.render()
   render() {
     return this.state.fieldIsValid ? <Text {...this.props} /> : null;
   }
 }
+
+export {
+  FormWithConstraints,
+  FieldFeedbacks,
+  Async,
+  FieldFeedback,
+  FieldFeedbackWhenValidProps,
+  FieldFeedbackWhenValid
+};

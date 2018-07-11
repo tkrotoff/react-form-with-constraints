@@ -304,19 +304,18 @@ class Form extends React.Component<FormProps> {
   }
 }
 
-export class Input extends _Input {
-  static defaultProps: InputProps = {
-    // See https://github.com/facebook/react/issues/3725#issuecomment-169163998
-    // See React.Component.defaultProps objects are overridden, not merged? https://stackoverflow.com/q/40428847
-    ..._Input.defaultProps,
-    classes: {
-      hasErrors: 'is-invalid',
-      //hasWarnings: 'is-warning',
-      //hasInfos: 'is-info',
-      isValid: 'is-valid'
-    }
-  };
-}
+const Input: React.SFC<InputProps> = props => <_Input {...props} />;
+Input.defaultProps = {
+  // See https://github.com/facebook/react/issues/3725#issuecomment-169163998
+  // See React.Component.defaultProps objects are overridden, not merged? https://stackoverflow.com/q/40428847
+  ..._Input.defaultProps,
+  classes: {
+    hasErrors: 'is-invalid',
+    //hasWarnings: 'is-warning',
+    //hasInfos: 'is-info',
+    isValid: 'is-valid'
+  }
+};
 
 const App = () => (
   <div className="container">

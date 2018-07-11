@@ -1,8 +1,8 @@
 export * from './FormWithConstraints';
 export * from './FieldFeedbacks';
+export * from './Async';
 export * from './FieldFeedback';
 export * from './FieldFeedbackWhenValid';
-export * from './Async';
 export { default as Field } from './Field';
 export * from './FieldsStore';
 export * from './EventEmitter';

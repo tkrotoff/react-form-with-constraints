@@ -11,12 +11,9 @@ import FieldFeedbackValidation from './FieldFeedbackValidation';
 import flattenDeep from './flattenDeep';
 import notUndefined from './notUndefined';
 
-export interface FormWithConstraintsChildContext {
-  form: FormWithConstraints;
-}
+export interface FormWithConstraintsProps extends React.FormHTMLAttributes<HTMLFormElement> {}
 
-export interface FormWithConstraintsProps extends React.FormHTMLAttributes<HTMLFormElement> {
-}
+export const FormWithConstraintsContext = React.createContext<FormWithConstraints | undefined>(undefined);
 
 export class FormWithConstraintsComponent extends React.Component<FormWithConstraintsProps> {}
 export class FormWithConstraints
@@ -30,22 +27,10 @@ export class FormWithConstraints
             // FieldFeedbacks returns (FieldFeedbackValidation | undefined)[] | undefined
             FieldFeedbackValidation | (FieldFeedbackValidation | undefined)[] | undefined,
             typeof FormWithConstraintsComponent
-          >(
-            FormWithConstraintsComponent
-          )
+          >(FormWithConstraintsComponent)
         )
       )
-    )
-  implements React.ChildContextProvider<FormWithConstraintsChildContext> {
-
-  static childContextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
-    form: PropTypes.object.isRequired
-  };
-  getChildContext(): FormWithConstraintsChildContext {
-    return {
-      form: this
-    };
-  }
+    ) {
 
   // Could be named innerRef instead, see https://github.com/ant-design/ant-design/issues/5489#issuecomment-332208652
   private form: HTMLFormElement | null = null;
@@ -176,6 +161,10 @@ export class FormWithConstraints
   }
 
   render() {
-    return <form ref={form => this.form = form} {...this.props} />;
+    return (
+      <FormWithConstraintsContext.Provider value={this}>
+        <form ref={form => this.form = form} {...this.props} />
+      </FormWithConstraintsContext.Provider>
+    );
   }
 }

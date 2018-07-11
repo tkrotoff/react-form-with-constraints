@@ -10,37 +10,39 @@ import { FormControlProps } from '@material-ui/core/FormControl';
 import { TextFieldProps } from '@material-ui/core/TextField';
 
 import {
-  FormWithConstraints as _FormWithConstraints, FormWithConstraintsChildContext,
+  FormWithConstraints as _FormWithConstraints, FormWithConstraintsContext,
   FieldFeedbacks, Async, FieldFeedback as _FieldFeedback, FieldFeedbackBaseProps, Field,
   deepForEach
 } from 'react-form-with-constraints';
 
-export interface FormControlState {
+const FormControl: React.SFC<FormControlProps> = props =>
+  <FormWithConstraintsContext.Consumer>
+    {form => <FormControlComponent {...props} form={form!} />}
+  </FormWithConstraintsContext.Consumer>;
+
+interface Context {
+  form: FormWithConstraints;
+}
+
+interface FormControlState {
   field: Field | undefined;
 }
 
-export type FormControlContext = FormWithConstraintsChildContext;
-
-export class FormControl extends React.Component<FormControlProps, FormControlState> {
-  static contextTypes: React.ValidationMap<FormControlContext> = {
-    form: PropTypes.object.isRequired
-  };
-  context!: FormControlContext;
-
+class FormControlComponent extends React.Component<FormControlProps & Context, FormControlState> {
   state: FormControlState = {
     field: undefined
   };
 
   componentWillMount() {
-    this.context.form.addFieldWillValidateEventListener(this.fieldWillValidate);
-    this.context.form.addFieldDidValidateEventListener(this.fieldDidValidate);
-    this.context.form.addResetEventListener(this.reset);
+    this.props.form.addFieldWillValidateEventListener(this.fieldWillValidate);
+    this.props.form.addFieldDidValidateEventListener(this.fieldDidValidate);
+    this.props.form.addResetEventListener(this.reset);
   }
 
   componentWillUnmount() {
-    this.context.form.removeFieldWillValidateEventListener(this.fieldWillValidate);
-    this.context.form.removeFieldDidValidateEventListener(this.fieldDidValidate);
-    this.context.form.removeResetEventListener(this.reset);
+    this.props.form.removeFieldWillValidateEventListener(this.fieldWillValidate);
+    this.props.form.removeFieldDidValidateEventListener(this.fieldDidValidate);
+    this.props.form.removeResetEventListener(this.reset);
   }
 
   getAssociatedFieldName() {
@@ -84,30 +86,30 @@ export class FormControl extends React.Component<FormControlProps, FormControlSt
   }
 }
 
-export class TextFieldState {
+const TextField: React.SFC<TextFieldProps> = props =>
+  <FormWithConstraintsContext.Consumer>
+    {form => <TextFieldComponent {...props} form={form!} />}
+  </FormWithConstraintsContext.Consumer>;
+
+interface TextFieldState {
   field: Field | undefined;
 }
 
-export class TextField extends React.Component<TextFieldProps, TextFieldState> {
-  static contextTypes: React.ValidationMap<FormControlContext> = {
-    form: PropTypes.object.isRequired
-  };
-  context!: FormControlContext;
-
+class TextFieldComponent extends React.Component<TextFieldProps & Context, TextFieldState> {
   state: TextFieldState = {
     field: undefined
   };
 
   componentWillMount() {
-    this.context.form.addFieldWillValidateEventListener(this.fieldWillValidate);
-    this.context.form.addFieldDidValidateEventListener(this.fieldDidValidate);
-    this.context.form.addResetEventListener(this.reset);
+    this.props.form.addFieldWillValidateEventListener(this.fieldWillValidate);
+    this.props.form.addFieldDidValidateEventListener(this.fieldDidValidate);
+    this.props.form.addResetEventListener(this.reset);
   }
 
   componentWillUnmount() {
-    this.context.form.removeFieldWillValidateEventListener(this.fieldWillValidate);
-    this.context.form.removeFieldDidValidateEventListener(this.fieldDidValidate);
-    this.context.form.removeResetEventListener(this.reset);
+    this.props.form.removeFieldWillValidateEventListener(this.fieldWillValidate);
+    this.props.form.removeFieldDidValidateEventListener(this.fieldDidValidate);
+    this.props.form.removeResetEventListener(this.reset);
   }
 
   fieldWillValidate = (fieldName: string) => {
@@ -148,7 +150,7 @@ const formWithConstraintsTheme = createMuiTheme({
   }
 });
 
-export class FormWithConstraints extends _FormWithConstraints {
+class FormWithConstraints extends _FormWithConstraints {
   render() {
     return (
       <MuiThemeProvider theme={formWithConstraintsTheme}>
@@ -170,7 +172,7 @@ const fieldFeedbackStyles = (theme: Theme) => createStyles({
 
 type FieldFeedbackPropsWithStyles = FieldFeedbackBaseProps & React.HTMLAttributes<HTMLSpanElement> & WithStyles<typeof fieldFeedbackStyles>;
 
-export const FieldFeedback = withStyles(fieldFeedbackStyles, {name: 'FieldFeedback'})<FieldFeedbackBaseProps & React.HTMLAttributes<HTMLSpanElement>>(
+const FieldFeedback = withStyles(fieldFeedbackStyles, {name: 'FieldFeedback'})<FieldFeedbackBaseProps & React.HTMLAttributes<HTMLSpanElement>>(
   class extends React.Component<FieldFeedbackPropsWithStyles> {
     render() {
       const { classes, className, ...otherProps } = this.props;
@@ -184,4 +186,11 @@ export const FieldFeedback = withStyles(fieldFeedbackStyles, {name: 'FieldFeedba
   }
 );
 
-export { FieldFeedbacks, Async };
+export {
+  FormControl,
+  TextField,
+  FormWithConstraints,
+  FieldFeedbacks,
+  Async,
+  FieldFeedback
+};

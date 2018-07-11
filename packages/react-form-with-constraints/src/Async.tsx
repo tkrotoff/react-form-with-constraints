@@ -1,82 +1,74 @@
 import React from 'react';
 
-import { FormWithConstraintsChildContext } from './FormWithConstraints';
-import { FieldFeedbacksChildContext } from './FieldFeedbacks';
 import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 import { InputElement } from './InputElement';
+import { FormWithConstraints, FormWithConstraintsContext } from './FormWithConstraints';
+import { FieldFeedbacksPrivate, FieldFeedbacksContext } from './FieldFeedbacks';
 
-export enum Status {
+enum Status {
   None,
   Pending,
   Rejected,
   Resolved
 }
 
-export interface AsyncProps<T> {
+interface AsyncProps<T = any> {
   promise: (value: string) => Promise<T>;
   pending?: React.ReactNode;
   then?: (value: T) => React.ReactNode;
   catch?: (reason: any) => React.ReactNode;
 }
 
-export interface AsyncState<T> {
+const Async: React.SFC<AsyncProps> = props =>
+  <FormWithConstraintsContext.Consumer>
+    {form =>
+      <FieldFeedbacksContext.Consumer>
+        {fieldFeedbacks => <FieldFeedbacksPrivate {...props} form={form!} fieldFeedbacks={fieldFeedbacks!} />}
+      </FieldFeedbacksContext.Consumer>
+    }
+  </FormWithConstraintsContext.Consumer>;
+
+const AsyncContext = React.createContext<AsyncPrivate<any> | undefined>(undefined);
+
+interface Context {
+  form: FormWithConstraints;
+  fieldFeedbacks: FieldFeedbacksPrivate;
+}
+
+interface State<T> {
   status: Status;
   value?: T;
 }
-
-export interface AsyncChildContext {
-  async: Async<any>;
-}
-
-export type AsyncContext = FormWithConstraintsChildContext & FieldFeedbacksChildContext;
-
-export type AsyncComponentType = AsyncComponent<any>;
 
 // See Asynchronous form errors and messages in AngularJS https://jaysoo.ca/2014/10/14/async-form-errors-and-messages-in-angularjs/
 // See Support for asynchronous values (like Promises and Observables) https://github.com/facebook/react/issues/6481
 // See https://github.com/capaj/react-promise
 // See How to render promises in React https://gist.github.com/hex13/6d46f8b54631871ea8bf87576b635c49
 // Cannot be inside a separated npm package since FieldFeedback needs to attach itself to Async
-export class AsyncComponent<T = any> extends React.Component<AsyncProps<T>, AsyncState<T>> {}
-export class Async<T> extends
-                        withValidateFieldEventEmitter<
-                          // FieldFeedback returns FieldFeedbackValidation
-                          FieldFeedbackValidation,
-                          typeof AsyncComponent
-                        >(
-                          AsyncComponent
-                        )
-                      implements React.ChildContextProvider<AsyncChildContext> {
-  static contextTypes: React.ValidationMap<AsyncContext> = {
-    form: PropTypes.object.isRequired,
-    fieldFeedbacks: PropTypes.object.isRequired
-  };
-  context!: AsyncContext;
+class AsyncPrivateComponent<T = any> extends React.Component<AsyncProps<T> & Context, State<T>> {}
+class AsyncPrivate<T>
+  extends
+    withValidateFieldEventEmitter<
+      // FieldFeedback returns FieldFeedbackValidation
+      FieldFeedbackValidation,
+      typeof AsyncPrivateComponent
+    >(AsyncPrivateComponent) {
 
-  static childContextTypes: React.ValidationMap<AsyncChildContext> = {
-    async: PropTypes.object.isRequired
-  };
-  getChildContext(): AsyncChildContext {
-    return {
-      async: this
-    };
-  }
-
-  state: AsyncState<T> = {
+  state: State<T> = {
     status: Status.None
   };
 
   componentWillMount() {
-    this.context.fieldFeedbacks.addValidateFieldEventListener(this.validate);
+    this.props.fieldFeedbacks.addValidateFieldEventListener(this.validate);
   }
 
   componentWillUnmount() {
-    this.context.fieldFeedbacks.removeValidateFieldEventListener(this.validate);
+    this.props.fieldFeedbacks.removeValidateFieldEventListener(this.validate);
   }
 
   validate = (input: InputElement) => {
-    const { form, fieldFeedbacks } = this.context;
+    const { form, fieldFeedbacks } = this.props;
 
     let validations;
 
@@ -108,7 +100,7 @@ export class Async<T> extends
     return this.emitValidateFieldEvent(input);
   }
 
-  render() {
+  render(): React.ReactNode /* FIXME */ {
     const { props, state } = this;
     let element = null;
 
@@ -126,6 +118,17 @@ export class Async<T> extends
         break;
     }
 
-    return element;
+    return (
+      <AsyncContext.Provider value={this}>
+        {element}
+      </AsyncContext.Provider>
+    );
   }
 }
+
+export {
+  AsyncProps,
+  Async,
+  AsyncContext,
+  AsyncPrivate
+};

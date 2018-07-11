@@ -15,9 +15,9 @@ const checkUsernameAvailability = async (value: string) => {
   return !['john@beatles', 'paul@beatles', 'george@beatles', 'ringo@beatles'].includes(value.toLowerCase());
 };
 
-export interface Props {}
+interface Props {}
 
-export interface State {
+interface State {
   username: string;
   password: string;
   passwordConfirm: string;
