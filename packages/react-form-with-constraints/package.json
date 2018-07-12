@@ -25,11 +25,13 @@
   ],
 
   "scripts": {
-    "clean": "del-cli lib dist coverage .rpt2_cache",
+    "clean": "del-cli lib dist coverage .rpt2_cache README.md LICENSE CHANGELOG.md",
 
     "tsc": "tsc",
     "build": "tsc --project tsconfig.lib.json",
     "dist": "cross-env NODE_ENV=development rollup --config && cross-env NODE_ENV=production rollup --config",
+
+    "prepack": "cp ../../README.md ../../LICENSE ../../CHANGELOG.md .",
     "prepublishOnly": "npm run clean && npm run tsc && npm run build && npm run dist",
 
     "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
