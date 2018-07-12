@@ -9,7 +9,7 @@ import {
 //
 // - Bootstrap 4 "input.form-control.is-invalid":
 // see https://getbootstrap.com/docs/4.1/components/forms/#server-side
-// see https://github.com/twbs/bootstrap/blob/v4.1.1/scss/_forms.scss#L245
+// see https://github.com/twbs/bootstrap/blob/v4.1.2/scss/_forms.scss#L245
 //
 // ## Warning
 //
@@ -39,7 +39,7 @@ import {
 //
 // - Bootstrap 4 "input.form-control.is-valid":
 // see https://getbootstrap.com/docs/4.1/components/forms/#server-side
-// see https://github.com/twbs/bootstrap/blob/v4.1.1/scss/_forms.scss#L245
+// see https://github.com/twbs/bootstrap/blob/v4.1.2/scss/_forms.scss#L245
 
 export class FieldFeedback extends _FieldFeedback {
   static defaultProps: FieldFeedbackProps = {

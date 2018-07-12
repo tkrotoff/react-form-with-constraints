@@ -120,7 +120,7 @@ export class FieldFeedback extends _FieldFeedback {
     const el = ReactDOM.findDOMNode(this) as HTMLLIElement;
 
     // Hack: make FieldFeedback <span style="display: inline">
-    // Also make Bootstrap 4 happy because it sets 'display: none', see https://github.com/twbs/bootstrap/blob/v4.0.0/scss/mixins/_forms.scss#L31
+    // Also make Bootstrap 4 happy because it sets 'display: none', see https://github.com/twbs/bootstrap/blob/v4.1.2/scss/mixins/_forms.scss#L31
     const fieldFeedbackSpans = el.querySelectorAll<HTMLSpanElement>('[data-feedback]');
     for (const fieldFeedbackSpan of fieldFeedbackSpans) {
       fieldFeedbackSpan.style.display = 'inline';
