@@ -1,3 +1,10 @@
+## 0.9.2 (2018/07/13)
+
+### Features
+
+- Upgrade to Bootstrap 4.1.2
+- Add a README.md for every npm package
+
 ## 0.9.1 (2018/07/06)
 
 ### Features

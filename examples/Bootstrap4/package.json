@@ -19,9 +19,9 @@
 
     "lodash": "latest",
 
-    "react-form-with-constraints": "^0.9.1",
-    "react-form-with-constraints-bootstrap4": "^0.9.1",
-    "react-form-with-constraints-tools": "^0.9.1",
+    "react-form-with-constraints": "^0.9.2",
+    "react-form-with-constraints-bootstrap4": "^0.9.2",
+    "react-form-with-constraints-tools": "^0.9.2",
 
     "bootstrap": "latest",
 
