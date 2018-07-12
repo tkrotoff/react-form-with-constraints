@@ -7,6 +7,14 @@
   },
   "description": "Simple form validation for React",
   "license": "MIT",
+  "keywords": [
+    "react",
+    "form",
+    "validation",
+    "react-form-with-constraints",
+    "bootstrap",
+    "bootstrap4"
+  ],
 
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

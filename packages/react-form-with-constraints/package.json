@@ -7,6 +7,15 @@
   },
   "description": "Simple form validation for React",
   "license": "MIT",
+  "keywords": [
+    "react",
+    "form",
+    "validation",
+    "form-validation",
+    "input-validation",
+    "constraints",
+    "html5"
+  ],
 
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
