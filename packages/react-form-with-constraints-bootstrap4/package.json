@@ -1,6 +1,6 @@
 {
   "name": "react-form-with-constraints-bootstrap4",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/tkrotoff/react-form-with-constraints.git"
@@ -37,7 +37,7 @@
   },
 
   "peerDependencies": {
-    "react-form-with-constraints": "^0.9.2"
+    "react-form-with-constraints": "^0.9.3"
   },
 
   "devDependencies": {
@@ -46,7 +46,7 @@
     "react": "latest",
     "@types/react": "latest",
 
-    "react-form-with-constraints": "^0.9.2",
+    "react-form-with-constraints": "^0.9.3",
 
     "jest": "latest",
     "@types/jest": "latest",
