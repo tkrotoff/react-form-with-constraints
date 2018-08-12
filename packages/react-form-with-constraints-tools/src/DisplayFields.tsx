@@ -15,7 +15,7 @@ export interface DisplayFieldsProps {}
 
 export class DisplayFields extends React.Component<DisplayFieldsProps> {
   static contextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
-    form: PropTypes.object.isRequired
+    form: PropTypes.instanceOf(FormWithConstraints).isRequired
   };
   context!: FormWithConstraintsChildContext;
 

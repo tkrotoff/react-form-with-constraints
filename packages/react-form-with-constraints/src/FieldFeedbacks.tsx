@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { FormWithConstraintsChildContext } from './FormWithConstraints';
+import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
 import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 import { InputElement } from './InputElement';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
@@ -41,13 +41,13 @@ export class FieldFeedbacks extends
   };
 
   static contextTypes: React.ValidationMap<FieldFeedbacksContext> = {
-    form: PropTypes.object.isRequired,
-    fieldFeedbacks: PropTypes.object
+    form: PropTypes.instanceOf(FormWithConstraints).isRequired,
+    fieldFeedbacks: PropTypes.instanceOf(FieldFeedbacks)
   };
   context!: FieldFeedbacksContext;
 
   static childContextTypes: React.ValidationMap<FieldFeedbacksChildContext> = {
-    fieldFeedbacks: PropTypes.object.isRequired
+    fieldFeedbacks: PropTypes.instanceOf(FieldFeedbacks).isRequired
   };
   getChildContext(): FieldFeedbacksChildContext {
     return {

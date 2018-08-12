@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { FormWithConstraintsChildContext } from './FormWithConstraints';
-import { FieldFeedbacksChildContext } from './FieldFeedbacks';
+import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
+import { FieldFeedbacks, FieldFeedbacksChildContext } from './FieldFeedbacks';
 import { FieldFeedbackClasses } from './FieldFeedback';
 import Field from './Field';
 
@@ -21,8 +21,8 @@ export type FieldFeedbackWhenValidContext = FormWithConstraintsChildContext & Fi
 export class FieldFeedbackWhenValid<Props extends FieldFeedbackWhenValidBaseProps = FieldFeedbackWhenValidProps>
        extends React.Component<Props, FieldFeedbackWhenValidState> {
   static contextTypes: React.ValidationMap<FieldFeedbackWhenValidContext> = {
-    form: PropTypes.object.isRequired,
-    fieldFeedbacks: PropTypes.object.isRequired
+    form: PropTypes.instanceOf(FormWithConstraints).isRequired,
+    fieldFeedbacks: PropTypes.instanceOf(FieldFeedbacks).isRequired
   };
   context!: FieldFeedbackWhenValidContext;
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { FormWithConstraintsChildContext } from './FormWithConstraints';
-import { FieldFeedbacksChildContext } from './FieldFeedbacks';
+import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
+import { FieldFeedbacks, FieldFeedbacksChildContext } from './FieldFeedbacks';
 import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 import { InputElement } from './InputElement';
@@ -50,13 +50,13 @@ export class Async<T> extends
                         )
                       implements React.ChildContextProvider<AsyncChildContext> {
   static contextTypes: React.ValidationMap<AsyncContext> = {
-    form: PropTypes.object.isRequired,
-    fieldFeedbacks: PropTypes.object.isRequired
+    form: PropTypes.instanceOf(FormWithConstraints).isRequired,
+    fieldFeedbacks: PropTypes.instanceOf(FieldFeedbacks).isRequired
   };
   context!: AsyncContext;
 
   static childContextTypes: React.ValidationMap<AsyncChildContext> = {
-    async: PropTypes.object.isRequired
+    async: PropTypes.instanceOf(Async).isRequired
   };
   getChildContext(): AsyncChildContext {
     return {

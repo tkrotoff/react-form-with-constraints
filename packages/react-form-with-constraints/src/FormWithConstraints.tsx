@@ -40,7 +40,7 @@ export class FormWithConstraints
   implements React.ChildContextProvider<FormWithConstraintsChildContext> {
 
   static childContextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
-    form: PropTypes.object.isRequired
+    form: PropTypes.instanceOf(FormWithConstraints).isRequired
   };
   getChildContext(): FormWithConstraintsChildContext {
     return {

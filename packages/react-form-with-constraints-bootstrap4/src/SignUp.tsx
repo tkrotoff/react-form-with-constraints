@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { FormWithConstraints, FieldFeedback, Async, Input } from './index';
+import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 import checkUsernameAvailability from '../../react-form-with-constraints/src/checkUsernameAvailability';
-import FieldFeedbacks from '../../react-form-with-constraints/src/FieldFeedbacksEnzymeFix';
 
 export interface SignUpProps {
 }

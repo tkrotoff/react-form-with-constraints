@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { FormWithConstraintsChildContext } from './FormWithConstraints';
+import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
 import Field from './Field';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -23,7 +23,7 @@ export type InputContext = FormWithConstraintsChildContext;
 
 export class Input extends React.Component<InputProps, InputState> {
   static contextTypes: React.ValidationMap<InputContext> = {
-    form: PropTypes.object.isRequired
+    form: PropTypes.instanceOf(FormWithConstraints).isRequired
   };
   context!: InputContext;
 

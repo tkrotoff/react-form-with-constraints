@@ -24,7 +24,7 @@ export type FormControlContext = FormWithConstraintsChildContext;
 
 export class FormControl extends React.Component<FormControlProps, FormControlState> {
   static contextTypes: React.ValidationMap<FormControlContext> = {
-    form: PropTypes.object.isRequired
+    form: PropTypes.instanceOf(_FormWithConstraints).isRequired
   };
   context!: FormControlContext;
 
@@ -91,7 +91,7 @@ export class TextFieldState {
 
 export class TextField extends React.Component<TextFieldProps, TextFieldState> {
   static contextTypes: React.ValidationMap<FormControlContext> = {
-    form: PropTypes.object.isRequired
+    form: PropTypes.instanceOf(_FormWithConstraints).isRequired
   };
   context!: FormControlContext;
 
