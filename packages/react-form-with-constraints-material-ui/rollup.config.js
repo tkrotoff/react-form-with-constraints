@@ -23,12 +23,13 @@ export default {
     sourcemap: true,
     globals: {
       'react-form-with-constraints': 'ReactFormWithConstraints',
+      '@material-ui/core': 'material-ui', // FIXME See UMD package: export MaterialUI variable https://github.com/mui-org/material-ui/issues/12387
       react: 'React',
       'prop-types': 'PropTypes'
     }
   },
 
-  external: ['react-form-with-constraints', 'react', 'prop-types'],
+  external: ['react-form-with-constraints', '@material-ui/core', 'react', 'prop-types'],
 
   plugins: [
     typescript({
