@@ -210,19 +210,6 @@ describe('render()', () => {
   });
 });
 
-// FIXME See Support for Element.closest() https://github.com/jsdom/jsdom/issues/1555
-if (!Element.prototype.closest) {
-  Element.prototype.closest = function(this: Element, selector: string) {
-    // tslint:disable-next-line:no-this-assignment
-    let el: Element | null = this;
-    while (el) {
-      if (el.matches(selector)) return el;
-      el = el.parentElement;
-    }
-    return null;
-  };
-}
-
 test('SignUp', async () => {
   const wrapper = mount(<SignUp />);
   const signUp = wrapper.instance() as SignUp;
