@@ -48,6 +48,7 @@
     "ts-loader": "latest",
     "file-loader": "latest",
     "source-map-loader": "latest",
+    "circular-dependency-plugin": "latest",
 
     "del-cli": "latest",
     "cross-env": "latest"
