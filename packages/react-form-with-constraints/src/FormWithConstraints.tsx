@@ -19,7 +19,7 @@ export interface FormWithConstraintsChildContext {
 export interface FormWithConstraintsProps extends React.FormHTMLAttributes<HTMLFormElement> {
 }
 
-export class FormWithConstraintsComponent extends React.Component<FormWithConstraintsProps> {}
+class FormWithConstraintsComponent extends React.Component<FormWithConstraintsProps> {}
 export class FormWithConstraints
   extends
     withResetEventEmitter(

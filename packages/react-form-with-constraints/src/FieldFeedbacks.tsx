@@ -24,7 +24,7 @@ export interface FieldFeedbacksChildContext {
   fieldFeedbacks: FieldFeedbacks;
 }
 
-export class FieldFeedbacksComponent extends React.Component<FieldFeedbacksProps> {}
+class FieldFeedbacksComponent extends React.Component<FieldFeedbacksProps> {}
 export class FieldFeedbacks extends
                               withValidateFieldEventEmitter<
                                 // FieldFeedback returns FieldFeedbackValidation
