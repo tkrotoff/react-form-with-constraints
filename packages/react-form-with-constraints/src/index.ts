@@ -1,6 +1,7 @@
 export * from './FormWithConstraints';
 export * from './FieldFeedbacks';
 export * from './FieldFeedback';
+export { default as FieldFeedbackType } from './FieldFeedbackType';
 export * from './FieldFeedbackWhenValid';
 export * from './Async';
 export { default as Field } from './Field';

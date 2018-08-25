@@ -7,13 +7,7 @@ import { Async, AsyncChildContext } from './Async';
 import { InputElement } from './InputElement';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 import { FieldFeedbackWhenValid } from './FieldFeedbackWhenValid';
-
-export enum FieldFeedbackType {
-  Error = 'error',
-  Warning = 'warning',
-  Info = 'info',
-  WhenValid = 'whenValid'
-}
+import FieldFeedbackType from './FieldFeedbackType';
 
 export type WhenString =
   | 'valid'

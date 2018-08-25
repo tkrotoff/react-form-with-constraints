@@ -1,5 +1,5 @@
 import FieldFeedbackValidation from './FieldFeedbackValidation';
-import { FieldFeedbackType } from './FieldFeedback';
+import FieldFeedbackType from './FieldFeedbackType';
 import clearArray from './clearArray';
 
 // Field is a better name than Input, see Django Form fields https://docs.djangoproject.com/en/1.11/ref/forms/fields/
