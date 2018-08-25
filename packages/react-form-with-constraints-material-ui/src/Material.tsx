@@ -85,7 +85,7 @@ export class FormControl extends React.Component<FormControlProps, FormControlSt
   }
 }
 
-export class TextFieldState {
+export interface TextFieldState {
   field: Field | undefined;
 }
 
