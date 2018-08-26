@@ -1,8 +1,6 @@
 import {
-  FormWithConstraints,
-  Input as _Input, InputProps,
-  FieldFeedbacks, Async,
-  FieldFeedback as _FieldFeedback, FieldFeedbackProps
+  FormWithConstraints, Input as _Input,
+  FieldFeedbacks, Async, FieldFeedback as _FieldFeedback, FieldFeedbackProps
 } from 'react-form-with-constraints';
 
 // ## Error
@@ -70,14 +68,11 @@ export class FieldFeedbackTooltip extends _FieldFeedback {
 }
 
 export class Input extends _Input {
-  static defaultProps: InputProps = {
-    // See https://github.com/facebook/react/issues/3725#issuecomment-169163998
-    // See React.Component.defaultProps objects are overridden, not merged? https://stackoverflow.com/q/40428847
-    ..._Input.defaultProps,
+  static defaultProps = {
     classes: {
       hasErrors: 'is-invalid',
-      //hasWarnings: 'is-warning',
-      //hasInfos: 'is-info',
+      hasWarnings: undefined,
+      hasInfos: undefined,
       isValid: 'is-valid'
     }
   };

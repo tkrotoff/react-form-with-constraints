@@ -4,7 +4,7 @@ import { configure, observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback, Input as _Input, InputProps } from 'react-form-with-constraints';
+import { FormWithConstraints, FieldFeedbacks, FieldFeedback, Input as _Input } from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './index.html';
@@ -305,14 +305,14 @@ class Form extends React.Component<FormProps> {
 }
 
 export class Input extends _Input {
-  static defaultProps: InputProps = {
-    // See https://github.com/facebook/react/issues/3725#issuecomment-169163998
-    // See React.Component.defaultProps objects are overridden, not merged? https://stackoverflow.com/q/40428847
-    ..._Input.defaultProps,
+  static defaultProps = {
     classes: {
+      // See https://github.com/facebook/react/issues/3725#issuecomment-169163998
+      // See React.Component.defaultProps objects are overridden, not merged? https://stackoverflow.com/q/40428847
+      ..._Input.defaultProps.classes,
       hasErrors: 'is-invalid',
-      //hasWarnings: 'is-warning',
-      //hasInfos: 'is-info',
+      hasWarnings: undefined,
+      hasInfos: undefined,
       isValid: 'is-valid'
     }
   };

@@ -36,7 +36,7 @@ export class FieldFeedbacks extends
                                 FieldFeedbacksComponent
                               )
                             implements React.ChildContextProvider<FieldFeedbacksChildContext> {
-  static defaultProps: FieldFeedbacksProps = {
+  static defaultProps = {
     stop: 'first-error'
   };
 
