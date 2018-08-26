@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 
 import { FormWithConstraints, FormControl } from './index';
 
-import { SignUp } from './SignUp';
+import SignUp from './SignUp';
 import beautifyHtml from '../../react-form-with-constraints/src/beautifyHtml';
 import sleep from '../../react-form-with-constraints/src/sleep';
 import { validValidityState } from '../../react-form-with-constraints/src/InputElementMock';

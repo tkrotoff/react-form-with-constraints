@@ -9,7 +9,7 @@ import FieldFeedbackValidation from './FieldFeedbackValidation';
 import { FieldFeedbackWhenValid } from './FieldFeedbackWhenValid';
 import FieldFeedbackType from './FieldFeedbackType';
 
-export type WhenString =
+type WhenString =
   | 'valid'
   | '*'
   | 'badInput'        // input type="number"
@@ -21,8 +21,8 @@ export type WhenString =
   | 'tooShort'        // minlength attribute
   | 'typeMismatch'    // input type="email" or input type="url"
   | 'valueMissing';   // required attribute
-export type WhenFn = (value: string) => boolean;
-export type When = WhenString | WhenFn;
+type WhenFn = (value: string) => boolean;
+type When = WhenString | WhenFn;
 
 export interface FieldFeedbackClasses {
   classes?: {
@@ -44,7 +44,7 @@ export interface FieldFeedbackBaseProps {
 export interface FieldFeedbackProps extends FieldFeedbackBaseProps, FieldFeedbackClasses, React.HTMLAttributes<HTMLSpanElement> {
 }
 
-export interface FieldFeedbackState {
+interface FieldFeedbackState {
   validation: FieldFeedbackValidation;
 
   // Copy of input.validationMessage

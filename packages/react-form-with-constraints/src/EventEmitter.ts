@@ -1,11 +1,11 @@
 // FIXME
 // See Thoughts about variadic generics? https://github.com/Microsoft/TypeScript/issues/1773
 // See Proposal: Variadic Kinds -- Give specific types to variadic functions https://github.com/Microsoft/TypeScript/issues/5453
-export type Args = any[];
+type Args = any[];
 
-export type Listener<ListenerReturnType = void> = (...args: Args) => ListenerReturnType | Promise<ListenerReturnType>;
+type Listener<ListenerReturnType = void> = (...args: Args) => ListenerReturnType | Promise<ListenerReturnType>;
 
-export class EventEmitter<ListenerReturnType = void> {
+export default class EventEmitter<ListenerReturnType = void> {
   listeners = new Map<string, Listener<ListenerReturnType>[]>();
 
   async emit(eventName: string, ...args: Args) {

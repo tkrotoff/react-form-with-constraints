@@ -13,7 +13,7 @@ import {
 import beautifyHtml from '../../react-form-with-constraints/src/beautifyHtml';
 
 import { DisplayFields } from './index';
-import { SignUp } from './SignUp';
+import SignUp from './SignUp';
 
 const mount = (node: React.ReactElement<FormWithConstraintsProps>) =>
   _mount<FormWithConstraintsProps, {}>(node);

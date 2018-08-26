@@ -3,7 +3,7 @@
 // See Lodash _.flattenDeep(array) https://lodash.com/docs/4.17.5#flattenDeep
 // See Array.prototype.flatten() https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatten
 
-export interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
+interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
 
 const flattenDeep = <T>(arrayOfArrays: RecursiveArray<T>): T[] => {
   return arrayOfArrays

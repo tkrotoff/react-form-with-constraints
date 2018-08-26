@@ -1,4 +1,4 @@
-import { EventEmitter } from './EventEmitter';
+import EventEmitter from './EventEmitter';
 import Constructor from './Constructor';
 
 export const FieldWillValidateEvent = 'FIELD_WILL_VALIDATE_EVENT';

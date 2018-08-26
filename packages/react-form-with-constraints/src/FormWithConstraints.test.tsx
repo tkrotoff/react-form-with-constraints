@@ -2,7 +2,7 @@ import React from 'react';
 import { mount as _mount } from 'enzyme';
 
 import { FormWithConstraints, FormWithConstraintsProps, FieldFeedbacksProps, FieldFeedback, Async } from './index';
-import { SignUp } from './SignUp';
+import SignUp from './SignUp';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 import sleep from './sleep';
 import beautifyHtml from './beautifyHtml';

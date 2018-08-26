@@ -15,7 +15,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   };
 }
 
-export interface InputState {
+interface InputState {
   field: Field | undefined;
 }
 

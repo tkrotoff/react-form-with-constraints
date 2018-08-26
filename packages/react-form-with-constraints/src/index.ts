@@ -6,7 +6,7 @@ export * from './FieldFeedbackWhenValid';
 export * from './Async';
 export { default as Field } from './Field';
 export * from './FieldsStore';
-export * from './EventEmitter';
+export { default as EventEmitter } from './EventEmitter';
 export * from './withValidateFieldEventEmitter';
 export * from './withFieldWillValidateEventEmitter';
 export * from './withFieldDidValidateEventEmitter';

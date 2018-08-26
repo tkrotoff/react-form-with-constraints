@@ -1,4 +1,4 @@
-import { EventEmitter } from './EventEmitter';
+import EventEmitter from './EventEmitter';
 import { InputElement } from './InputElement';
 import Constructor from './Constructor';
 

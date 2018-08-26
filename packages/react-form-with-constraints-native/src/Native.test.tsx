@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import renderer from 'react-test-renderer';
 
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback, FieldFeedbackWhenValid, TextInput } from './index';
-import { SignUp } from './SignUp';
+import SignUp from './SignUp';
 import beautifyHtml from '../../react-form-with-constraints/src/beautifyHtml';
 import { input_username_valueMissing, input_username_valid } from '../../react-form-with-constraints/src/InputElementMock';
 

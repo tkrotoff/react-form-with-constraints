@@ -16,11 +16,11 @@ import {
   deepForEach
 } from 'react-form-with-constraints';
 
-export interface FormControlState {
+interface FormControlState {
   field: Field | undefined;
 }
 
-export type FormControlContext = FormWithConstraintsChildContext;
+type FormControlContext = FormWithConstraintsChildContext;
 
 export class FormControl extends React.Component<FormControlProps, FormControlState> {
   static contextTypes: React.ValidationMap<FormControlContext> = {
@@ -85,7 +85,7 @@ export class FormControl extends React.Component<FormControlProps, FormControlSt
   }
 }
 
-export interface TextFieldState {
+interface TextFieldState {
   field: Field | undefined;
 }
 

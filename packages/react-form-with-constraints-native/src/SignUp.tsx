@@ -4,16 +4,16 @@ import { FormWithConstraints, Async, FieldFeedback, TextInput } from './index';
 import checkUsernameAvailability from '../../react-form-with-constraints/src/checkUsernameAvailability';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 
-export interface SignUpProps {
+interface SignUpProps {
 }
 
-export interface SignUpState {
+interface SignUpState {
   username: string;
   password: string;
   passwordConfirm: string;
 }
 
-export class SignUp extends React.Component<SignUpProps, SignUpState> {
+export default class SignUp extends React.Component<SignUpProps, SignUpState> {
   form: FormWithConstraints | null = null;
   username: TextInput | null = null;
   password: TextInput | null = null;

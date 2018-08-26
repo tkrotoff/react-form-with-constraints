@@ -12,7 +12,7 @@ export interface FieldFeedbackWhenValidBaseProps {
 export interface FieldFeedbackWhenValidProps extends FieldFeedbackWhenValidBaseProps, FieldFeedbackClasses, React.HTMLAttributes<HTMLSpanElement> {
 }
 
-export interface FieldFeedbackWhenValidState {
+interface FieldFeedbackWhenValidState {
   fieldIsValid: boolean | undefined;
 }
 

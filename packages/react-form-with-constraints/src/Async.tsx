@@ -21,7 +21,7 @@ export interface AsyncProps<T> {
   catch?: (reason: any) => React.ReactNode;
 }
 
-export interface AsyncState<T> {
+interface AsyncState<T> {
   status: Status;
   value?: T;
 }
@@ -31,8 +31,6 @@ export interface AsyncChildContext {
 }
 
 export type AsyncContext = FormWithConstraintsChildContext & FieldFeedbacksChildContext;
-
-export type AsyncComponentType = AsyncComponent<any>;
 
 // See Asynchronous form errors and messages in AngularJS https://jaysoo.ca/2014/10/14/async-form-errors-and-messages-in-angularjs/
 // See Support for asynchronous values (like Promises and Observables) https://github.com/facebook/react/issues/6481
