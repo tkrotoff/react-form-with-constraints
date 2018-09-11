@@ -127,6 +127,10 @@ export class FormWithConstraints
       // See Convert JavaScript NodeList to Array? https://stackoverflow.com/a/33822526/990356
       inputs = [...this.form!.querySelectorAll<HTMLInputElement>('[name]')];
 
+      // Remove elements that don't have a type, example:
+      // <iframe src="https://www.google.com/recaptcha..." name="a-49ekipqfmwsv">
+      inputs = inputs.filter(input => input.type);
+
       // Check we have unique names
       inputs
         .filter(input => input.type !== 'checkbox' && input.type !== 'radio')

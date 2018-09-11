@@ -1263,6 +1263,19 @@ describe('validate', () => {
 
       wrapper.unmount();
     });
+
+    test('Ignore elements without type', async () => {
+      const wrapper = mount(
+        <FormWithConstraints>
+          <iframe src="https://www.google.com/recaptcha..." name="a-49ekipqfmwsv" />
+        </FormWithConstraints>
+      );
+      const form = wrapper.instance() as FormWithConstraints;
+
+      await expect(form.validateFields()).resolves.toEqual([]);
+
+      wrapper.unmount();
+    });
   });
 });
 
