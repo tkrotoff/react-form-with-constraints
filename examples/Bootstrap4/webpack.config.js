@@ -25,7 +25,7 @@ module.exports = {
     rules: [
       { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
       { test: /\.js$/, loader: 'source-map-loader' },
-      { test: /\.(html|css|png)$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} },
+      { test: /\.html$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} },
       {
         // FIXME Don't know how to make source maps work
         // See SourceMap not working with Webpack 4.8.1 https://github.com/webpack-contrib/mini-css-extract-plugin/issues/141

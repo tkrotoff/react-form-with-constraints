@@ -19,7 +19,7 @@ const config: Configuration = {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader', options: {onlyCompileBundledFiles: true, compilerOptions: {noEmit: false, module: 'esnext', sourceMap: true}} },
       { test: /\.js$/, loader: 'source-map-loader' },
-      { test: /\.(html|css|png)$/, loader: 'file-loader', options: {name: '[name].[ext]'} }
+      { test: /\.(html|css)$/, loader: 'file-loader', options: {name: '[name].[ext]'} }
     ]
   }
 };
