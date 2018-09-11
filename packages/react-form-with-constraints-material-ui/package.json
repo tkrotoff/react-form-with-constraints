@@ -37,18 +37,18 @@
 
   "peerDependencies": {
     "react-form-with-constraints": "^0.9.3",
-    "@material-ui/core": "^1.4.2"
+    "@material-ui/core": "^3.0.2"
   },
 
   "devDependencies": {
-    "typescript": "latest",
+    "typescript": "^2.9.2",
 
     "react": "latest",
     "@types/react": "latest",
 
     "react-form-with-constraints": "^0.9.3",
 
-    "@material-ui/core": "^1.4.2",
+    "@material-ui/core": "^3.0.2",
 
     "jest": "latest",
     "@types/jest": "latest",

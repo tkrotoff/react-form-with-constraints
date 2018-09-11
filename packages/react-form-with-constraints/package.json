@@ -43,11 +43,11 @@
   },
 
   "dependencies": {
-    "prop-types": "^15.6.1"
+    "prop-types": "^15.6.2"
   },
 
   "devDependencies": {
-    "typescript": "latest",
+    "typescript": "^2.9.2",
 
     "react": "latest",
     "@types/react": "latest",

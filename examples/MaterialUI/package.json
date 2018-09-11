@@ -26,7 +26,7 @@
   },
 
   "devDependencies": {
-    "typescript": "latest",
+    "typescript": "^2.9.2",
 
     "@types/react": "latest",
     "@types/react-dom": "latest",

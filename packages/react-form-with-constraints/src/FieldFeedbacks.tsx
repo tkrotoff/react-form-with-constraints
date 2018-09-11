@@ -6,6 +6,7 @@ import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 import { InputElement } from './InputElement';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 import flattenDeep from './flattenDeep';
+import Nullable from './Nullable';
 
 export interface FieldFeedbacksProps {
   for?: string;
@@ -18,7 +19,8 @@ export interface FieldFeedbacksProps {
   stop?: 'first' | 'first-error' | 'first-warning' | 'first-info' | 'no';
 }
 
-export type FieldFeedbacksContext = FormWithConstraintsChildContext & Partial<FieldFeedbacksChildContext>;
+// Why Nullable? See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/27973
+export type FieldFeedbacksContext = FormWithConstraintsChildContext & Partial<Nullable<FieldFeedbacksChildContext>>;
 
 export interface FieldFeedbacksChildContext {
   fieldFeedbacks: FieldFeedbacks;
@@ -111,7 +113,7 @@ export class FieldFeedbacks extends
     if (input.name === this.fieldName) { // Ignore the event if it's not for us
       const field = form.fieldsStore.getField(this.fieldName)!;
 
-      if (fieldFeedbacksParent !== undefined && (
+      if (fieldFeedbacksParent && (
           fieldFeedbacksParent.props.stop === 'first' && field.hasFeedbacks(fieldFeedbacksParent.key) ||
           fieldFeedbacksParent.props.stop === 'first-error' && field.hasErrors(fieldFeedbacksParent.key) ||
           fieldFeedbacksParent.props.stop === 'first-warning' && field.hasWarnings(fieldFeedbacksParent.key) ||

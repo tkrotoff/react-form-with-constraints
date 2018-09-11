@@ -8,6 +8,7 @@ import { InputElement } from './InputElement';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 import { FieldFeedbackWhenValid } from './FieldFeedbackWhenValid';
 import FieldFeedbackType from './FieldFeedbackType';
+import Nullable from './Nullable';
 
 type WhenString =
   | 'valid'
@@ -53,7 +54,8 @@ interface FieldFeedbackState {
   validationMessage: string;
 }
 
-export type FieldFeedbackContext = FormWithConstraintsChildContext & FieldFeedbacksChildContext & Partial<AsyncChildContext>;
+// Why Nullable? See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/27973
+export type FieldFeedbackContext = FormWithConstraintsChildContext & FieldFeedbacksChildContext & Partial<Nullable<AsyncChildContext>>;
 
 export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackProps> extends React.Component<Props, FieldFeedbackState> {
   static defaultProps: FieldFeedbackProps = {

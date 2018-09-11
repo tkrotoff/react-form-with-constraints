@@ -41,7 +41,7 @@
   "devDependencies": {
     "lerna": "latest",
 
-    "typescript": "latest",
+    "typescript": "^2.9.2",
 
     "tslint": "latest",
     "tslint-react": "latest"
