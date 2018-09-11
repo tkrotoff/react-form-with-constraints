@@ -1,3 +1,14 @@
+## 0.9.3 (2018/09/12)
+
+### Features
+
+- Use PropTypes.instanceOf() instead of PropTypes.object
+- Improve typings
+
+### Fixes
+
+- Ignore HTML elements without type
+
 ## 0.9.2 (2018/07/13)
 
 ### Features
