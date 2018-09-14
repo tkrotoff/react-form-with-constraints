@@ -16,7 +16,7 @@
     "react": "latest",
     "react-dom": "latest",
 
-    "react-form-with-constraints": "^0.9.3"
+    "react-form-with-constraints": "^0.10.0"
   },
 
   "devDependencies": {
