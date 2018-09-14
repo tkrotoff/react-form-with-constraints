@@ -12,14 +12,14 @@ import {
 
 import beautifyHtml from '../../react-form-with-constraints/src/beautifyHtml';
 
-import { DisplayFields } from './index';
+import { DisplayFields, DisplayFieldsProps } from './index';
 import SignUp from './SignUp';
 
 const mount = (node: React.ReactElement<FormWithConstraintsProps>) =>
   _mount<FormWithConstraintsProps, {}>(node);
 
-const shallow = (node: React.ReactElement<{}>, options: {context: FormWithConstraintsChildContext}) =>
-  _shallow<{}>(node, options);
+const shallow = (node: React.ReactElement<DisplayFieldsProps>, options: {context: FormWithConstraintsChildContext}) =>
+  _shallow<DisplayFieldsProps>(node, options);
 
 test('componentWillMount() componentWillUnmount()', () => {
   const form = new FormWithConstraints({});
@@ -168,7 +168,7 @@ describe('render()', () => {
 ]`);
   });
 
-  test('form.reset()', async () => {
+  test.skip('form.resetFields()', async () => {
     const wrapper = shallow(
       <DisplayFields />,
       {context: {form: form_username}}
@@ -194,7 +194,7 @@ describe('render()', () => {
   }
 ]`);
 
-    await form_username.reset();
+    await form_username.resetFields();
     wrapper.update();
     expect(wrapper.text()).toEqual(
 `Fields = [

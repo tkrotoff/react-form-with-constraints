@@ -9,10 +9,6 @@ export enum FieldEvent {
 export class FieldsStore extends EventEmitter {
   fields = new Array<Field>();
 
-  clearFieldsValidations() {
-    this.fields.forEach(field => field.clearValidations());
-  }
-
   getField(fieldName: string): Readonly<Field> | undefined {
     const fields = this.fields.filter(_field => _field.name === fieldName);
     //console.assert(fields.length === 1, `Unknown field '${fieldName}'`);

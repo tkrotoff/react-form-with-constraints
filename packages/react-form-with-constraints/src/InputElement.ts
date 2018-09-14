@@ -12,12 +12,17 @@ export class InputElement {
   readonly name: string;
   readonly type: string; // Not needed internally, can be text, radio...
   readonly value: string;
+
+  // validity and validationMessage available for (lib.dom.d.ts):
+  // HTMLButtonElement, HTMLFieldSetElement, HTMLInputElement, HTMLObjectElement,
+  // HTMLOutputElement, HTMLSelectElement, HTMLTextAreaElement
+  // ValidityState is supported by IE >= 10
   readonly validity: IValidityState;
   readonly validationMessage: string;
 
   // Need to duplicate the input when the user changes rapidly the input
   // otherwise we will treat only the last input value instead of every input value change
-  constructor(input: /*HTMLInputElement*/ InputElement | TextInput) {
+  constructor(input: /*HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement*/ InputElement | TextInput) {
     if ((input as any).props === undefined) {
       input = input as InputElement;
       this.name = input.name;

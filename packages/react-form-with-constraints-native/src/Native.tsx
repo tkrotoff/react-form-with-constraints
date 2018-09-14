@@ -17,6 +17,9 @@ export class FormWithConstraints extends _FormWithConstraints {
   validateFields(...inputsOrNames: Array<TextInput | string>);
 
   // @ts-ignore
+  validateFieldsWithoutFeedback(...inputsOrNames: Array<TextInput | string>);
+
+  // @ts-ignore
   // Property 'normalizeInputs' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'.
   //
   // If called without arguments, returns all fields
@@ -70,6 +73,12 @@ export class FormWithConstraints extends _FormWithConstraints {
     return inputs;
   }
 
+  // @ts-ignore
+  async resetFields(...inputsOrNames: Array<TextInput | string>);
+
+  // FIXME
+  // @ts-ignore
+  // Function implementation name must be 'resetFields'.
   render() {
     // FIXME See Support for Fragments in react native instead of view https://react-native.canny.io/feature-requests/p/support-for-fragments-in-react-native-instead-of-view
     return <View {...this.props as any} />;

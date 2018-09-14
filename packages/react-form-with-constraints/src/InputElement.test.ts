@@ -1,6 +1,6 @@
 import { InputElement } from './InputElement';
 
-test('constructor() HTMLInputElement', () => {
+test('constructor(HTMLInputElement)', () => {
   const htmlInputElement = {
     name: 'username',
     type: 'text',
@@ -23,7 +23,7 @@ test('constructor() HTMLInputElement', () => {
   expect(input.value).toEqual('john');
 });
 
-test('constructor() TextInput', () => {
+test('constructor(TextInput)', () => {
   const textInput = {
     props: {
       name: 'username',

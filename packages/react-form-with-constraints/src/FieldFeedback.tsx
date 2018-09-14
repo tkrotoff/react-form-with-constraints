@@ -8,6 +8,7 @@ import { InputElement } from './InputElement';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 import { FieldFeedbackWhenValid } from './FieldFeedbackWhenValid';
 import FieldFeedbackType from './FieldFeedbackType';
+import Field from './Field';
 import Nullable from './Nullable';
 
 type WhenString =
@@ -111,7 +112,7 @@ export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackP
     if (async) async.addValidateFieldEventListener(this.validate);
     else fieldFeedbacks.addValidateFieldEventListener(this.validate);
 
-    form.addResetEventListener(this.reset);
+    form.addFieldDidResetEventListener(this.fieldDidReset);
   }
 
   componentWillUnmount() {
@@ -120,7 +121,7 @@ export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackP
     if (async) async.removeValidateFieldEventListener(this.validate);
     else fieldFeedbacks.removeValidateFieldEventListener(this.validate);
 
-    form.removeResetEventListener(this.reset);
+    form.removeFieldDidResetEventListener(this.fieldDidReset);
   }
 
   validate = (input: InputElement) => {
@@ -189,11 +190,13 @@ export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackP
     return validation;
   }
 
-  reset = () => {
-    this.setState(prevState => ({
-      validation: {...prevState.validation, ...{show: undefined}},
-      validationMessage: ''
-    }));
+  fieldDidReset = (field: Field) => {
+    if (field.name === this.context.fieldFeedbacks.fieldName) { // Ignore the event if it's not for us
+      this.setState(prevState => ({
+        validation: {...prevState.validation, ...{show: undefined}},
+        validationMessage: ''
+      }));
+    }
   }
 
   // Don't forget to update native/FieldFeedback.render()

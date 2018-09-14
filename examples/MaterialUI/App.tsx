@@ -120,7 +120,7 @@ class Form extends React.Component<PropsWithStyles, State> {
 
   handleReset = () => {
     this.setState(this.getInitialState());
-    this.form!.reset();
+    this.form!.resetFields();
     this.setState({resetButtonDisabled: true});
   }
 

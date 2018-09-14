@@ -750,7 +750,7 @@ describe('validate', () => {
       signUp.password!.value = '123456';
       signUp.passwordConfirm!.value = '12345';
 
-      const fields = await signUp.form!.validateFields(signUp.username!, signUp.password!, signUp.passwordConfirm!);
+      const fields = await signUp.form!.validateFields(signUp.username!, signUp.passwordConfirm!);
       expect(fields).toEqual([
         {
           name: 'username',
@@ -762,18 +762,6 @@ describe('validate', () => {
           ]
         },
         {
-          name: 'password',
-          validations: [
-            {key: '1.0', type: 'error', show: false},
-            {key: '1.1', type: 'error', show: false},
-            {key: '1.2', type: 'warning', show: false},
-            {key: '1.3', type: 'warning', show: true},
-            {key: '1.4', type: 'warning', show: true},
-            {key: '1.5', type: 'warning', show: true},
-            {key: '1.6', type: 'whenValid', show: undefined}
-          ]
-        },
-        {
           name: 'passwordConfirm',
           validations: [
             {key: '2.0', type: 'error', show: true},
@@ -781,10 +769,9 @@ describe('validate', () => {
           ]
         }
       ]);
-      expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
+      expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(2);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
         [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
-        [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
         [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
       ]);
 
@@ -795,12 +782,7 @@ describe('validate', () => {
             <span data-feedback="0.3" class="error" style="display: block;">Username 'john' already taken, choose another</span>
           </span>
           <input type="password" name="password">
-          <span data-feedbacks="1">
-            <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
-            <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
-            <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
-            <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
-          </span>
+          <span data-feedbacks="1"></span>
           <input type="password" name="passwordConfirm">
           <span data-feedbacks="2">
             <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
@@ -820,7 +802,7 @@ describe('validate', () => {
       signUp.password!.value = '123456';
       signUp.passwordConfirm!.value = '12345';
 
-      const fields = await signUp.form!.validateFields('username', 'password', 'passwordConfirm');
+      const fields = await signUp.form!.validateFields('username', 'passwordConfirm');
       expect(fields).toEqual([
         {
           name: 'username',
@@ -832,18 +814,6 @@ describe('validate', () => {
           ]
         },
         {
-          name: 'password',
-          validations: [
-            {key: '1.0', type: 'error', show: false},
-            {key: '1.1', type: 'error', show: false},
-            {key: '1.2', type: 'warning', show: false},
-            {key: '1.3', type: 'warning', show: true},
-            {key: '1.4', type: 'warning', show: true},
-            {key: '1.5', type: 'warning', show: true},
-            {key: '1.6', type: 'whenValid', show: undefined}
-          ]
-        },
-        {
           name: 'passwordConfirm',
           validations: [
             {key: '2.0', type: 'error', show: true},
@@ -851,10 +821,9 @@ describe('validate', () => {
           ]
         }
       ]);
-      expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
+      expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(2);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
         [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
-        [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
         [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
       ]);
 
@@ -870,7 +839,7 @@ describe('validate', () => {
       signUp.password!.value = '123456';
       signUp.passwordConfirm!.value = '12345';
 
-      const fields = await signUp.form!.validateFields(signUp.username!, 'password', signUp.passwordConfirm!);
+      const fields = await signUp.form!.validateFields(signUp.username!, 'passwordConfirm');
       expect(fields).toEqual([
         {
           name: 'username',
@@ -882,18 +851,6 @@ describe('validate', () => {
           ]
         },
         {
-          name: 'password',
-          validations: [
-            {key: '1.0', type: 'error', show: false},
-            {key: '1.1', type: 'error', show: false},
-            {key: '1.2', type: 'warning', show: false},
-            {key: '1.3', type: 'warning', show: true},
-            {key: '1.4', type: 'warning', show: true},
-            {key: '1.5', type: 'warning', show: true},
-            {key: '1.6', type: 'whenValid', show: undefined}
-          ]
-        },
-        {
           name: 'passwordConfirm',
           validations: [
             {key: '2.0', type: 'error', show: true},
@@ -901,10 +858,9 @@ describe('validate', () => {
           ]
         }
       ]);
-      expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
+      expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(2);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
         [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
-        [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
         [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
       ]);
 
@@ -1138,9 +1094,9 @@ describe('validate', () => {
         [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
         [{name: 'username', type: 'text', value: 'jimmy', validity: validValidityState, validationMessage: ''}],
         [{name: 'password', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}],
-        [{name: 'password', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}], // Instead of '123456' ?
+        [{name: 'password', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}], // Instead of '123456'?
         [{name: 'password', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}],
-        [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}], // Instead of '' ?
+        [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}], // Instead of ''?
         [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}],
         [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
       ]);
@@ -1149,65 +1105,152 @@ describe('validate', () => {
     });
   });
 
+  describe('validateFieldsWithoutFeedback()', () => {
+
+    test('inputs', async () => {
+    });
+
+    test('field names', async () => {
+    });
+
+    test('inputs + field names', async () => {
+      const wrapper = mount(<SignUp />);
+      const signUp = wrapper.instance() as SignUp;
+      const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
+
+      signUp.username!.value = 'john';
+      signUp.password!.value = '123456';
+      signUp.passwordConfirm!.value = '12345';
+
+      const fields1 = await signUp.form!.validateFieldsWithoutFeedback(signUp.username!, 'passwordConfirm');
+      expect(fields1).toEqual([
+        {
+          name: 'username',
+          validations: [
+            {key: '0.0', type: 'error', show: false},
+            {key: '0.1', type: 'error', show: false},
+            {key: '0.3', type: 'error', show: true},
+            {key: '0.2', type: 'whenValid', show: undefined}
+          ]
+        },
+        {
+          name: 'passwordConfirm',
+          validations: [
+            {key: '2.0', type: 'error', show: true},
+            {key: '2.1', type: 'whenValid', show: undefined}
+          ]
+        }
+      ]);
+      expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(2);
+      expect(emitValidateFieldEventSpy.mock.calls).toEqual([
+        [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
+        [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+      ]);
+
+      // Fields are already dirty so calling validateFieldsWithoutFeedback() again won't do anything
+
+      emitValidateFieldEventSpy.mockClear();
+
+      signUp.username!.value = 'jimmy';
+      signUp.password!.value = '12345';
+      signUp.passwordConfirm!.value = '12345';
+
+      const fields2 = await signUp.form!.validateFieldsWithoutFeedback(signUp.username!, 'passwordConfirm');
+      expect(fields2).toEqual(fields1);
+      expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(0);
+      expect(emitValidateFieldEventSpy.mock.calls).toEqual([]);
+
+      wrapper.unmount();
+    });
+
+    test('without arguments', async () => {
+      const wrapper = mount(<SignUp />);
+      const signUp = wrapper.instance() as SignUp;
+      const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
+
+      signUp.username!.value = 'john';
+      signUp.password!.value = '123456';
+      signUp.passwordConfirm!.value = '12345';
+
+      const fields1 = await signUp.form!.validateFieldsWithoutFeedback();
+      expect(fields1).toEqual([
+        {
+          name: 'username',
+          validations: [
+            {key: '0.0', type: 'error', show: false},
+            {key: '0.1', type: 'error', show: false},
+            {key: '0.3', type: 'error', show: true},
+            {key: '0.2', type: 'whenValid', show: undefined}
+          ]
+        },
+        {
+          name: 'password',
+          validations: [
+            {key: '1.0', type: 'error', show: false},
+            {key: '1.1', type: 'error', show: false},
+            {key: '1.2', type: 'warning', show: false},
+            {key: '1.3', type: 'warning', show: true},
+            {key: '1.4', type: 'warning', show: true},
+            {key: '1.5', type: 'warning', show: true},
+            {key: '1.6', type: 'whenValid', show: undefined}
+          ]
+        },
+        {
+          name: 'passwordConfirm',
+          validations: [
+            {key: '2.0', type: 'error', show: true},
+            {key: '2.1', type: 'whenValid', show: undefined}
+          ]
+        }
+      ]);
+      expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
+      expect(emitValidateFieldEventSpy.mock.calls).toEqual([
+        [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
+        [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
+        [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+      ]);
+
+      // Fields are already dirty so calling validateFieldsWithoutFeedback() again won't do anything
+
+      emitValidateFieldEventSpy.mockClear();
+
+      signUp.username!.value = 'jimmy';
+      signUp.password!.value = '12345';
+      signUp.passwordConfirm!.value = '12345';
+
+      const fields2 = await signUp.form!.validateFieldsWithoutFeedback();
+      expect(fields2).toEqual(fields1);
+      expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(0);
+      expect(emitValidateFieldEventSpy.mock.calls).toEqual([]);
+
+      wrapper.unmount();
+    });
+
+    test('Could not find field', async () => {
+      const wrapper = mount(
+        <FormWithConstraints>
+          <input name="username" />
+        </FormWithConstraints>
+      );
+      const form = wrapper.instance() as FormWithConstraints;
+
+      await expect(form.validateFieldsWithoutFeedback()).resolves.toEqual([]); // Ignore input without FieldFeedbacks
+      await expect(form.validateFieldsWithoutFeedback('username')).resolves.toEqual([]); // Ignore input without FieldFeedbacks
+      await expect(form.validateFieldsWithoutFeedback('unknown')).rejects.toEqual(new Error(`Could not find field '[name="unknown"]' inside the form`));
+
+      wrapper.unmount();
+    });
+  });
+
   test('validateForm()', async () => {
     const wrapper = mount(<SignUp />);
     const signUp = wrapper.instance() as SignUp;
-    const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
+    const validateFieldsWithoutFeedbackSpy = jest.spyOn(signUp.form!, 'validateFieldsWithoutFeedback');
 
-    signUp.username!.value = 'john';
-    signUp.password!.value = '123456';
-    signUp.passwordConfirm!.value = '12345';
+    await signUp.form!.validateForm();
 
-    const fields1 = await signUp.form!.validateForm();
-    expect(fields1).toEqual([
-      {
-        name: 'username',
-        validations: [
-          {key: '0.0', type: 'error', show: false},
-          {key: '0.1', type: 'error', show: false},
-          {key: '0.3', type: 'error', show: true},
-          {key: '0.2', type: 'whenValid', show: undefined}
-        ]
-      },
-      {
-        name: 'password',
-        validations: [
-          {key: '1.0', type: 'error', show: false},
-          {key: '1.1', type: 'error', show: false},
-          {key: '1.2', type: 'warning', show: false},
-          {key: '1.3', type: 'warning', show: true},
-          {key: '1.4', type: 'warning', show: true},
-          {key: '1.5', type: 'warning', show: true},
-          {key: '1.6', type: 'whenValid', show: undefined}
-        ]
-      },
-      {
-        name: 'passwordConfirm',
-        validations: [
-          {key: '2.0', type: 'error', show: true},
-          {key: '2.1', type: 'whenValid', show: undefined}
-        ]
-      }
-    ]);
-    expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
-    expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
-      [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
-      [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
-    ]);
-
-    // Fields are already dirty so calling validateForm() again won't do anything
-
-    emitValidateFieldEventSpy.mockClear();
-
-    signUp.username!.value = 'jimmy';
-    signUp.password!.value = '12345';
-    signUp.passwordConfirm!.value = '12345';
-
-    const fields2 = await signUp.form!.validateForm();
-    expect(fields2).toEqual(fields1);
-    expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(0);
-    expect(emitValidateFieldEventSpy.mock.calls).toEqual([]);
+    expect(validateFieldsWithoutFeedbackSpy).toHaveBeenCalledTimes(1);
+    expect(validateFieldsWithoutFeedbackSpy.mock.calls).toEqual([[]]);
 
     wrapper.unmount();
   });
@@ -1245,6 +1288,7 @@ describe('validate', () => {
       const form = wrapper.instance() as FormWithConstraints;
 
       await expect(form.validateFields()).resolves.toEqual([]); // Ignore input without FieldFeedbacks
+      await expect(form.validateFields('username')).resolves.toEqual([]); // Ignore input without FieldFeedbacks
       await expect(form.validateFields('unknown')).rejects.toEqual(new Error(`Could not find field '[name="unknown"]' inside the form`));
 
       wrapper.unmount();
@@ -1273,6 +1317,7 @@ describe('validate', () => {
       const form = wrapper.instance() as FormWithConstraints;
 
       await expect(form.validateFields()).resolves.toEqual([]);
+      await expect(form.validateFields('a-49ekipqfmwsv')).rejects.toEqual(new Error(`'[name="a-49ekipqfmwsv"]' should match an <input>, <select> or <textarea>`));
 
       wrapper.unmount();
     });
@@ -1459,81 +1504,224 @@ test('hasFeedbacks()', async () => {
   expect(fields.every(field => field.hasFeedbacks())).toEqual(true);
   expect(signUp.form!.hasFeedbacks()).toEqual(true);
 
-  signUp.form!.reset();
+  await signUp.form!.resetFields();
   expect(signUp.form!.hasFeedbacks()).toEqual(false);
 
   wrapper.unmount();
 });
 
-test('reset()', async () => {
-  const wrapper = mount(<SignUp />);
-  const signUp = wrapper.instance() as SignUp;
+describe('resetFields()', () => {
+  test('inputs', async () => {
+    const wrapper = mount(<SignUp />);
+    const signUp = wrapper.instance() as SignUp;
 
-  signUp.username!.value = 'john';
-  signUp.password!.value = '123456';
-  signUp.passwordConfirm!.value = '12345';
+    signUp.username!.value = 'john';
+    signUp.password!.value = '123456';
+    signUp.passwordConfirm!.value = '12345';
 
-  await signUp.form!.validateFields();
+    await signUp.form!.validateFields();
 
-  expect(beautifyHtml(wrapper.html(), '    ')).toEqual(`\
-    <form>
-      <input name="username">
-      <span data-feedbacks="0">
-        <span data-feedback="0.3" class="error" style="display: block;">Username 'john' already taken, choose another</span>
-      </span>
-      <input type="password" name="password">
-      <span data-feedbacks="1">
-        <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
-        <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
-        <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
-        <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
-      </span>
-      <input type="password" name="passwordConfirm">
-      <span data-feedbacks="2">
-        <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
-      </span>
-    </form>`
-  );
+    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+      <form>
+        <input name="username">
+        <span data-feedbacks="0">
+          <span data-feedback="0.3" class="error" style="display: block;">Username 'john' already taken, choose another</span>
+        </span>
+        <input type="password" name="password">
+        <span data-feedbacks="1">
+          <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
+          <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
+          <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
+          <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+        </span>
+        <input type="password" name="passwordConfirm">
+        <span data-feedbacks="2">
+          <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
+        </span>
+      </form>`
+    );
 
-  await signUp.form!.reset();
+    await signUp.form!.resetFields(signUp.username!, signUp.passwordConfirm!);
 
-  expect(beautifyHtml(wrapper.html(), '    ')).toEqual(`\
-    <form>
-      <input name="username">
-      <span data-feedbacks="0"></span>
-      <input type="password" name="password">
-      <span data-feedbacks="1"></span>
-      <input type="password" name="passwordConfirm">
-      <span data-feedbacks="2"></span>
-    </form>`
-  );
+    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+      <form>
+        <input name="username">
+        <span data-feedbacks="0"></span>
+        <input type="password" name="password">
+        <span data-feedbacks="1">
+          <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
+          <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
+          <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
+          <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+        </span>
+        <input type="password" name="passwordConfirm">
+        <span data-feedbacks="2"></span>
+      </form>`
+    );
 
-  signUp.username!.value = 'jimmy';
-  signUp.password!.value = '12345';
-  signUp.passwordConfirm!.value = '12345';
+    wrapper.unmount();
+  });
 
-  await signUp.form!.validateFields();
+  test('field names', async () => {
+    const wrapper = mount(<SignUp />);
+    const signUp = wrapper.instance() as SignUp;
 
-  expect(beautifyHtml(wrapper.html(), '    ')).toEqual(`\
-    <form>
-      <input name="username">
-      <span data-feedbacks="0">
-        <span data-feedback="0.4" class="info" style="display: block;">Username 'jimmy' available</span>
-        <span data-feedback="0.2" class="when-valid" style="display: block;">Looks good!</span>
-      </span>
-      <input type="password" name="password">
-      <span data-feedbacks="1">
-        <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
-        <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
-        <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
-        <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
-      </span>
-      <input type="password" name="passwordConfirm">
-      <span data-feedbacks="2">
-        <span data-feedback="2.1" class="when-valid" style="display: block;">Looks good!</span>
-      </span>
-    </form>`
-  );
+    signUp.username!.value = 'john';
+    signUp.password!.value = '123456';
+    signUp.passwordConfirm!.value = '12345';
 
-  wrapper.unmount();
+    await signUp.form!.validateFields();
+
+    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+      <form>
+        <input name="username">
+        <span data-feedbacks="0">
+          <span data-feedback="0.3" class="error" style="display: block;">Username 'john' already taken, choose another</span>
+        </span>
+        <input type="password" name="password">
+        <span data-feedbacks="1">
+          <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
+          <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
+          <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
+          <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+        </span>
+        <input type="password" name="passwordConfirm">
+        <span data-feedbacks="2">
+          <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
+        </span>
+      </form>`
+    );
+
+    await signUp.form!.resetFields('username', 'passwordConfirm');
+
+    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+      <form>
+        <input name="username">
+        <span data-feedbacks="0"></span>
+        <input type="password" name="password">
+        <span data-feedbacks="1">
+          <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
+          <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
+          <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
+          <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+        </span>
+        <input type="password" name="passwordConfirm">
+        <span data-feedbacks="2"></span>
+      </form>`
+    );
+
+    wrapper.unmount();
+  });
+
+  test('inputs + field names', async () => {
+    const wrapper = mount(<SignUp />);
+    const signUp = wrapper.instance() as SignUp;
+
+    signUp.username!.value = 'john';
+    signUp.password!.value = '123456';
+    signUp.passwordConfirm!.value = '12345';
+
+    await signUp.form!.validateFields();
+
+    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+      <form>
+        <input name="username">
+        <span data-feedbacks="0">
+          <span data-feedback="0.3" class="error" style="display: block;">Username 'john' already taken, choose another</span>
+        </span>
+        <input type="password" name="password">
+        <span data-feedbacks="1">
+          <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
+          <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
+          <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
+          <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+        </span>
+        <input type="password" name="passwordConfirm">
+        <span data-feedbacks="2">
+          <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
+        </span>
+      </form>`
+    );
+
+    await signUp.form!.resetFields(signUp.username!, 'passwordConfirm');
+
+    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+      <form>
+        <input name="username">
+        <span data-feedbacks="0"></span>
+        <input type="password" name="password">
+        <span data-feedbacks="1">
+          <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
+          <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
+          <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
+          <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+        </span>
+        <input type="password" name="passwordConfirm">
+        <span data-feedbacks="2"></span>
+      </form>`
+    );
+
+    wrapper.unmount();
+  });
+
+  test('without arguments', async () => {
+    const wrapper = mount(<SignUp />);
+    const signUp = wrapper.instance() as SignUp;
+
+    signUp.username!.value = 'john';
+    signUp.password!.value = '123456';
+    signUp.passwordConfirm!.value = '12345';
+
+    await signUp.form!.validateFields();
+
+    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+      <form>
+        <input name="username">
+        <span data-feedbacks="0">
+          <span data-feedback="0.3" class="error" style="display: block;">Username 'john' already taken, choose another</span>
+        </span>
+        <input type="password" name="password">
+        <span data-feedbacks="1">
+          <span data-feedback="1.3" class="warning" style="display: block;">Should contain small letters</span>
+          <span data-feedback="1.4" class="warning" style="display: block;">Should contain capital letters</span>
+          <span data-feedback="1.5" class="warning" style="display: block;">Should contain special characters</span>
+          <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+        </span>
+        <input type="password" name="passwordConfirm">
+        <span data-feedbacks="2">
+          <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
+        </span>
+      </form>`
+    );
+
+    await signUp.form!.resetFields();
+
+    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+      <form>
+        <input name="username">
+        <span data-feedbacks="0"></span>
+        <input type="password" name="password">
+        <span data-feedbacks="1"></span>
+        <input type="password" name="passwordConfirm">
+        <span data-feedbacks="2"></span>
+      </form>`
+    );
+
+    wrapper.unmount();
+  });
+
+  test('Could not find field', async () => {
+    const wrapper = mount(
+      <FormWithConstraints>
+        <input name="username" />
+      </FormWithConstraints>
+    );
+    const form = wrapper.instance() as FormWithConstraints;
+
+    await expect(form.resetFields()).resolves.toEqual([]); // Ignore input without FieldFeedbacks
+    await expect(form.resetFields('username')).resolves.toEqual([]); // Ignore input without FieldFeedbacks
+    await expect(form.resetFields('unknown')).rejects.toEqual(new Error(`Could not find field '[name="unknown"]' inside the form`));
+
+    wrapper.unmount();
+  });
 });

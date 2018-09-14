@@ -101,7 +101,7 @@ class Form extends React.Component<Props, State> {
     // Validates the non-dirty fields and returns the related FieldValidation structures
     const fields = await this.form!.validateForm();
 
-    // or simply this.form.isValid();
+    // or simply use this.form.isValid()
     const formIsValid = fields.every(field => field.isValid());
 
     if (formIsValid) console.log('The form is valid');

@@ -35,13 +35,13 @@ export class FormControl extends React.Component<FormControlProps, FormControlSt
   componentWillMount() {
     this.context.form.addFieldWillValidateEventListener(this.fieldWillValidate);
     this.context.form.addFieldDidValidateEventListener(this.fieldDidValidate);
-    this.context.form.addResetEventListener(this.reset);
+    this.context.form.addFieldDidResetEventListener(this.fieldDidReset);
   }
 
   componentWillUnmount() {
     this.context.form.removeFieldWillValidateEventListener(this.fieldWillValidate);
     this.context.form.removeFieldDidValidateEventListener(this.fieldDidValidate);
-    this.context.form.removeResetEventListener(this.reset);
+    this.context.form.removeFieldDidResetEventListener(this.fieldDidReset);
   }
 
   getAssociatedFieldName() {
@@ -74,8 +74,10 @@ export class FormControl extends React.Component<FormControlProps, FormControlSt
     }
   }
 
-  reset = () => {
-    this.setState({field: undefined});
+  fieldDidReset = (field: Field) => {
+    if (field.name === this.getAssociatedFieldName()) { // Ignore the event if it's not for us
+      this.setState({field: undefined});
+    }
   }
 
   render() {
@@ -102,13 +104,13 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
   componentWillMount() {
     this.context.form.addFieldWillValidateEventListener(this.fieldWillValidate);
     this.context.form.addFieldDidValidateEventListener(this.fieldDidValidate);
-    this.context.form.addResetEventListener(this.reset);
+    this.context.form.addFieldDidResetEventListener(this.fieldDidReset);
   }
 
   componentWillUnmount() {
     this.context.form.removeFieldWillValidateEventListener(this.fieldWillValidate);
     this.context.form.removeFieldDidValidateEventListener(this.fieldDidValidate);
-    this.context.form.removeResetEventListener(this.reset);
+    this.context.form.removeFieldDidResetEventListener(this.fieldDidReset);
   }
 
   fieldWillValidate = (fieldName: string) => {
@@ -123,8 +125,10 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
     }
   }
 
-  reset = () => {
-    this.setState({field: undefined});
+  fieldDidReset = (field: Field) => {
+    if (field.name === this.props.name) { // Ignore the event if it's not for us
+      this.setState({field: undefined});
+    }
   }
 
   render() {

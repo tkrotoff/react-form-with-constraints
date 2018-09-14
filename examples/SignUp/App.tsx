@@ -85,10 +85,12 @@ class SignUp extends React.Component<Props, State> {
     };
   }
 
-  previousValidateFields: string | undefined;
-
-  handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  handleChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, _debounce = true) => {
     const target = e.target;
+    await this._handleChange(target, _debounce, true);
+  }
+
+  _handleChange = async (target: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement, _debounce: boolean, forceValidateFields: boolean) => {
     const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
 
     // FIXME See Computed property key names should not be widened https://github.com/Microsoft/TypeScript/issues/13948
@@ -97,14 +99,12 @@ class SignUp extends React.Component<Props, State> {
       [target.name as keyof State]: value
     });
 
-    // Flush the previous debounce if input is not the same otherwise validateFields(input2) will overwrite validateFields(input1)
-    // if the user changes input2 before validateFields(input1) is called
-    if (this.previousValidateFields !== target.name) {
-      this.validateFields.flush();
-    }
-    this.previousValidateFields = target.name;
+    await this.validateFields(target, _debounce, forceValidateFields);
+  }
 
-    this.validateFields(target);
+  handleBlur = async (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const target = e.target;
+    await this._handleChange(target, false, false);
   }
 
   handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -124,15 +124,32 @@ class SignUp extends React.Component<Props, State> {
     return isEqual(omit(this.getInitialState(), omitList), omit(state, omitList)) && !this.form!.hasFeedbacks();
   }
 
-  async _validateFields(target: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) {
-    await this.form!.validateFields(target);
+  async validateFieldsWithoutDebounce(target: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement, forceValidateFields: boolean) {
+    forceValidateFields ? await this.form!.validateFields(target) : await this.form!.validateFieldsWithoutFeedback(target);
 
     this.setState(prevState => ({
       signUpButtonDisabled: !this.form!.isValid(),
       resetButtonDisabled: this.shouldDisableResetButton(prevState)
     }));
   }
-  validateFields = debounce(this._validateFields, VALIDATE_DEBOUNCE_WAIT);
+  validateFieldsWithDebounce = debounce(this.validateFieldsWithoutDebounce, VALIDATE_DEBOUNCE_WAIT);
+
+  previousValidateFields: string | undefined;
+
+  async validateFields(target: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement, _debounce: boolean, forceValidateFields: boolean) {
+    // Flush the previous debounce if input is not the same otherwise validateFields(input2) will overwrite validateFields(input1)
+    // if the user changes input2 before validateFields(input1) is called
+    if (this.previousValidateFields !== target.name) {
+      this.validateFieldsWithDebounce.flush();
+    }
+    this.previousValidateFields = target.name;
+
+    if (forceValidateFields) await this.form!.resetFields(target);
+
+    _debounce
+      ? await this.validateFieldsWithDebounce(target, forceValidateFields)
+      : await this.validateFieldsWithoutDebounce(target, forceValidateFields);
+  }
 
   handleHasWebsiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const hasWebsite = e.target.checked;
@@ -163,7 +180,7 @@ class SignUp extends React.Component<Props, State> {
 
   handleReset = () => {
     this.setState(this.getInitialState());
-    this.form!.reset();
+    this.form!.resetFields();
     this.setState({resetButtonDisabled: true});
   }
 
@@ -222,7 +239,9 @@ class SignUp extends React.Component<Props, State> {
           <div>
             <label htmlFor="first-name">{t('First Name')}</label>
             <input name="firstName" id="first-name"
-                   value={firstName} onChange={this.handleChange}
+                   value={firstName}
+                   onChange={this.handleChange}
+                   onBlur={this.handleBlur}
                    required minLength={3} />
             <FieldFeedbacks for="firstName">
               <FieldFeedback when="tooShort">{t('Too short')}</FieldFeedback>
@@ -234,7 +253,9 @@ class SignUp extends React.Component<Props, State> {
           <div>
             <label htmlFor="last-name">{t('Last Name')}</label>
             <input name="lastName" id="last-name"
-                   value={lastName} onChange={this.handleChange}
+                   value={lastName}
+                   onChange={this.handleChange}
+                   onBlur={this.handleBlur}
                    required minLength={3} />
             <FieldFeedbacks for="lastName">
               <FieldFeedback when="tooShort">{t('Too short')}</FieldFeedback>
@@ -246,7 +267,9 @@ class SignUp extends React.Component<Props, State> {
           <div>
             <label htmlFor="username"><Trans>Username <small>(already taken: john, paul, george, ringo)</small></Trans></label>
             <input name="username" id="username"
-                   value={username} onChange={this.handleChange}
+                   value={username}
+                   onChange={this.handleChange}
+                   onBlur={this.handleBlur}
                    required minLength={3} />
             <FieldFeedbacks for="username">
               <FieldFeedback when="tooShort">{t('Too short')}</FieldFeedback>
@@ -265,7 +288,9 @@ class SignUp extends React.Component<Props, State> {
           <div>
             <label htmlFor="email">{t('Email')}</label>
             <input type="email" name="email" id="email"
-                   value={email} onChange={this.handleChange}
+                   value={email}
+                   onChange={this.handleChange}
+                   onBlur={this.handleBlur}
                    required minLength={5} />
             <FieldFeedbacks for="email">
               <FieldFeedback when="tooShort">{t('Too short')}</FieldFeedback>
@@ -278,13 +303,17 @@ class SignUp extends React.Component<Props, State> {
             <label>{t('Gender')}</label>
             <label>
               <input type="radio" name="gender"
-                     value={Gender.Male} checked={gender === Gender.Male} onChange={this.handleChange}
+                     value={Gender.Male} checked={gender === Gender.Male}
+                     onChange={this.handleChange}
+                     onBlur={this.handleBlur}
                      required />
               {t('Male')}
             </label>
             <label>
               <input type="radio" name="gender"
-                     value={Gender.Female} checked={gender === Gender.Female} onChange={this.handleChange} />
+                     value={Gender.Female} checked={gender === Gender.Female}
+                     onChange={this.handleChange}
+                     onBlur={this.handleBlur} />
               {t('Female')}
             </label>
             <FieldFeedbacks for="gender">
@@ -295,7 +324,9 @@ class SignUp extends React.Component<Props, State> {
           <div>
             <label htmlFor="age">{t('Age')}</label>
             <input type="number" name="age" id="age"
-                   value={age} onChange={this.handleChange}
+                   value={age}
+                   onChange={this.handleChange}
+                   onBlur={this.handleBlur}
                    required />
             <FieldFeedbacks for="age">
               <FieldFeedback when="*" />
@@ -308,7 +339,9 @@ class SignUp extends React.Component<Props, State> {
           <div>
             <label htmlFor="phone">{t('Phone number')}</label>
             <input type="tel" name="phone" id="phone"
-                   value={phone} onChange={this.handleChange}
+                   value={phone}
+                   onChange={this.handleChange}
+                   onBlur={this.handleBlur}
                    required />
             <FieldFeedbacks for="phone">
               <FieldFeedback when="*" />
@@ -323,7 +356,9 @@ class SignUp extends React.Component<Props, State> {
               <br />
               {/* See https://github.com/facebook/react/issues/4085#issuecomment-262990423 */}
               <select name="favoriteColor"
-                      value={favoriteColor ? favoriteColor : ''} onChange={this.handleChange}
+                      value={favoriteColor ? favoriteColor : ''}
+                      onChange={this.handleChange}
+                      onBlur={this.handleBlur}
                       required>
                 <option value="" disabled>{t('Select a color...')}</option>
                 {colorKeys.map(colorKey => <option value={colorKey} key={colorKey}>{Color[colorKey]}</option>)}
@@ -348,7 +383,9 @@ class SignUp extends React.Component<Props, State> {
           <div>
             <label>
               <input type="checkbox" name="isEmployed"
-                     checked={isEmployed !== undefined ? isEmployed : false} onChange={this.handleChange} />
+                     checked={isEmployed !== undefined ? isEmployed : false}
+                     onChange={this.handleChange}
+                     onBlur={this.handleBlur} />
               {t('Employed')}
             </label>
           </div>
@@ -356,13 +393,17 @@ class SignUp extends React.Component<Props, State> {
           <div>
             <label htmlFor="notes">{t('Notes')}</label>
             <textarea name="notes" id="notes"
-                      value={notes} onChange={this.handleChange} />
+                      value={notes}
+                      onChange={this.handleChange}
+                      onBlur={this.handleBlur} />
           </div>
 
           <div>
             <label>
               <input type="checkbox" name="hasWebsite"
-                     checked={hasWebsite !== undefined ? hasWebsite : false} onChange={this.handleHasWebsiteChange} />
+                     checked={hasWebsite !== undefined ? hasWebsite : false}
+                     onChange={this.handleHasWebsiteChange}
+                     onBlur={this.handleBlur} />
               {t('Do you have a website?')}
             </label>
           </div>
@@ -371,7 +412,9 @@ class SignUp extends React.Component<Props, State> {
             <div>
               <label htmlFor="website">{t('Website')}</label>
               <input type="url" name="website" id="website"
-                     value={website} onChange={this.handleChange}
+                     value={website}
+                     onChange={this.handleChange}
+                     onBlur={this.handleBlur}
                      required minLength={3} />
               <FieldFeedbacks for="website">
                 <FieldFeedback when="*" />
@@ -384,7 +427,9 @@ class SignUp extends React.Component<Props, State> {
             <label htmlFor="password">{t('Password')}</label>
             <input type="password" name="password" id="password"
                    ref={passwordInput => this.passwordInput = passwordInput}
-                   value={password} onChange={this.handleChange}
+                   value={password}
+                   onChange={this.handleChange}
+                   onBlur={this.handleBlur}
                    required pattern=".{5,}" />
             <FieldFeedbacks for="password">
               <FieldFeedback when="valueMissing" />
@@ -400,7 +445,9 @@ class SignUp extends React.Component<Props, State> {
           <div>
             <label htmlFor="password-confirm">{t('Confirm Password')}</label>
             <input type="password" name="passwordConfirm" id="password-confirm"
-                   value={passwordConfirm} onChange={this.handleChange} />
+                   value={passwordConfirm}
+                   onChange={this.handleChange}
+                   onBlur={this.handleBlur} />
             <FieldFeedbacks for="passwordConfirm">
               <FieldFeedback when={value => value !== this.passwordInput!.value}>{t('Not the same password')}</FieldFeedback>
             </FieldFeedbacks>

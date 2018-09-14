@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 import { withFieldWillValidateEventEmitter } from './withFieldWillValidateEventEmitter';
 import { withFieldDidValidateEventEmitter } from './withFieldDidValidateEventEmitter';
-import { withResetEventEmitter } from './withResetEventEmitter';
+import { withFieldDidResetEventEmitter } from './withFieldDidResetEventEmitter';
 import Field from './Field';
 import { InputElement } from './InputElement';
 import { FieldsStore } from './FieldsStore';
@@ -22,7 +22,7 @@ export interface FormWithConstraintsProps extends React.FormHTMLAttributes<HTMLF
 class FormWithConstraintsComponent extends React.Component<FormWithConstraintsProps> {}
 export class FormWithConstraints
   extends
-    withResetEventEmitter(
+    withFieldDidResetEventEmitter(
       withFieldWillValidateEventEmitter(
         withFieldDidValidateEventEmitter(
           withValidateFieldEventEmitter<
@@ -66,9 +66,15 @@ export class FormWithConstraints
     return this._validateFields(/* forceValidateFields */ true, ...inputsOrNames);
   }
 
-  // Validates only what's necessary (e.g. non-checked fields)
   validateForm() {
-    return this._validateFields(/* forceValidateFields */ false);
+    return this.validateFieldsWithoutFeedback();
+  }
+
+  /**
+   * Validates fields without feedback only.
+   */
+  validateFieldsWithoutFeedback(...inputsOrNames: Array<InputElement | string>) {
+    return this._validateFields(/* forceValidateFields */ false, ...inputsOrNames);
   }
 
   private async _validateFields(forceValidateFields: boolean, ...inputsOrNames: Array<InputElement | string>) {
@@ -127,9 +133,16 @@ export class FormWithConstraints
       // See Convert JavaScript NodeList to Array? https://stackoverflow.com/a/33822526/990356
       inputs = [...this.form!.querySelectorAll<HTMLInputElement>('[name]')];
 
-      // Remove elements that don't have a type, example:
+      // Remove elements without ValidityState, example:
       // <iframe src="https://www.google.com/recaptcha..." name="a-49ekipqfmwsv">
-      inputs = inputs.filter(input => input.type);
+      // Without this check, possible crash inside InputElement is "TypeError: Cannot read property 'badInput' of undefined"
+      //
+      // ValidityState is available for (lib.dom.d.ts):
+      // HTMLButtonElement, HTMLFieldSetElement, HTMLInputElement, HTMLObjectElement,
+      // HTMLOutputElement, HTMLSelectElement, HTMLTextAreaElement
+      //
+      // ValidityState is supported by IE >= 10
+      inputs = inputs.filter(input => input.validity !== undefined);
 
       // Check we have unique names
       inputs
@@ -148,6 +161,11 @@ export class FormWithConstraints
 
           // Checks
 
+          if (elements.filter(el => el.validity === undefined).length > 0) {
+            // Should not match something like
+            // <iframe src="https://www.google.com/recaptcha..." name="a-49ekipqfmwsv">
+            throw new Error(`'${query}' should match an <input>, <select> or <textarea>`);
+          }
           if (elements.filter(el => el.type !== 'checkbox' && el.type !== 'radio').length > 1) {
             throw new Error(`Multiple elements matching '${query}' inside the form`);
           }
@@ -175,9 +193,32 @@ export class FormWithConstraints
     return this.fieldsStore.hasFeedbacks();
   }
 
-  reset() {
-    this.fieldsStore.clearFieldsValidations();
-    return this.emitResetEvent();
+  async resetFields(...inputsOrNames: Array<InputElement | string>) {
+    const fields = new Array<Readonly<Field>>();
+
+    const inputs = this.normalizeInputs(...inputsOrNames);
+
+    for (const input of inputs) {
+      const field = await this.resetField(new InputElement(input));
+      if (field !== undefined) fields.push(field);
+    }
+
+    return fields;
+  }
+
+  private async resetField(input: InputElement) {
+    const fieldName = input.name;
+    const field = this.fieldsStore.getField(fieldName);
+
+    if (field === undefined) {
+      // Means the field (<input name="username">) does not have a FieldFeedbacks
+      // so let's ignore this field
+    } else {
+      field.clearValidations();
+      await this.emitFieldDidResetEvent(field);
+    }
+
+    return field;
   }
 
   render() {

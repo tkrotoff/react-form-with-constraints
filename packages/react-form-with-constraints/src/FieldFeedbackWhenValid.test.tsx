@@ -3,7 +3,7 @@ import { shallow as _shallow } from 'enzyme';
 
 import {
   FormWithConstraints, Field,
-  FieldWillValidateEvent, FieldDidValidateEvent, ResetEvent,
+  FieldWillValidateEvent, FieldDidValidateEvent, FieldDidResetEvent,
   FieldFeedbackWhenValid, FieldFeedbackWhenValidProps, FieldFeedbackWhenValidContext
 } from './index';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
@@ -31,10 +31,10 @@ test('constructor()', () => {
 test('componentWillMount() componentWillUnmount()', () => {
   const addFieldWillValidateEventListenerSpy = jest.spyOn(form_username, 'addFieldWillValidateEventListener');
   const addFieldDidValidateEventListenerSpy = jest.spyOn(form_username, 'addFieldDidValidateEventListener');
-  const addResetEventListenerSpy = jest.spyOn(form_username, 'addResetEventListener');
+  const addFieldDidResetEventListenerSpy = jest.spyOn(form_username, 'addFieldDidResetEventListener');
   const removeFieldWillValidateEventListenerSpy = jest.spyOn(form_username, 'removeFieldWillValidateEventListener');
   const removeFieldDidValidateEventListenerSpy = jest.spyOn(form_username, 'removeFieldDidValidateEventListener');
-  const removeResetEventListenerSpy = jest.spyOn(form_username, 'removeResetEventListener');
+  const removeFieldDidResetEventListenerSpy = jest.spyOn(form_username, 'removeFieldDidResetEventListener');
 
   const wrapper = shallow(
     <FieldFeedbackWhenValid />,
@@ -46,9 +46,9 @@ test('componentWillMount() componentWillUnmount()', () => {
   expect(removeFieldDidValidateEventListenerSpy).toHaveBeenCalledTimes(0);
   expect(form_username.fieldWillValidateEventEmitter.listeners.get(FieldWillValidateEvent)).toHaveLength(1);
   expect(form_username.fieldDidValidateEventEmitter.listeners.get(FieldDidValidateEvent)).toHaveLength(1);
-  expect(addResetEventListenerSpy).toHaveBeenCalledTimes(1);
-  expect(removeResetEventListenerSpy).toHaveBeenCalledTimes(0);
-  expect(form_username.resetEventEmitter.listeners.get(ResetEvent)).toHaveLength(1);
+  expect(addFieldDidResetEventListenerSpy).toHaveBeenCalledTimes(1);
+  expect(removeFieldDidResetEventListenerSpy).toHaveBeenCalledTimes(0);
+  expect(form_username.fieldDidResetEventEmitter.listeners.get(FieldDidResetEvent)).toHaveLength(1);
 
   wrapper.unmount();
   expect(addFieldWillValidateEventListenerSpy).toHaveBeenCalledTimes(1);
@@ -57,9 +57,9 @@ test('componentWillMount() componentWillUnmount()', () => {
   expect(removeFieldDidValidateEventListenerSpy).toHaveBeenCalledTimes(1);
   expect(form_username.fieldWillValidateEventEmitter.listeners.get(FieldWillValidateEvent)).toEqual(undefined);
   expect(form_username.fieldDidValidateEventEmitter.listeners.get(FieldDidValidateEvent)).toEqual(undefined);
-  expect(addResetEventListenerSpy).toHaveBeenCalledTimes(1);
-  expect(removeResetEventListenerSpy).toHaveBeenCalledTimes(1);
-  expect(form_username.resetEventEmitter.listeners.get(ResetEvent)).toEqual(undefined);
+  expect(addFieldDidResetEventListenerSpy).toHaveBeenCalledTimes(1);
+  expect(removeFieldDidResetEventListenerSpy).toHaveBeenCalledTimes(1);
+  expect(form_username.fieldDidResetEventEmitter.listeners.get(FieldDidResetEvent)).toEqual(undefined);
 });
 
 test('fieldWillValidate() fieldDidValidate()', async () => {
@@ -84,17 +84,18 @@ test('fieldWillValidate() fieldDidValidate()', async () => {
   expect(fieldFeedbackWhenValid.state.fieldIsValid).toEqual(true); // Untouched
 });
 
-test('reset()', async () => {
+test('resetFields()', async () => {
   const wrapper = shallow(
     <FieldFeedbackWhenValid />,
     {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
   );
   const fieldFeedbackWhenValid = wrapper.instance() as FieldFeedbackWhenValid;
 
-  await form_username.emitFieldDidValidateEvent(new Field('username'));
+  const field = new Field('username');
+  await form_username.emitFieldDidValidateEvent(field);
   expect(fieldFeedbackWhenValid.state.fieldIsValid).toEqual(true);
 
-  const noReturn = await form_username.emitResetEvent();
+  const noReturn = await form_username.emitFieldDidResetEvent(field);
   expect(noReturn).toEqual([undefined]);
   expect(fieldFeedbackWhenValid.state.fieldIsValid).toEqual(undefined);
 });

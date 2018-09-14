@@ -24,7 +24,7 @@ export class DisplayFields extends React.Component<DisplayFieldsProps> {
     form.fieldsStore.addListener(FieldEvent.Added, this.reRender);
     form.fieldsStore.addListener(FieldEvent.Removed, this.reRender);
     form.addFieldDidValidateEventListener(this.reRender);
-    form.addResetEventListener(this.reRender);
+    form.addFieldDidResetEventListener(this.reRender);
   }
 
   componentWillUnmount() {
@@ -32,7 +32,7 @@ export class DisplayFields extends React.Component<DisplayFieldsProps> {
     form.fieldsStore.removeListener(FieldEvent.Added, this.reRender);
     form.fieldsStore.removeListener(FieldEvent.Removed, this.reRender);
     form.removeFieldDidValidateEventListener(this.reRender);
-    form.removeResetEventListener(this.reRender);
+    form.removeFieldDidResetEventListener(this.reRender);
   }
 
   reRender = () => {

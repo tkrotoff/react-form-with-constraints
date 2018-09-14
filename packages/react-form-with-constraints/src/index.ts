@@ -10,7 +10,7 @@ export { default as EventEmitter } from './EventEmitter';
 export * from './withValidateFieldEventEmitter';
 export * from './withFieldWillValidateEventEmitter';
 export * from './withFieldDidValidateEventEmitter';
-export * from './withResetEventEmitter';
+export * from './withFieldDidResetEventEmitter';
 export { default as FieldFeedbackValidation } from './FieldFeedbackValidation';
 export * from './InputElement';
 export { default as Constructor } from './Constructor';

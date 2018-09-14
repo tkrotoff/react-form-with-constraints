@@ -4,11 +4,9 @@ import clearArray from './clearArray';
 
 // Field is a better name than Input, see Django Form fields https://docs.djangoproject.com/en/1.11/ref/forms/fields/
 export default class Field {
-  public readonly validations: FieldFeedbackValidation[];
+  public readonly validations: FieldFeedbackValidation[] = [];
 
-  constructor(public readonly name: string) {
-    this.validations = [];
-  }
+  constructor(public readonly name: string) {}
 
   addOrReplaceValidation(validation: FieldFeedbackValidation) {
     // See Update if exists or add new element to array of objects https://stackoverflow.com/a/49375465/990356

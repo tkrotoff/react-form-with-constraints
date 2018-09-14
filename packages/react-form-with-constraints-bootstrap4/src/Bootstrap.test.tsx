@@ -120,7 +120,7 @@ describe('FormWithConstraints', () => {
     wrapper.unmount();
   });
 
-  test('reset()', async () => {
+  test('resetFields()', async () => {
     const wrapper = mount(<SignUp />);
     const signUp = wrapper.instance() as SignUp;
 
@@ -150,7 +150,7 @@ describe('FormWithConstraints', () => {
       </form>`
     );
 
-    await signUp.form!.reset();
+    await signUp.form!.resetFields();
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>

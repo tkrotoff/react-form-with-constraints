@@ -21,7 +21,7 @@ describe('FormWithConstraints', () => {
         signUp.setState({password: '123456'});
         signUp.setState({passwordConfirm: '12345'});
 
-        const fields = await signUp.form!.validateFields(signUp.username!, signUp.password!, signUp.passwordConfirm!);
+        const fields = await signUp.form!.validateFields(signUp.username!, signUp.passwordConfirm!);
         expect(fields).toEqual([
           {
             name: 'username',
@@ -33,18 +33,6 @@ describe('FormWithConstraints', () => {
             ]
           },
           {
-            name: 'password',
-            validations: [
-              {key: '1.0', type: 'error', show: false},
-              {key: '1.1', type: 'error', show: false},
-              {key: '1.2', type: 'warning', show: false},
-              {key: '1.3', type: 'warning', show: true},
-              {key: '1.4', type: 'warning', show: true},
-              {key: '1.5', type: 'warning', show: true},
-              {key: '1.6', type: 'whenValid', show: undefined}
-            ]
-          },
-          {
             name: 'passwordConfirm',
             validations: [
               {key: '2.0', type: 'error', show: true},
@@ -52,10 +40,9 @@ describe('FormWithConstraints', () => {
             ]
           }
         ]);
-        expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
+        expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(2);
         expect(emitValidateFieldEventSpy.mock.calls).toEqual([
           [{name: 'username', value: 'john'}],
-          [{name: 'password', value: '123456'}],
           [{name: 'passwordConfirm', value: '12345'}]
         ]);
 
@@ -71,7 +58,7 @@ describe('FormWithConstraints', () => {
         signUp.setState({password: '123456'});
         signUp.setState({passwordConfirm: '12345'});
 
-        const fields = await signUp.form!.validateFields('username', 'password', 'passwordConfirm');
+        const fields = await signUp.form!.validateFields('username', 'passwordConfirm');
         expect(fields).toEqual([
           {
             name: 'username',
@@ -83,18 +70,6 @@ describe('FormWithConstraints', () => {
             ]
           },
           {
-            name: 'password',
-            validations: [
-              {key: '1.0', type: 'error', show: false},
-              {key: '1.1', type: 'error', show: false},
-              {key: '1.2', type: 'warning', show: false},
-              {key: '1.3', type: 'warning', show: true},
-              {key: '1.4', type: 'warning', show: true},
-              {key: '1.5', type: 'warning', show: true},
-              {key: '1.6', type: 'whenValid', show: undefined}
-            ]
-          },
-          {
             name: 'passwordConfirm',
             validations: [
               {key: '2.0', type: 'error', show: true},
@@ -102,10 +77,9 @@ describe('FormWithConstraints', () => {
             ]
           }
         ]);
-        expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
+        expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(2);
         expect(emitValidateFieldEventSpy.mock.calls).toEqual([
           [{name: 'username', value: 'john'}],
-          [{name: 'password', value: '123456'}],
           [{name: 'passwordConfirm', value: '12345'}]
         ]);
 
@@ -121,7 +95,7 @@ describe('FormWithConstraints', () => {
         signUp.setState({password: '123456'});
         signUp.setState({passwordConfirm: '12345'});
 
-        const fields = await signUp.form!.validateFields(signUp.username!, 'password', signUp.passwordConfirm!);
+        const fields = await signUp.form!.validateFields(signUp.username!, 'passwordConfirm');
         expect(fields).toEqual([
           {
             name: 'username',
@@ -133,18 +107,6 @@ describe('FormWithConstraints', () => {
             ]
           },
           {
-            name: 'password',
-            validations: [
-              {key: '1.0', type: 'error', show: false},
-              {key: '1.1', type: 'error', show: false},
-              {key: '1.2', type: 'warning', show: false},
-              {key: '1.3', type: 'warning', show: true},
-              {key: '1.4', type: 'warning', show: true},
-              {key: '1.5', type: 'warning', show: true},
-              {key: '1.6', type: 'whenValid', show: undefined}
-            ]
-          },
-          {
             name: 'passwordConfirm',
             validations: [
               {key: '2.0', type: 'error', show: true},
@@ -152,10 +114,9 @@ describe('FormWithConstraints', () => {
             ]
           }
         ]);
-        expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
+        expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(2);
         expect(emitValidateFieldEventSpy.mock.calls).toEqual([
           [{name: 'username', value: 'john'}],
-          [{name: 'password', value: '123456'}],
           [{name: 'passwordConfirm', value: '12345'}]
         ]);
 
@@ -306,65 +267,80 @@ describe('FormWithConstraints', () => {
       });
     });
 
+    describe('validateFieldsWithoutFeedback()', () => {
+      test('without arguments', async () => {
+        const wrapper = renderer.create(<SignUp />);
+        const signUp = wrapper.getInstance() as any as SignUp;
+        const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
+
+        signUp.setState({username: 'john'});
+        signUp.setState({password: '123456'});
+        signUp.setState({passwordConfirm: '12345'});
+
+        const fields1 = await signUp.form!.validateFieldsWithoutFeedback();
+        expect(fields1).toEqual([
+          {
+            name: 'username',
+            validations: [
+              {key: '0.0', type: 'error', show: false},
+              {key: '0.1', type: 'error', show: false},
+              {key: '0.3', type: 'error', show: true},
+              {key: '0.2', type: 'whenValid', show: undefined}
+            ]
+          },
+          {
+            name: 'password',
+            validations: [
+              {key: '1.0', type: 'error', show: false},
+              {key: '1.1', type: 'error', show: false},
+              {key: '1.2', type: 'warning', show: false},
+              {key: '1.3', type: 'warning', show: true},
+              {key: '1.4', type: 'warning', show: true},
+              {key: '1.5', type: 'warning', show: true},
+              {key: '1.6', type: 'whenValid', show: undefined}
+            ]
+          },
+          {
+            name: 'passwordConfirm',
+            validations: [
+              {key: '2.0', type: 'error', show: true},
+              {key: '2.1', type: 'whenValid', show: undefined}
+            ]
+          }
+        ]);
+        expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
+        expect(emitValidateFieldEventSpy.mock.calls).toEqual([
+          [{name: 'username', value: 'john'}],
+          [{name: 'password', value: '123456'}],
+          [{name: 'passwordConfirm', value: '12345'}]
+        ]);
+
+        // Fields are already dirty so calling validateFieldsWithoutFeedback() again won't do anything
+
+        emitValidateFieldEventSpy.mockClear();
+
+        signUp.setState({username: 'jimmy'});
+        signUp.setState({password: '12345'});
+        signUp.setState({passwordConfirm: '12345'});
+
+        const fields2 = await signUp.form!.validateFieldsWithoutFeedback();
+        expect(fields2).toEqual(fields1);
+        expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(0);
+        expect(emitValidateFieldEventSpy.mock.calls).toEqual([]);
+
+        wrapper.unmount();
+      });
+    });
+
     test('validateForm()', async () => {
       const wrapper = renderer.create(<SignUp />);
       const signUp = wrapper.getInstance() as any as SignUp;
-      const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
+      const validateFieldsWithoutFeedbackSpy = jest.spyOn(signUp.form!, 'validateFieldsWithoutFeedback');
 
-      signUp.setState({username: 'john'});
-      signUp.setState({password: '123456'});
-      signUp.setState({passwordConfirm: '12345'});
+      await signUp.form!.validateForm();
 
-      const fields1 = await signUp.form!.validateForm();
-      expect(fields1).toEqual([
-        {
-          name: 'username',
-          validations: [
-            {key: '0.0', type: 'error', show: false},
-            {key: '0.1', type: 'error', show: false},
-            {key: '0.3', type: 'error', show: true},
-            {key: '0.2', type: 'whenValid', show: undefined}
-          ]
-        },
-        {
-          name: 'password',
-          validations: [
-            {key: '1.0', type: 'error', show: false},
-            {key: '1.1', type: 'error', show: false},
-            {key: '1.2', type: 'warning', show: false},
-            {key: '1.3', type: 'warning', show: true},
-            {key: '1.4', type: 'warning', show: true},
-            {key: '1.5', type: 'warning', show: true},
-            {key: '1.6', type: 'whenValid', show: undefined}
-          ]
-        },
-        {
-          name: 'passwordConfirm',
-          validations: [
-            {key: '2.0', type: 'error', show: true},
-            {key: '2.1', type: 'whenValid', show: undefined}
-          ]
-        }
-      ]);
-      expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
-      expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-        [{name: 'username', value: 'john'}],
-        [{name: 'password', value: '123456'}],
-        [{name: 'passwordConfirm', value: '12345'}]
-      ]);
-
-      // Fields are already dirty so calling validateForm() again won't do anything
-
-      emitValidateFieldEventSpy.mockClear();
-
-      signUp.setState({username: 'jimmy'});
-      signUp.setState({password: '12345'});
-      signUp.setState({passwordConfirm: '12345'});
-
-      const fields2 = await signUp.form!.validateForm();
-      expect(fields2).toEqual(fields1);
-      expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(0);
-      expect(emitValidateFieldEventSpy.mock.calls).toEqual([]);
+      expect(validateFieldsWithoutFeedbackSpy).toHaveBeenCalledTimes(1);
+      expect(validateFieldsWithoutFeedbackSpy.mock.calls).toEqual([[]]);
 
       wrapper.unmount();
     });
@@ -402,6 +378,7 @@ describe('FormWithConstraints', () => {
         const form = wrapper.getInstance() as any as FormWithConstraints;
 
         await expect(form.validateFields()).resolves.toEqual([]); // Ignore input without FieldFeedbacks
+        await expect(form.validateFields('username')).resolves.toEqual([]); // Ignore input without FieldFeedbacks
         await expect(form.validateFields('unknown')).rejects.toEqual(new Error(`Could not find field '[name="unknown"]' inside the form`));
 
         wrapper.unmount();

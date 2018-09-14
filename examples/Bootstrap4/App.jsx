@@ -84,7 +84,7 @@ class Form extends React.Component {
 
   handleReset = () => {
     this.setState(this.getInitialState());
-    this.form.reset();
+    this.form.resetFields();
     this.setState({resetButtonDisabled: true});
   }
 

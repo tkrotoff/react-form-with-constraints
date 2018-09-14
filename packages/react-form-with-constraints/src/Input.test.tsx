@@ -32,7 +32,7 @@ test('fieldWillValidate() fieldDidValidate()', () => {
   wrapper.unmount();
 });
 
-test('reset()', () => {
+test('fieldDidReset()', () => {
   const wrapper = shallow(
     <Input name="username" />,
     {context: {form: new FormWithConstraints({})}}
@@ -45,7 +45,11 @@ test('reset()', () => {
   input.fieldDidValidate(field);
   expect(wrapper.state()).toEqual({field});
 
-  input.reset();
+  const unknownField = new Field('unknown');
+  input.fieldDidReset(unknownField);
+  expect(wrapper.state()).toEqual({field});
+
+  input.fieldDidReset(field);
   expect(wrapper.state()).toEqual({field: undefined});
 
   wrapper.unmount();

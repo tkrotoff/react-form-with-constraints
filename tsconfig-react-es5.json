@@ -7,7 +7,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true, // FIXME TypeScript Bug? Should be set to true by default with esModuleInterop
+    "allowSyntheticDefaultImports": true, // FIXME https://github.com/Microsoft/TypeScript/issues/26193
     "noLib": false,
     "lib": ["dom.iterable", "es2017"],
     "experimentalDecorators": true,

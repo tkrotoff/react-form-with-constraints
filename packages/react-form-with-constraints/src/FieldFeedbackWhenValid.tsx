@@ -35,7 +35,7 @@ export class FieldFeedbackWhenValid<Props extends FieldFeedbackWhenValidBaseProp
 
     form.addFieldWillValidateEventListener(this.fieldWillValidate);
     form.addFieldDidValidateEventListener(this.fieldDidValidate);
-    form.addResetEventListener(this.reset);
+    form.addFieldDidResetEventListener(this.fieldDidReset);
   }
 
   componentWillUnmount() {
@@ -43,7 +43,7 @@ export class FieldFeedbackWhenValid<Props extends FieldFeedbackWhenValidBaseProp
 
     form.removeFieldWillValidateEventListener(this.fieldWillValidate);
     form.removeFieldDidValidateEventListener(this.fieldDidValidate);
-    form.removeResetEventListener(this.reset);
+    form.removeFieldDidResetEventListener(this.fieldDidReset);
   }
 
   fieldWillValidate = (fieldName: string) => {
@@ -58,8 +58,10 @@ export class FieldFeedbackWhenValid<Props extends FieldFeedbackWhenValidBaseProp
     }
   }
 
-  reset = () => {
-    this.setState({fieldIsValid: undefined});
+  fieldDidReset = (field: Field) => {
+    if (field.name === this.context.fieldFeedbacks.fieldName) { // Ignore the event if it's not for us
+      this.setState({fieldIsValid: undefined});
+    }
   }
 
   // Don't forget to update native/FieldFeedbackWhenValid.render()

@@ -109,7 +109,7 @@ export default class App extends React.Component<Props, State> {
 
   handleReset = () => {
     this.setState(this.getInitialState());
-    this.form!.reset();
+    this.form!.resetFields();
     this.setState({resetButtonDisabled: true});
   }
 

@@ -22,11 +22,10 @@ describe('constructor()', () => {
     expect(fieldFeedbacks.key).toEqual('0');
   });
 
-  test("FieldFeedbacks cannot have a parent and a 'for' prop", () => {
-    // Works but pollutes the console with:
-    // console.error ../../node_modules/jsdom/lib/jsdom/virtual-console.js:29
-    // Error: Uncaught [Error: FieldFeedbacks cannot have a parent and a 'for' prop]
-    /*
+  // Works but pollutes the console (even with [Error Boundaries](https://reactjs.org/docs/error-boundaries.html)) with:
+  // console.error ../../node_modules/jsdom/lib/jsdom/virtual-console.js:29
+  // Error: Uncaught [Error: FieldFeedbacks cannot have a parent and a 'for' prop]
+  test.skip("FieldFeedbacks cannot have a parent and a 'for' prop", () => {
     expect(() =>
       mount(
         <FieldFeedbacks for="username">
@@ -35,7 +34,6 @@ describe('constructor()', () => {
         {context: {form: new FormWithConstraints({})}}
       )
     ).toThrow("FieldFeedbacks cannot have a parent and a 'for' prop");
-    */
   });
 
   test("FieldFeedbacks cannot be without parent and without 'for' prop", () => {
