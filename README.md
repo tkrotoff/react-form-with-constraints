@@ -311,5 +311,5 @@ react-form-with-constraints needs a polyfill such as [core-js](https://github.co
 
 ## Notes
 
-- A [`readonly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-readonly) or `disabled` input won't trigger any HTML5 form constraint like [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-required).
+- A [`type="hidden"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/hidden#Validation), [`readonly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-readonly) or [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-disabled) input won't trigger any HTML5 form constraint validation like [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-required), see https://codepen.io/tkrotoff/pen/gdjVNv
 - With `<input type="number">` it's better to use `onInput` instead of `onChange`, see https://github.com/facebook/react/issues/11142
