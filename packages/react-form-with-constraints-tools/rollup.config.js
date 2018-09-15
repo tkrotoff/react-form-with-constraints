@@ -2,6 +2,7 @@
 
 import typescript from 'rollup-plugin-typescript2';
 import { uglify } from 'rollup-plugin-uglify';
+import { gzip as zopfli } from 'node-zopfli'
 import gzip from 'rollup-plugin-gzip';
 import filesize from 'rollup-plugin-filesize';
 import strip from 'rollup-plugin-strip';
@@ -36,9 +37,15 @@ export default {
       clean: true,
       tsconfigOverride: {compilerOptions: {noEmit: false, module: 'esnext'}}
     }),
+
     __PROD__ && uglify(),
-    gzip({algorithm: 'zopfli'}),
+
+    gzip({
+      customCompression: content => zopfli(Buffer.from(content))
+    }),
+
     filesize(),
+
     __PROD__ && strip({
       include: ['**/*.js', '**/*.ts', '**/*.tsx'] // See https://github.com/rollup/rollup-plugin-strip/pull/7
     })
