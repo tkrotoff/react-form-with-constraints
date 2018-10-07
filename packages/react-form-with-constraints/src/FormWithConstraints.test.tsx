@@ -1725,3 +1725,16 @@ describe('resetFields()', () => {
     wrapper.unmount();
   });
 });
+
+test('reset()', async () => {
+  const wrapper = mount(<SignUp />);
+  const signUp = wrapper.instance() as SignUp;
+  const resetFieldsSpy = jest.spyOn(signUp.form!, 'resetFields');
+
+  await signUp.form!.reset();
+
+  expect(resetFieldsSpy).toHaveBeenCalledTimes(1);
+  expect(resetFieldsSpy.mock.calls).toEqual([[]]);
+
+  wrapper.unmount();
+});

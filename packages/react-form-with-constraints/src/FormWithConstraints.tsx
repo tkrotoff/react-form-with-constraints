@@ -66,6 +66,7 @@ export class FormWithConstraints
     return this._validateFields(/* forceValidateFields */ true, ...inputsOrNames);
   }
 
+  // TODO To be removed in the future?
   validateForm() {
     return this.validateFieldsWithoutFeedback();
   }
@@ -191,6 +192,11 @@ export class FormWithConstraints
 
   hasFeedbacks() {
     return this.fieldsStore.hasFeedbacks();
+  }
+
+  // TODO To be removed in the future?
+  reset() {
+    return this.resetFields();
   }
 
   async resetFields(...inputsOrNames: Array<InputElement | string>) {

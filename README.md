@@ -253,7 +253,7 @@ class MyForm extends React.Component {
     If you want to force re-validate all fields, use `validateFields()`.
 
   - `validateForm(): Promise<Field[]>` =>
-    Other name for `validateFieldsWithoutFeedback()`, typically called before to submit the `form`.
+    Same as `validateFieldsWithoutFeedback()` without arguments, typically called before to submit the `form`.
     Might be removed in the future?
 
   - `isValid(): boolean` => should be called after `validateFields()`, `validateFieldsWithoutFeedback()` or `validateForm()`, tells if the fields are valid
