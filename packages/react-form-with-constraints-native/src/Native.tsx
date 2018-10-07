@@ -14,10 +14,11 @@ import {
 export class FormWithConstraints extends _FormWithConstraints {
   // @ts-ignore
   // Property 'validateFields' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'.
-  validateFields(...inputsOrNames: Array<TextInput | string>);
+  abstract validateFields(...inputsOrNames: Array<TextInput | string>);
 
   // @ts-ignore
-  validateFieldsWithoutFeedback(...inputsOrNames: Array<TextInput | string>);
+  // Property 'validateFieldsWithoutFeedback' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'.
+  abstract validateFieldsWithoutFeedback(...inputsOrNames: Array<TextInput | string>);
 
   // @ts-ignore
   // Property 'normalizeInputs' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'.
@@ -74,11 +75,9 @@ export class FormWithConstraints extends _FormWithConstraints {
   }
 
   // @ts-ignore
-  async resetFields(...inputsOrNames: Array<TextInput | string>);
+  // Property 'resetFields' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'.
+  abstract async resetFields(...inputsOrNames: Array<TextInput | string>);
 
-  // FIXME
-  // @ts-ignore
-  // Function implementation name must be 'resetFields'.
   render() {
     // FIXME See Support for Fragments in react native instead of view https://react-native.canny.io/feature-requests/p/support-for-fragments-in-react-native-instead-of-view
     return <View {...this.props as any} />;
