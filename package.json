@@ -11,7 +11,9 @@
 
     "tsc": "lerna run tsc",
     "build": "lerna run build",
+    "build:es5": "lerna run build:es5",
     "dist": "lerna run dist",
+
     "prepublishOnly": "lerna run prepublishOnly",
 
     "test": "lerna run test --stream",

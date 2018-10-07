@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig-react-es5",
+  "extends": "../../tsconfig",
   "compilerOptions": {
     "target": "es2015"
   }

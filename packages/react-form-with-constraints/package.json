@@ -17,22 +17,26 @@
     "html5"
   ],
 
-  "main": "lib/index.js",
+  "main": "lib-es5/index.js",
+  "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "dist/",
-    "lib/"
+    "lib/",
+    "lib-es5/"
   ],
+  "sideEffects": false,
 
   "scripts": {
-    "clean": "del-cli lib dist coverage .rpt2_cache README.md LICENSE CHANGELOG.md",
+    "clean": "del-cli lib lib-es5 dist coverage .rpt2_cache README.md LICENSE CHANGELOG.md",
 
     "tsc": "tsc",
     "build": "tsc --project tsconfig.lib.json",
+    "build:es5": "tsc --project tsconfig.lib-es5.json",
     "dist": "cross-env NODE_ENV=development rollup --config && cross-env NODE_ENV=production rollup --config",
 
     "prepack": "cp ../../README.md ../../LICENSE ../../CHANGELOG.md .",
-    "prepublishOnly": "npm run clean && npm run tsc && npm run build && npm run dist",
+    "prepublishOnly": "npm run clean && npm run tsc && npm run build && npm run build:es5 && npm run dist",
 
     "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
     "test:coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"

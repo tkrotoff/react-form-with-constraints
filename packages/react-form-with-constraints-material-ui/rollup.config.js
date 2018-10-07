@@ -34,9 +34,9 @@ export default {
 
   plugins: [
     typescript({
-      abortOnError: false,
       clean: true,
-      tsconfigOverride: {compilerOptions: {noEmit: false, module: 'esnext'}}
+      tsconfig: 'tsconfig.lib-es5.json',
+      tsconfigOverride: {compilerOptions: {module: 'esnext', inlineSources: false}}
     }),
 
     __PROD__ && uglify(),

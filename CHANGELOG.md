@@ -4,6 +4,7 @@
 
 - `resetFields()`
 - `validateFieldsWithoutFeedback()`
+- Use tree shaking and generate ES2017 files
 
 ### Breaking Changes
 

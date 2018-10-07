@@ -4,6 +4,7 @@ node_modules/
 # Generated files
 build/
 lib/
+lib-es5/
 dist/
 coverage/
 

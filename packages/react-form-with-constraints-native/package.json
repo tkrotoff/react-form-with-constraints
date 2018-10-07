@@ -15,18 +15,23 @@
     "react-native"
   ],
 
-  "main": "lib/index.js",
+  "main": "lib-es5/index.js",
+  "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib/"
+    "lib/",
+    "lib-es5/"
   ],
+  "sideEffects": false,
 
   "scripts": {
-    "clean": "del-cli lib coverage .rpt2_cache",
+    "clean": "del-cli lib lib-es5 coverage .rpt2_cache",
 
     "tsc": "tsc",
     "build": "tsc --project tsconfig.lib.json",
-    "prepublishOnly": "npm run clean && npm run tsc && npm run build",
+    "build:es5": "tsc --project tsconfig.lib-es5.json",
+
+    "prepublishOnly": "npm run clean && npm run tsc && npm run build && npm run build:es5",
 
     "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
     "test:coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"
