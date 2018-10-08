@@ -14,7 +14,7 @@
     "clean": "rm -f yarn.lock && rm -rf node_modules/react-form-with-constraints && rm -rf node_modules/react-form-with-constraints-native",
     "clean:all": "rm -rf .expo && yarn clean && yarn clean:node_modules",
 
-    "start": "react-native-scripts start",
+    "start": "react-native-scripts start --reset-cache",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
 
@@ -41,11 +41,11 @@
 
     "@types/lodash": "latest",
 
-    "react-native-scripts": "latest",
-    "react-native-typescript-transformer": "latest",
+    "react-native-scripts": "^1.14.1",
+    "react-native-typescript-transformer": "^1.2.10",
 
     "@types/jest": "latest",
-    "jest-expo": "latest",
+    "jest-expo": "^26.0.0",
 
     "react-test-renderer": "16.3.1",
     "@types/react-test-renderer": "latest"
