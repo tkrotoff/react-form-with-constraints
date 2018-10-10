@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  Input, InputLabel, FormHelperText
+  Input, FormHelperText
   /*TextField, FormControl,*/
 } from '@material-ui/core';
 
@@ -46,7 +46,6 @@ export default class SignUp extends React.Component<SignUpProps> {
 
         {/* Could be also written using <TextField> */}
         <FormControl>
-          <InputLabel htmlFor="password">Password</InputLabel>
           <Input
             type="password" id="password" name="password"
             inputRef={password => this.password = password}

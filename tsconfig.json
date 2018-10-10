@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
     "noEmit": true,
-    "target": "es2017",
+    "target": "es2018",
     "jsx": "react",
     "module": "esnext",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true, // FIXME https://github.com/Microsoft/TypeScript/issues/26193
     "noLib": false,
-    "lib": ["dom.iterable", "es2017"],
+    "lib": ["dom", "dom.iterable", "es2018"],
     "experimentalDecorators": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

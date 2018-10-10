@@ -25,7 +25,7 @@
 
     "bootstrap": "latest",
 
-    "babel-polyfill": "latest",
+    "@babel/polyfill": "latest",
     "raf": "latest"
   },
 
@@ -35,10 +35,10 @@
     "jest-puppeteer": "latest",
     "http-server": "latest",
 
-    "babel-core": "latest",
-    "babel-plugin-transform-class-properties": "latest",
-    "babel-preset-env": "latest",
-    "babel-preset-react": "latest",
+    "@babel/core": "latest",
+    "@babel/plugin-proposal-class-properties": "latest",
+    "@babel/preset-env": "latest",
+    "@babel/preset-react": "latest",
 
     "node-sass": "latest",
     "style-loader": "latest",
@@ -48,7 +48,7 @@
 
     "webpack-cli": "latest",
     "webpack": "latest",
-    "babel-loader": "^7.1.5",
+    "babel-loader": "latest",
     "file-loader": "latest",
     "source-map-loader": "latest",
 

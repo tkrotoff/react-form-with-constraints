@@ -18,7 +18,7 @@
 
     "lodash": "latest",
 
-    "@material-ui/core": "~3.0.3",
+    "@material-ui/core": "^3.2.0",
 
     "react-form-with-constraints": "^0.10.0",
     "react-form-with-constraints-material-ui": "^0.10.0",
@@ -26,7 +26,7 @@
   },
 
   "devDependencies": {
-    "typescript": "^2.9.2",
+    "typescript": "latest",
 
     "@types/react": "latest",
     "@types/react-dom": "latest",

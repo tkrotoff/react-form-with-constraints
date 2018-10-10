@@ -175,7 +175,7 @@ const fieldFeedbackStyles = (theme: Theme) => createStyles({
 
 type FieldFeedbackPropsWithStyles = FieldFeedbackBaseProps & React.HTMLAttributes<HTMLSpanElement> & WithStyles<typeof fieldFeedbackStyles>;
 
-export const FieldFeedback = withStyles(fieldFeedbackStyles, {name: 'FieldFeedback'})<FieldFeedbackBaseProps & React.HTMLAttributes<HTMLSpanElement>>(
+export const FieldFeedback = withStyles(fieldFeedbackStyles, {name: 'FieldFeedback'})(
   class extends React.Component<FieldFeedbackPropsWithStyles> {
     render() {
       const { classes, className, ...otherProps } = this.props;

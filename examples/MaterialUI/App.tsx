@@ -196,11 +196,11 @@ class Form extends React.Component<PropsWithStyles, State> {
 
         <Button
           type="submit" disabled={signUpButtonDisabled}
-          color="primary" variant="raised" className={classes.button}
+          color="primary" className={classes.button}
         >
           Sign Up
         </Button>
-        <Button onClick={this.handleReset} disabled={resetButtonDisabled} variant="raised" className={classes.button}>Reset</Button>
+        <Button onClick={this.handleReset} disabled={resetButtonDisabled} className={classes.button}>Reset</Button>
 
         <DisplayFields />
       </FormWithConstraints>
@@ -208,6 +208,6 @@ class Form extends React.Component<PropsWithStyles, State> {
   }
 }
 
-const App = withStyles(styles)<Props>(Form);
+const App = withStyles(styles)(Form);
 
 ReactDOM.render(<App />, document.getElementById('app'));
