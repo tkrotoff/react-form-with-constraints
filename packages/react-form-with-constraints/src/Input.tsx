@@ -6,8 +6,9 @@ import Field from './Field';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   innerRef?: React.Ref<HTMLInputElement>;
-  classes?: {
+  classes: {
     [index: string]: string | undefined;
+    isPending?: string;
     hasErrors?: string;
     hasWarnings?: string;
     hasInfos?: string;
@@ -16,7 +17,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 }
 
 interface InputState {
-  field: Field | undefined;
+  field: undefined | 'pending' | Field;
 }
 
 export type InputContext = FormWithConstraintsChildContext;
@@ -29,6 +30,7 @@ export class Input extends React.Component<InputProps, InputState> {
 
   static defaultProps: InputProps = {
     classes: {
+      isPending: 'is-pending',
       hasErrors: 'has-errors',
       hasWarnings: 'has-warnings',
       hasInfos: 'has-infos',
@@ -54,7 +56,7 @@ export class Input extends React.Component<InputProps, InputState> {
 
   fieldWillValidate = (fieldName: string) => {
     if (fieldName === this.props.name) { // Ignore the event if it's not for us
-      this.setState({field: undefined});
+      this.setState({field: 'pending'});
     }
   }
 
@@ -76,11 +78,16 @@ export class Input extends React.Component<InputProps, InputState> {
     const states = [];
 
     if (field !== undefined) {
-      if (field.hasErrors()) states.push('hasErrors');
-      if (field.hasWarnings()) states.push('hasWarnings');
-      if (field.hasInfos()) states.push('hasInfos');
-      if (field.isValid()) states.push('isValid');
+      if (field === 'pending') {
+        states.push('isPending');
+      } else {
+        if (field.hasErrors()) states.push('hasErrors');
+        if (field.hasWarnings()) states.push('hasWarnings');
+        if (field.hasInfos()) states.push('hasInfos');
+        if (field.isValid()) states.push('isValid');
+      }
     }
+
     return states;
   }
 

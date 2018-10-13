@@ -279,7 +279,7 @@ class MyForm extends React.Component {
 
 - [`Input`](packages/react-form-with-constraints/src/Input.tsx)
 
-  If you want to style `<input>`, use `<Input>` instead: it will add classes `has-errors`, `has-warnings`, `has-infos` and/or `is-valid` on `<input>` when the field is validated.
+  If you want to style `<input>`, use `<Input>` instead: it will add classes `is-pending`, `has-errors`, `has-warnings`, `has-infos` and/or `is-valid` on `<input>` when the field is validated.
 
   Example: `<Input name="username" />` can generate `<input name="username" class="has-errors has-warnings">`
 

@@ -21,7 +21,7 @@ test('fieldWillValidate() fieldDidValidate()', () => {
   input.fieldWillValidate('unknown');
   expect(wrapper.state()).toEqual({field});
   input.fieldWillValidate('username');
-  expect(wrapper.state()).toEqual({field: undefined});
+  expect(wrapper.state()).toEqual({field: 'pending'});
 
   const unknownField = new Field('unknown');
   input.fieldDidValidate(field);
@@ -72,7 +72,7 @@ describe('render()', () => {
     show: true
   };
 
-  test('has-errors has-warnings has-infos', () => {
+  test('is-pending has-errors has-warnings has-infos', () => {
     const wrapper = shallow(
       <Input name="username" />,
       {context: {form: new FormWithConstraints({})}}
@@ -83,10 +83,15 @@ describe('render()', () => {
     field.addOrReplaceValidation(validation_error);
     field.addOrReplaceValidation(validation_warning);
     field.addOrReplaceValidation(validation_info);
-    input.fieldDidValidate(field);
 
+    input.fieldWillValidate('username');
     wrapper.update();
+    expect(wrapper.html()).toEqual(
+      '<input name="username" class="is-pending"/>'
+    );
 
+    input.fieldDidValidate(field);
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<input name="username" class="has-errors has-warnings has-infos"/>'
     );
@@ -94,7 +99,7 @@ describe('render()', () => {
     wrapper.unmount();
   });
 
-  test('has-errors has-warnings has-infos with className props', () => {
+  test('is-pending has-errors has-warnings has-infos with className props', () => {
     const wrapper = shallow(
       <Input name="username" className="form-control" />,
       {context: {form: new FormWithConstraints({})}}
@@ -105,10 +110,15 @@ describe('render()', () => {
     field.addOrReplaceValidation(validation_error);
     field.addOrReplaceValidation(validation_warning);
     field.addOrReplaceValidation(validation_info);
-    input.fieldDidValidate(field);
 
+    input.fieldWillValidate('username');
     wrapper.update();
+    expect(wrapper.html()).toEqual(
+      '<input name="username" class="form-control is-pending"/>'
+    );
 
+    input.fieldDidValidate(field);
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<input name="username" class="form-control has-errors has-warnings has-infos"/>'
     );
@@ -116,9 +126,10 @@ describe('render()', () => {
     wrapper.unmount();
   });
 
-  test('has-errors has-warnings has-infos with className and classes props', () => {
+  test('is-pending has-errors has-warnings has-infos with className and classes props', () => {
     const wrapper = shallow(
       <Input name="username" className="form-control" classes={{
+        isPending: 'pending',
         hasErrors: 'error',
         hasWarnings: 'warning',
         hasInfos: 'info',
@@ -132,10 +143,15 @@ describe('render()', () => {
     field.addOrReplaceValidation(validation_error);
     field.addOrReplaceValidation(validation_warning);
     field.addOrReplaceValidation(validation_info);
-    input.fieldDidValidate(field);
 
+    input.fieldWillValidate('username');
     wrapper.update();
+    expect(wrapper.html()).toEqual(
+      '<input name="username" class="form-control pending"/>'
+    );
 
+    input.fieldDidValidate(field);
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<input name="username" class="form-control error warning info"/>'
     );
@@ -143,7 +159,7 @@ describe('render()', () => {
     wrapper.unmount();
   });
 
-  test('has-errors has-warnings has-infos with className and incomplete classes props', () => {
+  test('is-pending has-errors has-warnings has-infos with className and incomplete classes props', () => {
     const wrapper = shallow(
       <Input name="username" className="form-control" classes={{hasErrors: 'error'}} />,
       {context: {form: new FormWithConstraints({})}}
@@ -154,10 +170,15 @@ describe('render()', () => {
     field.addOrReplaceValidation(validation_error);
     field.addOrReplaceValidation(validation_warning);
     field.addOrReplaceValidation(validation_info);
-    input.fieldDidValidate(field);
 
+    input.fieldWillValidate('username');
     wrapper.update();
+    expect(wrapper.html()).toEqual(
+      '<input name="username" class="form-control"/>'
+    );
 
+    input.fieldDidValidate(field);
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<input name="username" class="form-control error"/>'
     );
@@ -165,7 +186,7 @@ describe('render()', () => {
     wrapper.unmount();
   });
 
-  test('has-errors has-warnings has-infos without className and empty classes props', () => {
+  test('is-pending has-errors has-warnings has-infos without className and empty classes props', () => {
     const wrapper = shallow(
       <Input name="username" classes={{}} />,
       {context: {form: new FormWithConstraints({})}}
@@ -176,10 +197,15 @@ describe('render()', () => {
     field.addOrReplaceValidation(validation_error);
     field.addOrReplaceValidation(validation_warning);
     field.addOrReplaceValidation(validation_info);
-    input.fieldDidValidate(field);
 
+    input.fieldWillValidate('username');
     wrapper.update();
+    expect(wrapper.html()).toEqual(
+      '<input name="username"/>'
+    );
 
+    input.fieldDidValidate(field);
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<input name="username"/>'
     );
@@ -187,7 +213,7 @@ describe('render()', () => {
     wrapper.unmount();
   });
 
-  test('has-errors has-warnings', () => {
+  test('is-pending has-errors has-warnings', () => {
     const wrapper = shallow(
       <Input name="username" />,
       {context: {form: new FormWithConstraints({})}}
@@ -197,10 +223,15 @@ describe('render()', () => {
     const field = new Field('username');
     field.addOrReplaceValidation(validation_error);
     field.addOrReplaceValidation(validation_warning);
-    input.fieldDidValidate(field);
 
+    input.fieldWillValidate('username');
     wrapper.update();
+    expect(wrapper.html()).toEqual(
+      '<input name="username" class="is-pending"/>'
+    );
 
+    input.fieldDidValidate(field);
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<input name="username" class="has-errors has-warnings"/>'
     );
@@ -208,7 +239,7 @@ describe('render()', () => {
     wrapper.unmount();
   });
 
-  test('has-errors', () => {
+  test('is-pending has-errors', () => {
     const wrapper = shallow(
       <Input name="username" />,
       {context: {form: new FormWithConstraints({})}}
@@ -217,10 +248,15 @@ describe('render()', () => {
 
     const field = new Field('username');
     field.addOrReplaceValidation(validation_error);
-    input.fieldDidValidate(field);
 
+    input.fieldWillValidate('username');
     wrapper.update();
+    expect(wrapper.html()).toEqual(
+      '<input name="username" class="is-pending"/>'
+    );
 
+    input.fieldDidValidate(field);
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<input name="username" class="has-errors"/>'
     );
@@ -228,18 +264,22 @@ describe('render()', () => {
     wrapper.unmount();
   });
 
-  test('no has-*, is-valid', () => {
+  test('is-pending no has-*, is-valid', () => {
     const wrapper = shallow(
       <Input name="username" />,
       {context: {form: new FormWithConstraints({})}}
     );
     const input = wrapper.instance() as Input;
 
+    input.fieldWillValidate('username');
+    wrapper.update();
+    expect(wrapper.html()).toEqual(
+      '<input name="username" class="is-pending"/>'
+    );
+
     const field = new Field('username');
     input.fieldDidValidate(field);
-
     wrapper.update();
-
     expect(wrapper.html()).toEqual(
       '<input name="username" class="is-valid"/>'
     );

@@ -70,9 +70,10 @@ export class FieldFeedbackTooltip extends _FieldFeedback {
 export class Input extends _Input {
   static defaultProps = {
     classes: {
+      isPending: 'is-pending',
       hasErrors: 'is-invalid',
-      hasWarnings: undefined,
-      hasInfos: undefined,
+      hasWarnings: 'is-warning',
+      hasInfos: 'is-info',
       isValid: 'is-valid'
     }
   };

@@ -103,7 +103,7 @@ describe('FormWithConstraints', () => {
         <span data-feedbacks="0">
           <span data-feedback="0.3" class="invalid-feedback" style="display: block;">Username 'john' already taken, choose another</span>
         </span>
-        <input type="password" name="password" class="form-control is-valid">
+        <input type="password" name="password" class="form-control is-warning is-valid">
         <span data-feedbacks="1">
           <span data-feedback="1.3" class="warning-feedback" style="display: block;">Should contain small letters</span>
           <span data-feedback="1.4" class="warning-feedback" style="display: block;">Should contain capital letters</span>
@@ -136,7 +136,7 @@ describe('FormWithConstraints', () => {
         <span data-feedbacks="0">
           <span data-feedback="0.3" class="invalid-feedback" style="display: block;">Username 'john' already taken, choose another</span>
         </span>
-        <input type="password" name="password" class="form-control is-valid">
+        <input type="password" name="password" class="form-control is-warning is-valid">
         <span data-feedbacks="1">
           <span data-feedback="1.3" class="warning-feedback" style="display: block;">Should contain small letters</span>
           <span data-feedback="1.4" class="warning-feedback" style="display: block;">Should contain capital letters</span>
@@ -179,12 +179,12 @@ describe('FormWithConstraints', () => {
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
-        <input name="username" class="form-control is-valid">
+        <input name="username" class="form-control is-info is-valid">
         <span data-feedbacks="0">
           <span data-feedback="0.4" class="info-feedback" style="display: block;">Username 'jimmy' available</span>
           <span data-feedback="0.2" class="valid-feedback" style="display: block;">Looks good!</span>
         </span>
-        <input type="password" name="password" class="form-control is-valid">
+        <input type="password" name="password" class="form-control is-warning is-valid">
         <span data-feedbacks="1">
           <span data-feedback="1.3" class="warning-feedback" style="display: block;">Should contain small letters</span>
           <span data-feedback="1.4" class="warning-feedback" style="display: block;">Should contain capital letters</span>
@@ -261,12 +261,12 @@ describe('Async', () => {
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
-        <input name="username" class="form-control is-valid">
+        <input name="username" class="form-control is-info is-valid">
         <span data-feedbacks="0">
           <span data-feedback="0.3" class="info-feedback" style="display: block;">Username 'jimmy' available</span>
           <span data-feedback="0.2" class="valid-feedback" style="display: block;">Looks good!</span>
         </span>
-        <input type="password" name="password" class="form-control is-valid">
+        <input type="password" name="password" class="form-control is-warning is-valid">
         <span data-feedbacks="1">
           <span data-feedback="1.3" class="warning-feedback" style="display: block;">Should contain small letters</span>
           <span data-feedback="1.4" class="warning-feedback" style="display: block;">Should contain capital letters</span>
@@ -336,7 +336,7 @@ describe('Async', () => {
         <span data-feedbacks="0">
           <span data-feedback="0.3" class="invalid-feedback" style="display: block;">Something wrong with username 'error'</span>
         </span>
-        <input type="password" name="password" class="form-control is-valid">
+        <input type="password" name="password" class="form-control is-warning is-valid">
         <span data-feedbacks="1">
           <span data-feedback="1.3" class="warning-feedback" style="display: block;">Should contain small letters</span>
           <span data-feedback="1.4" class="warning-feedback" style="display: block;">Should contain capital letters</span>

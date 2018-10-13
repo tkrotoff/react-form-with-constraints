@@ -2,6 +2,7 @@
 
 ### Features
 
+- `Input` is-pending class
 - `resetFields()`
 - `validateFieldsWithoutFeedback()`
 - Use tree shaking and generate ES2017 files

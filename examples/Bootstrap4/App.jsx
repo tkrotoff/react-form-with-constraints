@@ -103,12 +103,13 @@ class Form extends React.Component {
                  value={username} onChange={this.handleChange}
                  required minLength={3}
                  className="form-control" />
+          <span className="input-state" />
           <FieldFeedbacks for="username">
             <FieldFeedback when="tooShort">Too short</FieldFeedback>
             <FieldFeedback when="*" />
             <Async
               promise={checkUsernameAvailability}
-              pending={<span style={{display: 'block'}}>...</span>}
+              pending={<span className="d-block">...</span>}
               then={available => available ?
                 <FieldFeedback key="1" info style={{color: '#28a745'}}>Username available</FieldFeedback> :
                 <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>
