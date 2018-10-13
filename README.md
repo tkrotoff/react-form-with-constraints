@@ -33,6 +33,7 @@ Resources:
 - [Constraint Validation: Native Client Side Validation for Web Forms](https://www.html5rocks.com/en/tutorials/forms/constraintvalidation/)
 - [MDN - Form data validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation)
 - [MDN - Form input types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_<input>_types)
+- [UX Research Articles - Usability Testing of Inline Form Validation](https://baymard.com/blog/inline-form-validation)
 
 ## What react-form-with-constraints brings
 
