@@ -39,7 +39,8 @@
   },
 
   "peerDependencies": {
-    "react-form-with-constraints": "^0.10.0"
+    "react-form-with-constraints": "^0.10.0",
+    "react-dom": ">=16"
   },
 
   "devDependencies": {

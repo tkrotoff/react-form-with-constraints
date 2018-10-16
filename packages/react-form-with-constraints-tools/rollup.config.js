@@ -25,11 +25,12 @@ export default {
     globals: {
       'react-form-with-constraints': 'ReactFormWithConstraints',
       react: 'React',
-      'prop-types': 'PropTypes'
+      'prop-types': 'PropTypes',
+      'react-dom': 'ReactDOM'
     }
   },
 
-  external: ['react-form-with-constraints', 'react', 'prop-types'],
+  external: ['react-form-with-constraints', 'react', 'prop-types', 'react-dom'],
 
   plugins: [
     typescript({
