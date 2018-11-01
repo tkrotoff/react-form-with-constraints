@@ -1,6 +1,9 @@
+import PropTypes from 'prop-types';
 import {
-  FormWithConstraints, Input as _Input,
-  FieldFeedbacks, Async, FieldFeedback as _FieldFeedback, FieldFeedbackProps
+  FormWithConstraints,
+  Input as _Input, InputContext,
+  FieldFeedbacks, Async,
+  FieldFeedback as _FieldFeedback, FieldFeedbackProps, FieldFeedbackContext
 } from 'react-form-with-constraints';
 
 // ## Error
@@ -40,6 +43,16 @@ import {
 // see https://github.com/twbs/bootstrap/blob/v4.1.2/scss/_forms.scss#L245
 
 export class FieldFeedback extends _FieldFeedback {
+  // FIXME Copy-pasted from FieldFeedback to support IE <= 10
+  // See ["__proto__ is not supported on IE <= 10 so static properties will not be inherited"](https://babeljs.io/docs/en/caveats#classes-10-and-below)
+  // [@babel/plugin-transform-proto-to-assign](https://babeljs.io/docs/en/babel-plugin-transform-proto-to-assign) did not work
+  static contextTypes: React.ValidationMap<FieldFeedbackContext> = {
+    form: PropTypes.instanceOf(FormWithConstraints).isRequired,
+    fieldFeedbacks: PropTypes.instanceOf(FieldFeedbacks).isRequired,
+    async: PropTypes.instanceOf(Async)
+  };
+  context!: FieldFeedbackContext;
+
   static defaultProps: FieldFeedbackProps = {
     // See https://github.com/facebook/react/issues/3725#issuecomment-169163998
     // See React.Component.defaultProps objects are overridden, not merged? https://stackoverflow.com/q/40428847
@@ -54,6 +67,16 @@ export class FieldFeedback extends _FieldFeedback {
 }
 
 export class FieldFeedbackTooltip extends _FieldFeedback {
+  // FIXME Copy-pasted from FieldFeedback to support IE <= 10
+  // See ["__proto__ is not supported on IE <= 10 so static properties will not be inherited"](https://babeljs.io/docs/en/caveats#classes-10-and-below)
+  // [@babel/plugin-transform-proto-to-assign](https://babeljs.io/docs/en/babel-plugin-transform-proto-to-assign) did not work
+  static contextTypes: React.ValidationMap<FieldFeedbackContext> = {
+    form: PropTypes.instanceOf(FormWithConstraints).isRequired,
+    fieldFeedbacks: PropTypes.instanceOf(FieldFeedbacks).isRequired,
+    async: PropTypes.instanceOf(Async)
+  };
+  context!: FieldFeedbackContext;
+
   static defaultProps: FieldFeedbackProps = {
     // See https://github.com/facebook/react/issues/3725#issuecomment-169163998
     // See React.Component.defaultProps objects are overridden, not merged? https://stackoverflow.com/q/40428847
@@ -68,6 +91,14 @@ export class FieldFeedbackTooltip extends _FieldFeedback {
 }
 
 export class Input extends _Input {
+  // FIXME Copy-pasted from FieldFeedback to support IE <= 10
+  // See ["__proto__ is not supported on IE <= 10 so static properties will not be inherited"](https://babeljs.io/docs/en/caveats#classes-10-and-below)
+  // [@babel/plugin-transform-proto-to-assign](https://babeljs.io/docs/en/babel-plugin-transform-proto-to-assign) did not work
+  static contextTypes: React.ValidationMap<InputContext> = {
+    form: PropTypes.instanceOf(FormWithConstraints).isRequired
+  };
+  context!: InputContext;
+
   static defaultProps = {
     classes: {
       isPending: 'is-pending',
