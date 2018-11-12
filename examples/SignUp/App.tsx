@@ -6,12 +6,11 @@ import { translate, Trans, InjectedTranslateProps, InjectedI18nProps } from 'rea
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback, Async as Async_, AsyncProps } from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
-import Gender from '../WizardForm/Gender';
-
 import './i18n';
 import Spinner from './Spinner';
+import Gender from './Gender';
 import './index.html';
-import '../Password/style.css';
+import './style.css';
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 

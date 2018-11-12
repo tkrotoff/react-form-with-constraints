@@ -2,6 +2,16 @@
   "name": "server-side-rendering-example",
   "version": "1.0.0",
   "private": true,
+  "description": "react-form-with-constraints server-side rendering example",
+  "keywords": [
+    "react",
+    "form",
+    "validation",
+    "react-form-with-constraints",
+    "server-side"
+  ],
+
+  "main": "App.tsx",
 
   "scripts": {
     "clean": "del-cli build",

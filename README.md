@@ -74,15 +74,16 @@ Resources:
 
 ## Examples
 
-- CodePen basic example: https://codepen.io/tkrotoff/pen/BRGdqL
+- CodePen basic Password example: https://codepen.io/tkrotoff/pen/BRGdqL ([CodeSandbox version](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/Password))
 
   ![example-password](doc/example-password.png)
 
-- CodeSandbox Bootstrap 4 example: https://codesandbox.io/s/nkqrr17qqj
-- CodeSandbox Material-UI example: https://codesandbox.io/s/zx62rw4k64
-- CodeSandbox WizardForm example: https://codesandbox.io/s/my0ojyzq6p
-- CodeSandbox SignUp example: https://codesandbox.io/s/62qwozvm0k
-- CodeSandbox ClubMembers example: https://codesandbox.io/s/q8364yn60j
+- [Bootstrap 4 example](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/Bootstrap4)
+- [Material-UI example](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/MaterialUI)
+- [WizardForm example](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/WizardForm)
+- [SignUp example](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/SignUp)
+- [ClubMembers example](https://codesandbox.io/s/q8364yn60j)
+- [Password without state example](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/PasswordWithoutState)
 
 - [React Native example](examples/ReactNative):
 
@@ -90,7 +91,10 @@ Resources:
   | ----------------------------------------------------- | ------------------------------------------------------------- |
   | ![react-native-example-ios](doc/react-native-ios.png) | ![react-native-example-android](doc/react-native-android.png) |
 
-Other examples inside [the examples directory](examples).
+- Other examples from [the examples directory](examples):
+  - [Plain old React form validation example](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/PlainOldReact)
+  - [React with HTML5 constraint validation API example](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/HTML5ConstraintValidationAPI)
+  - [Server-side rendering example](examples/ServerSideRendering)
 
 ## How it works
 
@@ -105,7 +109,7 @@ The API works the same way as [React Router v4](https://reacttraining.com/react-
 
 It is also inspired by [AngularJS ngMessages](https://docs.angularjs.org/api/ngMessages#usage).
 
-If you had to implement validation yourself, you would end up with [a global object that tracks errors for each field](examples/NoFramework/App.tsx).
+If you had to implement validation yourself, you would end up with [a global object that tracks errors for each field](examples/PlainOldReact/App.tsx).
 react-form-with-constraints [works similarly](packages/react-form-with-constraints/src/FieldsStore.ts).
 It uses [React context](https://reactjs.org/docs/legacy-context.html) to share the [`FieldsStore`](packages/react-form-with-constraints/src/FieldsStore.ts) object across [`FieldFeedbacks`](packages/react-form-with-constraints/src/FieldFeedbacks.tsx) and [`FieldFeedback`](packages/react-form-with-constraints/src/FieldFeedback.tsx).
 

@@ -29,7 +29,14 @@ const config: Configuration = {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader', options: {onlyCompileBundledFiles: true, compilerOptions: {noEmit: false, module: 'esnext', sourceMap: true}} },
       { test: /\.js$/, loader: 'source-map-loader' },
-      { test: /\.(html|css)$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} }
+      {
+        test: /\.css$/,
+        use: [
+          { loader: 'style-loader', options: {sourceMap: true} },
+          { loader: 'css-loader', options: {sourceMap: true} }
+        ]
+      },
+      { test: /\.html$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} }
     ]
   }
 };

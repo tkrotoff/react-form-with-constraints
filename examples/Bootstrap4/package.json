@@ -2,6 +2,15 @@
   "name": "bootstrap4-example",
   "version": "1.0.0",
   "private": true,
+  "description": "react-form-with-constraints Bootstrap 4 example",
+  "keywords": [
+    "react",
+    "form",
+    "validation",
+    "react-form-with-constraints",
+    "bootstrap",
+    "bootstrap4"
+  ],
 
   "main": "App.jsx",
 
@@ -16,6 +25,8 @@
   },
 
   "dependencies": {
+    "react-scripts": "latest",
+
     "react": "latest",
     "react-dom": "latest",
 
@@ -46,7 +57,6 @@
     "style-loader": "latest",
     "css-loader": "latest",
     "sass-loader": "latest",
-    "mini-css-extract-plugin": "latest",
 
     "webpack-cli": "latest",
     "webpack": "latest",

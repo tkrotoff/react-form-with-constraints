@@ -1,0 +1,29 @@
+/*
+Copy-pasted from Password/style.css
+Cannot use a symlink nor "import '../Password/style.css'" because of CodeSandbox
+*/
+
+body {
+  background-color: lightgrey;
+}
+
+form > div {
+  margin-bottom: 10px;
+}
+
+form > div > label {
+  display: block;
+}
+
+[data-feedback].error {
+  color: red;
+}
+[data-feedback].warning {
+  color: orange;
+}
+[data-feedback].info {
+  color: blue;
+}
+[data-feedback].when-valid {
+  color: green;
+}

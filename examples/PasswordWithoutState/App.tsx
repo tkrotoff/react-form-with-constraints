@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
 
 import './index.html';
-import '../Password/style.css';
+import './style.css';
 
 class Form extends React.Component {
   form: FormWithConstraints | null = null;

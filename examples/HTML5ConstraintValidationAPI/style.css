@@ -1,0 +1,20 @@
+/*
+Copy-pasted from PlainOldReact/style.css
+Cannot use a symlink nor "import '../PlainOldReact/style.css'" because of CodeSandbox
+*/
+
+body {
+  background-color: lightgrey;
+}
+
+form > div {
+  margin-bottom: 10px;
+}
+
+form > div > label {
+  display: block;
+}
+
+div.error {
+  color: red;
+}

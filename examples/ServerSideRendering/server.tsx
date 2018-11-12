@@ -14,7 +14,7 @@ server.get('/', (_req, res) => {
     <!DOCTYPE html>
     <html>
       <head>
-        <title>ServerSideRendering example</title>
+        <title>react-form-with-constraints server-side rendering example</title>
         <link rel="stylesheet" href="style.css">
       </head>
       <body>

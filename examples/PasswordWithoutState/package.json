@@ -1,7 +1,16 @@
 {
-  "name": "no-framework-example",
+  "name": "password-without-state-example",
   "version": "1.0.0",
   "private": true,
+  "description": "react-form-with-constraints Password without state example",
+  "keywords": [
+    "react",
+    "form",
+    "validation",
+    "react-form-with-constraints"
+  ],
+
+  "main": "App.tsx",
 
   "scripts": {
     "clean": "del-cli build",
@@ -13,8 +22,12 @@
   },
 
   "dependencies": {
+    "react-scripts": "latest",
+
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+
+    "react-form-with-constraints": "^0.10.0"
   },
 
   "devDependencies": {

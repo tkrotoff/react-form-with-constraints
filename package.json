@@ -30,10 +30,10 @@
 
     "examples/Bootstrap4",
     "examples/ClubMembers",
-    "examples/HTML5Constraints",
-    "examples/NoFramework",
+    "examples/HTML5ConstraintValidationAPI",
+    "examples/PlainOldReact",
     "examples/Password",
-    "examples/PasswordNoState",
+    "examples/PasswordWithoutState",
     "examples/ServerSideRendering",
     "examples/SignUp",
     "examples/WizardForm",

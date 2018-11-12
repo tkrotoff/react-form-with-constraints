@@ -2,6 +2,15 @@
   "name": "wizard-form-example",
   "version": "1.0.0",
   "private": true,
+  "description": "react-form-with-constraints WizardForm example",
+  "keywords": [
+    "react",
+    "form",
+    "validation",
+    "react-form-with-constraints"
+  ],
+
+  "main": "App.tsx",
 
   "scripts": {
     "clean": "del-cli build",
@@ -13,6 +22,8 @@
   },
 
   "dependencies": {
+    "react-scripts": "latest",
+
     "react": "latest",
     "react-dom": "latest",
 
