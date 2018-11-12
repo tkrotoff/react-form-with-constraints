@@ -46,7 +46,6 @@
     "style-loader": "latest",
     "css-loader": "latest",
     "sass-loader": "latest",
-    "mini-css-extract-plugin": "latest",
 
     "webpack-cli": "latest",
     "webpack": "latest",
