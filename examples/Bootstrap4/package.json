@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
 
+  "main": "App.jsx",
+
   "scripts": {
     "clean": "del-cli build",
 
