@@ -18,7 +18,7 @@ module.exports = {
 
   module: {
     rules: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
+      { test: /\.jsx?$/, loader: 'babel-loader' },
       { test: /\.js$/, loader: 'source-map-loader' },
       { test: /\.html$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} },
       {
