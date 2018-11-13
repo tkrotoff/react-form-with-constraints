@@ -19,7 +19,7 @@
     "react": "latest",
     "react-dom": "latest",
 
-    "lodash": "latest",
+    "lodash-es": "latest",
 
     "react-form-with-constraints": "^0.10.0",
     "react-form-with-constraints-bootstrap4": "^0.10.0",

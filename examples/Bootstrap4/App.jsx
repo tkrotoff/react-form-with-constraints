@@ -5,7 +5,7 @@ import 'raf/polyfill';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { isEqual, omit } from 'lodash';
+import { isEqual, omit } from 'lodash-es';
 
 import { FormWithConstraints, Input, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints-bootstrap4';
 import { DisplayFields } from 'react-form-with-constraints-tools';
