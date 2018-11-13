@@ -97,11 +97,17 @@ export class Async<T> extends
 
   async _validate(input: InputElement) {
     this.setState({status: Status.Pending});
-    try {
+
+    if (this.props.catch) {
+      try {
+        const value = await this.props.promise(input.value);
+        this.setState({status: Status.Resolved, value});
+      } catch (e) {
+        this.setState({status: Status.Rejected, value: e});
+      }
+    } else {
       const value = await this.props.promise(input.value);
       this.setState({status: Status.Resolved, value});
-    } catch (e) {
-      this.setState({status: Status.Rejected, value: e});
     }
 
     return this.emitValidateFieldEvent(input);
