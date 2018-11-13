@@ -18,6 +18,8 @@
   },
 
   "dependencies": {
+    "react-scripts": "latest",
+
     "react": "latest",
     "react-dom": "latest",
 
