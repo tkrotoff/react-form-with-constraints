@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import WizardForm from './WizardForm';
 
 import './index.html';
-import '../Password/style.css';
+import './style.css';
 
 const App = () => (
   <>
