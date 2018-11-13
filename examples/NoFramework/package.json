@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
 
+  "main": "App.tsx",
+
   "scripts": {
     "clean": "del-cli build",
 
