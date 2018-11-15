@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
   FormControl as _FormControl,
   TextField as _TextField,
-  MuiThemeProvider, createMuiTheme, Theme,
+  MuiThemeProvider, Theme,
   createStyles, withStyles, WithStyles
 } from '@material-ui/core';
 import { FormControlProps } from '@material-ui/core/FormControl';
@@ -138,7 +138,8 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
   }
 }
 
-const formWithConstraintsTheme = createMuiTheme({
+const formWithConstraintsTheme = (outer: Theme | null) => ({
+  ...outer,
   overrides: {
     MuiFormHelperText: {
       root: {
