@@ -141,4 +141,5 @@ $form-feedback-info-color: theme-color("info") !default; // $cyan => #17a2b8
 // @include form-validation-state("invalid", $form-feedback-invalid-color);
 @include form-validation-state2("info", $form-feedback-info-color);
 @include form-validation-state2("warning", $form-feedback-warning-color);
+@include form-validation-state2("valid", $form-feedback-valid-color);
 @include form-validation-state2("invalid", $form-feedback-invalid-color);
