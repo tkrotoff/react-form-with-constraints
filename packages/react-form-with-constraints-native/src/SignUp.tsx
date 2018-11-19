@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { FormWithConstraints, Async, FieldFeedback, TextInput } from './index';
 import checkUsernameAvailability from '../../react-form-with-constraints/src/checkUsernameAvailability';

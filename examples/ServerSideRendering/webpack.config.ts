@@ -1,6 +1,6 @@
-import path from 'path';
+import * as path from 'path';
 import { Configuration } from 'webpack';
-import nodeExternals from 'webpack-node-externals';
+import * as nodeExternals from 'webpack-node-externals';
 
 const output = {
   path: path.join(__dirname, 'build'),

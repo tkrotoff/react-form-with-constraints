@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { mount as _mount, shallow as _shallow } from 'enzyme';
 
 import { FormWithConstraints, FormWithConstraintsChildContext, FieldFeedback, FieldFeedbacksProps, ValidateFieldEvent } from './index';

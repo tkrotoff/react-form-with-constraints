@@ -28,11 +28,12 @@
     "clean": "del-cli lib lib-es5 dist coverage .rpt2_cache",
 
     "tsc": "tsc",
-    "build": "tsc --project tsconfig.lib.json",
+    "build": "yarn build:esnext && yarn build:es5",
+    "build:esnext": "tsc --project tsconfig.lib.json",
     "build:es5": "tsc --project tsconfig.lib-es5.json",
     "dist": "cross-env NODE_ENV=development rollup --config && cross-env NODE_ENV=production rollup --config",
 
-    "prepublishOnly": "npm run clean && npm run tsc && npm run build:es5 && npm run build && npm run dist",
+    "prepublishOnly": "yarn clean && yarn tsc && yarn build && yarn dist",
 
     "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
     "test:coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"

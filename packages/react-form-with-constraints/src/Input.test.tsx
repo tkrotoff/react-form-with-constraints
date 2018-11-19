@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { shallow as _shallow } from 'enzyme';
 
 import { Input, InputProps, InputContext, FormWithConstraints, Field, FieldFeedbackValidation, FieldFeedbackType } from './index';

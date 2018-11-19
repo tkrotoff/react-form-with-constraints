@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { FormWithConstraints, FieldFeedback, Async, Input } from './index';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';

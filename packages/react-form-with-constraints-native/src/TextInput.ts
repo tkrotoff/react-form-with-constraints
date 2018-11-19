@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { TextInput as _TextInput, TextInputProps } from 'react-native';
 
 import { Constructor } from 'react-form-with-constraints';

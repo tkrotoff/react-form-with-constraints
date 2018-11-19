@@ -20,7 +20,7 @@
     "build": "cross-env NODE_ENV=development webpack -d",
     "build:watch": "cross-env NODE_ENV=development webpack -d --watch",
 
-    "pretest:e2e": "npm run build",
+    "pretest:e2e": "yarn build",
     "test:e2e": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose --config jest-e2e.config.js"
   },
 

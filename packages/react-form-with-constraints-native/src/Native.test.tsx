@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import { shallow } from 'enzyme';
 import { StyleSheet } from 'react-native';
-import renderer from 'react-test-renderer';
+import * as renderer from 'react-test-renderer';
 
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback, FieldFeedbackWhenValid, TextInput } from './index';
 import SignUp from './SignUp';

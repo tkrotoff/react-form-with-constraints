@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { FormWithConstraints, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';

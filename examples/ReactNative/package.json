@@ -15,8 +15,8 @@
 
   "scripts": {
     "rm-duplicated-react-native": "rm -rf node_modules/react-form-with-constraints-native/node_modules/react-native",
-    "prestart": "npm run rm-duplicated-react-native",
-    "pretest": "npm run rm-duplicated-react-native",
+    "prestart": "yarn rm-duplicated-react-native",
+    "pretest": "yarn rm-duplicated-react-native",
 
     "clean:node_modules": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
     "clean": "rm -f yarn.lock && rm -rf node_modules/react-form-with-constraints && rm -rf node_modules/react-form-with-constraints-native",

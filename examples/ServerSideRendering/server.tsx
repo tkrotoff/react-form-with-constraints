@@ -1,5 +1,5 @@
-import express from 'express';
-import React from 'react';
+import * as express from 'express';
+import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 
 import App from './App';
