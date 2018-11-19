@@ -147,7 +147,7 @@ Async support works as follow:
 Trigger validation:
 ```JSX
 class MyForm extends React.Component {
-  async handleChange(e) {
+  async handleChange = e => {
     const target = e.target;
 
     // Validates only the given fields and returns Promise<Field[]>
@@ -161,7 +161,7 @@ class MyForm extends React.Component {
     else console.log('The form is invalid');
   }
 
-  async handleSubmit(e) {
+  async handleSubmit = e => {
     e.preventDefault();
 
     // Validates the non-dirty fields and returns Promise<Field[]>
@@ -256,14 +256,15 @@ class MyForm extends React.Component {
   - `validateFieldsWithoutFeedback(...inputsOrNames: Array<Input | string>): Promise<Field[]>` =>
     Validates only all non-dirty fields (won't re-validate fields that have been already validated with `validateFields()`),
     If you want to force re-validate all fields, use `validateFields()`.
+    Might be renamed to `validateNonDirtyFieldsOnly()` or `validateFieldsNotDirtyOnly()` in the future?
 
   - `validateForm(): Promise<Field[]>` =>
     Same as `validateFieldsWithoutFeedback()` without arguments, typically called before to submit the `form`.
     Might be removed in the future?
 
-  - `isValid(): boolean` => should be called after `validateFields()`, `validateFieldsWithoutFeedback()` or `validateForm()`, tells if the fields are valid
+  - `isValid(): boolean` => should be called after `validateFields()`, `validateFieldsWithoutFeedback()` or `validateForm()`, indicates if the fields are valid
 
-  - `hasFeedbacks(): boolean` => tells if the fields have any kind of feedback
+  - `hasFeedbacks(): boolean` => indicates if any of the fields have any kind of feedback
 
   - `resetFields(...inputsOrNames: Array<Input | string>): Promise<Field[]>` =>
     Resets the given fields and re-render the proper `FieldFeedback`s.
