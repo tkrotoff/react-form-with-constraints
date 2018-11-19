@@ -126,6 +126,7 @@ class Form extends React.Component {
                  value={password} onChange={this.handlePasswordChange}
                  required pattern=".{5,}"
                  className="form-control" />
+          <span className="input-state" />
           <FieldFeedbacks for="password">
             <FieldFeedback when="valueMissing" />
             <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
@@ -142,6 +143,7 @@ class Form extends React.Component {
           <Input type="password" id="password-confirm" name="passwordConfirm"
                  value={passwordConfirm} onChange={this.handleChange}
                  required className="form-control" />
+          <span className="input-state" />
           <FieldFeedbacks for="passwordConfirm">
             <FieldFeedback when="*" />
             <FieldFeedback when={value => value !== this.password.value}>Not the same password</FieldFeedback>
