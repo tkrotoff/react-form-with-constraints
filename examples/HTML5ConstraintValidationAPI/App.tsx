@@ -7,7 +7,7 @@ import './style.css';
 // Inspired by ReactJS Form Validation Approaches https://moduscreate.com/reactjs-form-validation-approaches/
 
 interface Errors {
-  username: string[];
+  email: string[];
   password: string[];
   passwordConfirm: string[];
 }
@@ -25,7 +25,7 @@ const validatePasswordConfirm = (password: HTMLInputElement, passwordConfirm: HT
 };
 
 const hasErrors = (errors: Errors) => {
-  return errors.username.length > 0 || errors.password.length > 0 || errors.passwordConfirm.length > 0;
+  return errors.email.length > 0 || errors.password.length > 0 || errors.passwordConfirm.length > 0;
 };
 
 
@@ -36,25 +36,25 @@ interface State {
 }
 
 class Form extends React.Component<Props, State> {
-  username: HTMLInputElement | null = null;
+  email: HTMLInputElement | null = null;
   password: HTMLInputElement | null = null;
   passwordConfirm: HTMLInputElement | null = null;
 
   state: State = {
     errors: {
-      username: [],
+      email: [],
       password: [],
       passwordConfirm: []
     }
   };
 
-  handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
     this.setState(prevState => {
       return {
         errors: {
           ...prevState.errors,
-          username: validateHTML5Field(target)
+          email: validateHTML5Field(target)
         }
       };
     });
@@ -93,7 +93,7 @@ class Form extends React.Component<Props, State> {
         return {
           errors: {
             ...prevState.errors,
-            username: validateHTML5Field(this.username!),
+            email: validateHTML5Field(this.email!),
             password: validateHTML5Field(this.password!),
             passwordConfirm: validatePasswordConfirm(this.password!, this.passwordConfirm!)
           }
@@ -115,13 +115,13 @@ class Form extends React.Component<Props, State> {
     return (
       <form onSubmit={this.handleSubmit} noValidate>
         <div>
-          <label htmlFor="username">Username</label>
-          <input type="email" name="username" id="username"
-                 ref={username => this.username = username}
-                 onChange={this.handleUsernameChange}
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" id="email"
+                 ref={email => this.email = email}
+                 onChange={this.handleEmailChange}
                  required minLength={5} />
           <div className="error">
-            {errors.username.map(error => <div key={error}>{error}</div>)}
+            {errors.email.map(error => <div key={error}>{error}</div>)}
           </div>
         </div>
 

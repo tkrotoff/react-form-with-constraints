@@ -33,7 +33,7 @@ const isACommonPassword = async (password: string) => {
 interface Props {}
 
 interface State {
-  username: string;
+  email: string;
   password: string;
   passwordConfirm: string;
   signUpButtonDisabled: boolean;
@@ -44,7 +44,7 @@ class Form extends React.Component<Props, State> {
   password: HTMLInputElement | null = null;
 
   state: State = {
-    username: '',
+    email: '',
     password: '',
     passwordConfirm: '',
     signUpButtonDisabled: false
@@ -116,11 +116,11 @@ class Form extends React.Component<Props, State> {
       <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
-          <label htmlFor="username">Username</label>
-          <input type="email" name="username" id="username"
-                 value={this.state.username} onChange={this.handleChange}
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" id="email"
+                 value={this.state.email} onChange={this.handleChange}
                  required minLength={5} />
-          <FieldFeedbacks for="username">
+          <FieldFeedbacks for="email">
             <FieldFeedback when="tooShort">Too short</FieldFeedback>
             <FieldFeedback when="*" />
             <FieldFeedback when="valid">Looks good!</FieldFeedback>

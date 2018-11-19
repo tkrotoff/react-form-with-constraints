@@ -12,7 +12,7 @@ const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 const checkUsernameAvailability = async (value: string) => {
   console.log('checkUsernameAvailability');
   await sleep(1000);
-  return !['john@beatles', 'paul@beatles', 'george@beatles', 'ringo@beatles'].includes(value.toLowerCase());
+  return !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase());
 };
 
 export interface Props {}
@@ -123,11 +123,10 @@ export default class App extends React.Component<Props, State> {
 
           <View style={styles.flow}>
             <Text onPress={() => this.username!.focus()}>
-              Username <Text style={{fontSize: 11}}>(already taken: john@beatles, paul@beatles, george@beatles, ringo@beatles)</Text>
+              Username <Text style={{fontSize: 11}}>(already taken: john, paul, george, ringo)</Text>
             </Text>
             <TextInput
               name="username"
-              keyboardType="email-address"
               ref={input => this.username = input}
               value={username}
               onChangeText={this.handleUsernameChange}
@@ -135,7 +134,6 @@ export default class App extends React.Component<Props, State> {
             />
             <FieldFeedbacks for="username">
               <FieldFeedback when={value => value.length === 0}>Cannot be empty</FieldFeedback>
-              <FieldFeedback when={value => !/\S+@\S+/.test(value)}>Invalid email address</FieldFeedback>
               <Async
                 promise={checkUsernameAvailability}
                 pending={<ActivityIndicator size="small" color="blue" />}

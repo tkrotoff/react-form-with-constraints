@@ -299,11 +299,11 @@ It also needs a polyfill such as [core-js](https://github.com/zloirock/core-js) 
 You can use HTML5 attributes like `type="email"`, `required`, [`minlength`](https://caniuse.com/#feat=input-minlength)...
 
 ```JSX
-<label htmlFor="username">Username</label>
-<input type="email" name="username" id="username"
-       value={this.state.username} onChange={this.handleChange}
+<label htmlFor="email">Email</label>
+<input type="email" name="email" id="email"
+       value={this.state.email} onChange={this.handleChange}
        required />
-<FieldFeedbacks for="username">
+<FieldFeedbacks for="email">
   <FieldFeedback when="*" />
 </FieldFeedbacks>
 ```
@@ -311,10 +311,10 @@ You can use HTML5 attributes like `type="email"`, `required`, [`minlength`](http
 ...and/or rely on `when` functions:
 
 ```JSX
-<label htmlFor="username">Username</label>
-<input name="username" id="username"
-       value={this.state.username} onChange={this.handleChange} />
-<FieldFeedbacks for="username">
+<label htmlFor="email">Email</label>
+<input name="email" id="email"
+       value={this.state.email} onChange={this.handleChange} />
+<FieldFeedbacks for="email">
   <FieldFeedback when={value => value.length === 0}>Please fill out this field.</FieldFeedback>
   <FieldFeedback when={value => !/\S+@\S+/.test(value)}>Invalid email address.</FieldFeedback>
 </FieldFeedbacks>

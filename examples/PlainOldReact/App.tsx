@@ -9,15 +9,15 @@ import './style.css';
 // - How to do Simple Form Validation in #Reactjs https://learnetto.com/blog/how-to-do-simple-form-validation-in-reactjs
 
 interface Errors {
-  username: string[];
+  email: string[];
   password: string[];
   passwordConfirm: string[];
 }
 
-const validateUsername = (username: string) => {
+const validateEmail = (email: string) => {
   const errors = [] as string[];
-  if (username.length === 0) errors.push("Can't be empty");
-  if (!username.includes('@')) errors.push('Should contain @');
+  if (email.length === 0) errors.push("Can't be empty");
+  if (!email.includes('@')) errors.push('Should contain @');
   return errors;
 };
 
@@ -35,7 +35,7 @@ const validatePasswordConfirm = (password: string, passwordConfirm: string) => {
 };
 
 const hasErrors = (errors: Errors) => {
-  return errors.username.length > 0 || errors.password.length > 0 || errors.passwordConfirm.length > 0;
+  return errors.email.length > 0 || errors.password.length > 0 || errors.passwordConfirm.length > 0;
 };
 
 
@@ -46,25 +46,25 @@ interface State {
 }
 
 class Form extends React.Component<Props, State> {
-  username: HTMLInputElement | null = null;
+  email: HTMLInputElement | null = null;
   password: HTMLInputElement | null = null;
   passwordConfirm: HTMLInputElement | null = null;
 
   state: State = {
     errors: {
-      username: [],
+      email: [],
       password: [],
       passwordConfirm: []
     }
   };
 
-  handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     this.setState(prevState => {
       return {
         errors: {
           ...prevState.errors,
-          username: validateUsername(value)
+          email: validateEmail(value)
         }
       };
     });
@@ -103,7 +103,7 @@ class Form extends React.Component<Props, State> {
         return {
           errors: {
             ...prevState.errors,
-            username: validateUsername(this.username!.value),
+            email: validateEmail(this.email!.value),
             password: validatePassword(this.password!.value),
             passwordConfirm: validatePasswordConfirm(this.password!.value, this.passwordConfirm!.value)
           }
@@ -125,12 +125,12 @@ class Form extends React.Component<Props, State> {
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
-          <label htmlFor="username">Username</label>
-          <input id="username"
-                 ref={username => this.username = username}
-                 onChange={this.handleUsernameChange} />
+          <label htmlFor="email">Email</label>
+          <input id="email"
+                 ref={email => this.email = email}
+                 onChange={this.handleEmailChange} />
           <div className="error">
-            {errors.username.map(error => <div key={error}>{error}</div>)}
+            {errors.email.map(error => <div key={error}>{error}</div>)}
           </div>
         </div>
 

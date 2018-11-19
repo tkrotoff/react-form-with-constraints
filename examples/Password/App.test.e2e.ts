@@ -11,14 +11,14 @@ beforeEach(async () => {
 });
 
 test('john@beatles/123456/12345', async () => {
-  const username = (await page.$('input[name=username]'))!;
-  await username.click();
-  await username.type('john@beatles');
-  await page.waitFor('input[name=username] ~ span[data-feedback]');
-  //const usernameFeedbacks = await page.$$('input[name=username] ~ span[data-feedback]');
-  const usernameFeedbacks = await username.$x('./following-sibling::span[@data-feedback]');
-  expect(usernameFeedbacks).toHaveLength(1);
-  await expect(usernameFeedbacks[0]).toMatch('Looks good!');
+  const email = (await page.$('input[name=email]'))!;
+  await email.click();
+  await email.type('john@beatles');
+  await page.waitFor('input[name=email] ~ span[data-feedback]');
+  //const emailFeedbacks = await page.$$('input[name=email] ~ span[data-feedback]');
+  const emailFeedbacks = await email.$x('./following-sibling::span[@data-feedback]');
+  expect(emailFeedbacks).toHaveLength(1);
+  await expect(emailFeedbacks[0]).toMatch('Looks good!');
 
   const password = (await page.$('input[name=password]'))!;
   await password.click();
@@ -46,14 +46,14 @@ test('john@beatles/123456/12345', async () => {
 });
 
 test('john@beatles/Tr0ub4dor&3/Tr0ub4dor&3', async () => {
-  const username = (await page.$('input[name=username]'))!;
-  await username.click();
-  await username.type('john@beatles');
-  await page.waitFor('input[name=username] ~ span[data-feedback]');
-  //const usernameFeedbacks = await page.$$('input[name=username] ~ span[data-feedback]');
-  const usernameFeedbacks = await username.$x('./following-sibling::span[@data-feedback]');
-  expect(usernameFeedbacks).toHaveLength(1);
-  await expect(usernameFeedbacks[0]).toMatch('Looks good!');
+  const email = (await page.$('input[name=email]'))!;
+  await email.click();
+  await email.type('john@beatles');
+  await page.waitFor('input[name=email] ~ span[data-feedback]');
+  //const emailFeedbacks = await page.$$('input[name=email] ~ span[data-feedback]');
+  const emailFeedbacks = await email.$x('./following-sibling::span[@data-feedback]');
+  expect(emailFeedbacks).toHaveLength(1);
+  await expect(emailFeedbacks[0]).toMatch('Looks good!');
 
   const password = (await page.$('input[name=password]'))!;
   await password.click();
@@ -82,7 +82,7 @@ test('john@beatles/Tr0ub4dor&3/Tr0ub4dor&3', async () => {
 
     this.state =
     {
-      "username": "john@beatles",
+      "email": "john@beatles",
       "password": "Tr0ub4dor&3",
       "passwordConfirm": "Tr0ub4dor&3",
       "signUpButtonDisabled": false

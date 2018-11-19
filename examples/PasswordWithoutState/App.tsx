@@ -36,11 +36,11 @@ class Form extends React.Component {
       <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
                            onSubmit={this.handleSubmit} noValidate>
         <div>
-          <label htmlFor="username">Username</label>
-          <input type="email" name="username" id="username"
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" id="email"
                  onChange={this.handleChange}
                  required minLength={5} />
-          <FieldFeedbacks for="username">
+          <FieldFeedbacks for="email">
             <FieldFeedback when="tooShort">Too short</FieldFeedback>
             <FieldFeedback when="*" />
             <FieldFeedback when="valid">Looks good!</FieldFeedback>
