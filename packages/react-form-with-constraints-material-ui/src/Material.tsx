@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import {
   FormControl as _FormControl,
   TextField as _TextField,
-  MuiThemeProvider, Theme,
+  MuiThemeProvider, Theme, createMuiTheme,
   createStyles, withStyles, WithStyles
 } from '@material-ui/core';
 import { FormControlProps } from '@material-ui/core/FormControl';
@@ -87,6 +87,7 @@ export class FormControl extends React.Component<FormControlProps, FormControlSt
   }
 }
 
+
 interface TextFieldState {
   field: Field | undefined;
 }
@@ -138,13 +139,21 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
   }
 }
 
-const formWithConstraintsTheme = (outer: Theme | null) => ({
-  ...outer,
+
+const defaultTheme = createMuiTheme({
+  typography: {
+    useNextVariants: true
+  }
+});
+
+// See https://v3-5-0.material-ui.com/customization/themes/#nesting-the-theme
+const formWithConstraintsTheme = (outerTheme: Theme | null) => ({
+  ...(outerTheme ? outerTheme : defaultTheme),
   overrides: {
     MuiFormHelperText: {
       root: {
         // Make FormHelperText invisible when there is no content
-        // See https://github.com/mui-org/material-ui/blob/v1.0.0-beta.44/packages/material-ui/src/Form/FormHelperText.js#L12
+        // See https://github.com/mui-org/material-ui/blob/v3.5.1/packages/material-ui/src/FormHelperText/FormHelperText.js#L14-L16
         '&:empty': {
           marginTop: 0,
           minHeight: 0
@@ -164,6 +173,7 @@ export class FormWithConstraints extends _FormWithConstraints {
   }
 }
 
+
 const fieldFeedbackStyles = (theme: Theme) => createStyles({
   root: {
     // Simulates FormHelperText margin
@@ -176,8 +186,21 @@ const fieldFeedbackStyles = (theme: Theme) => createStyles({
 
 type FieldFeedbackPropsWithStyles = FieldFeedbackBaseProps & React.HTMLAttributes<HTMLSpanElement> & WithStyles<typeof fieldFeedbackStyles>;
 
-export const FieldFeedback = withStyles(fieldFeedbackStyles, {name: 'FieldFeedback'})(
-  class extends React.Component<FieldFeedbackPropsWithStyles> {
+export const FieldFeedback = withStyles(fieldFeedbackStyles)(
+  // Without a class name (class extends React.Component) React Developer Tools displays:
+  // <WithStyles(Component) ...>
+  //   <Component>
+  //     <FieldFeedbackWS className="Component-root-125" ...></FieldFeedback>
+  //   </Component>
+  // </WithStyles(Component)>
+  //
+  // With a class name React Developer Tools displays:
+  // <WithStyles(FieldFeedbackWS) ...>
+  //   <FieldFeedbackWS>
+  //     <FieldFeedbackWS className="FieldFeedbackWS-root-125" ...></FieldFeedback>
+  //   </FieldFeedbackWS>
+  // </WithStyles(FieldFeedbackWS)>
+  class FieldFeedbackWS extends React.Component<FieldFeedbackPropsWithStyles> {
     render() {
       const { classes, className, ...otherProps } = this.props;
 

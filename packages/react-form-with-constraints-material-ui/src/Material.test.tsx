@@ -107,7 +107,7 @@ describe('FormWithConstraints', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+ MuiFormHelperText-error-\\d+">
             <span data-feedbacks="0">
-              <span data-feedback="0.3" class="FieldFeedback-root-\\d+ error" style="display: block;">Username 'john' already taken, choose another</span>
+              <span data-feedback="0.3" class="FieldFeedbackWS-root-\\d+ error" style="display: block;">Username 'john' already taken, choose another</span>
             </span>
           </p>
         </div>
@@ -117,10 +117,10 @@ describe('FormWithConstraints', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="1">
-              <span data-feedback="1.3" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain small letters</span>
-              <span data-feedback="1.4" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
-              <span data-feedback="1.5" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain special characters</span>
-              <span data-feedback="1.6" class="FieldFeedback-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+              <span data-feedback="1.3" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain small letters</span>
+              <span data-feedback="1.4" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
+              <span data-feedback="1.5" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain special characters</span>
+              <span data-feedback="1.6" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
             </span>
           </p>
         </div>
@@ -130,7 +130,7 @@ describe('FormWithConstraints', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+ MuiFormHelperText-error-\\d+">
             <span data-feedbacks="2">
-              <span data-feedback="2.0" class="FieldFeedback-root-\\d+ error" style="display: block;">Not the same password</span>
+              <span data-feedback="2.0" class="FieldFeedbackWS-root-\\d+ error" style="display: block;">Not the same password</span>
             </span>
           </p>
         </div>
@@ -158,7 +158,7 @@ describe('FormWithConstraints', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+ MuiFormHelperText-error-\\d+">
             <span data-feedbacks="0">
-              <span data-feedback="0.3" class="FieldFeedback-root-\\d+ error" style="display: block;">Username 'john' already taken, choose another</span>
+              <span data-feedback="0.3" class="FieldFeedbackWS-root-\\d+ error" style="display: block;">Username 'john' already taken, choose another</span>
             </span>
           </p>
         </div>
@@ -168,10 +168,10 @@ describe('FormWithConstraints', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="1">
-              <span data-feedback="1.3" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain small letters</span>
-              <span data-feedback="1.4" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
-              <span data-feedback="1.5" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain special characters</span>
-              <span data-feedback="1.6" class="FieldFeedback-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+              <span data-feedback="1.3" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain small letters</span>
+              <span data-feedback="1.4" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
+              <span data-feedback="1.5" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain special characters</span>
+              <span data-feedback="1.6" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
             </span>
           </p>
         </div>
@@ -181,7 +181,7 @@ describe('FormWithConstraints', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+ MuiFormHelperText-error-\\d+">
             <span data-feedbacks="2">
-              <span data-feedback="2.0" class="FieldFeedback-root-\\d+ error" style="display: block;">Not the same password</span>
+              <span data-feedback="2.0" class="FieldFeedbackWS-root-\\d+ error" style="display: block;">Not the same password</span>
             </span>
           </p>
         </div>
@@ -241,8 +241,8 @@ describe('FormWithConstraints', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="0">
-              <span data-feedback="0.4" class="FieldFeedback-root-\\d+ info" style="display: block;">Username 'jimmy' available</span>
-              <span data-feedback="0.2" class="FieldFeedback-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+              <span data-feedback="0.4" class="FieldFeedbackWS-root-\\d+ info" style="display: block;">Username 'jimmy' available</span>
+              <span data-feedback="0.2" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
             </span>
           </p>
         </div>
@@ -252,10 +252,10 @@ describe('FormWithConstraints', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="1">
-              <span data-feedback="1.3" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain small letters</span>
-              <span data-feedback="1.4" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
-              <span data-feedback="1.5" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain special characters</span>
-              <span data-feedback="1.6" class="FieldFeedback-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+              <span data-feedback="1.3" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain small letters</span>
+              <span data-feedback="1.4" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
+              <span data-feedback="1.5" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain special characters</span>
+              <span data-feedback="1.6" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
             </span>
           </p>
         </div>
@@ -265,7 +265,7 @@ describe('FormWithConstraints', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="2">
-              <span data-feedback="2.1" class="FieldFeedback-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+              <span data-feedback="2.1" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
             </span>
           </p>
         </div>
@@ -341,8 +341,8 @@ describe('Async', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="0">
-              <span data-feedback="0.3" class="FieldFeedback-root-\\d+ info" style="display: block;">Username 'jimmy' available</span>
-              <span data-feedback="0.2" class="FieldFeedback-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+              <span data-feedback="0.3" class="FieldFeedbackWS-root-\\d+ info" style="display: block;">Username 'jimmy' available</span>
+              <span data-feedback="0.2" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
             </span>
           </p>
         </div>
@@ -352,10 +352,10 @@ describe('Async', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="1">
-              <span data-feedback="1.3" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain small letters</span>
-              <span data-feedback="1.4" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
-              <span data-feedback="1.5" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain special characters</span>
-              <span data-feedback="1.6" class="FieldFeedback-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+              <span data-feedback="1.3" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain small letters</span>
+              <span data-feedback="1.4" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
+              <span data-feedback="1.5" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain special characters</span>
+              <span data-feedback="1.6" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
             </span>
           </p>
         </div>
@@ -365,7 +365,7 @@ describe('Async', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="2">
-              <span data-feedback="2.1" class="FieldFeedback-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+              <span data-feedback="2.1" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
             </span>
           </p>
         </div>
@@ -430,7 +430,7 @@ describe('Async', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+ MuiFormHelperText-error-\\d+">
             <span data-feedbacks="0">
-              <span data-feedback="0.3" class="FieldFeedback-root-\\d+ error" style="display: block;">Something wrong with username 'error'</span>
+              <span data-feedback="0.3" class="FieldFeedbackWS-root-\\d+ error" style="display: block;">Something wrong with username 'error'</span>
             </span>
           </p>
         </div>
@@ -440,10 +440,10 @@ describe('Async', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+">
             <span data-feedbacks="1">
-              <span data-feedback="1.3" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain small letters</span>
-              <span data-feedback="1.4" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
-              <span data-feedback="1.5" class="FieldFeedback-root-\\d+ warning" style="display: block;">Should contain special characters</span>
-              <span data-feedback="1.6" class="FieldFeedback-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+              <span data-feedback="1.3" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain small letters</span>
+              <span data-feedback="1.4" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
+              <span data-feedback="1.5" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain special characters</span>
+              <span data-feedback="1.6" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
             </span>
           </p>
         </div>
@@ -453,7 +453,7 @@ describe('Async', () => {
           </div>
           <p class="MuiFormHelperText-root-\\d+ MuiFormHelperText-error-\\d+">
             <span data-feedbacks="2">
-              <span data-feedback="2.0" class="FieldFeedback-root-\\d+ error" style="display: block;">Not the same password</span>
+              <span data-feedback="2.0" class="FieldFeedbackWS-root-\\d+ error" style="display: block;">Not the same password</span>
             </span>
           </p>
         </div>

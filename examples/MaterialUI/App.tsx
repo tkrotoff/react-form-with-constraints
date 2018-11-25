@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import { isEqual, omit } from 'lodash';
 
 import {
-  Input, InputLabel, FormHelperText,
+  Input, InputLabel,
   /*TextField, FormControl,*/
-  Button,
-  Theme, createStyles, withStyles, WithStyles
+  FormHelperText, FormControlLabel, Button, Switch,
+  MuiThemeProvider, createMuiTheme, Theme, CssBaseline,
+  createStyles, withStyles, WithStyles
 } from '@material-ui/core';
 
 import {
@@ -32,10 +33,10 @@ const styles = (theme: Theme) => createStyles({
   }
 });
 
-interface Props {}
-type PropsWithStyles = Props & WithStyles<typeof styles>;
+interface FormProps {}
+type FormPropsWithStyles = FormProps & WithStyles<typeof styles>;
 
-interface State {
+interface FormState {
   username: string;
   password: string;
   passwordConfirm: string;
@@ -43,8 +44,8 @@ interface State {
   resetButtonDisabled: boolean;
 }
 
-class Form extends React.Component<PropsWithStyles, State> {
-  state = this.getInitialState();
+class Form extends React.Component<FormPropsWithStyles, FormState> {
+  state: FormState = this.getInitialState();
 
   form: FormWithConstraints | null = null;
   password: HTMLInputElement | null = null;
@@ -59,7 +60,7 @@ class Form extends React.Component<PropsWithStyles, State> {
     };
   }
 
-  private shouldDisableResetButton(state: State) {
+  private shouldDisableResetButton(state: FormState) {
     const omitList = ['signUpButtonDisabled', 'resetButtonDisabled'];
     return isEqual(omit(this.getInitialState(), omitList), omit(state, omitList)) && !this.form!.hasFeedbacks();
   }
@@ -70,7 +71,7 @@ class Form extends React.Component<PropsWithStyles, State> {
     // FIXME See Computed property key names should not be widened https://github.com/Microsoft/TypeScript/issues/13948
     // @ts-ignore
     this.setState({
-      [target.name as keyof State]: target.value
+      [target.name as keyof FormState]: target.value
     });
 
     console.log(target.name, target.value);
@@ -89,7 +90,7 @@ class Form extends React.Component<PropsWithStyles, State> {
     // FIXME See Computed property key names should not be widened https://github.com/Microsoft/TypeScript/issues/13948
     // @ts-ignore
     this.setState({
-      [target.name as keyof State]: target.value
+      [target.name as keyof FormState]: target.value
     });
 
     console.log(target.name, target.value);
@@ -210,4 +211,70 @@ class Form extends React.Component<PropsWithStyles, State> {
 
 const App = withStyles(styles)(Form);
 
-ReactDOM.render(<App />, document.getElementById('app'));
+
+const darkTheme = createMuiTheme({
+  typography: {
+    useNextVariants: true
+  },
+  palette: {
+    type: 'dark'
+  }
+});
+
+interface AppWithThemeProps {}
+
+interface AppWithThemeState {
+  withTheme: boolean;
+}
+
+class AppWithTheme extends React.Component<AppWithThemeProps, AppWithThemeState> {
+  state: AppWithThemeState = {
+    withTheme: false
+  };
+
+  handleChange = (_e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    this.setState({withTheme: checked});
+  }
+
+  renderWithThemeSwitch() {
+    return (
+      <FormControlLabel
+        control={
+          <Switch
+            checked={this.state.withTheme}
+            onChange={this.handleChange}
+          />
+        }
+        label="Dark theme"
+      />
+    );
+  }
+
+  render() {
+    const { withTheme } = this.state;
+
+    return (
+      <>
+        {withTheme ?
+          <MuiThemeProvider theme={darkTheme}>
+            {this.renderWithThemeSwitch()}
+            <CssBaseline />
+            <App />
+          </MuiThemeProvider> :
+          <>
+            {this.renderWithThemeSwitch()}
+            <CssBaseline />
+            <App />
+          </>
+        }
+      </>
+    );
+  }
+}
+
+ReactDOM.render(
+  <main style={{margin: 8}}>
+    <AppWithTheme />
+  </main>,
+  document.getElementById('app')
+);
