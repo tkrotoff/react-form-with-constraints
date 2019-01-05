@@ -518,11 +518,9 @@ describe('FieldFeedbacks', () => {
       {context: {form: form_username}}
     );
     expect(beautifyHtml(wrapper.debug(), '      ')).toEqual(`\
-      <View for="username" stop="first-error">
-        <FieldFeedback when={[Function: when]}>
-          Cannot be empty
-        </FieldFeedback>
-      </View>`
+      <FieldFeedback when={[Function: when]}>
+        Cannot be empty
+      </FieldFeedback>`
     );
   });
 });
@@ -552,7 +550,7 @@ describe('FieldFeedback', () => {
       ]);
       wrapper.update();
       expect(beautifyHtml(wrapper.debug(), '        ')).toEqual(`\
-        <Text data-feedback="0.0" style={[undefined]} accessible={true} allowFontScaling={true} ellipsizeMode="tail">
+        <Text data-feedback="0.0" style={[undefined]}>
           Cannot be empty
         </Text>`
       );
@@ -589,7 +587,7 @@ describe('FieldFeedback', () => {
         {key: '0.0', type: 'error', show: true}
       ]);
       wrapper.update();
-      expect(wrapper.debug()).toEqual('<Text data-feedback="0.0" style={[undefined]} accessible={true} allowFontScaling={true} ellipsizeMode="tail" />');
+      expect(wrapper.debug()).toEqual('<Text data-feedback="0.0" style={[undefined]} />');
     });
 
     test('with already existing class', async () => {
@@ -607,7 +605,7 @@ describe('FieldFeedback', () => {
       ]);
       wrapper.update();
       expect(beautifyHtml(wrapper.debug(), '        ')).toEqual(`\
-        <Text data-feedback="0.0" style={{...}} accessible={true} allowFontScaling={true} ellipsizeMode="tail">
+        <Text data-feedback="0.0" style={{...}}>
           Cannot be empty
         </Text>`
       );
@@ -637,7 +635,7 @@ describe('FieldFeedback', () => {
       ]);
       wrapper.update();
       expect(beautifyHtml(wrapper.debug(), '        ')).toEqual(`\
-        <Text data-feedback="0.0" style={{...}} accessible={true} allowFontScaling={true} ellipsizeMode="tail">
+        <Text data-feedback="0.0" style={{...}}>
           Cannot be empty
         </Text>`
       );
@@ -674,7 +672,7 @@ describe('FieldFeedbackWhenValid', () => {
 
     wrapper.setState({fieldIsValid: true});
     expect(beautifyHtml(wrapper.debug(), '      ')).toEqual(`\
-      <Text accessible={true} allowFontScaling={true} ellipsizeMode="tail">
+      <Text>
         Looks good!
       </Text>`
     );
@@ -689,7 +687,7 @@ describe('FieldFeedbackWhenValid', () => {
     );
     wrapper.setState({fieldIsValid: true});
     expect(beautifyHtml(wrapper.debug(), '      ')).toEqual(`\
-      <Text style={{...}} accessible={true} allowFontScaling={true} ellipsizeMode="tail">
+      <Text style={{...}}>
         Looks good!
       </Text>`
     );

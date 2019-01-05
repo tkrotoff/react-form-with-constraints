@@ -39,17 +39,17 @@
   },
 
   "peerDependencies": {
-    "react-native": ">=0.50",
+    "react-native": ">=0.57.8",
     "react-form-with-constraints": "^0.10.0"
   },
 
   "devDependencies": {
     "typescript": "latest",
 
-    "react": "16.0.0",
+    "react": "16.5.0",
     "@types/react": "latest",
 
-    "react-native": "^0.50",
+    "react-native": "^0.57.8",
     "@types/react-native": "latest",
 
     "react-form-with-constraints": "^0.10.0",
@@ -58,7 +58,7 @@
     "@types/jest": "latest",
     "ts-jest": "latest",
 
-    "react-test-renderer": "16.0.0",
+    "react-test-renderer": "16.5.0",
     "@types/react-test-renderer": "latest",
 
     "enzyme": "latest",
@@ -67,8 +67,9 @@
     "@types/enzyme-adapter-react-16": "latest",
 
     "babel-jest": "latest",
-    "babel-core": "latest",
-    "babel-preset-react-native": "latest",
+    "@babel/core": "latest",
+    "babel-core": "^7.0.0-bridge.0",
+    "metro-react-native-babel-preset": "latest",
 
     "del-cli": "latest",
     "cross-env": "latest"

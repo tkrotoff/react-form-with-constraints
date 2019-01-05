@@ -4,7 +4,7 @@ import { TextInput } from './TextInput'; // Specific to TypeScript
 
 import {
   FormWithConstraints as _FormWithConstraints,
-  FieldFeedbacks as _FieldFeedbacks,
+  FieldFeedbacks,
   Async,
   FieldFeedback as _FieldFeedback, FieldFeedbackBaseProps as _FieldFeedbackBaseProps, FieldFeedbackType,
   FieldFeedbackWhenValid as _FieldFeedbackWhenValid, FieldFeedbackWhenValidBaseProps as _FieldFeedbackWhenValidBaseProps,
@@ -79,19 +79,12 @@ export class FormWithConstraints extends _FormWithConstraints {
   abstract async resetFields(...inputsOrNames: Array<TextInput | string>);
 
   render() {
-    // FIXME See Support for Fragments in react native instead of view https://react-native.canny.io/feature-requests/p/support-for-fragments-in-react-native-instead-of-view
     return <View {...this.props as any} />;
   }
 }
 
 
-// FIXME See Support for Fragments in react native instead of view https://react-native.canny.io/feature-requests/p/support-for-fragments-in-react-native-instead-of-view
-export class FieldFeedbacks extends _FieldFeedbacks {
-  render() {
-    return <View {...this.props} />;
-  }
-}
-
+export { FieldFeedbacks };
 
 export { Async };
 

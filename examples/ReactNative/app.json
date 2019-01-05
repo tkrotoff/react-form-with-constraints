@@ -1,12 +1,7 @@
 {
   "expo": {
-    "sdkVersion": "26.0.0",
-    "packagerOpts": {
-      "sourceExts": [
-        "ts",
-        "tsx"
-      ],
-      "transformer": "node_modules/react-native-typescript-transformer/index.js"
-    }
+    "name": "React Native example",
+    "slug": "react-native-example",
+    "sdkVersion": "31.0.0"
   }
 }

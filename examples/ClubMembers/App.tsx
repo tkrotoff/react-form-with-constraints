@@ -4,7 +4,7 @@ import { configure, observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback, Input as _Input } from 'react-form-with-constraints';
+import { FormWithConstraints, FieldFeedbacks, FieldFeedback, Input as _Input, InputProps } from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './index.html';
@@ -92,7 +92,7 @@ interface HobbiesProps {
   validateField: (e: React.ChangeEvent<HTMLInputElement> | string) => void;
 }
 
-const Hobbies = observer<React.SFC<HobbiesProps>>(({memberIndex, member, validateField}) => {
+const Hobbies = observer<React.FunctionComponent<HobbiesProps>>(({memberIndex, member, validateField}) => {
   const addHobby = () => {
     member.addHobby();
     validateField(`member${memberIndex}.checkNbHobbies`);
@@ -158,7 +158,7 @@ interface MembersProps {
   validateField: (e: React.ChangeEvent<HTMLInputElement> | string) => void;
 }
 
-const Members = observer<React.SFC<MembersProps>>(({club, validateField}) => {
+const Members = observer<React.FunctionComponent<MembersProps>>(({club, validateField}) => {
   const addMember = () => {
     club.addMember();
     validateField('checkNbMembers');
@@ -242,7 +242,7 @@ interface DisplayClubProps {
   club: Club;
 }
 
-const DisplayClub = observer<React.SFC<DisplayClubProps>>(({club}) =>
+const DisplayClub = observer<React.FunctionComponent<DisplayClubProps>>(({club}) =>
   <pre style={{fontSize: 'small'}}>Club = {JSON.stringify(club, null, 2)}</pre>
 );
 DisplayClub.displayName = 'DisplayClub';
@@ -305,7 +305,7 @@ class Form extends React.Component<FormProps> {
 }
 
 export class Input extends _Input {
-  static defaultProps = {
+  static defaultProps: InputProps = {
     classes: {
       // See https://github.com/facebook/react/issues/3725#issuecomment-169163998
       // See React.Component.defaultProps objects are overridden, not merged? https://stackoverflow.com/q/40428847

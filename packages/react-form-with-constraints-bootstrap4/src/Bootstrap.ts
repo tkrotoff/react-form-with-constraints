@@ -1,7 +1,7 @@
 import * as PropTypes from 'prop-types';
 import {
   FormWithConstraints,
-  Input as _Input, InputContext,
+  Input as _Input, InputProps, InputContext,
   FieldFeedbacks, Async,
   FieldFeedback as _FieldFeedback, FieldFeedbackProps, FieldFeedbackContext
 } from 'react-form-with-constraints';
@@ -99,7 +99,7 @@ export class Input extends _Input {
   };
   context!: InputContext;
 
-  static defaultProps = {
+  static defaultProps: InputProps = {
     classes: {
       isPending: 'is-pending',
       hasErrors: 'is-invalid',

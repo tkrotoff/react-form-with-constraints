@@ -66,7 +66,7 @@ export class FieldFeedbackWhenValid<Props extends FieldFeedbackWhenValidBaseProp
 
   // Don't forget to update native/FieldFeedbackWhenValid.render()
   render() {
-    const { style, ...otherProps } = this.props as FieldFeedbackWhenValidProps;
+    const { style, ...otherProps } = this.props as unknown as FieldFeedbackWhenValidProps;
 
     return this.state.fieldIsValid ?
       // <span style="display: block"> instead of <div> so FieldFeedbackWhenValid can be wrapped inside a <p>

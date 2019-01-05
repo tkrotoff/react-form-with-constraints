@@ -16,7 +16,7 @@ export interface FieldFeedbacksProps {
    * no => shows everything
    * Default is 'first-error'
    */
-  stop?: 'first' | 'first-error' | 'first-warning' | 'first-info' | 'no';
+  stop: 'first' | 'first-error' | 'first-warning' | 'first-info' | 'no';
 }
 
 // Why Nullable? See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/27973
@@ -38,7 +38,7 @@ export class FieldFeedbacks extends
                                 FieldFeedbacksComponent
                               )
                             implements React.ChildContextProvider<FieldFeedbacksChildContext> {
-  static defaultProps = {
+  static defaultProps: FieldFeedbacksProps = {
     stop: 'first-error'
   };
 

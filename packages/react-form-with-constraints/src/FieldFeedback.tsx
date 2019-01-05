@@ -27,7 +27,7 @@ type WhenFn = (value: string) => boolean;
 type When = WhenString | WhenFn;
 
 export interface FieldFeedbackClasses {
-  classes?: {
+  classes?: { // FIXME Should not be declared "?" thanks to defaultProps?
     [index: string]: string | undefined;
     error?: string;
     warning?: string;
@@ -37,7 +37,7 @@ export interface FieldFeedbackClasses {
 }
 
 export interface FieldFeedbackBaseProps {
-  when?: When;
+  when?: When; // FIXME Should not be declared "?" thanks to defaultProps?
   error?: boolean;
   warning?: boolean;
   info?: boolean;
@@ -201,7 +201,7 @@ export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackP
 
   // Don't forget to update native/FieldFeedback.render()
   render() {
-    const { when, error, warning, info, className, classes, style, children, ...otherProps } = this.props as FieldFeedbackProps;
+    const { when, error, warning, info, className, classes, style, children, ...otherProps } = this.props as unknown as FieldFeedbackProps;
     const { validation, validationMessage } = this.state;
 
     const fieldFeedbackClassName = classes![validation.type]!;
