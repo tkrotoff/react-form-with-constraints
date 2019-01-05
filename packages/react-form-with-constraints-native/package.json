@@ -1,6 +1,6 @@
 {
   "name": "react-form-with-constraints-native",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/tkrotoff/react-form-with-constraints.git"
@@ -40,7 +40,7 @@
 
   "peerDependencies": {
     "react-native": ">=0.57.8",
-    "react-form-with-constraints": "^0.10.0"
+    "react-form-with-constraints": "^0.11.0"
   },
 
   "devDependencies": {
@@ -52,7 +52,7 @@
     "react-native": "^0.57.8",
     "@types/react-native": "latest",
 
-    "react-form-with-constraints": "^0.10.0",
+    "react-form-with-constraints": "^0.11.0",
 
     "jest": "latest",
     "@types/jest": "latest",

@@ -27,8 +27,8 @@
     "react": "latest",
     "react-dom": "latest",
 
-    "react-form-with-constraints": "^0.10.0",
-    "react-form-with-constraints-tools": "^0.10.0",
+    "react-form-with-constraints": "^0.11.0",
+    "react-form-with-constraints-tools": "^0.11.0",
 
     "mobx": "latest",
     "mobx-react": "latest",

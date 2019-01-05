@@ -1,3 +1,11 @@
+## v0.11.0 (2019/01/05)
+
+### Fixes
+
+- Disable `esModuleInterop` (`import * as React` vs `import React`) to increase compatibility with TypeScript users, see b18d61
+- Fix react-form-with-constraints-bootstrap4 for IE 10: does no support inheritance with static properties, see 225cb9
+
+
 ## v0.10.0 (2018/10/16)
 
 ### Features
