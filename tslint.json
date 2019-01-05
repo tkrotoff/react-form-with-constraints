@@ -1,6 +1,16 @@
 {
   "defaultSeverity": "error",
   "extends": ["tslint:recommended", "tslint:latest", "tslint-react"],
+
+  "jsRules": {
+    "max-line-length": [true, 200],
+    "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+    "quotemark": [true, "single", "jsx-double", "avoid-escape"],
+    "object-literal-sort-keys": false,
+    "no-console": false,
+    "variable-name": [true, "ban-keywords"]
+  },
+
   "rules": {
     "deprecation": true,
     // Copy-pasted from Blueprint, see https://github.com/palantir/blueprint/blob/d5a6c02e8750415dfe3af9846749f50525e9a95b/tslint.json
