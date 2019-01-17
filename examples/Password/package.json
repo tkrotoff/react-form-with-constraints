@@ -53,7 +53,7 @@
     "ts-node": "latest",
     "@types/node": "latest",
 
-    "webpack-cli": "~3.1.2",
+    "webpack-cli": "latest",
     "webpack": "latest",
     "@types/webpack": "latest",
     "ts-loader": "latest",

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { debounce, isEqual, omit } from 'lodash';
-import { Trans, withNamespaces, WithNamespaces } from 'react-i18next';
+import { Trans, withTranslation, WithTranslation } from 'react-i18next';
 
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback, Async as Async_, AsyncProps } from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
@@ -36,7 +36,7 @@ function Async<T>(props: AsyncProps<T>) {
 
 const VALIDATE_DEBOUNCE_WAIT = 1000;
 
-interface Props extends WithNamespaces {}
+interface Props extends WithTranslation {}
 
 interface State {
   language: string;
@@ -468,5 +468,5 @@ class SignUp extends React.Component<Props, State> {
   }
 }
 
-const SignUpTranslated = withNamespaces()(SignUp);
+const SignUpTranslated = withTranslation()(SignUp);
 ReactDOM.render(<SignUpTranslated />, document.getElementById('app'));

@@ -43,7 +43,7 @@
 
   "peerDependencies": {
     "react-form-with-constraints": "^0.11.0",
-    "@material-ui/core": "^3.8.1"
+    "@material-ui/core": "^3.9.2"
   },
 
   "devDependencies": {
@@ -54,7 +54,7 @@
 
     "react-form-with-constraints": "^0.11.0",
 
-    "@material-ui/core": "^3.8.1",
+    "@material-ui/core": "^3.9.2",
 
     "jest": "latest",
     "@types/jest": "latest",
@@ -69,12 +69,12 @@
     "node-zopfli": "latest",
     "node-gyp": "latest",
 
-    "rollup": "^0.68.2",
+    "rollup": "latest",
     "rollup-pluginutils": "latest",
     "rollup-plugin-typescript2": "latest",
     "rollup-plugin-uglify": "latest",
     "rollup-plugin-gzip": "latest",
-    "rollup-plugin-filesize": "^5.0.1",
+    "rollup-plugin-filesize": "latest",
     "rollup-plugin-strip": "latest",
 
     "del-cli": "latest",
