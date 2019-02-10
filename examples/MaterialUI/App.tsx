@@ -18,20 +18,24 @@ import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './index.html';
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-const checkUsernameAvailability = async (value: string) => {
+async function checkUsernameAvailability(value: string) {
   console.log('checkUsernameAvailability');
   await sleep(1000);
   return !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase());
-};
+}
 
-const styles = (theme: Theme) => createStyles({
-  button: {
-    marginTop: theme.spacing.unit,
-    marginRight: theme.spacing.unit
-  }
-});
+function styles(theme: Theme) {
+  return createStyles({
+    button: {
+      marginTop: theme.spacing.unit,
+      marginRight: theme.spacing.unit
+    }
+  });
+}
 
 interface FormProps {}
 type FormPropsWithStyles = FormProps & WithStyles<typeof styles>;

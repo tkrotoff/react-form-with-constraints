@@ -147,21 +147,23 @@ const defaultTheme = createMuiTheme({
 });
 
 // See https://v3-5-0.material-ui.com/customization/themes/#nesting-the-theme
-const formWithConstraintsTheme = (outerTheme: Theme | null) => ({
-  ...(outerTheme ? outerTheme : defaultTheme),
-  overrides: {
-    MuiFormHelperText: {
-      root: {
-        // Make FormHelperText invisible when there is no content
-        // See https://github.com/mui-org/material-ui/blob/v3.5.1/packages/material-ui/src/FormHelperText/FormHelperText.js#L14-L16
-        '&:empty': {
-          marginTop: 0,
-          minHeight: 0
+function formWithConstraintsTheme(outerTheme: Theme | null) {
+  return {
+    ...(outerTheme ? outerTheme : defaultTheme),
+    overrides: {
+      MuiFormHelperText: {
+        root: {
+          // Make FormHelperText invisible when there is no content
+          // See https://github.com/mui-org/material-ui/blob/v3.5.1/packages/material-ui/src/FormHelperText/FormHelperText.js#L14-L16
+          '&:empty': {
+            marginTop: 0,
+            minHeight: 0
+          }
         }
       }
     }
-  }
-});
+  };
+}
 
 export class FormWithConstraints extends _FormWithConstraints {
   render() {
@@ -174,15 +176,17 @@ export class FormWithConstraints extends _FormWithConstraints {
 }
 
 
-const fieldFeedbackStyles = (theme: Theme) => createStyles({
-  root: {
-    // Simulates FormHelperText margin
-    // See https://github.com/mui-org/material-ui/blob/v1.0.0-beta.44/packages/material-ui/src/Form/FormHelperText.js#L12
-    '&:not(:last-child)': {
-      marginBottom: theme.spacing.unit
+function fieldFeedbackStyles(theme: Theme) {
+  return createStyles({
+    root: {
+      // Simulates FormHelperText margin
+      // See https://github.com/mui-org/material-ui/blob/v1.0.0-beta.44/packages/material-ui/src/Form/FormHelperText.js#L12
+      '&:not(:last-child)': {
+        marginBottom: theme.spacing.unit
+      }
     }
-  }
-});
+  });
+}
 
 type FieldFeedbackPropsWithStyles = FieldFeedbackBaseProps & React.HTMLAttributes<HTMLSpanElement> & WithStyles<typeof fieldFeedbackStyles>;
 

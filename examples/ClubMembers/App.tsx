@@ -93,22 +93,22 @@ interface HobbiesProps {
 }
 
 const Hobbies = observer<React.FunctionComponent<HobbiesProps>>(({memberIndex, member, validateField}) => {
-  const addHobby = () => {
+  function addHobby() {
     member.addHobby();
     validateField(`member${memberIndex}.checkNbHobbies`);
-  };
+  }
 
-  const removeHobby = (index: number) => {
+  function removeHobby(index: number) {
     member.removeHobby(index);
     validateField(`member${memberIndex}.checkNbHobbies`);
-  };
+  }
 
-  const updateHobby = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  function updateHobby(e: React.ChangeEvent<HTMLInputElement>, index: number) {
     member.updateHobby(index, e.target.value);
     validateField(e);
-  };
+  }
 
-  const renderHobby = (hobby: Hobby, index: number) => {
+  function renderHobby(hobby: Hobby, index: number) {
     const hobbyLabel = `Hobby #${index + 1}`;
     const hobbyName = `member${memberIndex}.hobby${index}`;
 
@@ -130,7 +130,7 @@ const Hobbies = observer<React.FunctionComponent<HobbiesProps>>(({memberIndex, m
         </FieldFeedbacks>
       </li>
     );
-  };
+  }
 
   const checkNbHobbiesName = `member${memberIndex}.checkNbHobbies`;
 
@@ -159,27 +159,27 @@ interface MembersProps {
 }
 
 const Members = observer<React.FunctionComponent<MembersProps>>(({club, validateField}) => {
-  const addMember = () => {
+  function addMember() {
     club.addMember();
     validateField('checkNbMembers');
-  };
+  }
 
-  const removeMember = (index: number) => {
+  function removeMember(index: number) {
     club.removeMember(index);
     validateField('checkNbMembers');
-  };
+  }
 
-  const updateMemberFirstName = (e: React.ChangeEvent<HTMLInputElement>, member: Member) => {
+  function updateMemberFirstName(e: React.ChangeEvent<HTMLInputElement>, member: Member) {
     member.firstName = e.target.value;
     validateField(e);
-  };
+  }
 
-  const updateMemberLastName = (e: React.ChangeEvent<HTMLInputElement>, member: Member) => {
+  function updateMemberLastName(e: React.ChangeEvent<HTMLInputElement>, member: Member) {
     member.lastName = e.target.value;
     validateField(e);
-  };
+  }
 
-  const renderMember = (member: Member, index: number) => {
+  function renderMember(member: Member, index: number) {
     const memberFirstNameName = `member${index}.firstName`;
     const memberLastNameName = `member${index}.lastName`;
 
@@ -217,7 +217,7 @@ const Members = observer<React.FunctionComponent<MembersProps>>(({club, validate
         <Hobbies memberIndex={index} member={member} validateField={validateField} />
       </li>
     );
-  };
+  }
 
   return (
     <>
@@ -318,14 +318,16 @@ export class Input extends _Input {
   };
 }
 
-const App = () => (
-  <div className="container">
-    <p>
-      Inspired by <a href="https://redux-form.com/7.0.4/examples/fieldarrays/">Redux Form - Field Arrays Example</a>
-    </p>
-    <Form club={new Club()} />
-    <DevTools />
-  </div>
-);
+function App() {
+  return (
+    <div className="container">
+      <p>
+        Inspired by <a href="https://redux-form.com/7.0.4/examples/fieldarrays/">Redux Form - Field Arrays Example</a>
+      </p>
+      <Form club={new Club()} />
+      <DevTools />
+    </div>
+  );
+}
 
 ReactDOM.render(<App />, document.getElementById('app'));

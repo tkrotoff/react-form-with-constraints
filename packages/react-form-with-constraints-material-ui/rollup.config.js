@@ -9,11 +9,11 @@ import strip from 'rollup-plugin-strip';
 
 const __PROD__ = process.env.NODE_ENV === 'production';
 
-const outputFileName = () => {
+function outputFileName() {
   let fileName = `react-form-with-constraints-material-ui.${process.env.NODE_ENV}`;
   fileName += __PROD__ ? '.min.js' : '.js';
   return fileName;
-};
+}
 
 export default {
   input: './src/index.ts',

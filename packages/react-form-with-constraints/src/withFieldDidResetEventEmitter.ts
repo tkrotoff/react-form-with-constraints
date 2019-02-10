@@ -5,7 +5,7 @@ import Field from './Field';
 export const FieldDidResetEvent = 'FIELD_DID_RESET_EVENT';
 
 // See TypeScript 2.2 Support for Mix-in classes https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html
-const withFieldDidResetEventEmitter = <TBase extends Constructor<{}>>(Base: TBase) => {
+export function withFieldDidResetEventEmitter<TBase extends Constructor<{}>>(Base: TBase) {
   type Listener = (field: Field) => void;
 
   return class ResetFieldEvenEmitter extends Base {
@@ -23,6 +23,4 @@ const withFieldDidResetEventEmitter = <TBase extends Constructor<{}>>(Base: TBas
       this.fieldDidResetEventEmitter.removeListener(FieldDidResetEvent, listener);
     }
   };
-};
-
-export { withFieldDidResetEventEmitter };
+}

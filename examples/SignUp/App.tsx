@@ -12,13 +12,15 @@ import Gender from './Gender';
 import './index.html';
 import './style.css';
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-const checkUsernameAvailability = async (value: string) => {
+async function checkUsernameAvailability(value: string) {
   console.log('checkUsernameAvailability');
   await sleep(1000);
   return !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase());
-};
+}
 
 // Async with a default React component for pending state
 function Async<T>(props: AsyncProps<T>) {

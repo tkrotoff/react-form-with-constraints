@@ -13,13 +13,15 @@ import { DisplayFields } from 'react-form-with-constraints-tools';
 import './index.html';
 import './App.scss';
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-const checkUsernameAvailability = async value => {
+async function checkUsernameAvailability(value) {
   console.log('checkUsernameAvailability');
   await sleep(1000);
   return !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase());
-};
+}
 
 class Form extends React.Component {
   state = this.getInitialState();
@@ -160,15 +162,17 @@ class Form extends React.Component {
   }
 }
 
-const App = () => (
-  <div className="container">
-    <p>
-      Inspired by <a href="http://moduscreate.com/reactjs-form-validation-approaches/">Modus Create - ReactJS Form Validation Approaches</a>
-      <br />
-      Fixed version: <a href="https://codepen.io/tkrotoff/pen/MEeNvO">https://codepen.io/tkrotoff/pen/MEeNvO</a>
-    </p>
-    <Form />
-  </div>
-);
+function App() {
+  return (
+    <div className="container">
+      <p>
+        Inspired by <a href="http://moduscreate.com/reactjs-form-validation-approaches/">Modus Create - ReactJS Form Validation Approaches</a>
+        <br />
+        Fixed version: <a href="https://codepen.io/tkrotoff/pen/MEeNvO">https://codepen.io/tkrotoff/pen/MEeNvO</a>
+      </p>
+      <Form />
+    </div>
+  );
+}
 
 ReactDOM.render(<App />, document.getElementById('app'));

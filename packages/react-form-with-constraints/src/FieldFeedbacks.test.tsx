@@ -6,11 +6,13 @@ import { input_username_valueMissing, input_unknown_valueMissing, input_username
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 import beautifyHtml from './beautifyHtml';
 
-const shallow = (node: React.ReactElement<FieldFeedbacksProps>, options: {context: FormWithConstraintsChildContext}) =>
-  _shallow<FieldFeedbacksProps>(node, options);
+function shallow(node: React.ReactElement<FieldFeedbacksProps>, options: {context: FormWithConstraintsChildContext}) {
+  return _shallow<FieldFeedbacksProps>(node, options);
+}
 
-const mount = (node: React.ReactElement<FieldFeedbacksProps>, options: {context: FormWithConstraintsChildContext}) =>
-  _mount<FieldFeedbacksProps>(node, options);
+function mount(node: React.ReactElement<FieldFeedbacksProps>, options: {context: FormWithConstraintsChildContext}) {
+  return _mount<FieldFeedbacksProps>(node, options);
+}
 
 describe('constructor()', () => {
   test('no error', () => {

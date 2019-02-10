@@ -7,10 +7,12 @@ import { DisplayFields } from 'react-form-with-constraints-tools';
 import './index.html';
 import './style.css';
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 // See https://en.wikipedia.org/wiki/List_of_the_most_common_passwords
-const isACommonPassword = async (password: string) => {
+async function isACommonPassword(password: string) {
   console.log('isACommonPassword');
   await sleep(1000);
   return [
@@ -30,7 +32,7 @@ const isACommonPassword = async (password: string) => {
     'login',
     'abc123'
   ].includes(password.toLowerCase());
-};
+}
 
 interface Props {}
 

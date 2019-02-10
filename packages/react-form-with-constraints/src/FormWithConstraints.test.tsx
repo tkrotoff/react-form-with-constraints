@@ -8,8 +8,9 @@ import sleep from './sleep';
 import beautifyHtml from './beautifyHtml';
 import { validValidityState } from './InputElementMock';
 
-const mount = (node: React.ReactElement<FormWithConstraintsProps>) =>
-  _mount<FormWithConstraintsProps, {}>(node);
+function mount(node: React.ReactElement<FormWithConstraintsProps>) {
+  return _mount<FormWithConstraintsProps, {}>(node);
+}
 
 test('constructor()', () => {
   const form = new FormWithConstraints({});

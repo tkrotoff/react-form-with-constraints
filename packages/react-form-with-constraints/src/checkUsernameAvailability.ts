@@ -1,6 +1,6 @@
 import sleep from './sleep';
 
-const checkUsernameAvailability = async (value: string) => {
+export default async function checkUsernameAvailability(value: string) {
   await sleep(10);
   if (value === 'error') {
     throw new Error(`Something wrong with username '${value}'`);
@@ -10,6 +10,4 @@ const checkUsernameAvailability = async (value: string) => {
       available: !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase())
     };
   }
-};
-
-export default checkUsernameAvailability;
+}

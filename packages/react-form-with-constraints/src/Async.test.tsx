@@ -10,11 +10,13 @@ import { input_unknown_valueMissing, input_username_valid, input_username_error_
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 import beautifyHtml from './beautifyHtml';
 
-const shallow = (node: React.ReactElement<AsyncProps<any>>, options: {context: AsyncContext}) =>
-  _shallow<AsyncProps<any>>(node, options);
+function shallow(node: React.ReactElement<AsyncProps<any>>, options: {context: AsyncContext}) {
+  return _shallow<AsyncProps<any>>(node, options);
+}
 
-const mount = (node: React.ReactElement<FieldFeedbacksProps>, options: {context: FieldFeedbacksContext}) =>
-  _mount<FieldFeedbacksProps>(node, options);
+function mount(node: React.ReactElement<FieldFeedbacksProps>, options: {context: FieldFeedbacksContext}) {
+  return _mount<FieldFeedbacksProps>(node, options);
+}
 
 let form_username: FormWithConstraints;
 let fieldFeedbacks_username: FieldFeedbacks;
