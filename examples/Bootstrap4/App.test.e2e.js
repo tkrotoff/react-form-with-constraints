@@ -1,3 +1,5 @@
+import '@babel/polyfill';
+
 jest.setTimeout(20000); // 20s
 
 function indent(text, indentation) {
