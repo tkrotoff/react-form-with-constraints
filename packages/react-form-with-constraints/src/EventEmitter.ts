@@ -11,7 +11,7 @@ export default class EventEmitter<ListenerReturnType = void> {
   async emit(eventName: string, ...args: Args) {
     const listeners = this.listeners.get(eventName)!;
 
-    // Assert disabled: an even can be emitted even without listeners
+    // Assert disabled: an event can be emitted even without listeners
     //console.assert(listeners !== undefined, `Unknown event '${eventName}'`);
 
     const ret = new Array<ListenerReturnType>();
