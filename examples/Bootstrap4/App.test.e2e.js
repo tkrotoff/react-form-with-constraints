@@ -86,13 +86,11 @@ test('jimmy/12345/12345', async () => {
   expect(indent(dialog.message(), '    ')).toEqual(`\
     Valid form
 
-    this.state =
+    inputs =
     {
       "username": "jimmy",
       "password": "12345",
-      "passwordConfirm": "12345",
-      "signUpButtonDisabled": false,
-      "resetButtonDisabled": false
+      "passwordConfirm": "12345"
     }`
   );
   await dialog.accept();

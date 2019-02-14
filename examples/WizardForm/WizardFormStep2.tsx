@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
 
 import Gender from './Gender';
 
-export interface Props {
+interface Props {
   email: string;
   gender?: Gender;
   previousPage: () => void;
@@ -12,66 +12,59 @@ export interface Props {
   nextPage: () => void;
 }
 
-class WizardFormStep2 extends React.Component<Props> {
-  form: FormWithConstraints | null = null;
+export default function WizardFormStep2(props: Props) {
+  const form = useRef<FormWithConstraints | null>(null);
 
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target;
 
-    this.props.onChange(target);
+    props.onChange(target);
 
-    this.form!.validateFields(target);
+    form.current!.validateFields(target);
   }
 
-  handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    await this.form!.validateForm();
-    if (this.form!.isValid()) {
-      this.props.nextPage();
+    await form.current!.validateForm();
+    if (form.current!.isValid()) {
+      props.nextPage();
     }
   }
 
-  render() {
-    const { email, gender, previousPage } = this.props;
+  return (
+    <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
+      <div>
+        <label htmlFor="email">Email</label>
+        <input type="email" name="email" id="email"
+               value={props.email} onChange={handleChange}
+               required />
+        <FieldFeedbacks for="email">
+          <FieldFeedback when="*" />
+        </FieldFeedbacks>
+      </div>
 
-    return (
-      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
-                           onSubmit={this.handleSubmit} noValidate>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email"
-                 value={email} onChange={this.handleChange}
+      <div>
+        <label>Gender</label>
+        <label>
+          <input type="radio" name="gender"
+                 value={Gender.Male} checked={props.gender === Gender.Male} onChange={handleChange}
                  required />
-          <FieldFeedbacks for="email">
-            <FieldFeedback when="*" />
-          </FieldFeedbacks>
-        </div>
+          Male
+        </label>
+        <label>
+          <input type="radio" name="gender"
+                 value={Gender.Female} checked={props.gender === Gender.Female} onChange={handleChange} />
+          Female
+        </label>
+        <FieldFeedbacks for="gender">
+          <FieldFeedback when="*" />
+        </FieldFeedbacks>
+      </div>
 
-        <div>
-          <label>Gender</label>
-          <label>
-            <input type="radio" name="gender"
-                   value={Gender.Male} checked={gender === Gender.Male} onChange={this.handleChange}
-                   required />
-            Male
-          </label>
-          <label>
-            <input type="radio" name="gender"
-                   value={Gender.Female} checked={gender === Gender.Female} onChange={this.handleChange} />
-            Female
-          </label>
-          <FieldFeedbacks for="gender">
-            <FieldFeedback when="*" />
-          </FieldFeedbacks>
-        </div>
-
-        <button type="button" onClick={previousPage}>Previous</button>
-        &nbsp;
-        <button>Next</button>
-      </FormWithConstraints>
-    );
-  }
+      <button type="button" onClick={props.previousPage}>Previous</button>
+      &nbsp;
+      <button>Next</button>
+    </FormWithConstraints>
+  );
 }
-
-export default WizardFormStep2;

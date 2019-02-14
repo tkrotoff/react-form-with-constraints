@@ -5,9 +5,9 @@ import WizardFormStep1 from './WizardFormStep1';
 import WizardFormStep2 from './WizardFormStep2';
 import WizardFormStep3 from './WizardFormStep3';
 
-export interface Props {}
+interface Props {}
 
-export interface State {
+interface State {
   step: number;
 
   firstName: string;
@@ -16,7 +16,7 @@ export interface State {
   favoriteColor: '' | Color;
 }
 
-class WizardForm extends React.Component<Props, State> {
+export default class WizardForm extends React.Component<Props, State> {
   state: State = {
     step: 1,
 
@@ -64,5 +64,3 @@ class WizardForm extends React.Component<Props, State> {
     );
   }
 }
-
-export default WizardForm;

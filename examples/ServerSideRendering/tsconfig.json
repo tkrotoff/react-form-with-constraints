@@ -2,7 +2,7 @@
   "extends": "../../tsconfig",
   "compilerOptions": {
     "module": "commonjs",
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": false
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   }
 }

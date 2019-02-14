@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
 
 import { FormWithConstraints, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints';
@@ -34,142 +34,126 @@ async function isACommonPassword(password: string) {
   ].includes(password.toLowerCase());
 }
 
-interface Props {}
+function Form() {
+  const form = useRef<FormWithConstraints | null>(null);
+  const password = useRef<HTMLInputElement | null>(null);
 
-interface State {
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  signUpButtonDisabled: boolean;
-}
-
-class Form extends React.Component<Props, State> {
-  form: FormWithConstraints | null = null;
-  password: HTMLInputElement | null = null;
-
-  state: State = {
+  const [inputs, setInputs] = useState({
     email: '',
     password: '',
-    passwordConfirm: '',
-    signUpButtonDisabled: false
-  };
+    passwordConfirm: ''
+  });
+  const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(false);
 
-  handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target;
 
-    // FIXME See Computed property key names should not be widened https://github.com/Microsoft/TypeScript/issues/13948
-    // @ts-ignore
-    this.setState({
-      [target.name as keyof State]: target.value
+    setInputs(prevState => {
+      return {...prevState, [target.name]: target.value};
     });
 
     // Validates only the given field and returns the related FieldValidation structures
-    const fields = await this.form!.validateFields(target);
+    const fields = await form.current!.validateFields(target);
 
     const fieldIsValid = fields.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
     if (fieldIsValid) console.log(`Field '${target.name}' is valid`);
     else console.log(`Field '${target.name}' is invalid`);
 
-    if (this.form!.isValid()) console.log('The form is valid');
+    if (form.current!.isValid()) console.log('The form is valid');
     else console.log('The form is invalid');
 
-    this.setState({signUpButtonDisabled: !this.form!.isValid()});
+    setSignUpButtonDisabled(!form.current!.isValid());
   }
 
-  handlePasswordChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  async function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target;
 
-    // FIXME See Computed property key names should not be widened https://github.com/Microsoft/TypeScript/issues/13948
-    // @ts-ignore
-    this.setState({
-      [target.name as keyof State]: target.value
+    setInputs(prevState => {
+      return {...prevState, [target.name]: target.value};
     });
 
-    const fields = await this.form!.validateFields(target, 'passwordConfirm');
+    const fields = await form.current!.validateFields(target, 'passwordConfirm');
 
     const fieldsAreValid = fields.every(field => field.isValid());
     if (fieldsAreValid) console.log(`Fields '${target.name}' and 'passwordConfirm' are valid`);
     else console.log(`Fields '${target.name}' and/or 'passwordConfirm' are invalid`);
 
-    if (this.form!.isValid()) console.log('The form is valid');
+    if (form.current!.isValid()) console.log('The form is valid');
     else console.log('The form is invalid');
 
-    this.setState({signUpButtonDisabled: !this.form!.isValid()});
+    setSignUpButtonDisabled(!form.current!.isValid());
   }
 
-  handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     // Validates the non-dirty fields and returns the related FieldValidation structures
-    const fields = await this.form!.validateForm();
+    const fields = await form.current!.validateForm();
 
-    // or simply use this.form.isValid()
+    // or simply use form.current.isValid()
     const formIsValid = fields.every(field => field.isValid());
 
     if (formIsValid) console.log('The form is valid');
     else console.log('The form is invalid');
 
-    this.setState({signUpButtonDisabled: !formIsValid});
+    setSignUpButtonDisabled(!form.current!.isValid());
     if (formIsValid) {
-      alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
+      alert(`Valid form\n\ninputs =\n${JSON.stringify(inputs, null, 2)}`);
     }
   }
 
-  render() {
-    return (
-      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
-                           onSubmit={this.handleSubmit} noValidate>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email"
-                 value={this.state.email} onChange={this.handleChange}
-                 required minLength={5} />
-          <FieldFeedbacks for="email">
-            <FieldFeedback when="tooShort">Too short</FieldFeedback>
-            <FieldFeedback when="*" />
-            <FieldFeedback when="valid">Looks good!</FieldFeedback>
-          </FieldFeedbacks>
-        </div>
+  return (
+    <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
+      <div>
+        <label htmlFor="email">Email</label>
+        <input type="email" name="email" id="email"
+               value={inputs.email} onChange={handleChange}
+               required minLength={5} />
+        <FieldFeedbacks for="email">
+          <FieldFeedback when="tooShort">Too short</FieldFeedback>
+          <FieldFeedback when="*" />
+          <FieldFeedback when="valid">Looks good!</FieldFeedback>
+        </FieldFeedbacks>
+      </div>
 
-        <div>
-          <label htmlFor="password">Password <small>(common passwords: 123456, password, 12345678, qwerty...)</small></label>
-          <input type="password" name="password" id="password"
-                 ref={password => this.password = password}
-                 value={this.state.password} onChange={this.handlePasswordChange}
-                 required pattern=".{5,}" />
-          <FieldFeedbacks for="password">
-            <FieldFeedback when="valueMissing" />
-            <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
-            <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
-            <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
-            <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
-            <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
-            <Async
-              promise={isACommonPassword}
-              pending={<span style={{display: 'block'}}>...</span>}
-              then={commonPassword => commonPassword ?
-                <FieldFeedback warning>This password is very common</FieldFeedback> : null
-              }
-            />
-            <FieldFeedback when="valid">Looks good!</FieldFeedback>
-          </FieldFeedbacks>
-        </div>
+      <div>
+        <label htmlFor="password">Password <small>(common passwords: 123456, password, 12345678, qwerty...)</small></label>
+        <input type="password" name="password" id="password"
+               ref={password}
+               value={inputs.password} onChange={handlePasswordChange}
+               required pattern=".{5,}" />
+        <FieldFeedbacks for="password">
+          <FieldFeedback when="valueMissing" />
+          <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
+          <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
+          <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
+          <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
+          <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
+          <Async
+            promise={isACommonPassword}
+            pending={<span style={{display: 'block'}}>...</span>}
+            then={commonPassword => commonPassword ?
+              <FieldFeedback warning>This password is very common</FieldFeedback> : null
+            }
+          />
+          <FieldFeedback when="valid">Looks good!</FieldFeedback>
+        </FieldFeedbacks>
+      </div>
 
-        <div>
-          <label htmlFor="password-confirm">Confirm Password</label>
-          <input type="password" name="passwordConfirm" id="password-confirm"
-                 value={this.state.passwordConfirm} onChange={this.handleChange} />
-          <FieldFeedbacks for="passwordConfirm">
-            <FieldFeedback when={value => value !== this.password!.value}>Not the same password</FieldFeedback>
-          </FieldFeedbacks>
-        </div>
+      <div>
+        <label htmlFor="password-confirm">Confirm Password</label>
+        <input type="password" name="passwordConfirm" id="password-confirm"
+               value={inputs.passwordConfirm} onChange={handleChange} />
+        <FieldFeedbacks for="passwordConfirm">
+          <FieldFeedback when={value => value !== password.current!.value}>Not the same password</FieldFeedback>
+        </FieldFeedbacks>
+      </div>
 
-        <button disabled={this.state.signUpButtonDisabled}>Sign Up</button>
+      <button disabled={signUpButtonDisabled}>Sign Up</button>
 
-        <DisplayFields />
-      </FormWithConstraints>
-    );
-  }
+      <DisplayFields />
+    </FormWithConstraints>
+  );
 }
 
 ReactDOM.render(<Form />, document.getElementById('app'));

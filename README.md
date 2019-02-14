@@ -78,23 +78,23 @@ Resources:
 
   ![example-password](doc/example-password.png)
 
-- [Bootstrap 4 example](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/Bootstrap4)
-- [Material-UI example](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/MaterialUI)
-- [WizardForm example](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/WizardForm)
-- [SignUp example](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/SignUp)
-- [ClubMembers example](https://codesandbox.io/s/q8364yn60j)
-- [Password without state example](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/PasswordWithoutState)
+- [Bootstrap 4 example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/Bootstrap4)
+- [Material-UI example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/MaterialUI)
+- [WizardForm example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/WizardForm)
+- [SignUp example (React classes)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/SignUp)
+- [ClubMembers example (React classes + MobX)](https://codesandbox.io/s/q8364yn60j)
+- [Password without state example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/PasswordWithoutState)
 
-- [React Native example](examples/ReactNative):
+- [React Native example (React classes)](examples/ReactNative):
 
   | iOS                                                   |                                                       Android |
   | ----------------------------------------------------- | ------------------------------------------------------------- |
   | ![react-native-example-ios](doc/react-native-ios.png) | ![react-native-example-android](doc/react-native-android.png) |
 
 - Other examples from [the examples directory](examples):
-  - [Plain old React form validation example](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/PlainOldReact)
-  - [React with HTML5 constraint validation API example](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/HTML5ConstraintValidationAPI)
-  - [Server-side rendering example](examples/ServerSideRendering)
+  - [Plain old React form validation example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/PlainOldReact)
+  - [React with HTML5 constraint validation API example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/HTML5ConstraintValidationAPI)
+  - [Server-side rendering example (React hooks)](examples/ServerSideRendering)
 
 ## How it works
 
@@ -146,59 +146,46 @@ Async support works as follow:
 
 Trigger validation:
 ```JSX
-class MyForm extends React.Component {
-  async handleChange = e => {
+function MyForm() {
+  const form = useRef(null);
+
+  async function handleChange(e) {
     const target = e.target;
 
     // Validates only the given fields and returns Promise<Field[]>
-    const fields = await this.form.validateFields(target);
-
-    const fieldIsValid = fields.every(field => field.isValid());
-    if (fieldIsValid) console.log(`Field '${target.name}' is valid`);
-    else console.log(`Field '${target.name}' is invalid`);
-
-    if (this.form.isValid()) console.log('The form is valid');
-    else console.log('The form is invalid');
+    const fields = await form.current.validateFields(target);
   }
 
-  async handleSubmit = e => {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     // Validates the non-dirty fields and returns Promise<Field[]>
-    const fields = await this.form.validateForm();
+    const fields = await form.current.validateForm();
 
-    // or simply use this.form.isValid()
-    const formIsValid = fields.every(field => field.isValid());
-
-    if (formIsValid) console.log('The form is valid');
+    if (form.current.isValid()) console.log('The form is valid');
     else console.log('The form is invalid');
   }
 
-  render() {
-    return (
-      <FormWithConstraints
-        ref={formWithConstraints => this.form = formWithConstraints}
-        onSubmit={this.handleSubmit} noValidate
-      >
-        <input
-          name="username"
-          onChange={this.handleChange}
-          required minLength={3}
+  return (
+    <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
+      <input
+        name="username"
+        onChange={handleChange}
+        required minLength={3}
+      />
+      <FieldFeedbacks for="username">
+        <FieldFeedback when="tooShort">Too short</FieldFeedback>
+        <Async
+          promise={checkUsernameAvailability}
+          then={available => available ?
+            <FieldFeedback key="1" info style={{color: 'green'}}>Username available</FieldFeedback> :
+            <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>
+          }
         />
-        <FieldFeedbacks for="username">
-          <FieldFeedback when="tooShort">Too short</FieldFeedback>
-          <Async
-            promise={checkUsernameAvailability}
-            then={available => available ?
-              <FieldFeedback key="1" info style={{color: 'green'}}>Username available</FieldFeedback> :
-              <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>
-            }
-          />
-          <FieldFeedback when="*" />
-        </FieldFeedbacks>
-      </FormWithConstraints>
-    );
-  }
+        <FieldFeedback when="*" />
+      </FieldFeedbacks>
+    </FormWithConstraints>
+  );
 }
 ```
 

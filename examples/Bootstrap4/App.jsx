@@ -3,9 +3,9 @@
 import '@babel/polyfill';
 import 'raf/polyfill';
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import { isEqual, omit } from 'lodash-es';
+import { isEqual } from 'lodash-es';
 
 import { FormWithConstraints, Input, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints-bootstrap4';
 import { DisplayFields } from 'react-form-with-constraints-tools';
@@ -23,143 +23,135 @@ async function checkUsernameAvailability(value) {
   return !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase());
 }
 
-class Form extends React.Component {
-  state = this.getInitialState();
+function Form() {
+  const form = useRef(null);
+  const password = useRef(null);
 
-  getInitialState() {
+  function getInitialInputsState() {
     return {
       username: '',
       password: '',
-      passwordConfirm: '',
-      signUpButtonDisabled: false,
-      resetButtonDisabled: true
+      passwordConfirm: ''
     };
   }
 
-  shouldDisableResetButton(state) {
-    const omitList = ['signUpButtonDisabled', 'resetButtonDisabled'];
-    return isEqual(omit(this.getInitialState(), omitList), omit(state, omitList)) && !this.form.hasFeedbacks();
+  const [inputs, setInputs] = useState(getInitialInputsState());
+  const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(false);
+  const [resetButtonDisabled, setResetButtonDisabled] = useState(true);
+
+  function shouldDisableResetButton(state) {
+    return isEqual(getInitialInputsState(), state) && !form.current.hasFeedbacks();
   }
 
-  handleChange = async e => {
+  async function handleChange(e) {
     const target = e.target;
 
-    this.setState({
-      [target.name]: target.value
+    setInputs(prevState => {
+      return {...prevState, [target.name]: target.value};
     });
 
-    await this.form.validateFields(target);
+    await form.current.validateFields(target);
 
-    this.setState(prevState => ({
-      signUpButtonDisabled: !this.form.isValid(),
-      resetButtonDisabled: this.shouldDisableResetButton(prevState)
-    }));
+    setSignUpButtonDisabled(!form.current.isValid());
+    setResetButtonDisabled(shouldDisableResetButton(inputs));
   }
 
-  handlePasswordChange = async e => {
+  async function handlePasswordChange(e) {
     const target = e.target;
 
-    this.setState({
-      [target.name]: target.value
+    setInputs(prevState => {
+      return {...prevState, [target.name]: target.value};
     });
 
-    await this.form.validateFields(target, 'passwordConfirm');
+    await form.current.validateFields(target, 'passwordConfirm');
 
-    this.setState(prevState => ({
-      signUpButtonDisabled: !this.form.isValid(),
-      resetButtonDisabled: this.shouldDisableResetButton(prevState)
-    }));
+    setSignUpButtonDisabled(!form.current.isValid());
+    setResetButtonDisabled(shouldDisableResetButton(inputs));
   }
 
-  handleSubmit = async e => {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    await this.form.validateForm();
-    const formIsValid = this.form.isValid();
+    await form.current.validateForm();
+    const formIsValid = form.current.isValid();
 
-    this.setState(prevState => ({
-      signUpButtonDisabled: !formIsValid,
-      resetButtonDisabled: this.shouldDisableResetButton(prevState)
-    }));
+    setSignUpButtonDisabled(!form.current.isValid());
+    setResetButtonDisabled(shouldDisableResetButton(inputs));
 
     if (formIsValid) {
-      alert(`Valid form\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
+      alert(`Valid form\n\ninputs =\n${JSON.stringify(inputs, null, 2)}`);
     }
   }
 
-  handleReset = () => {
-    this.setState(this.getInitialState());
-    this.form.resetFields();
-    this.setState({resetButtonDisabled: true});
+  function handleReset() {
+    setInputs(getInitialInputsState());
+    form.current.resetFields();
+    setSignUpButtonDisabled(false);
+    setResetButtonDisabled(true);
   }
 
-  render() {
-    const { username, password, passwordConfirm, signUpButtonDisabled, resetButtonDisabled } = this.state;
+  return (
+    <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
+      <div className="form-group">
+        <label htmlFor="username">Username <small>(already taken: john, paul, george, ringo)</small></label>
+        <Input id="username" name="username"
+               value={inputs.username} onChange={handleChange}
+               required minLength={3}
+               className="form-control" />
+        <span className="input-state" />
+        <FieldFeedbacks for="username">
+          <FieldFeedback when="tooShort">Too short</FieldFeedback>
+          <FieldFeedback when="*" />
+          <Async
+            promise={checkUsernameAvailability}
+            pending={<span className="d-block">...</span>}
+            then={available => available ?
+              <FieldFeedback key="1" info style={{color: '#28a745'}}>Username available</FieldFeedback> :
+              <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>
+            }
+          />
+          <FieldFeedback when="valid">Looks good!</FieldFeedback>
+        </FieldFeedbacks>
+      </div>
 
-    return (
-      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
-                           onSubmit={this.handleSubmit} noValidate>
-        <div className="form-group">
-          <label htmlFor="username">Username <small>(already taken: john, paul, george, ringo)</small></label>
-          <Input id="username" name="username"
-                 value={username} onChange={this.handleChange}
-                 required minLength={3}
-                 className="form-control" />
-          <span className="input-state" />
-          <FieldFeedbacks for="username">
-            <FieldFeedback when="tooShort">Too short</FieldFeedback>
-            <FieldFeedback when="*" />
-            <Async
-              promise={checkUsernameAvailability}
-              pending={<span className="d-block">...</span>}
-              then={available => available ?
-                <FieldFeedback key="1" info style={{color: '#28a745'}}>Username available</FieldFeedback> :
-                <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>
-              }
-            />
-            <FieldFeedback when="valid">Looks good!</FieldFeedback>
-          </FieldFeedbacks>
-        </div>
+      <div className="form-group">
+        <label htmlFor="password">Password</label>
+        <Input type="password" id="password" name="password"
+               innerRef={password}
+               value={inputs.password} onChange={handlePasswordChange}
+               required pattern=".{5,}"
+               className="form-control" />
+        <span className="input-state" />
+        <FieldFeedbacks for="password">
+          <FieldFeedback when="valueMissing" />
+          <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
+          <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
+          <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
+          <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
+          <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
+          <FieldFeedback when="valid">Looks good!</FieldFeedback>
+        </FieldFeedbacks>
+      </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <Input type="password" id="password" name="password"
-                 innerRef={_password => this.password = _password}
-                 value={password} onChange={this.handlePasswordChange}
-                 required pattern=".{5,}"
-                 className="form-control" />
-          <span className="input-state" />
-          <FieldFeedbacks for="password">
-            <FieldFeedback when="valueMissing" />
-            <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
-            <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
-            <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
-            <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
-            <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
-            <FieldFeedback when="valid">Looks good!</FieldFeedback>
-          </FieldFeedbacks>
-        </div>
+      <div className="form-group">
+        <label htmlFor="password-confirm">Confirm Password</label>
+        <Input type="password" id="password-confirm" name="passwordConfirm"
+               value={inputs.passwordConfirm} onChange={handleChange}
+               required className="form-control" />
+        <span className="input-state" />
+        <FieldFeedbacks for="passwordConfirm">
+          <FieldFeedback when="*" />
+          <FieldFeedback when={value => value !== password.current.value}>Not the same password</FieldFeedback>
+          <FieldFeedback when="valid">Looks good!</FieldFeedback>
+        </FieldFeedbacks>
+      </div>
 
-        <div className="form-group">
-          <label htmlFor="password-confirm">Confirm Password</label>
-          <Input type="password" id="password-confirm" name="passwordConfirm"
-                 value={passwordConfirm} onChange={this.handleChange}
-                 required className="form-control" />
-          <span className="input-state" />
-          <FieldFeedbacks for="passwordConfirm">
-            <FieldFeedback when="*" />
-            <FieldFeedback when={value => value !== this.password.value}>Not the same password</FieldFeedback>
-            <FieldFeedback when="valid">Looks good!</FieldFeedback>
-          </FieldFeedbacks>
-        </div>
+      <button disabled={signUpButtonDisabled} className="btn btn-primary">Sign Up</button>{' '}
+      <button type="button" onClick={handleReset} disabled={resetButtonDisabled} className="btn btn-secondary">Reset</button>
 
-        <button disabled={signUpButtonDisabled} className="btn btn-primary">Sign Up</button>{' '}
-        <button type="button" onClick={this.handleReset} disabled={resetButtonDisabled} className="btn btn-secondary">Reset</button>
-
-        <DisplayFields />
-      </FormWithConstraints>
-    );
-  }
+      <DisplayFields />
+    </FormWithConstraints>
+  );
 }
 
 function App() {

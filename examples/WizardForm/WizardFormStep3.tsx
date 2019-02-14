@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
 
 import { Color, colorKeys } from './Color';
 
-export interface Props {
+interface Props {
   favoriteColor: '' | Color;
   employed?: boolean;
   notes?: string;
@@ -13,68 +13,61 @@ export interface Props {
   onSubmit: () => void;
 }
 
-class WizardFormStep3 extends React.Component<Props> {
-  form: FormWithConstraints | null = null;
+export default function WizardFormStep3(props: Props) {
+  const form = useRef<FormWithConstraints | null>(null);
 
-  handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => {
+  function handleChange(e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) {
     const target = e.target;
 
-    this.props.onChange(target);
+    props.onChange(target);
 
-    this.form!.validateFields(target);
+    form.current!.validateFields(target);
   }
 
-  handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    await this.form!.validateForm();
-    if (this.form!.isValid()) {
-      this.props.onSubmit();
+    await form.current!.validateForm();
+    if (form.current!.isValid()) {
+      props.onSubmit();
     }
   }
 
-  render() {
-    const { favoriteColor, employed, notes, previousPage } = this.props;
+  return (
+    <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
+      <div>
+        <label>
+          Favorite Color
+          <br />
+          <select name="favoriteColor"
+                  value={props.favoriteColor} onChange={handleChange}
+                  required>
+            <option value="" disabled>Select a color...</option>
+            {colorKeys.map(colorKey => <option value={Color[colorKey as any]} key={colorKey}>{colorKey}</option>)}
+          </select>
+        </label>
+        <FieldFeedbacks for="favoriteColor">
+          <FieldFeedback when="*" />
+        </FieldFeedbacks>
+      </div>
 
-    return (
-      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
-                           onSubmit={this.handleSubmit} noValidate>
-        <div>
-          <label>
-            Favorite Color
-            <br />
-            <select name="favoriteColor"
-                    value={favoriteColor} onChange={this.handleChange}
-                    required>
-              <option value="" disabled>Select a color...</option>
-              {colorKeys.map(colorKey => <option value={Color[colorKey as any]} key={colorKey}>{colorKey}</option>)}
-            </select>
-          </label>
-          <FieldFeedbacks for="favoriteColor">
-            <FieldFeedback when="*" />
-          </FieldFeedbacks>
-        </div>
+      <div>
+        <label>
+          <input type="checkbox" name="employed"
+                 checked={props.employed ? props.employed : false} onChange={handleChange} />
+          Employed
+        </label>
+      </div>
 
-        <div>
-          <label>
-            <input type="checkbox" name="employed"
-                   checked={employed ? employed : false} onChange={this.handleChange} />
-            Employed
-          </label>
-        </div>
+      <div>
+        <label htmlFor="notes">Notes</label>
+        <textarea name="notes" id="notes"
+                  value={props.notes} onChange={handleChange} />
+      </div>
 
-        <div>
-          <label htmlFor="notes">Notes</label>
-          <textarea name="notes" id="notes"
-                    value={notes} onChange={this.handleChange} />
-        </div>
-
-        <button type="button" onClick={previousPage}>Previous</button>
-        &nbsp;
-        <button>Submit</button>
-      </FormWithConstraints>
-    );
-  }
+      <button type="button" onClick={props.previousPage}>Previous</button>
+      &nbsp;
+      <button>Submit</button>
+    </FormWithConstraints>
+  );
 }
-
-export default WizardFormStep3;

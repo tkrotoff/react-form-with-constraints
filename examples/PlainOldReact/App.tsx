@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import './index.html';
@@ -38,126 +38,110 @@ function hasErrors(errors: Errors) {
   return errors.email.length > 0 || errors.password.length > 0 || errors.passwordConfirm.length > 0;
 }
 
+function Form() {
+  const email = useRef<HTMLInputElement | null>(null);
+  const password = useRef<HTMLInputElement | null>(null);
+  const passwordConfirm = useRef<HTMLInputElement | null>(null);
 
-interface Props {}
+  const [errors, setErrors] = useState<Errors>({
+    email: [],
+    password: [],
+    passwordConfirm: []
+  });
 
-interface State {
-  errors: Errors;
-}
-
-class Form extends React.Component<Props, State> {
-  email: HTMLInputElement | null = null;
-  password: HTMLInputElement | null = null;
-  passwordConfirm: HTMLInputElement | null = null;
-
-  state: State = {
-    errors: {
-      email: [],
-      password: [],
-      passwordConfirm: []
-    }
-  };
-
-  handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handleEmailChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
-    this.setState(prevState => {
+    setErrors(prevState => {
       return {
-        errors: {
-          ...prevState.errors,
-          email: validateEmail(value)
-        }
+        ...prevState,
+        email: validateEmail(value)
       };
     });
   }
 
-  handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
-    this.setState(prevState => {
+    setErrors(prevState => {
       return {
-        errors: {
-          ...prevState.errors,
-          password: validatePassword(value),
-          passwordConfirm: validatePasswordConfirm(value, this.passwordConfirm!.value)
-        }
+        ...prevState,
+        password: validatePassword(value),
+        passwordConfirm: validatePasswordConfirm(value, passwordConfirm.current!.value)
       };
     });
   }
 
-  handlePasswordConfirmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handlePasswordConfirmChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
-    this.setState(prevState => {
+    setErrors(prevState => {
       return {
-        errors: {
-          ...prevState.errors,
-          passwordConfirm: validatePasswordConfirm(this.password!.value, value)
-        }
+        ...prevState,
+        passwordConfirm: validatePasswordConfirm(password.current!.value, value)
       };
     });
   }
 
-  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    this.setState(
-      prevState => {
-        return {
-          errors: {
-            ...prevState.errors,
-            email: validateEmail(this.email!.value),
-            password: validatePassword(this.password!.value),
-            passwordConfirm: validatePasswordConfirm(this.password!.value, this.passwordConfirm!.value)
-          }
-        };
-      },
-      () => {
-        if (!hasErrors(this.state.errors)) {
-          alert('Valid form');
-        } else {
-          alert('Invalid form');
-        }
+    setErrors(prevState => {
+      return {
+        ...prevState,
+        email: validateEmail(email.current!.value),
+        password: validatePassword(password.current!.value),
+        passwordConfirm: validatePasswordConfirm(password.current!.value, passwordConfirm.current!.value)
+      };
+    });
+    setIsSubmitted(true);
+  }
+
+  // FIXME See [SetStateAction returned from useState hook does not accept a second callback argument](https://github.com/facebook/react/issues/14174)
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  useEffect(() => {
+    if (isSubmitted) {
+      if (!hasErrors(errors)) {
+        alert('Valid form');
+      } else {
+        alert('Invalid form');
       }
-    );
-  }
+      setIsSubmitted(false);
+    }
+  });
 
-  render() {
-    const { errors } = this.state;
-
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input id="email"
-                 ref={email => this.email = email}
-                 onChange={this.handleEmailChange} />
-          <div className="error">
-            {errors.email.map(error => <div key={error}>{error}</div>)}
-          </div>
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="email">Email</label>
+        <input id="email"
+               ref={email}
+               onChange={handleEmailChange} />
+        <div className="error">
+          {errors.email.map(error => <div key={error}>{error}</div>)}
         </div>
+      </div>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password"
-                 ref={password => this.password = password}
-                 onChange={this.handlePasswordChange} />
-          <div className="error">
-            {errors.password.map(error => <div key={error}>{error}</div>)}
-          </div>
+      <div>
+        <label htmlFor="password">Password</label>
+        <input type="password" id="password"
+               ref={password}
+               onChange={handlePasswordChange} />
+        <div className="error">
+          {errors.password.map(error => <div key={error}>{error}</div>)}
         </div>
+      </div>
 
-        <div>
-          <label htmlFor="password-confirm">Confirm Password</label>
-          <input type="password" id="password-confirm"
-                 ref={passwordConfirm => this.passwordConfirm = passwordConfirm}
-                 onChange={this.handlePasswordConfirmChange} />
-          <div className="error">
-            {errors.passwordConfirm.map(error => <div key={error}>{error}</div>)}
-          </div>
+      <div>
+        <label htmlFor="password-confirm">Confirm Password</label>
+        <input type="password" id="password-confirm"
+               ref={passwordConfirm}
+               onChange={handlePasswordConfirmChange} />
+        <div className="error">
+          {errors.passwordConfirm.map(error => <div key={error}>{error}</div>)}
         </div>
+      </div>
 
-        <button>Sign Up</button>
-      </form>
-    );
-  }
+      <button>Sign Up</button>
+    </form>
+  );
 }
 
 ReactDOM.render(<Form />, document.getElementById('app'));

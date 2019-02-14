@@ -5,7 +5,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 // tslint:disable-next-line:no-var-requires
 const fr = require('./locales/fr/translation.json');
 
-i18n
+export default i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
@@ -29,5 +29,3 @@ i18n
       fr: {translation: fr}
     }
   });
-
-export default i18n;
