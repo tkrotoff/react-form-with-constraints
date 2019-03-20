@@ -25,7 +25,7 @@
   "sideEffects": false,
 
   "scripts": {
-    "clean": "del-cli lib lib-es5 coverage .rpt2_cache",
+    "clean": "rm -rf lib lib-es5 coverage .rpt2_cache",
 
     "tsc": "tsc",
     "build": "yarn build:esnext && yarn build:es5",
@@ -69,9 +69,6 @@
     "babel-jest": "latest",
     "@babel/core": "latest",
     "babel-core": "^7.0.0-bridge.0",
-    "metro-react-native-babel-preset": "latest",
-
-    "del-cli": "latest",
-    "cross-env": "latest"
+    "metro-react-native-babel-preset": "latest"
   }
 }

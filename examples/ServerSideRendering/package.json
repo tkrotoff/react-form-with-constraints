@@ -14,11 +14,11 @@
   "main": "App.tsx",
 
   "scripts": {
-    "clean": "del-cli build",
+    "clean": "rm -rf build",
 
     "tsc": "tsc",
 
-    "build": "cross-env NODE_ENV=development webpack -d",
+    "build": "webpack -d",
 
     "start": "yarn clean && yarn build && cd build && node server"
   },
@@ -51,9 +51,6 @@
     "@types/webpack-node-externals": "latest",
     "ts-loader": "latest",
     "file-loader": "latest",
-    "source-map-loader": "latest",
-
-    "del-cli": "latest",
-    "cross-env": "latest"
+    "source-map-loader": "latest"
   }
 }

@@ -15,10 +15,10 @@
   "main": "App.jsx",
 
   "scripts": {
-    "clean": "del-cli build",
+    "clean": "rm -rf build",
 
-    "build": "cross-env NODE_ENV=development webpack -d",
-    "build:watch": "cross-env NODE_ENV=development webpack -d --watch",
+    "build": "webpack -d",
+    "build:watch": "webpack -d --watch",
 
     "pretest:e2e": "yarn build",
     "test:e2e": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose --config jest-e2e.config.js"
@@ -62,9 +62,6 @@
     "webpack": "latest",
     "babel-loader": "latest",
     "file-loader": "latest",
-    "source-map-loader": "latest",
-
-    "del-cli": "latest",
-    "cross-env": "latest"
+    "source-map-loader": "latest"
   }
 }

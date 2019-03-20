@@ -13,12 +13,12 @@
   "main": "App.tsx",
 
   "scripts": {
-    "clean": "del-cli build",
+    "clean": "rm -rf build",
 
     "tsc": "tsc",
 
-    "build": "cross-env NODE_ENV=development webpack -d",
-    "build:watch": "cross-env NODE_ENV=development webpack -d --watch"
+    "build": "webpack -d",
+    "build:watch": "webpack -d --watch"
   },
 
   "dependencies": {
@@ -49,9 +49,6 @@
     "@types/webpack": "latest",
     "ts-loader": "latest",
     "file-loader": "latest",
-    "source-map-loader": "latest",
-
-    "del-cli": "latest",
-    "cross-env": "latest"
+    "source-map-loader": "latest"
   }
 }
