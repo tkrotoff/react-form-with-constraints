@@ -30,8 +30,8 @@
     "react": "latest",
     "react-dom": "latest",
 
-    "react-form-with-constraints": "^0.11.0",
-    "react-form-with-constraints-tools": "^0.11.0"
+    "react-form-with-constraints": "^0.12.0",
+    "react-form-with-constraints-tools": "^0.12.0"
   },
 
   "devDependencies": {

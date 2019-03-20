@@ -1,3 +1,12 @@
+## v0.12.0 (2019/03/21)
+
+### Features
+
+- Update examples to use hooks
+- Remove *.js.gz files
+- Upgrade NPM packages
+
+
 ## v0.11.0 (2019/01/05)
 
 ### Fixes
