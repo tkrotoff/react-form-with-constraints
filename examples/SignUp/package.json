@@ -48,8 +48,6 @@
     "@types/lodash": "latest",
 
     "@types/i18next": "latest",
-    "@types/react-i18next": "latest",
-    "@types/i18next-browser-languagedetector": "latest",
 
     "i18next-parser": "latest",
 
