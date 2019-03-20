@@ -1,12 +1,11 @@
 {
   "extends": "../../tsconfig",
 
-  // List everything so that vscode displays potential errors for everything
-
   "files": [
     "src/index.ts"
   ],
 
+  // List everything so that vscode displays potential errors for everything
   "include": [
     "src/*.test.ts",
     "src/*.test.tsx"

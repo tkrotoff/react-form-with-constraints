@@ -2,19 +2,22 @@
   "compilerOptions": {
     "noEmit": true,
     "target": "es2018",
-    "jsx": "react",
     "module": "esnext",
     "moduleResolution": "node",
+    "jsx": "react",
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": false,
     "noLib": false,
     "lib": ["dom", "dom.iterable", "es2018"],
     "experimentalDecorators": true,
+
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "strict": true,
+    "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
+
     "removeComments": true,
 
     // FIXME
