@@ -64,14 +64,9 @@
     "@types/enzyme-adapter-react-16": "latest",
     "react-dom": "latest",
 
-    "node-zopfli": "latest",
-    "node-gyp": "latest",
-
     "rollup": "latest",
-    "rollup-pluginutils": "latest",
     "rollup-plugin-typescript2": "latest",
     "rollup-plugin-uglify": "latest",
-    "rollup-plugin-gzip": "latest",
     "rollup-plugin-filesize": "latest",
     "rollup-plugin-strip": "latest",
 

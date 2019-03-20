@@ -71,14 +71,9 @@
     "js-beautify": "latest",
     "@types/js-beautify": "latest",
 
-    "node-zopfli": "latest",
-    "node-gyp": "latest",
-
     "rollup": "latest",
-    "rollup-pluginutils": "latest",
     "rollup-plugin-typescript2": "latest",
     "rollup-plugin-uglify": "latest",
-    "rollup-plugin-gzip": "latest",
     "rollup-plugin-filesize": "latest",
     "rollup-plugin-strip": "latest",
 
