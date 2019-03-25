@@ -16,29 +16,24 @@ export interface FormWithConstraintsChildContext {
   form: FormWithConstraints;
 }
 
-export interface FormWithConstraintsProps extends React.FormHTMLAttributes<HTMLFormElement> {
-}
+export interface FormWithConstraintsProps extends React.FormHTMLAttributes<HTMLFormElement> {}
 
 class FormWithConstraintsComponent extends React.Component<FormWithConstraintsProps> {}
 export class FormWithConstraints
-  extends
-    withFieldDidResetEventEmitter(
-      withFieldWillValidateEventEmitter(
-        withFieldDidValidateEventEmitter(
-          withValidateFieldEventEmitter<
-            // FieldFeedback returns FieldFeedbackValidation
-            // Async returns FieldFeedbackValidation[] | undefined
-            // FieldFeedbacks returns (FieldFeedbackValidation | undefined)[] | undefined
-            FieldFeedbackValidation | (FieldFeedbackValidation | undefined)[] | undefined,
-            typeof FormWithConstraintsComponent
-          >(
-            FormWithConstraintsComponent
-          )
-        )
+  extends withFieldDidResetEventEmitter(
+    withFieldWillValidateEventEmitter(
+      withFieldDidValidateEventEmitter(
+        withValidateFieldEventEmitter<
+          // FieldFeedback returns FieldFeedbackValidation
+          // Async returns FieldFeedbackValidation[] | undefined
+          // FieldFeedbacks returns (FieldFeedbackValidation | undefined)[] | undefined
+          FieldFeedbackValidation | (FieldFeedbackValidation | undefined)[] | undefined,
+          typeof FormWithConstraintsComponent
+        >(FormWithConstraintsComponent)
       )
     )
+  )
   implements React.ChildContextProvider<FormWithConstraintsChildContext> {
-
   static childContextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
     form: PropTypes.instanceOf(FormWithConstraints).isRequired
   };
@@ -78,7 +73,10 @@ export class FormWithConstraints
     return this._validateFields(/* forceValidateFields */ false, ...inputsOrNames);
   }
 
-  private async _validateFields(forceValidateFields: boolean, ...inputsOrNames: Array<InputElement | string>) {
+  private async _validateFields(
+    forceValidateFields: boolean,
+    ...inputsOrNames: Array<InputElement | string>
+  ) {
     const fields = new Array<Readonly<Field>>();
 
     const inputs = this.normalizeInputs(...inputsOrNames);
@@ -98,9 +96,7 @@ export class FormWithConstraints
     if (field === undefined) {
       // Means the field (<input name="username">) does not have a FieldFeedbacks
       // so let's ignore this field
-    }
-
-    else if (forceValidateFields || !field.hasFeedbacks()) {
+    } else if (forceValidateFields || !field.hasFeedbacks()) {
       field.clearValidations();
 
       this.emitFieldWillValidateEvent(fieldName);
@@ -111,10 +107,10 @@ export class FormWithConstraints
       // Can be temporary out of sync if the user rapidly change the input, in this case:
       // emitFieldWillValidateEvent() returns the result of the first change while the store already contains the final validations
       console.assert(
-        JSON.stringify(flattenDeep<FieldFeedbackValidation | undefined>(arrayOfArrays).filter(notUndefined)) /* validationsFromEmitValidateFieldEvent */
-        ===
-        JSON.stringify(field.validations) /* validationsFromStore */
-        ,
+        JSON.stringify(
+          flattenDeep<FieldFeedbackValidation | undefined>(arrayOfArrays).filter(notUndefined)
+        ) /* validationsFromEmitValidateFieldEvent */ ===
+          JSON.stringify(field.validations) /* validationsFromStore */,
         `FieldsStore does not match emitValidateFieldEvent() result, did the user changed the input rapidly?`
       );
 
@@ -126,7 +122,11 @@ export class FormWithConstraints
 
   // If called without arguments, returns all fields ($('[name]'))
   // Returns the inputs in the same order they were given
-  protected normalizeInputs(...inputsOrNames: Array<InputElement /* HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement... */ | string>) {
+  protected normalizeInputs(
+    ...inputsOrNames: Array<
+      InputElement /* HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement... */ | string
+    >
+  ) {
     let inputs;
 
     if (inputsOrNames.length === 0) {
@@ -228,6 +228,6 @@ export class FormWithConstraints
   }
 
   render() {
-    return <form ref={form => this.form = form} {...this.props} />;
+    return <form ref={form => (this.form = form)} {...this.props} />;
   }
 }

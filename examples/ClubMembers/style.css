@@ -1,7 +1,7 @@
 /* See https://github.com/twbs/bootstrap/blob/v4.1.2/scss/_close.scss */
 button.close {
   float: initial;
-  padding-left: .5rem;
+  padding-left: 0.5rem;
 }
 
 ul.list-none {
@@ -12,22 +12,22 @@ ul.list-none {
  * See https://github.com/twbs/bootstrap/blob/v4.1.2/scss/mixins/_forms.scss#L30
  */
 [data-feedback].error {
-  margin-top: .25rem; /* $form-feedback-margin-top => $form-text-margin-top => .25rem */
+  margin-top: 0.25rem; /* $form-feedback-margin-top => $form-text-margin-top => .25rem */
   font-size: 80%; /* $form-feedback-font-size => $small-font-size => 80% */
   color: #dc3545; /* $form-feedback-invalid-color => $danger => $red => #dc3545 */
 }
 [data-feedback].warning {
-  margin-top: .25rem;
+  margin-top: 0.25rem;
   font-size: 80%;
   color: #ffc107; /* $warning => $yellow => #ffc107 */
 }
 [data-feedback].info {
-  margin-top: .25rem;
+  margin-top: 0.25rem;
   font-size: 80%;
   color: #17a2b8; /* $info => $cyan => #17a2b8 */
 }
 [data-feedback].when-valid {
-  margin-top: .25rem;
+  margin-top: 0.25rem;
   font-size: 80%;
   color: #28a745; /* $form-feedback-valid-color => $success => $green => #28a745 */
 }

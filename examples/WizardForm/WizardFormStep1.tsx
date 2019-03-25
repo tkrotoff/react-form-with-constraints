@@ -33,9 +33,14 @@ export default function WizardFormStep1(props: Props) {
     <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
       <div>
         <label htmlFor="first-name">First Name</label>
-        <input name="firstName" id="first-name"
-               value={props.firstName} onChange={handleChange}
-               required minLength={3} />
+        <input
+          name="firstName"
+          id="first-name"
+          value={props.firstName}
+          onChange={handleChange}
+          required
+          minLength={3}
+        />
         <FieldFeedbacks for="firstName">
           <FieldFeedback when="tooShort">Too short</FieldFeedback>
           <FieldFeedback when="*" />
@@ -44,9 +49,14 @@ export default function WizardFormStep1(props: Props) {
 
       <div>
         <label htmlFor="last-name">Last Name</label>
-        <input name="lastName" id="last-name"
-               value={props.lastName} onChange={handleChange}
-               required minLength={3} />
+        <input
+          name="lastName"
+          id="last-name"
+          value={props.lastName}
+          onChange={handleChange}
+          required
+          minLength={3}
+        />
         <FieldFeedbacks for="lastName">
           <FieldFeedback when="tooShort">Too short</FieldFeedback>
           <FieldFeedback when="*" />

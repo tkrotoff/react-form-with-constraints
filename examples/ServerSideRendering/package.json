@@ -10,40 +10,27 @@
     "react-form-with-constraints",
     "server-side"
   ],
-
   "main": "App.tsx",
-
   "scripts": {
     "clean": "rm -rf build",
-
     "tsc": "tsc",
-
     "build": "webpack -d",
-
     "start": "yarn clean && yarn build && cd build && node server"
   },
-
   "dependencies": {
     "react": "latest",
     "react-dom": "latest",
-
     "react-form-with-constraints": "^0.12.0",
     "react-form-with-constraints-tools": "^0.12.0",
-
     "express": "latest"
   },
-
   "devDependencies": {
     "typescript": "latest",
-
     "@types/react": "latest",
     "@types/react-dom": "latest",
-
     "@types/express": "latest",
-
     "ts-node": "latest",
     "@types/node": "latest",
-
     "webpack-cli": "latest",
     "webpack": "latest",
     "@types/webpack": "latest",

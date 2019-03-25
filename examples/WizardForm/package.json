@@ -9,36 +9,25 @@
     "validation",
     "react-form-with-constraints"
   ],
-
   "main": "App.tsx",
-
   "scripts": {
     "clean": "rm -rf build",
-
     "tsc": "tsc",
-
     "build": "webpack -d",
     "build:watch": "webpack -d --watch"
   },
-
   "dependencies": {
     "react-scripts": "latest",
-
     "react": "latest",
     "react-dom": "latest",
-
     "react-form-with-constraints": "^0.12.0"
   },
-
   "devDependencies": {
     "typescript": "latest",
-
     "@types/react": "latest",
     "@types/react-dom": "latest",
-
     "ts-node": "latest",
     "@types/node": "latest",
-
     "webpack-cli": "latest",
     "webpack": "latest",
     "@types/webpack": "latest",

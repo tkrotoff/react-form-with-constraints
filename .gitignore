@@ -3,9 +3,9 @@ node_modules/
 
 # Generated files
 build/
+dist/
 lib/
 lib-es5/
-dist/
 coverage/
 
 # rollup-plugin-typescript2

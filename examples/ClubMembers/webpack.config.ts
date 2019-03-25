@@ -17,16 +17,23 @@ const config: Configuration = {
 
   module: {
     rules: [
-      { test: /\.tsx?$/, loader: 'ts-loader', options: {onlyCompileBundledFiles: true, compilerOptions: {noEmit: false, module: 'esnext', sourceMap: true}} },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: {
+          onlyCompileBundledFiles: true,
+          compilerOptions: { noEmit: false, module: 'esnext', sourceMap: true }
+        }
+      },
       { test: /\.js$/, loader: 'source-map-loader' },
       {
         test: /\.css$/,
         use: [
-          { loader: 'style-loader', options: {sourceMap: true} },
-          { loader: 'css-loader', options: {sourceMap: true} }
+          { loader: 'style-loader', options: { sourceMap: true } },
+          { loader: 'css-loader', options: { sourceMap: true } }
         ]
       },
-      { test: /\.html$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} }
+      { test: /\.html$/, loader: 'file-loader', options: { name: '[path][name].[ext]' } }
     ]
   }
 };

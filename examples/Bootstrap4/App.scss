@@ -1,7 +1,7 @@
 $enable-validation-icons: false;
 
-@import "~bootstrap/scss/bootstrap";
-@import "~react-form-with-constraints-bootstrap4/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
+@import '~react-form-with-constraints-bootstrap4/scss/bootstrap';
 
 // CSS spinner taken from https://stephanwagner.me/only-css-loading-spinner
 //
@@ -30,13 +30,13 @@ $spinner-size: 20px;
 
   border-radius: 50%;
   border-top-color: $black;
-  animation: spinner .6s linear infinite;
+  animation: spinner 0.6s linear infinite;
 }
 
 input.is-pending {
   padding-right: calc(#{$spinner-size} - #{$input-border-width} * 2 + #{$input-padding-x});
 
-  +.input-state {
+  + .input-state {
     float: right;
     margin-right: calc(#{$spinner-size} + #{$input-padding-x} / 2);
     margin-top: calc((#{$input-height} + #{$spinner-size}) / -2);
@@ -50,14 +50,13 @@ input.is-pending {
   }
 }
 
-
 $text-height: $font-size-base * $line-height-base;
 $text-width: 1ch;
 
 input.is-valid {
   padding-right: calc(#{$text-width} + #{$input-padding-x});
 
-  +.input-state {
+  + .input-state {
     float: right;
     margin-right: $input-padding-x / 2;
     margin-top: calc((#{$input-height} + #{$text-height}) / -2);
@@ -72,7 +71,7 @@ input.is-valid {
 input.is-invalid {
   padding-right: calc(#{$text-width} + #{$input-padding-x});
 
-  +.input-state {
+  + .input-state {
     float: right;
     margin-right: $input-padding-x / 2;
     margin-top: calc((#{$input-height} + #{$text-height}) / -2);

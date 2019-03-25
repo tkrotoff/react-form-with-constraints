@@ -23,36 +23,60 @@ describe('FormWithConstraints', () => {
       {
         name: 'username',
         validations: [
-          {key: '0.0', type: 'error', show: true},
-          {key: '0.1', type: 'error', show: undefined},
-          {key: '0.2', type: 'whenValid', show: undefined}
+          { key: '0.0', type: 'error', show: true },
+          { key: '0.1', type: 'error', show: undefined },
+          { key: '0.2', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'password',
         validations: [
-          {key: '1.0', type: 'error', show: true},
-          {key: '1.1', type: 'error', show: undefined},
-          {key: '1.2', type: 'warning', show: undefined},
-          {key: '1.3', type: 'warning', show: undefined},
-          {key: '1.4', type: 'warning', show: undefined},
-          {key: '1.5', type: 'warning', show: undefined},
-          {key: '1.6', type: 'whenValid', show: undefined}
+          { key: '1.0', type: 'error', show: true },
+          { key: '1.1', type: 'error', show: undefined },
+          { key: '1.2', type: 'warning', show: undefined },
+          { key: '1.3', type: 'warning', show: undefined },
+          { key: '1.4', type: 'warning', show: undefined },
+          { key: '1.5', type: 'warning', show: undefined },
+          { key: '1.6', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'passwordConfirm',
         validations: [
-          {key: '2.0', type: 'error', show: false},
-          {key: '2.1', type: 'whenValid', show: undefined}
+          { key: '2.0', type: 'error', show: false },
+          { key: '2.1', type: 'whenValid', show: undefined }
         ]
       }
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: '', validity: validValidityState, validationMessage: ''}],
-      [{name: 'password', type: 'password', value: '', validity: validValidityState, validationMessage: ''}],
-      [{name: 'passwordConfirm', type: 'password', value: '', validity: validValidityState, validationMessage: ''}]
+      [
+        {
+          name: 'username',
+          type: 'text',
+          value: '',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'password',
+          type: 'password',
+          value: '',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'passwordConfirm',
+          type: 'password',
+          value: '',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ]
     ]);
 
     emitValidateFieldEventSpy.mockClear();
@@ -66,40 +90,65 @@ describe('FormWithConstraints', () => {
       {
         name: 'username',
         validations: [
-          {key: '0.0', type: 'error', show: false},
-          {key: '0.1', type: 'error', show: false},
-          {key: '0.3', type: 'error', show: true},
-          {key: '0.2', type: 'whenValid', show: undefined}
+          { key: '0.0', type: 'error', show: false },
+          { key: '0.1', type: 'error', show: false },
+          { key: '0.3', type: 'error', show: true },
+          { key: '0.2', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'password',
         validations: [
-          {key: '1.0', type: 'error', show: false},
-          {key: '1.1', type: 'error', show: false},
-          {key: '1.2', type: 'warning', show: false},
-          {key: '1.3', type: 'warning', show: true},
-          {key: '1.4', type: 'warning', show: true},
-          {key: '1.5', type: 'warning', show: true},
-          {key: '1.6', type: 'whenValid', show: undefined}
+          { key: '1.0', type: 'error', show: false },
+          { key: '1.1', type: 'error', show: false },
+          { key: '1.2', type: 'warning', show: false },
+          { key: '1.3', type: 'warning', show: true },
+          { key: '1.4', type: 'warning', show: true },
+          { key: '1.5', type: 'warning', show: true },
+          { key: '1.6', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'passwordConfirm',
         validations: [
-          {key: '2.0', type: 'error', show: true},
-          {key: '2.1', type: 'whenValid', show: undefined}
+          { key: '2.0', type: 'error', show: true },
+          { key: '2.1', type: 'whenValid', show: undefined }
         ]
       }
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
-      [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
-      [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+      [
+        {
+          name: 'username',
+          type: 'text',
+          value: 'john',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'password',
+          type: 'password',
+          value: '123456',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'passwordConfirm',
+          type: 'password',
+          value: '12345',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ]
     ]);
 
-    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(new RegExp(`\
+    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(
+      new RegExp(`\
       <form>
         <div class="MuiFormControl-root-\\d+">
           <div class=".*MuiInput-error-\\d+.*">
@@ -134,8 +183,8 @@ describe('FormWithConstraints', () => {
             </span>
           </p>
         </div>
-      </form>`
-    ));
+      </form>`)
+    );
 
     wrapper.unmount();
   });
@@ -150,7 +199,8 @@ describe('FormWithConstraints', () => {
 
     await signUp.form!.validateFields();
 
-    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(new RegExp(`\
+    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(
+      new RegExp(`\
       <form>
         <div class="MuiFormControl-root-\\d+">
           <div class=".*MuiInput-error-\\d+.*">
@@ -185,12 +235,13 @@ describe('FormWithConstraints', () => {
             </span>
           </p>
         </div>
-      </form>`
-    ));
+      </form>`)
+    );
 
     await signUp.form!.resetFields();
 
-    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(new RegExp(`\
+    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(
+      new RegExp(`\
       <form>
         <div class="MuiFormControl-root-\\d+">
           <div class=".*">
@@ -216,8 +267,8 @@ describe('FormWithConstraints', () => {
             <span data-feedbacks="2"></span>
           </p>
         </div>
-      </form>`
-    ));
+      </form>`)
+    );
 
     signUp.username!.value = 'jimmy';
     signUp.password!.value = '12345';
@@ -233,7 +284,8 @@ describe('FormWithConstraints', () => {
     // Happens with React v16.3.1, Jest v22.4.3 and Enzyme v3.3.0, maybe later versions will have a different behavior
     await sleep(0);
 
-    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(new RegExp(`\
+    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(
+      new RegExp(`\
       <form>
         <div class="MuiFormControl-root-\\d+">
           <div class=".*">
@@ -269,8 +321,8 @@ describe('FormWithConstraints', () => {
             </span>
           </p>
         </div>
-      </form>`
-    ));
+      </form>`)
+    );
 
     wrapper.unmount();
   });
@@ -300,40 +352,65 @@ describe('Async', () => {
       {
         name: 'username',
         validations: [
-          {key: '0.0', type: 'error', show: false},
-          {key: '0.1', type: 'error', show: false},
-          {key: '0.3', type: 'info', show: true},
-          {key: '0.2', type: 'whenValid', show: undefined}
+          { key: '0.0', type: 'error', show: false },
+          { key: '0.1', type: 'error', show: false },
+          { key: '0.3', type: 'info', show: true },
+          { key: '0.2', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'password',
         validations: [
-          {key: '1.0', type: 'error', show: false},
-          {key: '1.1', type: 'error', show: false},
-          {key: '1.2', type: 'warning', show: false},
-          {key: '1.3', type: 'warning', show: true},
-          {key: '1.4', type: 'warning', show: true},
-          {key: '1.5', type: 'warning', show: true},
-          {key: '1.6', type: 'whenValid', show: undefined}
+          { key: '1.0', type: 'error', show: false },
+          { key: '1.1', type: 'error', show: false },
+          { key: '1.2', type: 'warning', show: false },
+          { key: '1.3', type: 'warning', show: true },
+          { key: '1.4', type: 'warning', show: true },
+          { key: '1.5', type: 'warning', show: true },
+          { key: '1.6', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'passwordConfirm',
         validations: [
-          {key: '2.0', type: 'error', show: false},
-          {key: '2.1', type: 'whenValid', show: undefined}
+          { key: '2.0', type: 'error', show: false },
+          { key: '2.1', type: 'whenValid', show: undefined }
         ]
       }
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: 'jimmy', validity: validValidityState, validationMessage: ''}],
-      [{name: 'password', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}],
-      [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+      [
+        {
+          name: 'username',
+          type: 'text',
+          value: 'jimmy',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'password',
+          type: 'password',
+          value: '12345',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'passwordConfirm',
+          type: 'password',
+          value: '12345',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ]
     ]);
 
-    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(new RegExp(`\
+    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(
+      new RegExp(`\
       <form>
         <div class="MuiFormControl-root-\\d+">
           <div class=".*">
@@ -369,8 +446,8 @@ describe('Async', () => {
             </span>
           </p>
         </div>
-      </form>`
-    ));
+      </form>`)
+    );
 
     wrapper.unmount();
   });
@@ -389,40 +466,65 @@ describe('Async', () => {
       {
         name: 'username',
         validations: [
-          {key: '0.0', type: 'error', show: false},
-          {key: '0.1', type: 'error', show: false},
-          {key: '0.3', type: 'error', show: true},
-          {key: '0.2', type: 'whenValid', show: undefined}
+          { key: '0.0', type: 'error', show: false },
+          { key: '0.1', type: 'error', show: false },
+          { key: '0.3', type: 'error', show: true },
+          { key: '0.2', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'password',
         validations: [
-          {key: '1.0', type: 'error', show: false},
-          {key: '1.1', type: 'error', show: false},
-          {key: '1.2', type: 'warning', show: false},
-          {key: '1.3', type: 'warning', show: true},
-          {key: '1.4', type: 'warning', show: true},
-          {key: '1.5', type: 'warning', show: true},
-          {key: '1.6', type: 'whenValid', show: undefined}
+          { key: '1.0', type: 'error', show: false },
+          { key: '1.1', type: 'error', show: false },
+          { key: '1.2', type: 'warning', show: false },
+          { key: '1.3', type: 'warning', show: true },
+          { key: '1.4', type: 'warning', show: true },
+          { key: '1.5', type: 'warning', show: true },
+          { key: '1.6', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'passwordConfirm',
         validations: [
-          {key: '2.0', type: 'error', show: true},
-          {key: '2.1', type: 'whenValid', show: undefined}
+          { key: '2.0', type: 'error', show: true },
+          { key: '2.1', type: 'whenValid', show: undefined }
         ]
       }
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: 'error', validity: validValidityState, validationMessage: ''}],
-      [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
-      [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+      [
+        {
+          name: 'username',
+          type: 'text',
+          value: 'error',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'password',
+          type: 'password',
+          value: '123456',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'passwordConfirm',
+          type: 'password',
+          value: '12345',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ]
     ]);
 
-    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(new RegExp(`\
+    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(
+      new RegExp(`\
       <form>
         <div class="MuiFormControl-root-\\d+">
           <div class=".*MuiInput-error-\\d+.*">
@@ -457,8 +559,8 @@ describe('Async', () => {
             </span>
           </p>
         </div>
-      </form>`
-    ));
+      </form>`)
+    );
 
     wrapper.unmount();
   });
@@ -470,7 +572,7 @@ describe('FormControl', () => {
       <FormControl>
         <input name="username" />
       </FormControl>,
-      {context: {form: new FormWithConstraints({})}}
+      { context: { form: new FormWithConstraints({}) } }
     );
     const formControl = wrapper.instance() as FormControl;
 
@@ -485,7 +587,7 @@ describe('FormControl', () => {
         <input name="username" />
         <input name="username" />
       </FormControl>,
-      {context: {form: new FormWithConstraints({})}}
+      { context: { form: new FormWithConstraints({}) } }
     );
     const formControl = wrapper.instance() as FormControl;
 
@@ -500,25 +602,26 @@ describe('FormControl', () => {
         <input name="username" />
         <input name="password" />
       </FormControl>,
-      {context: {form: new FormWithConstraints({})}}
+      { context: { form: new FormWithConstraints({}) } }
     );
     const formControl = wrapper.instance() as FormControl;
 
-    expect(() => formControl.getAssociatedFieldName()).toThrow(`0 or multiple [name="*"] instead of 1: 'username,password'`);
+    expect(() => formControl.getAssociatedFieldName()).toThrow(
+      `0 or multiple [name="*"] instead of 1: 'username,password'`
+    );
 
     wrapper.unmount();
   });
 
   test('getAssociatedFieldName() - child with props undefined', () => {
-    const wrapper = shallow(
-      <FormControl>
-        ChildWithPropsUndefined
-      </FormControl>,
-      {context: {form: new FormWithConstraints({})}}
-    );
+    const wrapper = shallow(<FormControl>ChildWithPropsUndefined</FormControl>, {
+      context: { form: new FormWithConstraints({}) }
+    });
     const formControl = wrapper.instance() as FormControl;
 
-    expect(() => formControl.getAssociatedFieldName()).toThrow(`0 or multiple [name="*"] instead of 1: ''`);
+    expect(() => formControl.getAssociatedFieldName()).toThrow(
+      `0 or multiple [name="*"] instead of 1: ''`
+    );
 
     wrapper.unmount();
   });

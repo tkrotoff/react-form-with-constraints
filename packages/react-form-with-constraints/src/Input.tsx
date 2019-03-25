@@ -55,22 +55,25 @@ export class Input extends React.Component<InputProps, InputState> {
   }
 
   fieldWillValidate = (fieldName: string) => {
-    if (fieldName === this.props.name) { // Ignore the event if it's not for us
-      this.setState({field: 'pending'});
+    // Ignore the event if it's not for us
+    if (fieldName === this.props.name) {
+      this.setState({ field: 'pending' });
     }
-  }
+  };
 
   fieldDidValidate = (field: Field) => {
-    if (field.name === this.props.name) { // Ignore the event if it's not for us
-      this.setState({field});
+    // Ignore the event if it's not for us
+    if (field.name === this.props.name) {
+      this.setState({ field });
     }
-  }
+  };
 
   fieldDidReset = (field: Field) => {
-    if (field.name === this.props.name) { // Ignore the event if it's not for us
-      this.setState({field: undefined});
+    // Ignore the event if it's not for us
+    if (field.name === this.props.name) {
+      this.setState({ field: undefined });
     }
-  }
+  };
 
   fieldValidationStates() {
     const { field } = this.state;
@@ -99,12 +102,10 @@ export class Input extends React.Component<InputProps, InputState> {
     validationStates.forEach(validationState => {
       const tmp = classes![validationState];
       if (tmp !== undefined) {
-        classNames !== undefined ? classNames += ` ${tmp}` : classNames = tmp;
+        classNames !== undefined ? (classNames += ` ${tmp}`) : (classNames = tmp);
       }
     });
 
-    return (
-      <input ref={innerRef} {...inputProps} className={classNames} />
-    );
+    return <input ref={innerRef} {...inputProps} className={classNames} />;
   }
 }

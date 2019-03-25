@@ -14,7 +14,6 @@
     "react-form-with-constraints",
     "react-native"
   ],
-
   "main": "lib-es5/index.js",
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -23,49 +22,36 @@
     "lib-es5/"
   ],
   "sideEffects": false,
-
   "scripts": {
     "clean": "rm -rf lib lib-es5 coverage .rpt2_cache",
-
     "tsc": "tsc",
     "build": "yarn build:esnext && yarn build:es5",
     "build:esnext": "tsc --project tsconfig.lib.json",
     "build:es5": "tsc --project tsconfig.lib-es5.json",
-
     "prepublishOnly": "yarn clean && yarn tsc && yarn build",
-
     "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
     "test:coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"
   },
-
   "peerDependencies": {
     "react-native": ">=0.57.8",
     "react-form-with-constraints": "^0.12.0"
   },
-
   "devDependencies": {
     "typescript": "latest",
-
     "react": "16.5.0",
     "@types/react": "latest",
-
     "react-native": "^0.57.8",
     "@types/react-native": "latest",
-
     "react-form-with-constraints": "^0.12.0",
-
     "jest": "latest",
     "@types/jest": "latest",
     "ts-jest": "latest",
-
     "react-test-renderer": "16.5.0",
     "@types/react-test-renderer": "latest",
-
     "enzyme": "latest",
     "@types/enzyme": "latest",
     "enzyme-adapter-react-16": "latest",
     "@types/enzyme-adapter-react-16": "latest",
-
     "babel-jest": "latest",
     "@babel/core": "latest",
     "babel-core": "^7.0.0-bridge.0",

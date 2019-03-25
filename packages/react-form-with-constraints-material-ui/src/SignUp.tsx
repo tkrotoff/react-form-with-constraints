@@ -1,15 +1,14 @@
 import * as React from 'react';
 
 import {
-  Input, FormHelperText,
+  Input,
+  FormHelperText,
   /*TextField, FormControl,*/
-  createMuiTheme, MuiThemeProvider
+  createMuiTheme,
+  MuiThemeProvider
 } from '@material-ui/core';
 
-import {
-  FormWithConstraints, Async, FieldFeedback,
-  TextField, FormControl
-} from './index';
+import { FormWithConstraints, Async, FieldFeedback, TextField, FormControl } from './index';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 import checkUsernameAvailability from '../../react-form-with-constraints/src/checkUsernameAvailability';
 
@@ -36,20 +35,29 @@ export default class SignUp extends React.Component<SignUpProps> {
       // However, no outer theme is present.
       // Make sure a theme is already injected higher in the React tree or provide a theme object.
       <MuiThemeProvider theme={defaultTheme}>
-
-        <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}>
+        <FormWithConstraints ref={formWithConstraints => (this.form = formWithConstraints)}>
           <TextField
-            name="username" inputRef={username => this.username = username}
+            name="username"
+            inputRef={username => (this.username = username)}
             helperText={
               <FieldFeedbacks for="username">
                 <FieldFeedback when={value => value.length === 0}>Cannot be empty</FieldFeedback>
-                <FieldFeedback when={value => value.length < 3}>Should be at least 3 characters long</FieldFeedback>
+                <FieldFeedback when={value => value.length < 3}>
+                  Should be at least 3 characters long
+                </FieldFeedback>
                 <Async
                   promise={checkUsernameAvailability}
-                  pending={<span style={{display: 'block'}}>...</span>}
-                  then={availability => availability.available ?
-                    <FieldFeedback key="1" info>Username '{availability.value}' available</FieldFeedback> :
-                    <FieldFeedback key="2">Username '{availability.value}' already taken, choose another</FieldFeedback>
+                  pending={<span style={{ display: 'block' }}>...</span>}
+                  then={availability =>
+                    availability.available ? (
+                      <FieldFeedback key="1" info>
+                        Username '{availability.value}' available
+                      </FieldFeedback>
+                    ) : (
+                      <FieldFeedback key="2">
+                        Username '{availability.value}' already taken, choose another
+                      </FieldFeedback>
+                    )
                   }
                   catch={e => <FieldFeedback>{e.message}</FieldFeedback>}
                 />
@@ -61,27 +69,43 @@ export default class SignUp extends React.Component<SignUpProps> {
           {/* Could be also written using <TextField> */}
           <FormControl>
             <Input
-              type="password" id="password" name="password"
-              inputRef={password => this.password = password}
+              type="password"
+              id="password"
+              name="password"
+              inputRef={password => (this.password = password)}
             />
             <FormHelperText>
               <FieldFeedbacks for="password">
                 <FieldFeedback when={value => value.length === 0}>Cannot be empty</FieldFeedback>
-                <FieldFeedback when={value => value.length < 5}>Should be at least 5 characters long</FieldFeedback>
-                <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
-                <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
-                <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
-                <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
+                <FieldFeedback when={value => value.length < 5}>
+                  Should be at least 5 characters long
+                </FieldFeedback>
+                <FieldFeedback when={value => !/\d/.test(value)} warning>
+                  Should contain numbers
+                </FieldFeedback>
+                <FieldFeedback when={value => !/[a-z]/.test(value)} warning>
+                  Should contain small letters
+                </FieldFeedback>
+                <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>
+                  Should contain capital letters
+                </FieldFeedback>
+                <FieldFeedback when={value => !/\W/.test(value)} warning>
+                  Should contain special characters
+                </FieldFeedback>
                 <FieldFeedback when="valid">Looks good!</FieldFeedback>
               </FieldFeedbacks>
             </FormHelperText>
           </FormControl>
 
           <TextField
-            type="password" name="passwordConfirm" inputRef={passwordConfirm => this.passwordConfirm = passwordConfirm}
+            type="password"
+            name="passwordConfirm"
+            inputRef={passwordConfirm => (this.passwordConfirm = passwordConfirm)}
             helperText={
               <FieldFeedbacks for="passwordConfirm">
-                <FieldFeedback when={value => value !== this.password!.value}>Not the same password</FieldFeedback>
+                <FieldFeedback when={value => value !== this.password!.value}>
+                  Not the same password
+                </FieldFeedback>
                 <FieldFeedback when="valid">Looks good!</FieldFeedback>
               </FieldFeedbacks>
             }

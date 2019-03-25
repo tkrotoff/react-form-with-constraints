@@ -32,15 +32,16 @@ export default {
     typescript({
       clean: true,
       tsconfig: 'tsconfig.lib-es5.json',
-      tsconfigOverride: {compilerOptions: {module: 'esnext', inlineSources: false}}
+      tsconfigOverride: { compilerOptions: { module: 'esnext', inlineSources: false } }
     }),
 
     isProd && uglify(),
 
     filesize(),
 
-    isProd && strip({
-      include: ['**/*.js', '**/*.ts', '**/*.tsx'] // See https://github.com/rollup/rollup-plugin-strip/pull/7
-    })
+    isProd &&
+      strip({
+        include: ['**/*.js', '**/*.ts', '**/*.tsx'] // See https://github.com/rollup/rollup-plugin-strip/pull/7
+      })
   ]
 };

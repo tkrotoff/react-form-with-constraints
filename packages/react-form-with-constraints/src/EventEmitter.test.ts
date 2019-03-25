@@ -21,25 +21,35 @@ test('addListener', () => {
   expect(eventEmitter.listeners).toEqual(toMap({}));
 
   eventEmitter.addListener('event1', listener10);
-  expect(eventEmitter.listeners).toEqual(toMap({
-    event1: [listener10]
-  }));
+  expect(eventEmitter.listeners).toEqual(
+    toMap({
+      event1: [listener10]
+    })
+  );
 
   eventEmitter.addListener('event1', listener11);
-  expect(eventEmitter.listeners).toEqual(toMap({
-    event1: [listener10, listener11]
-  }));
+  expect(eventEmitter.listeners).toEqual(
+    toMap({
+      event1: [listener10, listener11]
+    })
+  );
 
-  expect(() => eventEmitter.addListener('event1', listener10)).toThrow("Listener already added for event 'event1'");
-  expect(eventEmitter.listeners).toEqual(toMap({
-    event1: [listener10, listener11]
-  }));
+  expect(() => eventEmitter.addListener('event1', listener10)).toThrow(
+    "Listener already added for event 'event1'"
+  );
+  expect(eventEmitter.listeners).toEqual(
+    toMap({
+      event1: [listener10, listener11]
+    })
+  );
 
   eventEmitter.addListener('event2', listener20);
-  expect(eventEmitter.listeners).toEqual(toMap({
-    event1: [listener10, listener11],
-    event2: [listener20]
-  }));
+  expect(eventEmitter.listeners).toEqual(
+    toMap({
+      event1: [listener10, listener11],
+      event2: [listener20]
+    })
+  );
 });
 
 describe('emit', () => {
@@ -114,14 +124,18 @@ describe('removeListener()', () => {
     const eventEmitter = new EventEmitter();
     eventEmitter.addListener('event1', listener10);
     eventEmitter.addListener('event1', listener11);
-    expect(eventEmitter.listeners).toEqual(toMap({
-      event1: [listener10, listener11]
-    }));
+    expect(eventEmitter.listeners).toEqual(
+      toMap({
+        event1: [listener10, listener11]
+      })
+    );
 
     eventEmitter.removeListener('event1', listener11);
-    expect(eventEmitter.listeners).toEqual(toMap({
-      event1: [listener10]
-    }));
+    expect(eventEmitter.listeners).toEqual(
+      toMap({
+        event1: [listener10]
+      })
+    );
 
     eventEmitter.removeListener('event1', listener10);
     expect(eventEmitter.listeners).toEqual(toMap({}));
@@ -130,14 +144,20 @@ describe('removeListener()', () => {
   test('unknown event', () => {
     const eventEmitter = new EventEmitter();
     eventEmitter.addListener('event1', listener10);
-    expect(eventEmitter.listeners).toEqual(toMap({
-      event1: [listener10]
-    }));
+    expect(eventEmitter.listeners).toEqual(
+      toMap({
+        event1: [listener10]
+      })
+    );
 
-    expect(() => eventEmitter.removeListener('unknown', listener10)).toThrow("Unknown event 'unknown'");
-    expect(eventEmitter.listeners).toEqual(toMap({
-      event1: [listener10]
-    }));
+    expect(() => eventEmitter.removeListener('unknown', listener10)).toThrow(
+      "Unknown event 'unknown'"
+    );
+    expect(eventEmitter.listeners).toEqual(
+      toMap({
+        event1: [listener10]
+      })
+    );
 
     eventEmitter.removeListener('event1', listener10);
     expect(eventEmitter.listeners).toEqual(toMap({}));
@@ -148,14 +168,20 @@ describe('removeListener()', () => {
 
     const eventEmitter = new EventEmitter();
     eventEmitter.addListener('event1', listener10);
-    expect(eventEmitter.listeners).toEqual(toMap({
-      event1: [listener10]
-    }));
+    expect(eventEmitter.listeners).toEqual(
+      toMap({
+        event1: [listener10]
+      })
+    );
 
-    expect(() => eventEmitter.removeListener('event1', unknownListener)).toThrow("Listener not found for event 'event1'");
-    expect(eventEmitter.listeners).toEqual(toMap({
-      event1: [listener10]
-    }));
+    expect(() => eventEmitter.removeListener('event1', unknownListener)).toThrow(
+      "Listener not found for event 'event1'"
+    );
+    expect(eventEmitter.listeners).toEqual(
+      toMap({
+        event1: [listener10]
+      })
+    );
 
     eventEmitter.removeListener('event1', listener10);
     expect(eventEmitter.listeners).toEqual(toMap({}));
@@ -170,22 +196,31 @@ describe('removeListener()', () => {
     console.assert = jest.fn();
     eventEmitter.addListener('event1', listener10);
     expect(console.assert).toHaveBeenCalledTimes(1);
-    expect(console.assert).toHaveBeenLastCalledWith(false, "Listener already added for event 'event1'");
+    expect(console.assert).toHaveBeenLastCalledWith(
+      false,
+      "Listener already added for event 'event1'"
+    );
     console.assert = assert;
 
-    expect(eventEmitter.listeners).toEqual(toMap({
-      event1: [listener10, listener11, listener10]
-    }));
+    expect(eventEmitter.listeners).toEqual(
+      toMap({
+        event1: [listener10, listener11, listener10]
+      })
+    );
 
     eventEmitter.removeListener('event1', listener10);
-    expect(eventEmitter.listeners).toEqual(toMap({
-      event1: [listener10, listener11]
-    }));
+    expect(eventEmitter.listeners).toEqual(
+      toMap({
+        event1: [listener10, listener11]
+      })
+    );
 
     eventEmitter.removeListener('event1', listener11);
-    expect(eventEmitter.listeners).toEqual(toMap({
-      event1: [listener10]
-    }));
+    expect(eventEmitter.listeners).toEqual(
+      toMap({
+        event1: [listener10]
+      })
+    );
 
     eventEmitter.removeListener('event1', listener10);
     expect(eventEmitter.listeners).toEqual(toMap({}));

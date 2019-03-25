@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "8"
+  - '8'
 
 before_install:
   # Install latest Yarn version
@@ -13,6 +13,7 @@ before_script:
 
 script:
   - yarn tslint
+  - yarn eslint
   - yarn prepublishOnly
   - yarn build
   - yarn tsc
@@ -24,6 +25,7 @@ after_success:
   - yarn codecov
 
   # See https://github.com/codeclimate/test-reporter/issues/263
+  # prettier-ignore
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
       for f in packages/*; do
         if [ -d $f ]; then

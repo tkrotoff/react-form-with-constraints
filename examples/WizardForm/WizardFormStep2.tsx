@@ -36,33 +36,48 @@ export default function WizardFormStep2(props: Props) {
     <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
       <div>
         <label htmlFor="email">Email</label>
-        <input type="email" name="email" id="email"
-               value={props.email} onChange={handleChange}
-               required />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value={props.email}
+          onChange={handleChange}
+          required
+        />
         <FieldFeedbacks for="email">
           <FieldFeedback when="*" />
         </FieldFeedbacks>
       </div>
-
       <div>
         <label>Gender</label>
         <label>
-          <input type="radio" name="gender"
-                 value={Gender.Male} checked={props.gender === Gender.Male} onChange={handleChange}
-                 required />
+          <input
+            type="radio"
+            name="gender"
+            value={Gender.Male}
+            checked={props.gender === Gender.Male}
+            onChange={handleChange}
+            required
+          />
           Male
         </label>
         <label>
-          <input type="radio" name="gender"
-                 value={Gender.Female} checked={props.gender === Gender.Female} onChange={handleChange} />
+          <input
+            type="radio"
+            name="gender"
+            value={Gender.Female}
+            checked={props.gender === Gender.Female}
+            onChange={handleChange}
+          />
           Female
         </label>
         <FieldFeedbacks for="gender">
           <FieldFeedback when="*" />
         </FieldFeedbacks>
       </div>
-
-      <button type="button" onClick={props.previousPage}>Previous</button>
+      <button type="button" onClick={props.previousPage}>
+        Previous
+      </button>
       &nbsp;
       <button>Next</button>
     </FormWithConstraints>

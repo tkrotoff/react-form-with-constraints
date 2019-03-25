@@ -4,15 +4,24 @@ import * as PropTypes from 'prop-types';
 import {
   FormControl as _FormControl,
   TextField as _TextField,
-  MuiThemeProvider, Theme, createMuiTheme,
-  createStyles, withStyles, WithStyles
+  MuiThemeProvider,
+  Theme,
+  createMuiTheme,
+  createStyles,
+  withStyles,
+  WithStyles
 } from '@material-ui/core';
 import { FormControlProps } from '@material-ui/core/FormControl';
 import { TextFieldProps } from '@material-ui/core/TextField';
 
 import {
-  FormWithConstraints as _FormWithConstraints, FormWithConstraintsChildContext,
-  FieldFeedbacks, Async, FieldFeedback as _FieldFeedback, FieldFeedbackBaseProps, Field,
+  FormWithConstraints as _FormWithConstraints,
+  FormWithConstraintsChildContext,
+  FieldFeedbacks,
+  Async,
+  FieldFeedback as _FieldFeedback,
+  FieldFeedbackBaseProps,
+  Field,
   deepForEach
 } from 'react-form-with-constraints';
 
@@ -56,29 +65,35 @@ export class FormControl extends React.Component<FormControlProps, FormControlSt
       }
     });
 
-    console.assert(fieldNames.size === 1, `0 or multiple [name="*"] instead of 1: '${[...fieldNames]}'`);
+    console.assert(
+      fieldNames.size === 1,
+      `0 or multiple [name="*"] instead of 1: '${[...fieldNames]}'`
+    );
 
     // Return the first and only entry
     return fieldNames.values().next().value;
   }
 
   fieldWillValidate = (fieldName: string) => {
-    if (fieldName === this.getAssociatedFieldName()) { // Ignore the event if it's not for us
-      this.setState({field: undefined});
+    // Ignore the event if it's not for us
+    if (fieldName === this.getAssociatedFieldName()) {
+      this.setState({ field: undefined });
     }
-  }
+  };
 
   fieldDidValidate = (field: Field) => {
-    if (field.name === this.getAssociatedFieldName()) { // Ignore the event if it's not for us
-      this.setState({field});
+    // Ignore the event if it's not for us
+    if (field.name === this.getAssociatedFieldName()) {
+      this.setState({ field });
     }
-  }
+  };
 
   fieldDidReset = (field: Field) => {
-    if (field.name === this.getAssociatedFieldName()) { // Ignore the event if it's not for us
-      this.setState({field: undefined});
+    // Ignore the event if it's not for us
+    if (field.name === this.getAssociatedFieldName()) {
+      this.setState({ field: undefined });
     }
-  }
+  };
 
   render() {
     const { field } = this.state;
@@ -86,7 +101,6 @@ export class FormControl extends React.Component<FormControlProps, FormControlSt
     return <_FormControl error={error} {...this.props} />;
   }
 }
-
 
 interface TextFieldState {
   field: Field | undefined;
@@ -115,22 +129,25 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
   }
 
   fieldWillValidate = (fieldName: string) => {
-    if (fieldName === this.props.name) { // Ignore the event if it's not for us
-      this.setState({field: undefined});
+    // Ignore the event if it's not for us
+    if (fieldName === this.props.name) {
+      this.setState({ field: undefined });
     }
-  }
+  };
 
   fieldDidValidate = (field: Field) => {
-    if (field.name === this.props.name) { // Ignore the event if it's not for us
-      this.setState({field});
+    // Ignore the event if it's not for us
+    if (field.name === this.props.name) {
+      this.setState({ field });
     }
-  }
+  };
 
   fieldDidReset = (field: Field) => {
-    if (field.name === this.props.name) { // Ignore the event if it's not for us
-      this.setState({field: undefined});
+    // Ignore the event if it's not for us
+    if (field.name === this.props.name) {
+      this.setState({ field: undefined });
     }
-  }
+  };
 
   render() {
     const { field } = this.state;
@@ -138,7 +155,6 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
     return <_TextField error={error} {...this.props} />;
   }
 }
-
 
 const defaultTheme = createMuiTheme({
   typography: {
@@ -167,14 +183,9 @@ function formWithConstraintsTheme(outerTheme: Theme | null) {
 
 export class FormWithConstraints extends _FormWithConstraints {
   render() {
-    return (
-      <MuiThemeProvider theme={formWithConstraintsTheme}>
-        {super.render()}
-      </MuiThemeProvider>
-    );
+    return <MuiThemeProvider theme={formWithConstraintsTheme}>{super.render()}</MuiThemeProvider>;
   }
 }
-
 
 function fieldFeedbackStyles(theme: Theme) {
   return createStyles({
@@ -188,7 +199,9 @@ function fieldFeedbackStyles(theme: Theme) {
   });
 }
 
-type FieldFeedbackPropsWithStyles = FieldFeedbackBaseProps & React.HTMLAttributes<HTMLSpanElement> & WithStyles<typeof fieldFeedbackStyles>;
+type FieldFeedbackPropsWithStyles = FieldFeedbackBaseProps &
+  React.HTMLAttributes<HTMLSpanElement> &
+  WithStyles<typeof fieldFeedbackStyles>;
 
 export const FieldFeedback = withStyles(fieldFeedbackStyles)(
   // Without a class name (class extends React.Component) React Developer Tools displays:
@@ -210,9 +223,7 @@ export const FieldFeedback = withStyles(fieldFeedbackStyles)(
 
       const classNames = className !== undefined ? `${className} ${classes.root}` : classes.root;
 
-      return (
-        <_FieldFeedback className={classNames} {...otherProps} />
-      );
+      return <_FieldFeedback className={classNames} {...otherProps} />;
     }
   }
 );

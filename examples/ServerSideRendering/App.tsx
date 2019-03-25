@@ -1,6 +1,11 @@
 import React, { useState, useRef } from 'react';
 
-import { FormWithConstraints, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints';
+import {
+  FormWithConstraints,
+  FieldFeedbacks,
+  Async,
+  FieldFeedback
+} from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
 // Copy-pasted from Password/App.tsx example
@@ -47,13 +52,15 @@ function Form() {
     const target = e.target;
 
     setInputs(prevState => {
-      return {...prevState, [target.name]: target.value};
+      return { ...prevState, [target.name]: target.value };
     });
 
     // Validates only the given field and returns the related FieldValidation structures
     const fields = await form.current!.validateFields(target);
 
-    const fieldIsValid = fields.every(fieldFeedbacksValidation => fieldFeedbacksValidation.isValid());
+    const fieldIsValid = fields.every(fieldFeedbacksValidation =>
+      fieldFeedbacksValidation.isValid()
+    );
     if (fieldIsValid) console.log(`Field '${target.name}' is valid`);
     else console.log(`Field '${target.name}' is invalid`);
 
@@ -67,7 +74,7 @@ function Form() {
     const target = e.target;
 
     setInputs(prevState => {
-      return {...prevState, [target.name]: target.value};
+      return { ...prevState, [target.name]: target.value };
     });
 
     const fields = await form.current!.validateFields(target, 'passwordConfirm');
@@ -104,9 +111,15 @@ function Form() {
     <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
       <div>
         <label htmlFor="email">Email</label>
-        <input type="email" name="email" id="email"
-               value={inputs.email} onChange={handleChange}
-               required minLength={5} />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value={inputs.email}
+          onChange={handleChange}
+          required
+          minLength={5}
+        />
         <FieldFeedbacks for="email">
           <FieldFeedback when="tooShort">Too short</FieldFeedback>
           <FieldFeedback when="*" />
@@ -115,23 +128,41 @@ function Form() {
       </div>
 
       <div>
-        <label htmlFor="password">Password <small>(common passwords: 123456, password, 12345678, qwerty...)</small></label>
-        <input type="password" name="password" id="password"
-               ref={password}
-               value={inputs.password} onChange={handlePasswordChange}
-               required pattern=".{5,}" />
+        <label htmlFor="password">
+          Password <small>(common passwords: 123456, password, 12345678, qwerty...)</small>
+        </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          ref={password}
+          value={inputs.password}
+          onChange={handlePasswordChange}
+          required
+          pattern=".{5,}"
+        />
         <FieldFeedbacks for="password">
           <FieldFeedback when="valueMissing" />
           <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
-          <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
-          <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
-          <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
-          <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
+          <FieldFeedback when={value => !/\d/.test(value)} warning>
+            Should contain numbers
+          </FieldFeedback>
+          <FieldFeedback when={value => !/[a-z]/.test(value)} warning>
+            Should contain small letters
+          </FieldFeedback>
+          <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>
+            Should contain capital letters
+          </FieldFeedback>
+          <FieldFeedback when={value => !/\W/.test(value)} warning>
+            Should contain special characters
+          </FieldFeedback>
           <Async
             promise={isACommonPassword}
-            pending={<span style={{display: 'block'}}>...</span>}
-            then={commonPassword => commonPassword ?
-              <FieldFeedback warning>This password is very common</FieldFeedback> : null
+            pending={<span style={{ display: 'block' }}>...</span>}
+            then={commonPassword =>
+              commonPassword ? (
+                <FieldFeedback warning>This password is very common</FieldFeedback>
+              ) : null
             }
           />
           <FieldFeedback when="valid">Looks good!</FieldFeedback>
@@ -140,10 +171,17 @@ function Form() {
 
       <div>
         <label htmlFor="password-confirm">Confirm Password</label>
-        <input type="password" name="passwordConfirm" id="password-confirm"
-               value={inputs.passwordConfirm} onChange={handleChange} />
+        <input
+          type="password"
+          name="passwordConfirm"
+          id="password-confirm"
+          value={inputs.passwordConfirm}
+          onChange={handleChange}
+        />
         <FieldFeedbacks for="passwordConfirm">
-          <FieldFeedback when={value => value !== password.current!.value}>Not the same password</FieldFeedback>
+          <FieldFeedback when={value => value !== password.current!.value}>
+            Not the same password
+          </FieldFeedback>
         </FieldFeedbacks>
       </div>
 

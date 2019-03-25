@@ -16,7 +16,7 @@ test('getField()', () => {
 
   store.addField('username');
   const username = store.getField('username');
-  expect(username).toEqual({name: 'username', validations: []});
+  expect(username).toEqual({ name: 'username', validations: [] });
 
   const unknown = store.getField('unknown');
   expect(unknown).toEqual(undefined);
@@ -28,15 +28,15 @@ test('addField()', () => {
 
   store.addField('username');
   expect(emitSpy).toHaveBeenCalledTimes(1);
-  expect(emitSpy).toHaveBeenLastCalledWith(FieldEvent.Added, {name: 'username', validations: []});
+  expect(emitSpy).toHaveBeenLastCalledWith(FieldEvent.Added, { name: 'username', validations: [] });
 
   store.addField('password');
   expect(emitSpy).toHaveBeenCalledTimes(2);
-  expect(emitSpy).toHaveBeenLastCalledWith(FieldEvent.Added, {name: 'password', validations: []});
+  expect(emitSpy).toHaveBeenLastCalledWith(FieldEvent.Added, { name: 'password', validations: [] });
 
   expect(store.fields).toEqual([
-    {name: 'username', validations: []},
-    {name: 'password', validations: []}
+    { name: 'username', validations: [] },
+    { name: 'password', validations: [] }
   ]);
 });
 
@@ -46,9 +46,7 @@ test('addField() - existing field', () => {
   store.addField('username');
   store.addField('username');
 
-  expect(store.fields).toEqual([
-    {name: 'username', validations: []}
-  ]);
+  expect(store.fields).toEqual([{ name: 'username', validations: [] }]);
 });
 
 test('removeField()', () => {
@@ -60,16 +58,14 @@ test('removeField()', () => {
   store.addField('password');
   expect(emitSpy).toHaveBeenCalledTimes(2);
   expect(store.fields).toEqual([
-    {name: 'username', validations: []},
-    {name: 'password', validations: []}
+    { name: 'username', validations: [] },
+    { name: 'password', validations: [] }
   ]);
 
   store.removeField('username');
   expect(emitSpy).toHaveBeenCalledTimes(3);
   expect(emitSpy).toHaveBeenLastCalledWith(FieldEvent.Removed, 'username');
-  expect(store.fields).toEqual([
-    {name: 'password', validations: []}
-  ]);
+  expect(store.fields).toEqual([{ name: 'password', validations: [] }]);
 
   store.removeField('password');
   expect(emitSpy).toHaveBeenCalledTimes(4);
@@ -82,9 +78,7 @@ test('removeField() - unknown field', () => {
   store.addField('username');
 
   store.removeField('password');
-  expect(store.fields).toEqual([
-    {name: 'username', validations: []}
-  ]);
+  expect(store.fields).toEqual([{ name: 'username', validations: [] }]);
 });
 
 test('isValid()', () => {

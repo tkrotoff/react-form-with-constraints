@@ -5,8 +5,11 @@ test('constructor(HTMLInputElement)', () => {
     name: 'username',
     type: 'text',
     value: 'john',
-    // tslint:disable-next-line:no-object-literal-type-assertion
-    validity: {valid: true} as ValidityState,
+
+    // tslint:disable:no-object-literal-type-assertion
+    // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
+    validity: { valid: true } as ValidityState,
+
     validationMessage: ''
   };
   const input = new InputElement(htmlInputElement);
@@ -14,7 +17,7 @@ test('constructor(HTMLInputElement)', () => {
     name: 'username',
     type: 'text',
     value: 'john',
-    validity: {valid: true},
+    validity: { valid: true },
     validationMessage: ''
   });
 

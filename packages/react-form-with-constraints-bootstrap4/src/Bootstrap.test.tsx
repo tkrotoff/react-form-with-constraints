@@ -21,36 +21,60 @@ describe('FormWithConstraints', () => {
       {
         name: 'username',
         validations: [
-          {key: '0.0', type: 'error', show: true},
-          {key: '0.1', type: 'error', show: undefined},
-          {key: '0.2', type: 'whenValid', show: undefined}
+          { key: '0.0', type: 'error', show: true },
+          { key: '0.1', type: 'error', show: undefined },
+          { key: '0.2', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'password',
         validations: [
-          {key: '1.0', type: 'error', show: true},
-          {key: '1.1', type: 'error', show: undefined},
-          {key: '1.2', type: 'warning', show: undefined},
-          {key: '1.3', type: 'warning', show: undefined},
-          {key: '1.4', type: 'warning', show: undefined},
-          {key: '1.5', type: 'warning', show: undefined},
-          {key: '1.6', type: 'whenValid', show: undefined}
+          { key: '1.0', type: 'error', show: true },
+          { key: '1.1', type: 'error', show: undefined },
+          { key: '1.2', type: 'warning', show: undefined },
+          { key: '1.3', type: 'warning', show: undefined },
+          { key: '1.4', type: 'warning', show: undefined },
+          { key: '1.5', type: 'warning', show: undefined },
+          { key: '1.6', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'passwordConfirm',
         validations: [
-          {key: '2.0', type: 'error', show: false},
-          {key: '2.1', type: 'whenValid', show: undefined}
+          { key: '2.0', type: 'error', show: false },
+          { key: '2.1', type: 'whenValid', show: undefined }
         ]
       }
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: '', validity: validValidityState, validationMessage: ''}],
-      [{name: 'password', type: 'password', value: '', validity: validValidityState, validationMessage: ''}],
-      [{name: 'passwordConfirm', type: 'password', value: '', validity: validValidityState, validationMessage: ''}]
+      [
+        {
+          name: 'username',
+          type: 'text',
+          value: '',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'password',
+          type: 'password',
+          value: '',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'passwordConfirm',
+          type: 'password',
+          value: '',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ]
     ]);
 
     emitValidateFieldEventSpy.mockClear();
@@ -64,37 +88,61 @@ describe('FormWithConstraints', () => {
       {
         name: 'username',
         validations: [
-          {key: '0.0', type: 'error', show: false},
-          {key: '0.1', type: 'error', show: false},
-          {key: '0.3', type: 'error', show: true},
-          {key: '0.2', type: 'whenValid', show: undefined}
+          { key: '0.0', type: 'error', show: false },
+          { key: '0.1', type: 'error', show: false },
+          { key: '0.3', type: 'error', show: true },
+          { key: '0.2', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'password',
         validations: [
-          {key: '1.0', type: 'error', show: false},
-          {key: '1.1', type: 'error', show: false},
-          {key: '1.2', type: 'warning', show: false},
-          {key: '1.3', type: 'warning', show: true},
-          {key: '1.4', type: 'warning', show: true},
-          {key: '1.5', type: 'warning', show: true},
-          {key: '1.6', type: 'whenValid', show: undefined}
+          { key: '1.0', type: 'error', show: false },
+          { key: '1.1', type: 'error', show: false },
+          { key: '1.2', type: 'warning', show: false },
+          { key: '1.3', type: 'warning', show: true },
+          { key: '1.4', type: 'warning', show: true },
+          { key: '1.5', type: 'warning', show: true },
+          { key: '1.6', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'passwordConfirm',
         validations: [
-          {key: '2.0', type: 'error', show: true},
-          {key: '2.1', type: 'whenValid', show: undefined}
+          { key: '2.0', type: 'error', show: true },
+          { key: '2.1', type: 'whenValid', show: undefined }
         ]
       }
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
-      [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
-      [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+      [
+        {
+          name: 'username',
+          type: 'text',
+          value: 'john',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'password',
+          type: 'password',
+          value: '123456',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'passwordConfirm',
+          type: 'password',
+          value: '12345',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ]
     ]);
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
@@ -114,8 +162,7 @@ describe('FormWithConstraints', () => {
         <span data-feedbacks="2">
           <span data-feedback="2.0" class="invalid-feedback" style="display: block;">Not the same password</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -147,8 +194,7 @@ describe('FormWithConstraints', () => {
         <span data-feedbacks="2">
           <span data-feedback="2.0" class="invalid-feedback" style="display: block;">Not the same password</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     await signUp.form!.resetFields();
 
@@ -160,8 +206,7 @@ describe('FormWithConstraints', () => {
         <span data-feedbacks="1"></span>
         <input type="password" name="passwordConfirm">
         <span data-feedbacks="2"></span>
-      </form>`
-    );
+      </form>`);
 
     signUp.username!.value = 'jimmy';
     signUp.password!.value = '12345';
@@ -195,8 +240,7 @@ describe('FormWithConstraints', () => {
         <span data-feedbacks="2">
           <span data-feedback="2.1" class="valid-feedback" style="display: block;">Looks good!</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -226,37 +270,61 @@ describe('Async', () => {
       {
         name: 'username',
         validations: [
-          {key: '0.0', type: 'error', show: false},
-          {key: '0.1', type: 'error', show: false},
-          {key: '0.3', type: 'info', show: true},
-          {key: '0.2', type: 'whenValid', show: undefined}
+          { key: '0.0', type: 'error', show: false },
+          { key: '0.1', type: 'error', show: false },
+          { key: '0.3', type: 'info', show: true },
+          { key: '0.2', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'password',
         validations: [
-          {key: '1.0', type: 'error', show: false},
-          {key: '1.1', type: 'error', show: false},
-          {key: '1.2', type: 'warning', show: false},
-          {key: '1.3', type: 'warning', show: true},
-          {key: '1.4', type: 'warning', show: true},
-          {key: '1.5', type: 'warning', show: true},
-          {key: '1.6', type: 'whenValid', show: undefined}
+          { key: '1.0', type: 'error', show: false },
+          { key: '1.1', type: 'error', show: false },
+          { key: '1.2', type: 'warning', show: false },
+          { key: '1.3', type: 'warning', show: true },
+          { key: '1.4', type: 'warning', show: true },
+          { key: '1.5', type: 'warning', show: true },
+          { key: '1.6', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'passwordConfirm',
         validations: [
-          {key: '2.0', type: 'error', show: false},
-          {key: '2.1', type: 'whenValid', show: undefined}
+          { key: '2.0', type: 'error', show: false },
+          { key: '2.1', type: 'whenValid', show: undefined }
         ]
       }
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: 'jimmy', validity: validValidityState, validationMessage: ''}],
-      [{name: 'password', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}],
-      [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+      [
+        {
+          name: 'username',
+          type: 'text',
+          value: 'jimmy',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'password',
+          type: 'password',
+          value: '12345',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'passwordConfirm',
+          type: 'password',
+          value: '12345',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ]
     ]);
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
@@ -277,8 +345,7 @@ describe('Async', () => {
         <span data-feedbacks="2">
           <span data-feedback="2.1" class="valid-feedback" style="display: block;">Looks good!</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -297,37 +364,61 @@ describe('Async', () => {
       {
         name: 'username',
         validations: [
-          {key: '0.0', type: 'error', show: false},
-          {key: '0.1', type: 'error', show: false},
-          {key: '0.3', type: 'error', show: true},
-          {key: '0.2', type: 'whenValid', show: undefined}
+          { key: '0.0', type: 'error', show: false },
+          { key: '0.1', type: 'error', show: false },
+          { key: '0.3', type: 'error', show: true },
+          { key: '0.2', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'password',
         validations: [
-          {key: '1.0', type: 'error', show: false},
-          {key: '1.1', type: 'error', show: false},
-          {key: '1.2', type: 'warning', show: false},
-          {key: '1.3', type: 'warning', show: true},
-          {key: '1.4', type: 'warning', show: true},
-          {key: '1.5', type: 'warning', show: true},
-          {key: '1.6', type: 'whenValid', show: undefined}
+          { key: '1.0', type: 'error', show: false },
+          { key: '1.1', type: 'error', show: false },
+          { key: '1.2', type: 'warning', show: false },
+          { key: '1.3', type: 'warning', show: true },
+          { key: '1.4', type: 'warning', show: true },
+          { key: '1.5', type: 'warning', show: true },
+          { key: '1.6', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'passwordConfirm',
         validations: [
-          {key: '2.0', type: 'error', show: true},
-          {key: '2.1', type: 'whenValid', show: undefined}
+          { key: '2.0', type: 'error', show: true },
+          { key: '2.1', type: 'whenValid', show: undefined }
         ]
       }
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: 'error', validity: validValidityState, validationMessage: ''}],
-      [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
-      [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+      [
+        {
+          name: 'username',
+          type: 'text',
+          value: 'error',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'password',
+          type: 'password',
+          value: '123456',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'passwordConfirm',
+          type: 'password',
+          value: '12345',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ]
     ]);
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
@@ -347,8 +438,7 @@ describe('Async', () => {
         <span data-feedbacks="2">
           <span data-feedback="2.0" class="invalid-feedback" style="display: block;">Not the same password</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });

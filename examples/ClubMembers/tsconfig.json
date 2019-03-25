@@ -5,7 +5,5 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "files": [
-    "App.tsx"
-  ]
+  "files": ["App.tsx"]
 }

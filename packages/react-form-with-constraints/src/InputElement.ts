@@ -8,48 +8,6 @@ export interface TextInput {
   };
 }
 
-export class InputElement {
-  readonly name: string;
-  readonly type: string; // Not needed internally, can be text, radio...
-  readonly value: string;
-
-  // validity and validationMessage available for (lib.dom.d.ts):
-  // HTMLButtonElement, HTMLFieldSetElement, HTMLInputElement, HTMLObjectElement,
-  // HTMLOutputElement, HTMLSelectElement, HTMLTextAreaElement
-  // ValidityState is supported by IE >= 10
-  readonly validity: IValidityState;
-  readonly validationMessage: string;
-
-  // Need to duplicate the input when the user changes rapidly the input
-  // otherwise we will treat only the last input value instead of every input value change
-  constructor(input: /*HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement*/ InputElement | TextInput) {
-    if ((input as any).props === undefined) {
-      input = input as InputElement;
-      this.name = input.name;
-      this.type = input.type;
-      this.value = input.value;
-
-      // Solution 1: no clone, then .mock.calls never ends with ValidityState inside FormWithConstraints.test.tsx in v0.8
-      //this.validity = input.validity;
-
-      // Solution 2: JSON does not work to clone ValidityState (results in an empty object)
-      //this.validity = JSON.parse(JSON.stringify(input.validity));
-
-      // Solution 3: manually clone ValidityState
-      this.validity = new IValidityState(input.validity as ValidityState);
-
-      this.validationMessage = input.validationMessage;
-    } else {
-      input = input as TextInput;
-      this.name = input.props!.name;
-      this.type = undefined as any;
-      this.value = input.props!.value!; // Tested: TextInput props.value is always a string and never undefined (empty string instead)
-      this.validity = undefined as any;
-      this.validationMessage = undefined as any;
-    }
-  }
-}
-
 // Cannot clone ValidityState using JSON.parse(JSON.stringify(input.validity)),
 // results in an empty object ({}) under Chrome 66, Firefox 60 and Safari 10.1.2
 // so let's manually clone it.
@@ -78,5 +36,49 @@ export class IValidityState implements ValidityState {
     this.typeMismatch = validity.typeMismatch;
     this.valid = validity.valid;
     this.valueMissing = validity.valueMissing;
+  }
+}
+
+export class InputElement {
+  readonly name: string;
+  readonly type: string; // Not needed internally, can be text, radio...
+  readonly value: string;
+
+  // validity and validationMessage available for (lib.dom.d.ts):
+  // HTMLButtonElement, HTMLFieldSetElement, HTMLInputElement, HTMLObjectElement,
+  // HTMLOutputElement, HTMLSelectElement, HTMLTextAreaElement
+  // ValidityState is supported by IE >= 10
+  readonly validity: IValidityState;
+  readonly validationMessage: string;
+
+  // Need to duplicate the input when the user changes rapidly the input
+  // otherwise we will treat only the last input value instead of every input value change
+  constructor(
+    input: /*HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement*/ InputElement | TextInput
+  ) {
+    if ((input as any).props === undefined) {
+      input = input as InputElement;
+      this.name = input.name;
+      this.type = input.type;
+      this.value = input.value;
+
+      // Solution 1: no clone, then .mock.calls never ends with ValidityState inside FormWithConstraints.test.tsx in v0.8
+      //this.validity = input.validity;
+
+      // Solution 2: JSON does not work to clone ValidityState (results in an empty object)
+      //this.validity = JSON.parse(JSON.stringify(input.validity));
+
+      // Solution 3: manually clone ValidityState
+      this.validity = new IValidityState(input.validity as ValidityState);
+
+      this.validationMessage = input.validationMessage;
+    } else {
+      input = input as TextInput;
+      this.name = input.props!.name;
+      this.type = undefined as any;
+      this.value = input.props!.value!; // Tested: TextInput props.value is always a string and never undefined (empty string instead)
+      this.validity = undefined as any;
+      this.validationMessage = undefined as any;
+    }
   }
 }

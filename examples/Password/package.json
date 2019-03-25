@@ -9,37 +9,26 @@
     "validation",
     "react-form-with-constraints"
   ],
-
   "main": "App.tsx",
-
   "scripts": {
     "clean": "rm -rf build",
-
     "tsc": "tsc",
-
     "build": "webpack -d",
     "build:watch": "webpack -d --watch",
-
     "pretest:e2e": "yarn build",
     "test:e2e": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose --config jest-e2e.config.js"
   },
-
   "dependencies": {
     "react-scripts": "latest",
-
     "react": "latest",
     "react-dom": "latest",
-
     "react-form-with-constraints": "^0.12.0",
     "react-form-with-constraints-tools": "^0.12.0"
   },
-
   "devDependencies": {
     "typescript": "latest",
-
     "@types/react": "latest",
     "@types/react-dom": "latest",
-
     "jest": "latest",
     "@types/jest": "latest",
     "ts-jest": "latest",
@@ -49,10 +38,8 @@
     "@types/jest-environment-puppeteer": "latest",
     "@types/expect-puppeteer": "latest",
     "http-server": "latest",
-
     "ts-node": "latest",
     "@types/node": "latest",
-
     "webpack-cli": "latest",
     "webpack": "latest",
     "@types/webpack": "latest",

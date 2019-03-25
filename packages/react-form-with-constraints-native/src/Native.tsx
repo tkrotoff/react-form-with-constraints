@@ -6,8 +6,11 @@ import {
   FormWithConstraints as _FormWithConstraints,
   FieldFeedbacks,
   Async,
-  FieldFeedback as _FieldFeedback, FieldFeedbackBaseProps as _FieldFeedbackBaseProps, FieldFeedbackType,
-  FieldFeedbackWhenValid as _FieldFeedbackWhenValid, FieldFeedbackWhenValidBaseProps as _FieldFeedbackWhenValidBaseProps,
+  FieldFeedback as _FieldFeedback,
+  FieldFeedbackBaseProps as _FieldFeedbackBaseProps,
+  FieldFeedbackType,
+  FieldFeedbackWhenValid as _FieldFeedbackWhenValid,
+  FieldFeedbackWhenValidBaseProps as _FieldFeedbackWhenValidBaseProps,
   deepForEach
 } from 'react-form-with-constraints';
 
@@ -79,28 +82,25 @@ export class FormWithConstraints extends _FormWithConstraints {
   abstract async resetFields(...inputsOrNames: Array<TextInput | string>);
 
   render() {
-    return <View {...this.props as any} />;
+    return <View {...(this.props as any)} />;
   }
 }
-
 
 export { FieldFeedbacks };
 
 export { Async };
 
-
 // See Tips for styling your React Native apps https://medium.com/the-react-native-log/tips-for-styling-your-react-native-apps-3f61608655eb
 export interface FieldFeedbackTheme {
-  error?: StyleProp<{color: string}>;
-  warning?: StyleProp<{color: string}>;
-  info?: StyleProp<{color: string}>;
-  whenValid?: StyleProp<{color: string}>;
+  error?: StyleProp<{ color: string }>;
+  warning?: StyleProp<{ color: string }>;
+  info?: StyleProp<{ color: string }>;
+  whenValid?: StyleProp<{ color: string }>;
 }
 
 export interface FieldFeedbackProps extends _FieldFeedbackBaseProps, TextProps {
   theme?: FieldFeedbackTheme;
 }
-
 
 // See Clone a js object except for one key https://stackoverflow.com/q/34698905
 function omitClassesDefaultProps() {
@@ -121,12 +121,12 @@ export class FieldFeedback extends _FieldFeedback<FieldFeedbackProps> {
 
     // Special case for when="valid": always displayed, then FieldFeedbackWhenValid decides what to do
     if (validation.type === FieldFeedbackType.WhenValid) {
-                                                              // The last style property is the one applied
+      // The last style property is the one applied
       return <FieldFeedbackWhenValid data-feedback={this.key} style={style} {...otherProps} />;
     }
 
     if (validation.show) {
-                                            // The last style property is the one applied
+      // The last style property is the one applied
       return <Text data-feedback={this.key} style={style} {...otherProps} />;
     }
 
@@ -134,9 +134,7 @@ export class FieldFeedback extends _FieldFeedback<FieldFeedbackProps> {
   }
 }
 
-
-export interface FieldFeedbackWhenValidProps extends _FieldFeedbackWhenValidBaseProps, TextProps {
-}
+export interface FieldFeedbackWhenValidProps extends _FieldFeedbackWhenValidBaseProps, TextProps {}
 
 export class FieldFeedbackWhenValid extends _FieldFeedbackWhenValid<FieldFeedbackWhenValidProps> {
   // Copied and adapted from core/FieldFeedbackWhenValid.render()

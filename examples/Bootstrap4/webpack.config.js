@@ -20,13 +20,13 @@ module.exports = {
     rules: [
       { test: /\.jsx?$/, loader: 'babel-loader' },
       { test: /\.js$/, loader: 'source-map-loader' },
-      { test: /\.html$/, loader: 'file-loader', options: {name: '[path][name].[ext]'} },
+      { test: /\.html$/, loader: 'file-loader', options: { name: '[path][name].[ext]' } },
       {
         test: /\.scss$/,
         use: [
-          { loader: 'style-loader', options: {sourceMap: true} },
-          { loader: 'css-loader', options: {sourceMap: true} },
-          { loader: 'sass-loader', options: {sourceMap: true} }
+          { loader: 'style-loader', options: { sourceMap: true } },
+          { loader: 'css-loader', options: { sourceMap: true } },
+          { loader: 'sass-loader', options: { sourceMap: true } }
         ]
       }
     ]

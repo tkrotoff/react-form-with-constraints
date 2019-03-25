@@ -2,23 +2,25 @@ import * as React from 'react';
 
 import { deepForEach } from './index';
 
+// tslint:disable:jsx-key
+
 test('deepForEach', () => {
   const component = (
     <div id="1">
       <div id="1.1">
-        <div id="1.1.1" />
-        <div id="1.1.2" />
-        <div id="1.1.3" />
+        <div key="1.1.1" id="1.1.1" />
+        <div key="1.1.2" id="1.1.2" />
+        <div key="1.1.3" id="1.1.3" />
       </div>
       <div id="1.2">
-        <div id="1.2.1" />
-        <div id="1.2.2" />
-        <div id="1.2.3" />
+        <div key="1.2.1" id="1.2.1" />
+        <div key="1.2.2" id="1.2.2" />
+        <div key="1.2.3" id="1.2.3" />
       </div>
       <div id="1.3">
-        <div id="1.3.1" />
-        <div id="1.3.2" />
-        <div id="1.3.3" />
+        <div key="1.3.1" id="1.3.1" />
+        <div key="1.3.2" id="1.3.2" />
+        <div key="1.3.3" id="1.3.3" />
       </div>
     </div>
   );
@@ -29,19 +31,33 @@ test('deepForEach', () => {
     children.push(child);
   });
 
-  // tslint:disable:jsx-key
   expect(children).toEqual([
-    <div id="1.1.1" />,
-    <div id="1.1.2" />,
-    <div id="1.1.3" />,
-    <div id="1.1"><div id="1.1.1" /><div id="1.1.2" /><div id="1.1.3" /></div>,
-    <div id="1.2.1" />,
-    <div id="1.2.2" />,
-    <div id="1.2.3" />,
-    <div id="1.2"><div id="1.2.1" /><div id="1.2.2" /><div id="1.2.3" /></div>,
-    <div id="1.3.1" />,
-    <div id="1.3.2" />,
-    <div id="1.3.3" />,
-    <div id="1.3"><div id="1.3.1" /><div id="1.3.2" /><div id="1.3.3" /></div>
+    <div key="1.1.1" id="1.1.1" />,
+    <div key="1.1.2" id="1.1.2" />,
+    <div key="1.1.3" id="1.1.3" />,
+    // eslint-disable-next-line react/jsx-key
+    <div id="1.1">
+      <div key="1.1.1" id="1.1.1" />
+      <div key="1.1.2" id="1.1.2" />
+      <div key="1.1.3" id="1.1.3" />
+    </div>,
+    <div key="1.2.1" id="1.2.1" />,
+    <div key="1.2.2" id="1.2.2" />,
+    <div key="1.2.3" id="1.2.3" />,
+    // eslint-disable-next-line react/jsx-key
+    <div id="1.2">
+      <div key="1.2.1" id="1.2.1" />
+      <div key="1.2.2" id="1.2.2" />
+      <div key="1.2.3" id="1.2.3" />
+    </div>,
+    <div key="1.3.1" id="1.3.1" />,
+    <div key="1.3.2" id="1.3.2" />,
+    <div key="1.3.3" id="1.3.3" />,
+    // eslint-disable-next-line react/jsx-key
+    <div id="1.3">
+      <div key="1.3.1" id="1.3.1" />
+      <div key="1.3.2" id="1.3.2" />
+      <div key="1.3.3" id="1.3.3" />
+    </div>
   ]);
 });

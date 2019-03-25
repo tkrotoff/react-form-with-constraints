@@ -39,6 +39,19 @@ function Form() {
     passwordConfirm: []
   });
 
+  // FIXME See [SetStateAction returned from useState hook does not accept a second callback argument](https://github.com/facebook/react/issues/14174)
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  useEffect(() => {
+    if (isSubmitted) {
+      if (!hasErrors(errors)) {
+        alert('Valid form');
+      } else {
+        alert('Invalid form');
+      }
+      setIsSubmitted(false);
+    }
+  }, [isSubmitted, errors]);
+
   function handleEmailChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target;
     setErrors(prevState => {
@@ -84,50 +97,57 @@ function Form() {
     setIsSubmitted(true);
   }
 
-  // FIXME See [SetStateAction returned from useState hook does not accept a second callback argument](https://github.com/facebook/react/issues/14174)
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  useEffect(() => {
-    if (isSubmitted) {
-      if (!hasErrors(errors)) {
-        alert('Valid form');
-      } else {
-        alert('Invalid form');
-      }
-      setIsSubmitted(false);
-    }
-  });
-
   return (
     <form onSubmit={handleSubmit} noValidate>
       <div>
         <label htmlFor="email">Email</label>
-        <input type="email" name="email" id="email"
-               ref={email}
-               onChange={handleEmailChange}
-               required minLength={5} />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          ref={email}
+          onChange={handleEmailChange}
+          required
+          minLength={5}
+        />
         <div className="error">
-          {errors.email.map(error => <div key={error}>{error}</div>)}
+          {errors.email.map(error => (
+            <div key={error}>{error}</div>
+          ))}
         </div>
       </div>
 
       <div>
         <label htmlFor="password">Password</label>
-        <input type="password" name="password" id="password"
-               ref={password}
-               onChange={handlePasswordChange}
-               required pattern=".{5,}" />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          ref={password}
+          onChange={handlePasswordChange}
+          required
+          pattern=".{5,}"
+        />
         <div className="error">
-          {errors.password.map(error => <div key={error}>{error}</div>)}
+          {errors.password.map(error => (
+            <div key={error}>{error}</div>
+          ))}
         </div>
       </div>
 
       <div>
         <label htmlFor="password-confirm">Confirm Password</label>
-        <input type="password" name="passwordConfirm" id="password-confirm"
-               ref={passwordConfirm}
-               onChange={handlePasswordConfirmChange} />
+        <input
+          type="password"
+          name="passwordConfirm"
+          id="password-confirm"
+          ref={passwordConfirm}
+          onChange={handlePasswordConfirmChange}
+        />
         <div className="error">
-          {errors.passwordConfirm.map(error => <div key={error}>{error}</div>)}
+          {errors.passwordConfirm.map(error => (
+            <div key={error}>{error}</div>
+          ))}
         </div>
       </div>
 

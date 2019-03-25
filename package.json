@@ -1,34 +1,26 @@
 {
   "private": true,
-
   "scripts": {
     "clean:lerna": "lerna clean",
     "clean:node_modules": "find . \\( -name 'node_modules' -or -name 'yarn.lock' -or -name 'yarn-error.log' \\) -prune -exec rm -rf '{}' +",
-
     "clean": "rm -f lerna-debug.log && lerna run clean",
-
     "clean:all": "yarn clean && yarn clean:lerna && yarn clean:node_modules",
-
     "tsc": "lerna run tsc",
     "build": "lerna run build",
     "dist": "lerna run dist",
-
     "prepublishOnly": "lerna run prepublishOnly",
-
     "test": "lerna run test --stream",
     "test:e2e": "lerna run test:e2e --stream --concurrency 1",
     "test:coverage": "lerna run test:coverage --stream",
-
+    "prettier": "prettier --write \"**/*\"",
+    "eslint": "eslint . '**/*.{js,jsx,ts,tsx}'",
     "tslint": "yarn tslint:js && yarn tslint:tsconfig",
     "tslint:js": "find . -type f \\( -name '*.js' -or -name '*.jsx' \\) -not -path '*/node_modules/*' -print -exec tslint --config tslint.json '{}' \\;",
     "tslint:tsconfig": "find . -type f -name 'tsconfig.json' -not -path '*/node_modules/*' -print -exec tslint --config tslint.json --project '{}' \\;",
-
     "publish:lerna": "yarn lerna publish --dist-tag next --no-git-tag-version --no-push --registry=https://registry.npmjs.org # Custom example: 0.8.0-beta.1"
   },
-
   "workspaces": [
     "packages/*",
-
     "examples/Bootstrap4",
     "examples/ClubMembers",
     "examples/HTML5ConstraintValidationAPI",
@@ -40,12 +32,17 @@
     "examples/WizardForm",
     "examples/MaterialUI"
   ],
-
   "devDependencies": {
     "lerna": "latest",
-
     "typescript": "latest",
-
+    "prettier": "latest",
+    "eslint": "latest",
+    "eslint-config-prettier": "latest",
+    "eslint-plugin-prettier": "latest",
+    "eslint-plugin-react": "latest",
+    "eslint-plugin-react-hooks": "latest",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
     "tslint": "latest",
     "tslint-react": "latest"
   }

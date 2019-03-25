@@ -36,7 +36,9 @@ test('john/123456/12345', async () => {
   const passwordConfirm = await page.$('input[name=passwordConfirm]');
   await passwordConfirm.click();
   await passwordConfirm.type('12345');
-  const passwordConfirmFeedbacks = await page.$$('input[name=passwordConfirm] ~ span[data-feedback]');
+  const passwordConfirmFeedbacks = await page.$$(
+    'input[name=passwordConfirm] ~ span[data-feedback]'
+  );
   expect(passwordConfirmFeedbacks).toHaveLength(1);
   await expect(passwordConfirmFeedbacks[0]).toMatch('Not the same password');
 
@@ -71,7 +73,9 @@ test('jimmy/12345/12345', async () => {
   const passwordConfirm = await page.$('input[name=passwordConfirm]');
   await passwordConfirm.click();
   await passwordConfirm.type('12345');
-  const passwordConfirmFeedbacks = await page.$$('input[name=passwordConfirm] ~ span[data-feedback]');
+  const passwordConfirmFeedbacks = await page.$$(
+    'input[name=passwordConfirm] ~ span[data-feedback]'
+  );
   expect(passwordConfirmFeedbacks).toHaveLength(1);
   await expect(passwordConfirmFeedbacks[0]).toMatch('Looks good!');
 
@@ -91,7 +95,6 @@ test('jimmy/12345/12345', async () => {
       "username": "jimmy",
       "password": "12345",
       "passwordConfirm": "12345"
-    }`
-  );
+    }`);
   await dialog.accept();
 });

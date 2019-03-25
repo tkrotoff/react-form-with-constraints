@@ -34,28 +34,44 @@ export default class WizardForm extends React.Component<Props, State> {
     this.setState({
       [target.name as keyof State]: value
     });
-  }
+  };
 
   handleSubmit = () => {
     alert(`Form submitted\n\nthis.state =\n${JSON.stringify(this.state, null, 2)}`);
-  }
+  };
 
   nextStep = () => {
-    this.setState({step: this.state.step + 1});
-  }
+    this.setState({ step: this.state.step + 1 });
+  };
 
   previousStep = () => {
-    this.setState({step: this.state.step - 1});
-  }
+    this.setState({ step: this.state.step - 1 });
+  };
 
   render() {
     const { step } = this.state;
 
     return (
       <>
-        {step === 1 && <WizardFormStep1 {...this.state} onChange={this.handleChange} nextPage={this.nextStep} />}
-        {step === 2 && <WizardFormStep2 {...this.state} previousPage={this.previousStep} onChange={this.handleChange} nextPage={this.nextStep} />}
-        {step === 3 && <WizardFormStep3 {...this.state} previousPage={this.previousStep} onChange={this.handleChange} onSubmit={this.handleSubmit} />}
+        {step === 1 && (
+          <WizardFormStep1 {...this.state} onChange={this.handleChange} nextPage={this.nextStep} />
+        )}
+        {step === 2 && (
+          <WizardFormStep2
+            {...this.state}
+            previousPage={this.previousStep}
+            onChange={this.handleChange}
+            nextPage={this.nextStep}
+          />
+        )}
+        {step === 3 && (
+          <WizardFormStep3
+            {...this.state}
+            previousPage={this.previousStep}
+            onChange={this.handleChange}
+            onSubmit={this.handleSubmit}
+          />
+        )}
 
         <div>
           <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre>

@@ -5,11 +5,25 @@ import * as PropTypes from 'prop-types';
 import {
   FormWithConstraints,
   FormWithConstraintsChildContext,
-  FieldFeedback as _FieldFeedback, FieldFeedbackType,
+  FieldFeedback as _FieldFeedback,
+  FieldFeedbackType,
   FieldFeedbacks as _FieldFeedbacks,
   Async as _Async,
   FieldEvent
 } from 'react-form-with-constraints';
+
+// See Preserving undefined that JSON.stringify otherwise removes https://stackoverflow.com/q/26540706
+// See JSON.stringify without quotes on properties? https://stackoverflow.com/q/11233498
+function stringifyWithUndefinedAndWithoutPropertyQuotes(obj: object, space?: string | number) {
+  let str = JSON.stringify(
+    obj,
+    (_key, value) => (value === undefined ? '__undefined__' : value),
+    space
+  );
+  str = str.replace(/"__undefined__"/g, 'undefined');
+  str = str.replace(/"([^"]+)":/g, '$1:');
+  return str;
+}
 
 export interface DisplayFieldsProps {}
 
@@ -37,10 +51,13 @@ export class DisplayFields extends React.Component<DisplayFieldsProps> {
 
   reRender = () => {
     this.forceUpdate();
-  }
+  };
 
   render() {
-    let str = stringifyWithUndefinedAndWithoutPropertyQuotes(this.context.form.fieldsStore.fields, 2);
+    let str = stringifyWithUndefinedAndWithoutPropertyQuotes(
+      this.context.form.fieldsStore.fields,
+      2
+    );
 
     // Cosmetic: improve formatting
     //
@@ -52,19 +69,13 @@ export class DisplayFields extends React.Component<DisplayFieldsProps> {
     // }
     // with this:
     // { key: "1.0", type: "error", show: true }
-    str = str.replace(/{\s+key: (.*),\s+type: (.*),\s+show: (.*)\s+}/g, '{ key: $1, type: $2, show: $3 }');
+    str = str.replace(
+      /{\s+key: (.*),\s+type: (.*),\s+show: (.*)\s+}/g,
+      '{ key: $1, type: $2, show: $3 }'
+    );
 
-    return <pre style={{fontSize: 'small'}}>Fields = {str}</pre>;
+    return <pre style={{ fontSize: 'small' }}>Fields = {str}</pre>;
   }
-}
-
-// See Preserving undefined that JSON.stringify otherwise removes https://stackoverflow.com/q/26540706
-// See JSON.stringify without quotes on properties? https://stackoverflow.com/q/11233498
-function stringifyWithUndefinedAndWithoutPropertyQuotes(obj: object, space?: string | number) {
-  let str = JSON.stringify(obj, (_key, value) => value === undefined ? '__undefined__' : value, space);
-  str = str.replace(/"__undefined__"/g, 'undefined');
-  str = str.replace(/"([^"]+)":/g, '$1:');
-  return str;
 }
 
 export { FormWithConstraints };
@@ -79,10 +90,10 @@ export class FieldFeedbacks extends _FieldFeedbacks {
 
     return (
       <>
-        <li>key="{this.key}" {attr}</li>
-        <ul>
-          {super.render()}
-        </ul>
+        <li>
+          key="{this.key}" {attr}
+        </li>
+        <ul>{super.render()}</ul>
       </>
     );
   }
@@ -110,13 +121,17 @@ export class FieldFeedback extends _FieldFeedback {
 
     return (
       <li>
-        <span style={{textDecoration: this.getTextDecoration()}}>key="{key}" type="{type}"</span>{' '}
+        <span style={{ textDecoration: this.getTextDecoration() }}>
+          key="{key}" type="{type}"
+        </span>{' '}
         {super.render()}
       </li>
     );
   }
 
   componentDidUpdate() {
+    // FIXME
+    // eslint-disable-next-line react/no-find-dom-node
     const el = ReactDOM.findDOMNode(this) as HTMLLIElement;
 
     // Hack: make FieldFeedback <span style="display: inline">
@@ -149,6 +164,8 @@ export class Async<T> extends _Async<T> {
   }
 
   componentWillUpdate() {
+    // FIXME
+    // eslint-disable-next-line react/no-find-dom-node
     const el = ReactDOM.findDOMNode(this) as HTMLLIElement;
 
     // Reset style
@@ -159,10 +176,8 @@ export class Async<T> extends _Async<T> {
   render() {
     return (
       <li className="async">
-        <span style={{textDecoration: this.getTextDecoration()}}>Async</span>
-        <ul>
-          {super.render()}
-        </ul>
+        <span style={{ textDecoration: this.getTextDecoration() }}>Async</span>
+        <ul>{super.render()}</ul>
       </li>
     );
   }

@@ -3,16 +3,29 @@ import ReactDOM from 'react-dom';
 import { isEqual } from 'lodash';
 
 import {
-  Input, InputLabel,
+  Input,
+  InputLabel,
   /*TextField, FormControl,*/
-  FormHelperText, FormControlLabel, Button, Switch,
-  MuiThemeProvider, createMuiTheme, Theme, CssBaseline,
-  createStyles, withStyles, WithStyles
+  FormHelperText,
+  FormControlLabel,
+  Button,
+  Switch,
+  MuiThemeProvider,
+  createMuiTheme,
+  Theme,
+  CssBaseline,
+  createStyles,
+  withStyles,
+  WithStyles
 } from '@material-ui/core';
 
 import {
-  FormWithConstraints, FieldFeedbacks, Async, FieldFeedback,
-  TextField, FormControl
+  FormWithConstraints,
+  FieldFeedbacks,
+  Async,
+  FieldFeedback,
+  TextField,
+  FormControl
 } from 'react-form-with-constraints-material-ui';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
@@ -69,7 +82,7 @@ function Form(props: FormProps) {
     const target = e.target;
 
     setInputs(prevState => {
-      return {...prevState, [target.name]: target.value};
+      return { ...prevState, [target.name]: target.value };
     });
 
     await form.current!.validateFields(target);
@@ -82,7 +95,7 @@ function Form(props: FormProps) {
     const target = e.target;
 
     setInputs(prevState => {
-      return {...prevState, [target.name]: target.value};
+      return { ...prevState, [target.name]: target.value };
     });
 
     await form.current!.validateFields(target, 'passwordConfirm');
@@ -113,14 +126,18 @@ function Form(props: FormProps) {
   }
 
   return (
-    <FormWithConstraints
-      ref={form}
-      onSubmit={handleSubmit} noValidate
-    >
+    <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
       <TextField
-        name="username" label={<>Username <small>(already taken: john, paul, george, ringo)</small></>}
-        value={inputs.username} onChange={handleChange}
-        fullWidth margin="dense"
+        name="username"
+        label={
+          <>
+            Username <small>(already taken: john, paul, george, ringo)</small>
+          </>
+        }
+        value={inputs.username}
+        onChange={handleChange}
+        fullWidth
+        margin="dense"
         inputProps={{
           required: true,
           minLength: 3
@@ -131,10 +148,15 @@ function Form(props: FormProps) {
             <FieldFeedback when="*" />
             <Async
               promise={checkUsernameAvailability}
-              pending={<span style={{display: 'block'}}>...</span>}
-              then={available => available ?
-                <FieldFeedback key="1" info style={{color: 'green'}}>Username available</FieldFeedback> :
-                <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>
+              pending={<span style={{ display: 'block' }}>...</span>}
+              then={available =>
+                available ? (
+                  <FieldFeedback key="1" info style={{ color: 'green' }}>
+                    Username available
+                  </FieldFeedback>
+                ) : (
+                  <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>
+                )
               }
             />
             <FieldFeedback when="valid">Looks good!</FieldFeedback>
@@ -146,9 +168,12 @@ function Form(props: FormProps) {
       <FormControl fullWidth margin="dense">
         <InputLabel htmlFor="password">Password</InputLabel>
         <Input
-          type="password" id="password" name="password"
+          type="password"
+          id="password"
+          name="password"
           inputRef={password}
-          value={inputs.password} onChange={handlePasswordChange}
+          value={inputs.password}
+          onChange={handlePasswordChange}
           inputProps={{
             required: true,
             pattern: '.{5,}'
@@ -157,34 +182,54 @@ function Form(props: FormProps) {
         <FormHelperText>
           <FieldFeedbacks for="password">
             <FieldFeedback when="valueMissing" />
-            <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
-            <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
-            <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
-            <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
-            <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
+            <FieldFeedback when="patternMismatch">
+              Should be at least 5 characters long
+            </FieldFeedback>
+            <FieldFeedback when={value => !/\d/.test(value)} warning>
+              Should contain numbers
+            </FieldFeedback>
+            <FieldFeedback when={value => !/[a-z]/.test(value)} warning>
+              Should contain small letters
+            </FieldFeedback>
+            <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>
+              Should contain capital letters
+            </FieldFeedback>
+            <FieldFeedback when={value => !/\W/.test(value)} warning>
+              Should contain special characters
+            </FieldFeedback>
             <FieldFeedback when="valid">Looks good!</FieldFeedback>
           </FieldFeedbacks>
         </FormHelperText>
       </FormControl>
 
       <TextField
-        type="password" name="passwordConfirm" label="Confirm Password"
-        value={inputs.passwordConfirm} onChange={handleChange}
-        fullWidth margin="dense"
+        type="password"
+        name="passwordConfirm"
+        label="Confirm Password"
+        value={inputs.passwordConfirm}
+        onChange={handleChange}
+        fullWidth
+        margin="dense"
         helperText={
           <FieldFeedbacks for="passwordConfirm">
-            <FieldFeedback when={value => value !== password.current!.value}>Not the same password</FieldFeedback>
+            <FieldFeedback when={value => value !== password.current!.value}>
+              Not the same password
+            </FieldFeedback>
           </FieldFeedbacks>
         }
       />
 
       <Button
-        type="submit" disabled={signUpButtonDisabled}
-        color="primary" className={props.classes.button}
+        type="submit"
+        disabled={signUpButtonDisabled}
+        color="primary"
+        className={props.classes.button}
       >
         Sign Up
       </Button>
-      <Button onClick={handleReset} disabled={resetButtonDisabled} className={props.classes.button}>Reset</Button>
+      <Button onClick={handleReset} disabled={resetButtonDisabled} className={props.classes.button}>
+        Reset
+      </Button>
 
       <DisplayFields />
     </FormWithConstraints>
@@ -192,7 +237,6 @@ function Form(props: FormProps) {
 }
 
 const App = withStyles(styles)(Form);
-
 
 const darkTheme = createMuiTheme({
   typography: {
@@ -213,12 +257,7 @@ function AppWithTheme() {
   function renderWithThemeSwitch() {
     return (
       <FormControlLabel
-        control={
-          <Switch
-            checked={withTheme}
-            onChange={handleChange}
-          />
-        }
+        control={<Switch checked={withTheme} onChange={handleChange} />}
         label="Dark theme"
       />
     );
@@ -226,24 +265,25 @@ function AppWithTheme() {
 
   return (
     <>
-      {withTheme ?
+      {withTheme ? (
         <MuiThemeProvider theme={darkTheme}>
           {renderWithThemeSwitch()}
           <CssBaseline />
           <App />
-        </MuiThemeProvider> :
+        </MuiThemeProvider>
+      ) : (
         <>
           {renderWithThemeSwitch()}
           <CssBaseline />
           <App />
         </>
-      }
+      )}
     </>
   );
 }
 
 ReactDOM.render(
-  <main style={{margin: 8}}>
+  <main style={{ margin: 8 }}>
     <AppWithTheme />
   </main>,
   document.getElementById('app')

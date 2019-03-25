@@ -11,53 +11,39 @@
     "bootstrap",
     "bootstrap4"
   ],
-
   "main": "App.jsx",
-
   "scripts": {
     "clean": "rm -rf build",
-
     "build": "webpack -d",
     "build:watch": "webpack -d --watch",
-
     "pretest:e2e": "yarn build",
     "test:e2e": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose --config jest-e2e.config.js"
   },
-
   "dependencies": {
     "react-scripts": "latest",
-
     "react": "latest",
     "react-dom": "latest",
-
     "lodash-es": "latest",
-
     "react-form-with-constraints": "^0.12.0",
     "react-form-with-constraints-bootstrap4": "^0.12.0",
     "react-form-with-constraints-tools": "^0.12.0",
-
     "bootstrap": "latest",
-
     "@babel/polyfill": "latest",
     "raf": "latest"
   },
-
   "devDependencies": {
     "jest": "latest",
     "puppeteer": "latest",
     "jest-puppeteer": "latest",
     "http-server": "latest",
-
     "@babel/core": "latest",
     "@babel/plugin-proposal-class-properties": "latest",
     "@babel/preset-env": "latest",
     "@babel/preset-react": "latest",
-
     "node-sass": "latest",
     "style-loader": "latest",
     "css-loader": "latest",
     "sass-loader": "latest",
-
     "webpack-cli": "latest",
     "webpack": "latest",
     "babel-loader": "latest",

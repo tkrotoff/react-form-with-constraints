@@ -4,9 +4,7 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
-      "ignoreChanges": [
-        "*-example"
-      ]
+      "ignoreChanges": ["*-example"]
     }
   }
 }

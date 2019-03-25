@@ -1,7 +1,13 @@
 import * as React from 'react';
 import { mount as _mount } from 'enzyme';
 
-import { FormWithConstraints, FormWithConstraintsProps, FieldFeedbacksProps, FieldFeedback, Async } from './index';
+import {
+  FormWithConstraints,
+  FormWithConstraintsProps,
+  FieldFeedbacksProps,
+  FieldFeedback,
+  Async
+} from './index';
 import SignUp from './SignUp';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 import sleep from './sleep';
@@ -37,12 +43,18 @@ describe('FormWithBeforeAsync', () => {
       const { inputStop } = this.props;
 
       return (
-        <FormWithConstraints ref={formWithConstraints => this.formWithConstraints = formWithConstraints}>
-          <input name="input" ref={input => this.input = input} />
+        <FormWithConstraints
+          ref={formWithConstraints => (this.formWithConstraints = formWithConstraints)}
+        >
+          <input name="input" ref={input => (this.input = input)} />
           <FieldFeedbacks for="input" stop={inputStop}>
             <FieldFeedback when={() => true}>Error before Async</FieldFeedback>
-            <FieldFeedback when={() => true} warning>Warning before Async</FieldFeedback>
-            <FieldFeedback when={() => true} info>Info before Async</FieldFeedback>
+            <FieldFeedback when={() => true} warning>
+              Warning before Async
+            </FieldFeedback>
+            <FieldFeedback when={() => true} info>
+              Info before Async
+            </FieldFeedback>
             <Async
               promise={() => sleep(10)}
               then={() => <FieldFeedback>Async error</FieldFeedback>}
@@ -65,8 +77,7 @@ describe('FormWithBeforeAsync', () => {
         <span data-feedbacks="0">
           <span data-feedback="0.0" class="error" style="display: block;">Error before Async</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -83,8 +94,7 @@ describe('FormWithBeforeAsync', () => {
         <span data-feedbacks="0">
           <span data-feedback="0.0" class="error" style="display: block;">Error before Async</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -102,8 +112,7 @@ describe('FormWithBeforeAsync', () => {
           <span data-feedback="0.0" class="error" style="display: block;">Error before Async</span>
           <span data-feedback="0.1" class="warning" style="display: block;">Warning before Async</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -122,8 +131,7 @@ describe('FormWithBeforeAsync', () => {
           <span data-feedback="0.1" class="warning" style="display: block;">Warning before Async</span>
           <span data-feedback="0.2" class="info" style="display: block;">Info before Async</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -143,8 +151,7 @@ describe('FormWithBeforeAsync', () => {
           <span data-feedback="0.2" class="info" style="display: block;">Info before Async</span>
           <span data-feedback="0.3" class="error" style="display: block;">Async error</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -159,16 +166,22 @@ describe('FormWithAfterAsync', () => {
       const { inputStop } = this.props;
 
       return (
-        <FormWithConstraints ref={formWithConstraints => this.formWithConstraints = formWithConstraints}>
-          <input name="input" ref={input => this.input = input} />
+        <FormWithConstraints
+          ref={formWithConstraints => (this.formWithConstraints = formWithConstraints)}
+        >
+          <input name="input" ref={input => (this.input = input)} />
           <FieldFeedbacks for="input" stop={inputStop}>
             <Async
               promise={() => sleep(10)}
               then={() => <FieldFeedback>Async error</FieldFeedback>}
             />
             <FieldFeedback when={() => true}>Error after Async</FieldFeedback>
-            <FieldFeedback when={() => true} warning>Warning after Async</FieldFeedback>
-            <FieldFeedback when={() => true} info>Info after Async</FieldFeedback>
+            <FieldFeedback when={() => true} warning>
+              Warning after Async
+            </FieldFeedback>
+            <FieldFeedback when={() => true} info>
+              Info after Async
+            </FieldFeedback>
           </FieldFeedbacks>
         </FormWithConstraints>
       );
@@ -187,8 +200,7 @@ describe('FormWithAfterAsync', () => {
         <span data-feedbacks="0">
           <span data-feedback="0.3" class="error" style="display: block;">Async error</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -205,8 +217,7 @@ describe('FormWithAfterAsync', () => {
         <span data-feedbacks="0">
           <span data-feedback="0.3" class="error" style="display: block;">Async error</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -225,8 +236,7 @@ describe('FormWithAfterAsync', () => {
           <span data-feedback="0.0" class="error" style="display: block;">Error after Async</span>
           <span data-feedback="0.1" class="warning" style="display: block;">Warning after Async</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -246,8 +256,7 @@ describe('FormWithAfterAsync', () => {
           <span data-feedback="0.1" class="warning" style="display: block;">Warning after Async</span>
           <span data-feedback="0.2" class="info" style="display: block;">Info after Async</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -267,8 +276,7 @@ describe('FormWithAfterAsync', () => {
           <span data-feedback="0.1" class="warning" style="display: block;">Warning after Async</span>
           <span data-feedback="0.2" class="info" style="display: block;">Info after Async</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -283,22 +291,32 @@ describe('FormWithMultipleNestedFieldFeedbacks - test FieldFeedbacks.validate() 
       const { inputStop } = this.props;
 
       return (
-        <FormWithConstraints ref={formWithConstraints => this.formWithConstraints = formWithConstraints}>
-          <input name="input" ref={input => this.input = input} />
+        <FormWithConstraints
+          ref={formWithConstraints => (this.formWithConstraints = formWithConstraints)}
+        >
+          <input name="input" ref={input => (this.input = input)} />
 
           <FieldFeedbacks for="input" stop={inputStop}>
             <FieldFeedbacks stop="no">
               <FieldFeedback when={() => true}>Error 1</FieldFeedback>
-              <FieldFeedback when={() => true} warning>Warning 1</FieldFeedback>
-              <FieldFeedback when={() => true} info>Info 1</FieldFeedback>
+              <FieldFeedback when={() => true} warning>
+                Warning 1
+              </FieldFeedback>
+              <FieldFeedback when={() => true} info>
+                Info 1
+              </FieldFeedback>
             </FieldFeedbacks>
           </FieldFeedbacks>
 
           <FieldFeedbacks for="input" stop={inputStop}>
             <FieldFeedbacks stop="no">
               <FieldFeedback when={() => true}>Error 2</FieldFeedback>
-              <FieldFeedback when={() => true} warning>Warning 2</FieldFeedback>
-              <FieldFeedback when={() => true} info>Info 2</FieldFeedback>
+              <FieldFeedback when={() => true} warning>
+                Warning 2
+              </FieldFeedback>
+              <FieldFeedback when={() => true} info>
+                Info 2
+              </FieldFeedback>
             </FieldFeedbacks>
           </FieldFeedbacks>
         </FormWithConstraints>
@@ -329,8 +347,7 @@ describe('FormWithMultipleNestedFieldFeedbacks - test FieldFeedbacks.validate() 
             <span data-feedback="1.0.2" class="info" style="display: block;">Info 2</span>
           </span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -358,8 +375,7 @@ describe('FormWithMultipleNestedFieldFeedbacks - test FieldFeedbacks.validate() 
             <span data-feedback="1.0.2" class="info" style="display: block;">Info 2</span>
           </span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -387,8 +403,7 @@ describe('FormWithMultipleNestedFieldFeedbacks - test FieldFeedbacks.validate() 
             <span data-feedback="1.0.2" class="info" style="display: block;">Info 2</span>
           </span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -416,8 +431,7 @@ describe('FormWithMultipleNestedFieldFeedbacks - test FieldFeedbacks.validate() 
             <span data-feedback="1.0.2" class="info" style="display: block;">Info 2</span>
           </span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -445,8 +459,7 @@ describe('FormWithMultipleNestedFieldFeedbacks - test FieldFeedbacks.validate() 
             <span data-feedback="1.0.2" class="info" style="display: block;">Info 2</span>
           </span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -461,19 +474,39 @@ describe('FormWithMultipleNestedAsync - test Async.validate() has*(fieldFeedback
       const { inputStop } = this.props;
 
       return (
-        <FormWithConstraints ref={formWithConstraints => this.formWithConstraints = formWithConstraints}>
-          <input name="input" ref={input => this.input = input} />
+        <FormWithConstraints
+          ref={formWithConstraints => (this.formWithConstraints = formWithConstraints)}
+        >
+          <input name="input" ref={input => (this.input = input)} />
 
           <FieldFeedbacks for="input" stop={inputStop}>
-            <Async promise={() => sleep(10)} then={() => <FieldFeedback>Async1 error</FieldFeedback>} />
-            <Async promise={() => sleep(10)} then={() => <FieldFeedback warning>Async1 warning</FieldFeedback>} />
-            <Async promise={() => sleep(10)} then={() => <FieldFeedback info>Async1 info</FieldFeedback>} />
+            <Async
+              promise={() => sleep(10)}
+              then={() => <FieldFeedback>Async1 error</FieldFeedback>}
+            />
+            <Async
+              promise={() => sleep(10)}
+              then={() => <FieldFeedback warning>Async1 warning</FieldFeedback>}
+            />
+            <Async
+              promise={() => sleep(10)}
+              then={() => <FieldFeedback info>Async1 info</FieldFeedback>}
+            />
           </FieldFeedbacks>
 
           <FieldFeedbacks for="input" stop={inputStop}>
-            <Async promise={() => sleep(10)} then={() => <FieldFeedback>Async2 error</FieldFeedback>} />
-            <Async promise={() => sleep(10)} then={() => <FieldFeedback warning>Async2 warning</FieldFeedback>} />
-            <Async promise={() => sleep(10)} then={() => <FieldFeedback info>Async2 info</FieldFeedback>} />
+            <Async
+              promise={() => sleep(10)}
+              then={() => <FieldFeedback>Async2 error</FieldFeedback>}
+            />
+            <Async
+              promise={() => sleep(10)}
+              then={() => <FieldFeedback warning>Async2 warning</FieldFeedback>}
+            />
+            <Async
+              promise={() => sleep(10)}
+              then={() => <FieldFeedback info>Async2 info</FieldFeedback>}
+            />
           </FieldFeedbacks>
         </FormWithConstraints>
       );
@@ -495,8 +528,7 @@ describe('FormWithMultipleNestedAsync - test Async.validate() has*(fieldFeedback
         <span data-feedbacks="1">
           <span data-feedback="1.0" class="error" style="display: block;">Async2 error</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -516,8 +548,7 @@ describe('FormWithMultipleNestedAsync - test Async.validate() has*(fieldFeedback
         <span data-feedbacks="1">
           <span data-feedback="1.0" class="error" style="display: block;">Async2 error</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -539,8 +570,7 @@ describe('FormWithMultipleNestedAsync - test Async.validate() has*(fieldFeedback
           <span data-feedback="1.0" class="error" style="display: block;">Async2 error</span>
           <span data-feedback="1.1" class="warning" style="display: block;">Async2 warning</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -564,8 +594,7 @@ describe('FormWithMultipleNestedAsync - test Async.validate() has*(fieldFeedback
           <span data-feedback="1.1" class="warning" style="display: block;">Async2 warning</span>
           <span data-feedback="1.2" class="info" style="display: block;">Async2 info</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -589,8 +618,7 @@ describe('FormWithMultipleNestedAsync - test Async.validate() has*(fieldFeedback
           <span data-feedback="1.1" class="warning" style="display: block;">Async2 warning</span>
           <span data-feedback="1.2" class="info" style="display: block;">Async2 info</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -605,19 +633,29 @@ describe('FormWithMultipleNestedFieldFeedback - test FieldFeedback.validate() ha
       const { inputStop } = this.props;
 
       return (
-        <FormWithConstraints ref={formWithConstraints => this.formWithConstraints = formWithConstraints}>
-          <input name="input" ref={input => this.input = input} />
+        <FormWithConstraints
+          ref={formWithConstraints => (this.formWithConstraints = formWithConstraints)}
+        >
+          <input name="input" ref={input => (this.input = input)} />
 
           <FieldFeedbacks for="input" stop={inputStop}>
             <FieldFeedback when={() => true}>Error 1</FieldFeedback>
-            <FieldFeedback when={() => true} warning>Warning 1</FieldFeedback>
-            <FieldFeedback when={() => true} info>Info 1</FieldFeedback>
+            <FieldFeedback when={() => true} warning>
+              Warning 1
+            </FieldFeedback>
+            <FieldFeedback when={() => true} info>
+              Info 1
+            </FieldFeedback>
           </FieldFeedbacks>
 
           <FieldFeedbacks for="input" stop={inputStop}>
             <FieldFeedback when={() => true}>Error 2</FieldFeedback>
-            <FieldFeedback when={() => true} warning>Warning 2</FieldFeedback>
-            <FieldFeedback when={() => true} info>Info 2</FieldFeedback>
+            <FieldFeedback when={() => true} warning>
+              Warning 2
+            </FieldFeedback>
+            <FieldFeedback when={() => true} info>
+              Info 2
+            </FieldFeedback>
           </FieldFeedbacks>
         </FormWithConstraints>
       );
@@ -639,8 +677,7 @@ describe('FormWithMultipleNestedFieldFeedback - test FieldFeedback.validate() ha
         <span data-feedbacks="1">
           <span data-feedback="1.0" class="error" style="display: block;">Error 2</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -660,8 +697,7 @@ describe('FormWithMultipleNestedFieldFeedback - test FieldFeedback.validate() ha
         <span data-feedbacks="1">
           <span data-feedback="1.0" class="error" style="display: block;">Error 2</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -683,8 +719,7 @@ describe('FormWithMultipleNestedFieldFeedback - test FieldFeedback.validate() ha
           <span data-feedback="1.0" class="error" style="display: block;">Error 2</span>
           <span data-feedback="1.1" class="warning" style="display: block;">Warning 2</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -708,8 +743,7 @@ describe('FormWithMultipleNestedFieldFeedback - test FieldFeedback.validate() ha
           <span data-feedback="1.1" class="warning" style="display: block;">Warning 2</span>
           <span data-feedback="1.2" class="info" style="display: block;">Info 2</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -733,8 +767,7 @@ describe('FormWithMultipleNestedFieldFeedback - test FieldFeedback.validate() ha
           <span data-feedback="1.1" class="warning" style="display: block;">Warning 2</span>
           <span data-feedback="1.2" class="info" style="display: block;">Info 2</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -756,24 +789,40 @@ describe('validate', () => {
         {
           name: 'username',
           validations: [
-            {key: '0.0', type: 'error', show: false},
-            {key: '0.1', type: 'error', show: false},
-            {key: '0.3', type: 'error', show: true},
-            {key: '0.2', type: 'whenValid', show: undefined}
+            { key: '0.0', type: 'error', show: false },
+            { key: '0.1', type: 'error', show: false },
+            { key: '0.3', type: 'error', show: true },
+            { key: '0.2', type: 'whenValid', show: undefined }
           ]
         },
         {
           name: 'passwordConfirm',
           validations: [
-            {key: '2.0', type: 'error', show: true},
-            {key: '2.1', type: 'whenValid', show: undefined}
+            { key: '2.0', type: 'error', show: true },
+            { key: '2.1', type: 'whenValid', show: undefined }
           ]
         }
       ]);
       expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(2);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
-        [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+        [
+          {
+            name: 'username',
+            type: 'text',
+            value: 'john',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'passwordConfirm',
+            type: 'password',
+            value: '12345',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ]
       ]);
 
       expect(beautifyHtml(wrapper.html(), '        ')).toEqual(`\
@@ -788,8 +837,7 @@ describe('validate', () => {
           <span data-feedbacks="2">
             <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
           </span>
-        </form>`
-      );
+        </form>`);
 
       wrapper.unmount();
     });
@@ -808,24 +856,40 @@ describe('validate', () => {
         {
           name: 'username',
           validations: [
-            {key: '0.0', type: 'error', show: false},
-            {key: '0.1', type: 'error', show: false},
-            {key: '0.3', type: 'error', show: true},
-            {key: '0.2', type: 'whenValid', show: undefined}
+            { key: '0.0', type: 'error', show: false },
+            { key: '0.1', type: 'error', show: false },
+            { key: '0.3', type: 'error', show: true },
+            { key: '0.2', type: 'whenValid', show: undefined }
           ]
         },
         {
           name: 'passwordConfirm',
           validations: [
-            {key: '2.0', type: 'error', show: true},
-            {key: '2.1', type: 'whenValid', show: undefined}
+            { key: '2.0', type: 'error', show: true },
+            { key: '2.1', type: 'whenValid', show: undefined }
           ]
         }
       ]);
       expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(2);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
-        [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+        [
+          {
+            name: 'username',
+            type: 'text',
+            value: 'john',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'passwordConfirm',
+            type: 'password',
+            value: '12345',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ]
       ]);
 
       wrapper.unmount();
@@ -845,24 +909,40 @@ describe('validate', () => {
         {
           name: 'username',
           validations: [
-            {key: '0.0', type: 'error', show: false},
-            {key: '0.1', type: 'error', show: false},
-            {key: '0.3', type: 'error', show: true},
-            {key: '0.2', type: 'whenValid', show: undefined}
+            { key: '0.0', type: 'error', show: false },
+            { key: '0.1', type: 'error', show: false },
+            { key: '0.3', type: 'error', show: true },
+            { key: '0.2', type: 'whenValid', show: undefined }
           ]
         },
         {
           name: 'passwordConfirm',
           validations: [
-            {key: '2.0', type: 'error', show: true},
-            {key: '2.1', type: 'whenValid', show: undefined}
+            { key: '2.0', type: 'error', show: true },
+            { key: '2.1', type: 'whenValid', show: undefined }
           ]
         }
       ]);
       expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(2);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
-        [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+        [
+          {
+            name: 'username',
+            type: 'text',
+            value: 'john',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'passwordConfirm',
+            type: 'password',
+            value: '12345',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ]
       ]);
 
       wrapper.unmount();
@@ -882,37 +962,61 @@ describe('validate', () => {
         {
           name: 'username',
           validations: [
-            {key: '0.0', type: 'error', show: false},
-            {key: '0.1', type: 'error', show: false},
-            {key: '0.3', type: 'error', show: true},
-            {key: '0.2', type: 'whenValid', show: undefined}
+            { key: '0.0', type: 'error', show: false },
+            { key: '0.1', type: 'error', show: false },
+            { key: '0.3', type: 'error', show: true },
+            { key: '0.2', type: 'whenValid', show: undefined }
           ]
         },
         {
           name: 'password',
           validations: [
-            {key: '1.0', type: 'error', show: false},
-            {key: '1.1', type: 'error', show: false},
-            {key: '1.2', type: 'warning', show: false},
-            {key: '1.3', type: 'warning', show: true},
-            {key: '1.4', type: 'warning', show: true},
-            {key: '1.5', type: 'warning', show: true},
-            {key: '1.6', type: 'whenValid', show: undefined}
+            { key: '1.0', type: 'error', show: false },
+            { key: '1.1', type: 'error', show: false },
+            { key: '1.2', type: 'warning', show: false },
+            { key: '1.3', type: 'warning', show: true },
+            { key: '1.4', type: 'warning', show: true },
+            { key: '1.5', type: 'warning', show: true },
+            { key: '1.6', type: 'whenValid', show: undefined }
           ]
         },
         {
           name: 'passwordConfirm',
           validations: [
-            {key: '2.0', type: 'error', show: true},
-            {key: '2.1', type: 'whenValid', show: undefined}
+            { key: '2.0', type: 'error', show: true },
+            { key: '2.1', type: 'whenValid', show: undefined }
           ]
         }
       ]);
       expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
-        [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
-        [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+        [
+          {
+            name: 'username',
+            type: 'text',
+            value: 'john',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'password',
+            type: 'password',
+            value: '123456',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'passwordConfirm',
+            type: 'password',
+            value: '12345',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ]
       ]);
 
       wrapper.unmount();
@@ -932,36 +1036,60 @@ describe('validate', () => {
         {
           name: 'username',
           validations: [
-            {key: '0.0', type: 'error', show: true},
-            {key: '0.1', type: 'error', show: undefined},
-            {key: '0.2', type: 'whenValid', show: undefined}
+            { key: '0.0', type: 'error', show: true },
+            { key: '0.1', type: 'error', show: undefined },
+            { key: '0.2', type: 'whenValid', show: undefined }
           ]
         },
         {
           name: 'password',
           validations: [
-            {key: '1.0', type: 'error', show: true},
-            {key: '1.1', type: 'error', show: undefined},
-            {key: '1.2', type: 'warning', show: undefined},
-            {key: '1.3', type: 'warning', show: undefined},
-            {key: '1.4', type: 'warning', show: undefined},
-            {key: '1.5', type: 'warning', show: undefined},
-            {key: '1.6', type: 'whenValid', show: undefined}
+            { key: '1.0', type: 'error', show: true },
+            { key: '1.1', type: 'error', show: undefined },
+            { key: '1.2', type: 'warning', show: undefined },
+            { key: '1.3', type: 'warning', show: undefined },
+            { key: '1.4', type: 'warning', show: undefined },
+            { key: '1.5', type: 'warning', show: undefined },
+            { key: '1.6', type: 'whenValid', show: undefined }
           ]
         },
         {
           name: 'passwordConfirm',
           validations: [
-            {key: '2.0', type: 'error', show: false},
-            {key: '2.1', type: 'whenValid', show: undefined}
+            { key: '2.0', type: 'error', show: false },
+            { key: '2.1', type: 'whenValid', show: undefined }
           ]
         }
       ]);
       expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: 'text', value: '', validity: validValidityState, validationMessage: ''}],
-        [{name: 'password', type: 'password', value: '', validity: validValidityState, validationMessage: ''}],
-        [{name: 'passwordConfirm', type: 'password', value: '', validity: validValidityState, validationMessage: ''}]
+        [
+          {
+            name: 'username',
+            type: 'text',
+            value: '',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'password',
+            type: 'password',
+            value: '',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'passwordConfirm',
+            type: 'password',
+            value: '',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ]
       ]);
 
       emitValidateFieldEventSpy.mockClear();
@@ -975,37 +1103,61 @@ describe('validate', () => {
         {
           name: 'username',
           validations: [
-            {key: '0.0', type: 'error', show: false},
-            {key: '0.1', type: 'error', show: false},
-            {key: '0.3', type: 'error', show: true},
-            {key: '0.2', type: 'whenValid', show: undefined}
+            { key: '0.0', type: 'error', show: false },
+            { key: '0.1', type: 'error', show: false },
+            { key: '0.3', type: 'error', show: true },
+            { key: '0.2', type: 'whenValid', show: undefined }
           ]
         },
         {
           name: 'password',
           validations: [
-            {key: '1.0', type: 'error', show: false},
-            {key: '1.1', type: 'error', show: false},
-            {key: '1.2', type: 'warning', show: false},
-            {key: '1.3', type: 'warning', show: true},
-            {key: '1.4', type: 'warning', show: true},
-            {key: '1.5', type: 'warning', show: true},
-            {key: '1.6', type: 'whenValid', show: undefined}
+            { key: '1.0', type: 'error', show: false },
+            { key: '1.1', type: 'error', show: false },
+            { key: '1.2', type: 'warning', show: false },
+            { key: '1.3', type: 'warning', show: true },
+            { key: '1.4', type: 'warning', show: true },
+            { key: '1.5', type: 'warning', show: true },
+            { key: '1.6', type: 'whenValid', show: undefined }
           ]
         },
         {
           name: 'passwordConfirm',
           validations: [
-            {key: '2.0', type: 'error', show: true},
-            {key: '2.1', type: 'whenValid', show: undefined}
+            { key: '2.0', type: 'error', show: true },
+            { key: '2.1', type: 'whenValid', show: undefined }
           ]
         }
       ]);
       expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
-        [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
-        [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+        [
+          {
+            name: 'username',
+            type: 'text',
+            value: 'john',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'password',
+            type: 'password',
+            value: '123456',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'passwordConfirm',
+            type: 'password',
+            value: '12345',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ]
       ]);
 
       expect(beautifyHtml(wrapper.html(), '        ')).toEqual(`\
@@ -1025,8 +1177,7 @@ describe('validate', () => {
           <span data-feedbacks="2">
             <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
           </span>
-        </form>`
-      );
+        </form>`);
 
       wrapper.unmount();
     });
@@ -1054,52 +1205,127 @@ describe('validate', () => {
       const assert = console.assert;
       console.assert = jest.fn();
       const fields = await signUp.form!.validateFields();
-      expect(console.assert).toHaveBeenCalledWith(false, `FieldsStore does not match emitValidateFieldEvent() result, did the user changed the input rapidly?`);
+      expect(console.assert).toHaveBeenCalledWith(
+        false,
+        `FieldsStore does not match emitValidateFieldEvent() result, did the user changed the input rapidly?`
+      );
       console.assert = assert;
 
       expect(fields).toEqual([
         {
           name: 'username',
           validations: [
-            {key: '0.0', type: 'error', show: false},
-            {key: '0.1', type: 'error', show: false},
-            {key: '0.3', type: 'info', show: true},
-            {key: '0.4', type: 'error', show: true},
-            {key: '0.5', type: 'info', show: undefined},
-            {key: '0.2', type: 'whenValid', show: undefined}
+            { key: '0.0', type: 'error', show: false },
+            { key: '0.1', type: 'error', show: false },
+            { key: '0.3', type: 'info', show: true },
+            { key: '0.4', type: 'error', show: true },
+            { key: '0.5', type: 'info', show: undefined },
+            { key: '0.2', type: 'whenValid', show: undefined }
           ]
         },
         {
           name: 'password',
           validations: [
-            {key: '1.0', type: 'error', show: false},
-            {key: '1.1', type: 'error', show: false},
-            {key: '1.2', type: 'warning', show: false},
-            {key: '1.3', type: 'warning', show: true},
-            {key: '1.4', type: 'warning', show: true},
-            {key: '1.5', type: 'warning', show: true},
-            {key: '1.6', type: 'whenValid', show: undefined}
+            { key: '1.0', type: 'error', show: false },
+            { key: '1.1', type: 'error', show: false },
+            { key: '1.2', type: 'warning', show: false },
+            { key: '1.3', type: 'warning', show: true },
+            { key: '1.4', type: 'warning', show: true },
+            { key: '1.5', type: 'warning', show: true },
+            { key: '1.6', type: 'whenValid', show: undefined }
           ]
         },
         {
           name: 'passwordConfirm',
           validations: [
-            {key: '2.0', type: 'error', show: false},
-            {key: '2.1', type: 'whenValid', show: undefined}
+            { key: '2.0', type: 'error', show: false },
+            { key: '2.1', type: 'whenValid', show: undefined }
           ]
         }
       ]);
       expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(9);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: 'text', value: '', validity: validValidityState, validationMessage: ''}],
-        [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
-        [{name: 'username', type: 'text', value: 'jimmy', validity: validValidityState, validationMessage: ''}],
-        [{name: 'password', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}],
-        [{name: 'password', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}], // Instead of '123456'?
-        [{name: 'password', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}],
-        [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}], // Instead of ''?
-        [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}],
-        [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+        [
+          {
+            name: 'username',
+            type: 'text',
+            value: '',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'username',
+            type: 'text',
+            value: 'john',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'username',
+            type: 'text',
+            value: 'jimmy',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'password',
+            type: 'password',
+            value: '12345',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'password',
+            type: 'password',
+            value: '12345',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ], // Instead of '123456'?
+        [
+          {
+            name: 'password',
+            type: 'password',
+            value: '12345',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'passwordConfirm',
+            type: 'password',
+            value: '12345',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ], // Instead of ''?
+        [
+          {
+            name: 'passwordConfirm',
+            type: 'password',
+            value: '12345',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'passwordConfirm',
+            type: 'password',
+            value: '12345',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ]
       ]);
 
       wrapper.unmount();
@@ -1107,12 +1333,9 @@ describe('validate', () => {
   });
 
   describe('validateFieldsWithoutFeedback()', () => {
+    test('inputs', async () => {});
 
-    test('inputs', async () => {
-    });
-
-    test('field names', async () => {
-    });
+    test('field names', async () => {});
 
     test('inputs + field names', async () => {
       const wrapper = mount(<SignUp />);
@@ -1123,29 +1346,48 @@ describe('validate', () => {
       signUp.password!.value = '123456';
       signUp.passwordConfirm!.value = '12345';
 
-      const fields1 = await signUp.form!.validateFieldsWithoutFeedback(signUp.username!, 'passwordConfirm');
+      const fields1 = await signUp.form!.validateFieldsWithoutFeedback(
+        signUp.username!,
+        'passwordConfirm'
+      );
       expect(fields1).toEqual([
         {
           name: 'username',
           validations: [
-            {key: '0.0', type: 'error', show: false},
-            {key: '0.1', type: 'error', show: false},
-            {key: '0.3', type: 'error', show: true},
-            {key: '0.2', type: 'whenValid', show: undefined}
+            { key: '0.0', type: 'error', show: false },
+            { key: '0.1', type: 'error', show: false },
+            { key: '0.3', type: 'error', show: true },
+            { key: '0.2', type: 'whenValid', show: undefined }
           ]
         },
         {
           name: 'passwordConfirm',
           validations: [
-            {key: '2.0', type: 'error', show: true},
-            {key: '2.1', type: 'whenValid', show: undefined}
+            { key: '2.0', type: 'error', show: true },
+            { key: '2.1', type: 'whenValid', show: undefined }
           ]
         }
       ]);
       expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(2);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
-        [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+        [
+          {
+            name: 'username',
+            type: 'text',
+            value: 'john',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'passwordConfirm',
+            type: 'password',
+            value: '12345',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ]
       ]);
 
       // Fields are already dirty so calling validateFieldsWithoutFeedback() again won't do anything
@@ -1156,7 +1398,10 @@ describe('validate', () => {
       signUp.password!.value = '12345';
       signUp.passwordConfirm!.value = '12345';
 
-      const fields2 = await signUp.form!.validateFieldsWithoutFeedback(signUp.username!, 'passwordConfirm');
+      const fields2 = await signUp.form!.validateFieldsWithoutFeedback(
+        signUp.username!,
+        'passwordConfirm'
+      );
       expect(fields2).toEqual(fields1);
       expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(0);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([]);
@@ -1178,37 +1423,61 @@ describe('validate', () => {
         {
           name: 'username',
           validations: [
-            {key: '0.0', type: 'error', show: false},
-            {key: '0.1', type: 'error', show: false},
-            {key: '0.3', type: 'error', show: true},
-            {key: '0.2', type: 'whenValid', show: undefined}
+            { key: '0.0', type: 'error', show: false },
+            { key: '0.1', type: 'error', show: false },
+            { key: '0.3', type: 'error', show: true },
+            { key: '0.2', type: 'whenValid', show: undefined }
           ]
         },
         {
           name: 'password',
           validations: [
-            {key: '1.0', type: 'error', show: false},
-            {key: '1.1', type: 'error', show: false},
-            {key: '1.2', type: 'warning', show: false},
-            {key: '1.3', type: 'warning', show: true},
-            {key: '1.4', type: 'warning', show: true},
-            {key: '1.5', type: 'warning', show: true},
-            {key: '1.6', type: 'whenValid', show: undefined}
+            { key: '1.0', type: 'error', show: false },
+            { key: '1.1', type: 'error', show: false },
+            { key: '1.2', type: 'warning', show: false },
+            { key: '1.3', type: 'warning', show: true },
+            { key: '1.4', type: 'warning', show: true },
+            { key: '1.5', type: 'warning', show: true },
+            { key: '1.6', type: 'whenValid', show: undefined }
           ]
         },
         {
           name: 'passwordConfirm',
           validations: [
-            {key: '2.0', type: 'error', show: true},
-            {key: '2.1', type: 'whenValid', show: undefined}
+            { key: '2.0', type: 'error', show: true },
+            { key: '2.1', type: 'whenValid', show: undefined }
           ]
         }
       ]);
       expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
       expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-        [{name: 'username', type: 'text', value: 'john', validity: validValidityState, validationMessage: ''}],
-        [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
-        [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+        [
+          {
+            name: 'username',
+            type: 'text',
+            value: 'john',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'password',
+            type: 'password',
+            value: '123456',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ],
+        [
+          {
+            name: 'passwordConfirm',
+            type: 'password',
+            value: '12345',
+            validity: validValidityState,
+            validationMessage: ''
+          }
+        ]
       ]);
 
       // Fields are already dirty so calling validateFieldsWithoutFeedback() again won't do anything
@@ -1237,7 +1506,9 @@ describe('validate', () => {
 
       await expect(form.validateFieldsWithoutFeedback()).resolves.toEqual([]); // Ignore input without FieldFeedbacks
       await expect(form.validateFieldsWithoutFeedback('username')).resolves.toEqual([]); // Ignore input without FieldFeedbacks
-      await expect(form.validateFieldsWithoutFeedback('unknown')).rejects.toEqual(new Error(`Could not find field '[name="unknown"]' inside the form`));
+      await expect(form.validateFieldsWithoutFeedback('unknown')).rejects.toEqual(
+        new Error(`Could not find field '[name="unknown"]' inside the form`)
+      );
 
       wrapper.unmount();
     });
@@ -1246,7 +1517,10 @@ describe('validate', () => {
   test('validateForm()', async () => {
     const wrapper = mount(<SignUp />);
     const signUp = wrapper.instance() as SignUp;
-    const validateFieldsWithoutFeedbackSpy = jest.spyOn(signUp.form!, 'validateFieldsWithoutFeedback');
+    const validateFieldsWithoutFeedbackSpy = jest.spyOn(
+      signUp.form!,
+      'validateFieldsWithoutFeedback'
+    );
 
     await signUp.form!.validateForm();
 
@@ -1273,9 +1547,15 @@ describe('validate', () => {
 
       // See async/await toThrow is not working https://github.com/facebook/jest/issues/1700
 
-      await expect(form.validateFields('username')).resolves.toEqual([{name: 'username', validations: []}]);
-      await expect(form.validateFields()).rejects.toEqual(new Error(`Multiple elements matching '[name="password"]' inside the form`));
-      await expect(form.validateFields('password')).rejects.toEqual(new Error(`Multiple elements matching '[name="password"]' inside the form`));
+      await expect(form.validateFields('username')).resolves.toEqual([
+        { name: 'username', validations: [] }
+      ]);
+      await expect(form.validateFields()).rejects.toEqual(
+        new Error(`Multiple elements matching '[name="password"]' inside the form`)
+      );
+      await expect(form.validateFields('password')).rejects.toEqual(
+        new Error(`Multiple elements matching '[name="password"]' inside the form`)
+      );
 
       wrapper.unmount();
     });
@@ -1290,21 +1570,21 @@ describe('validate', () => {
 
       await expect(form.validateFields()).resolves.toEqual([]); // Ignore input without FieldFeedbacks
       await expect(form.validateFields('username')).resolves.toEqual([]); // Ignore input without FieldFeedbacks
-      await expect(form.validateFields('unknown')).rejects.toEqual(new Error(`Could not find field '[name="unknown"]' inside the form`));
+      await expect(form.validateFields('unknown')).rejects.toEqual(
+        new Error(`Could not find field '[name="unknown"]' inside the form`)
+      );
 
       wrapper.unmount();
     });
 
     test('Could not find field - child with props undefined', async () => {
-      const wrapper = mount(
-        <FormWithConstraints>
-          ChildWithPropsUndefined
-        </FormWithConstraints>
-      );
+      const wrapper = mount(<FormWithConstraints>ChildWithPropsUndefined</FormWithConstraints>);
       const form = wrapper.instance() as FormWithConstraints;
 
       await expect(form.validateFields()).resolves.toEqual([]);
-      await expect(form.validateFields('unknown')).rejects.toEqual(new Error(`Could not find field '[name="unknown"]' inside the form`));
+      await expect(form.validateFields('unknown')).rejects.toEqual(
+        new Error(`Could not find field '[name="unknown"]' inside the form`)
+      );
 
       wrapper.unmount();
     });
@@ -1318,7 +1598,9 @@ describe('validate', () => {
       const form = wrapper.instance() as FormWithConstraints;
 
       await expect(form.validateFields()).resolves.toEqual([]);
-      await expect(form.validateFields('a-49ekipqfmwsv')).rejects.toEqual(new Error(`'[name="a-49ekipqfmwsv"]' should match an <input>, <select> or <textarea>`));
+      await expect(form.validateFields('a-49ekipqfmwsv')).rejects.toEqual(
+        new Error(`'[name="a-49ekipqfmwsv"]' should match an <input>, <select> or <textarea>`)
+      );
 
       wrapper.unmount();
     });
@@ -1340,37 +1622,61 @@ describe('Async', () => {
       {
         name: 'username',
         validations: [
-          {key: '0.0', type: 'error', show: false},
-          {key: '0.1', type: 'error', show: false},
-          {key: '0.3', type: 'info', show: true},
-          {key: '0.2', type: 'whenValid', show: undefined}
+          { key: '0.0', type: 'error', show: false },
+          { key: '0.1', type: 'error', show: false },
+          { key: '0.3', type: 'info', show: true },
+          { key: '0.2', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'password',
         validations: [
-          {key: '1.0', type: 'error', show: false},
-          {key: '1.1', type: 'error', show: false},
-          {key: '1.2', type: 'warning', show: false},
-          {key: '1.3', type: 'warning', show: true},
-          {key: '1.4', type: 'warning', show: true},
-          {key: '1.5', type: 'warning', show: true},
-          {key: '1.6', type: 'whenValid', show: undefined}
+          { key: '1.0', type: 'error', show: false },
+          { key: '1.1', type: 'error', show: false },
+          { key: '1.2', type: 'warning', show: false },
+          { key: '1.3', type: 'warning', show: true },
+          { key: '1.4', type: 'warning', show: true },
+          { key: '1.5', type: 'warning', show: true },
+          { key: '1.6', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'passwordConfirm',
         validations: [
-          {key: '2.0', type: 'error', show: false},
-          {key: '2.1', type: 'whenValid', show: undefined}
+          { key: '2.0', type: 'error', show: false },
+          { key: '2.1', type: 'whenValid', show: undefined }
         ]
       }
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: 'jimmy', validity: validValidityState, validationMessage: ''}],
-      [{name: 'password', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}],
-      [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+      [
+        {
+          name: 'username',
+          type: 'text',
+          value: 'jimmy',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'password',
+          type: 'password',
+          value: '12345',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'passwordConfirm',
+          type: 'password',
+          value: '12345',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ]
     ]);
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
@@ -1391,8 +1697,7 @@ describe('Async', () => {
         <span data-feedbacks="2">
           <span data-feedback="2.1" class="when-valid" style="display: block;">Looks good!</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -1411,37 +1716,61 @@ describe('Async', () => {
       {
         name: 'username',
         validations: [
-          {key: '0.0', type: 'error', show: false},
-          {key: '0.1', type: 'error', show: false},
-          {key: '0.3', type: 'error', show: true},
-          {key: '0.2', type: 'whenValid', show: undefined}
+          { key: '0.0', type: 'error', show: false },
+          { key: '0.1', type: 'error', show: false },
+          { key: '0.3', type: 'error', show: true },
+          { key: '0.2', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'password',
         validations: [
-          {key: '1.0', type: 'error', show: false},
-          {key: '1.1', type: 'error', show: false},
-          {key: '1.2', type: 'warning', show: false},
-          {key: '1.3', type: 'warning', show: true},
-          {key: '1.4', type: 'warning', show: true},
-          {key: '1.5', type: 'warning', show: true},
-          {key: '1.6', type: 'whenValid', show: undefined}
+          { key: '1.0', type: 'error', show: false },
+          { key: '1.1', type: 'error', show: false },
+          { key: '1.2', type: 'warning', show: false },
+          { key: '1.3', type: 'warning', show: true },
+          { key: '1.4', type: 'warning', show: true },
+          { key: '1.5', type: 'warning', show: true },
+          { key: '1.6', type: 'whenValid', show: undefined }
         ]
       },
       {
         name: 'passwordConfirm',
         validations: [
-          {key: '2.0', type: 'error', show: true},
-          {key: '2.1', type: 'whenValid', show: undefined}
+          { key: '2.0', type: 'error', show: true },
+          { key: '2.1', type: 'whenValid', show: undefined }
         ]
       }
     ]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(3);
     expect(emitValidateFieldEventSpy.mock.calls).toEqual([
-      [{name: 'username', type: 'text', value: 'error', validity: validValidityState, validationMessage: ''}],
-      [{name: 'password', type: 'password', value: '123456', validity: validValidityState, validationMessage: ''}],
-      [{name: 'passwordConfirm', type: 'password', value: '12345', validity: validValidityState, validationMessage: ''}]
+      [
+        {
+          name: 'username',
+          type: 'text',
+          value: 'error',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'password',
+          type: 'password',
+          value: '123456',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ],
+      [
+        {
+          name: 'passwordConfirm',
+          type: 'password',
+          value: '12345',
+          validity: validValidityState,
+          validationMessage: ''
+        }
+      ]
     ]);
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
@@ -1461,8 +1790,7 @@ describe('Async', () => {
         <span data-feedbacks="2">
           <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -1476,7 +1804,11 @@ test('isValid()', async () => {
   signUp.password!.value = '123456';
   signUp.passwordConfirm!.value = '12345';
 
-  let fields = await signUp.form!.validateFields(signUp.username!, signUp.password!, signUp.passwordConfirm!);
+  let fields = await signUp.form!.validateFields(
+    signUp.username!,
+    signUp.password!,
+    signUp.passwordConfirm!
+  );
   expect(fields.every(field => field.isValid())).toEqual(false);
   expect(signUp.form!.isValid()).toEqual(false);
 
@@ -1484,7 +1816,11 @@ test('isValid()', async () => {
   signUp.password!.value = '12345';
   signUp.passwordConfirm!.value = '12345';
 
-  fields = await signUp.form!.validateFields(signUp.username!, signUp.password!, signUp.passwordConfirm!);
+  fields = await signUp.form!.validateFields(
+    signUp.username!,
+    signUp.password!,
+    signUp.passwordConfirm!
+  );
   expect(fields.every(field => field.isValid())).toEqual(true);
   expect(signUp.form!.isValid()).toEqual(true);
 
@@ -1501,7 +1837,11 @@ test('hasFeedbacks()', async () => {
   signUp.password!.value = '123456';
   signUp.passwordConfirm!.value = '12345';
 
-  const fields = await signUp.form!.validateFields(signUp.username!, signUp.password!, signUp.passwordConfirm!);
+  const fields = await signUp.form!.validateFields(
+    signUp.username!,
+    signUp.password!,
+    signUp.passwordConfirm!
+  );
   expect(fields.every(field => field.hasFeedbacks())).toEqual(true);
   expect(signUp.form!.hasFeedbacks()).toEqual(true);
 
@@ -1539,8 +1879,7 @@ describe('resetFields()', () => {
         <span data-feedbacks="2">
           <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     await signUp.form!.resetFields(signUp.username!, signUp.passwordConfirm!);
 
@@ -1557,8 +1896,7 @@ describe('resetFields()', () => {
         </span>
         <input type="password" name="passwordConfirm">
         <span data-feedbacks="2"></span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -1590,8 +1928,7 @@ describe('resetFields()', () => {
         <span data-feedbacks="2">
           <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     await signUp.form!.resetFields('username', 'passwordConfirm');
 
@@ -1608,8 +1945,7 @@ describe('resetFields()', () => {
         </span>
         <input type="password" name="passwordConfirm">
         <span data-feedbacks="2"></span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -1641,8 +1977,7 @@ describe('resetFields()', () => {
         <span data-feedbacks="2">
           <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     await signUp.form!.resetFields(signUp.username!, 'passwordConfirm');
 
@@ -1659,8 +1994,7 @@ describe('resetFields()', () => {
         </span>
         <input type="password" name="passwordConfirm">
         <span data-feedbacks="2"></span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -1692,8 +2026,7 @@ describe('resetFields()', () => {
         <span data-feedbacks="2">
           <span data-feedback="2.0" class="error" style="display: block;">Not the same password</span>
         </span>
-      </form>`
-    );
+      </form>`);
 
     await signUp.form!.resetFields();
 
@@ -1705,8 +2038,7 @@ describe('resetFields()', () => {
         <span data-feedbacks="1"></span>
         <input type="password" name="passwordConfirm">
         <span data-feedbacks="2"></span>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -1721,7 +2053,9 @@ describe('resetFields()', () => {
 
     await expect(form.resetFields()).resolves.toEqual([]); // Ignore input without FieldFeedbacks
     await expect(form.resetFields('username')).resolves.toEqual([]); // Ignore input without FieldFeedbacks
-    await expect(form.resetFields('unknown')).rejects.toEqual(new Error(`Could not find field '[name="unknown"]' inside the form`));
+    await expect(form.resetFields('unknown')).rejects.toEqual(
+      new Error(`Could not find field '[name="unknown"]' inside the form`)
+    );
 
     wrapper.unmount();
   });

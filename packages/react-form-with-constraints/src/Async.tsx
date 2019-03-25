@@ -38,15 +38,13 @@ export type AsyncContext = FormWithConstraintsChildContext & FieldFeedbacksChild
 // See How to render promises in React https://gist.github.com/hex13/6d46f8b54631871ea8bf87576b635c49
 // Cannot be inside a separated npm package since FieldFeedback needs to attach itself to Async
 class AsyncComponent<T = any> extends React.Component<AsyncProps<T>, AsyncState<T>> {}
-export class Async<T> extends
-                        withValidateFieldEventEmitter<
-                          // FieldFeedback returns FieldFeedbackValidation
-                          FieldFeedbackValidation,
-                          typeof AsyncComponent
-                        >(
-                          AsyncComponent
-                        )
-                      implements React.ChildContextProvider<AsyncChildContext> {
+export class Async<T>
+  extends withValidateFieldEventEmitter<
+    // FieldFeedback returns FieldFeedbackValidation
+    FieldFeedbackValidation,
+    typeof AsyncComponent
+  >(AsyncComponent)
+  implements React.ChildContextProvider<AsyncChildContext> {
   static contextTypes: React.ValidationMap<AsyncContext> = {
     form: PropTypes.instanceOf(FormWithConstraints).isRequired,
     fieldFeedbacks: PropTypes.instanceOf(FieldFeedbacks).isRequired
@@ -81,27 +79,28 @@ export class Async<T> extends
 
     const field = form.fieldsStore.getField(input.name)!;
 
-    if (fieldFeedbacks.props.stop === 'first' && field.hasFeedbacks(fieldFeedbacks.key) ||
-        fieldFeedbacks.props.stop === 'first-error' && field.hasErrors(fieldFeedbacks.key) ||
-        fieldFeedbacks.props.stop === 'first-warning' && field.hasWarnings(fieldFeedbacks.key) ||
-        fieldFeedbacks.props.stop === 'first-info' && field.hasInfos(fieldFeedbacks.key)) {
+    if (
+      (fieldFeedbacks.props.stop === 'first' && field.hasFeedbacks(fieldFeedbacks.key)) ||
+      (fieldFeedbacks.props.stop === 'first-error' && field.hasErrors(fieldFeedbacks.key)) ||
+      (fieldFeedbacks.props.stop === 'first-warning' && field.hasWarnings(fieldFeedbacks.key)) ||
+      (fieldFeedbacks.props.stop === 'first-info' && field.hasInfos(fieldFeedbacks.key))
+    ) {
       // Reset UI
-      this.setState({status: Status.None});
-    }
-    else {
+      this.setState({ status: Status.None });
+    } else {
       validations = this._validate(input);
     }
 
     return validations;
-  }
+  };
 
   async _validate(input: InputElement) {
-    this.setState({status: Status.Pending});
+    this.setState({ status: Status.Pending });
     try {
       const value = await this.props.promise(input.value);
-      this.setState({status: Status.Resolved, value});
+      this.setState({ status: Status.Resolved, value });
     } catch (e) {
-      this.setState({status: Status.Rejected, value: e});
+      this.setState({ status: Status.Rejected, value: e });
     }
 
     return this.emitValidateFieldEvent(input);

@@ -1,0 +1,15 @@
+.git/
+node_modules/
+build/
+dist/
+lib/
+lib-es5/
+coverage/
+.gitignore
+.prettierignore
+.eslintignore
+.editorconfig
+*.png
+yarn.lock
+yarn-error.log
+LICENSE

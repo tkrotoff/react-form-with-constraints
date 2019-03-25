@@ -71,7 +71,12 @@ test('clearValidations()', () => {
   field.addOrReplaceValidation(validation_letters);
   field.addOrReplaceValidation(validation_numbers);
 
-  expect(field.validations).toEqual([validation_empty, validation_length, validation_letters, validation_numbers]);
+  expect(field.validations).toEqual([
+    validation_empty,
+    validation_length,
+    validation_letters,
+    validation_numbers
+  ]);
 
   field.clearValidations();
   expect(field).toEqual({
@@ -99,13 +104,17 @@ test('has*() + isValid()', () => {
   expect(field.hasFeedbacks('1')).toEqual(false);
   expect(field.isValid()).toEqual(true);
 
-
   field.addOrReplaceValidation(validation_empty);
   field.addOrReplaceValidation(validation_length);
   field.addOrReplaceValidation(validation_letters);
   field.addOrReplaceValidation(validation_numbers);
 
-  expect(field.validations).toEqual([validation_empty, validation_length, validation_letters, validation_numbers]);
+  expect(field.validations).toEqual([
+    validation_empty,
+    validation_length,
+    validation_letters,
+    validation_numbers
+  ]);
 
   expect(field.hasErrors()).toEqual(true);
   expect(field.hasErrors('0')).toEqual(true);
@@ -120,7 +129,6 @@ test('has*() + isValid()', () => {
   expect(field.hasFeedbacks('0')).toEqual(true);
   expect(field.hasFeedbacks('1')).toEqual(true);
   expect(field.isValid()).toEqual(false);
-
 
   const validation_empty2: FieldFeedbackValidation = {
     key: validation_empty.key,
@@ -129,7 +137,12 @@ test('has*() + isValid()', () => {
   };
   field.addOrReplaceValidation(validation_empty2);
 
-  expect(field.validations).toEqual([validation_empty2, validation_length, validation_letters, validation_numbers]);
+  expect(field.validations).toEqual([
+    validation_empty2,
+    validation_length,
+    validation_letters,
+    validation_numbers
+  ]);
 
   expect(field.hasErrors()).toEqual(true);
   expect(field.hasErrors('0')).toEqual(true);
@@ -145,7 +158,6 @@ test('has*() + isValid()', () => {
   expect(field.hasFeedbacks('1')).toEqual(true);
   expect(field.isValid()).toEqual(false);
 
-
   const validation_length2: FieldFeedbackValidation = {
     key: validation_length.key,
     type: validation_length.type,
@@ -153,7 +165,12 @@ test('has*() + isValid()', () => {
   };
   field.addOrReplaceValidation(validation_length2);
 
-  expect(field.validations).toEqual([validation_empty2, validation_length2, validation_letters, validation_numbers]);
+  expect(field.validations).toEqual([
+    validation_empty2,
+    validation_length2,
+    validation_letters,
+    validation_numbers
+  ]);
 
   expect(field.hasErrors()).toEqual(false);
   expect(field.hasErrors('0')).toEqual(false);
@@ -168,7 +185,6 @@ test('has*() + isValid()', () => {
   expect(field.hasFeedbacks('0')).toEqual(false);
   expect(field.hasFeedbacks('1')).toEqual(true);
   expect(field.isValid()).toEqual(true);
-
 
   const validation_letters2: FieldFeedbackValidation = {
     key: validation_letters.key,
@@ -177,7 +193,12 @@ test('has*() + isValid()', () => {
   };
   field.addOrReplaceValidation(validation_letters2);
 
-  expect(field.validations).toEqual([validation_empty2, validation_length2, validation_letters2, validation_numbers]);
+  expect(field.validations).toEqual([
+    validation_empty2,
+    validation_length2,
+    validation_letters2,
+    validation_numbers
+  ]);
 
   expect(field.hasErrors()).toEqual(false);
   expect(field.hasErrors('0')).toEqual(false);
@@ -193,7 +214,6 @@ test('has*() + isValid()', () => {
   expect(field.hasFeedbacks('1')).toEqual(true);
   expect(field.isValid()).toEqual(true);
 
-
   const validation_numbers2: FieldFeedbackValidation = {
     key: validation_numbers.key,
     type: validation_numbers.type,
@@ -201,7 +221,12 @@ test('has*() + isValid()', () => {
   };
   field.addOrReplaceValidation(validation_numbers2);
 
-  expect(field.validations).toEqual([validation_empty2, validation_length2, validation_letters2, validation_numbers2]);
+  expect(field.validations).toEqual([
+    validation_empty2,
+    validation_length2,
+    validation_letters2,
+    validation_numbers2
+  ]);
 
   expect(field.hasErrors()).toEqual(false);
   expect(field.hasErrors('0')).toEqual(false);

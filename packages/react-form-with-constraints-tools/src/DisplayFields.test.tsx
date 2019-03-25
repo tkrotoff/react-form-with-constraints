@@ -19,7 +19,10 @@ function mount(node: React.ReactElement<FormWithConstraintsProps>) {
   return _mount<FormWithConstraintsProps, {}>(node);
 }
 
-function shallow(node: React.ReactElement<DisplayFieldsProps>, options: {context: FormWithConstraintsChildContext}) {
+function shallow(
+  node: React.ReactElement<DisplayFieldsProps>,
+  options: { context: FormWithConstraintsChildContext }
+) {
   return _shallow<DisplayFieldsProps>(node, options);
 }
 
@@ -28,10 +31,7 @@ test('componentWillMount() componentWillUnmount()', () => {
   const fieldsStoreAddListenerSpy = jest.spyOn(form.fieldsStore, 'addListener');
   const fieldsStoreRemoveListenerSpy = jest.spyOn(form.fieldsStore, 'removeListener');
 
-  const wrapper = shallow(
-    <DisplayFields />,
-    {context: {form}}
-  );
+  const wrapper = shallow(<DisplayFields />, { context: { form } });
   const displayFields = wrapper.instance() as DisplayFields;
 
   expect(fieldsStoreAddListenerSpy).toHaveBeenCalledTimes(2);
@@ -50,7 +50,6 @@ test('componentWillMount() componentWillUnmount()', () => {
   ]);
 });
 
-
 describe('render()', () => {
   let form_username: FormWithConstraints;
 
@@ -65,20 +64,14 @@ describe('render()', () => {
   });
 
   test('0 field', () => {
-    const wrapper = shallow(
-      <DisplayFields />,
-      {context: {form: form_username}}
-    );
+    const wrapper = shallow(<DisplayFields />, { context: { form: form_username } });
 
     expect(wrapper.text()).toEqual(`Fields = []`);
     expect(wrapper.html()).toEqual(`<pre style="font-size:small">Fields = []</pre>`);
   });
 
   test('add field', () => {
-    const wrapper = shallow(
-      <DisplayFields />,
-      {context: {form: form_username}}
-    );
+    const wrapper = shallow(<DisplayFields />, { context: { form: form_username } });
 
     form_username.fieldsStore.addField('username');
 
@@ -86,17 +79,18 @@ describe('render()', () => {
     wrapper.update();
 
     expect(wrapper.text()).toEqual(
-`Fields = [
+      `Fields = [
   {
     name: "username",
     validations: []
   }
-]`);
+]`
+    );
 
     form_username.fieldsStore.addField('password');
     wrapper.update();
     expect(wrapper.text()).toEqual(
-`Fields = [
+      `Fields = [
   {
     name: "username",
     validations: []
@@ -105,20 +99,18 @@ describe('render()', () => {
     name: "password",
     validations: []
   }
-]`);
+]`
+    );
   });
 
   test('remove field', () => {
-    const wrapper = shallow(
-      <DisplayFields />,
-      {context: {form: form_username}}
-    );
+    const wrapper = shallow(<DisplayFields />, { context: { form: form_username } });
 
     form_username.fieldsStore.addField('username');
     form_username.fieldsStore.addField('password');
     wrapper.update();
     expect(wrapper.text()).toEqual(
-`Fields = [
+      `Fields = [
   {
     name: "username",
     validations: []
@@ -127,24 +119,23 @@ describe('render()', () => {
     name: "password",
     validations: []
   }
-]`);
+]`
+    );
 
     form_username.fieldsStore.removeField('password');
     wrapper.update();
     expect(wrapper.text()).toEqual(
-`Fields = [
+      `Fields = [
   {
     name: "username",
     validations: []
   }
-]`);
+]`
+    );
   });
 
   test('form.emitFieldDidValidateEvent()', async () => {
-    const wrapper = shallow(
-      <DisplayFields />,
-      {context: {form: form_username}}
-    );
+    const wrapper = shallow(<DisplayFields />, { context: { form: form_username } });
 
     form_username.fieldsStore.addField('username');
     form_username.fieldsStore.addField('password');
@@ -156,7 +147,7 @@ describe('render()', () => {
     wrapper.update();
 
     expect(wrapper.text()).toEqual(
-`Fields = [
+      `Fields = [
   {
     name: "username",
     validations: [
@@ -167,14 +158,12 @@ describe('render()', () => {
     name: "password",
     validations: []
   }
-]`);
+]`
+    );
   });
 
   test.skip('form.resetFields()', async () => {
-    const wrapper = shallow(
-      <DisplayFields />,
-      {context: {form: form_username}}
-    );
+    const wrapper = shallow(<DisplayFields />, { context: { form: form_username } });
 
     form_username.fieldsStore.addField('username');
     form_username.fieldsStore.addField('password');
@@ -183,7 +172,7 @@ describe('render()', () => {
     await form_username.emitFieldDidValidateEvent(username);
     wrapper.update();
     expect(wrapper.text()).toEqual(
-`Fields = [
+      `Fields = [
   {
     name: "username",
     validations: [
@@ -194,12 +183,13 @@ describe('render()', () => {
     name: "password",
     validations: []
   }
-]`);
+]`
+    );
 
     await form_username.resetFields();
     wrapper.update();
     expect(wrapper.text()).toEqual(
-`Fields = [
+      `Fields = [
   {
     name: "username",
     validations: []
@@ -208,7 +198,8 @@ describe('render()', () => {
     name: "password",
     validations: []
   }
-]`);
+]`
+    );
   });
 });
 
@@ -286,8 +277,7 @@ test('SignUp', async () => {
           <span style="text-decoration: line-through;">key="2.1" type="whenValid"</span>
         </li>
       </ul>
-    </form>`
-  );
+    </form>`);
 
   wrapper.unmount();
 });
@@ -367,8 +357,7 @@ describe('Async', () => {
             <span data-feedback="2.1" class="when-valid" style="display: block;">Looks good!</span>
           </li>
         </ul>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });
@@ -446,8 +435,7 @@ describe('Async', () => {
             <span style="text-decoration: line-through;">key="2.1" type="whenValid"</span>
           </li>
         </ul>
-      </form>`
-    );
+      </form>`);
 
     wrapper.unmount();
   });

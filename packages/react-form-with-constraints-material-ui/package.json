@@ -15,7 +15,6 @@
     "material design",
     "material-ui"
   ],
-
   "main": "lib-es5/index.js",
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -25,47 +24,35 @@
     "lib-es5/"
   ],
   "sideEffects": false,
-
   "scripts": {
     "clean": "rm -rf lib lib-es5 dist coverage .rpt2_cache",
-
     "tsc": "tsc",
     "build": "yarn build:esnext && yarn build:es5",
     "build:esnext": "tsc --project tsconfig.lib.json",
     "build:es5": "tsc --project tsconfig.lib-es5.json",
     "dist": "NODE_ENV=development rollup --config && NODE_ENV=production rollup --config",
-
     "prepublishOnly": "yarn clean && yarn tsc && yarn build && yarn dist",
-
     "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
     "test:coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"
   },
-
   "peerDependencies": {
     "react-form-with-constraints": "^0.12.0",
     "@material-ui/core": "^3.9.2"
   },
-
   "devDependencies": {
     "typescript": "latest",
-
     "react": "latest",
     "@types/react": "latest",
-
     "react-form-with-constraints": "^0.12.0",
-
     "@material-ui/core": "^3.9.2",
-
     "jest": "latest",
     "@types/jest": "latest",
     "ts-jest": "latest",
-
     "enzyme": "latest",
     "@types/enzyme": "latest",
     "enzyme-adapter-react-16": "latest",
     "@types/enzyme-adapter-react-16": "latest",
     "react-dom": "latest",
-
     "rollup": "latest",
     "rollup-plugin-typescript2": "latest",
     "rollup-plugin-uglify": "latest",

@@ -11,44 +11,30 @@
     "material design",
     "material-ui"
   ],
-
   "main": "App.tsx",
-
   "scripts": {
     "clean": "rm -rf build",
-
     "tsc": "tsc",
-
     "build": "webpack -d",
     "build:watch": "webpack -d --watch"
   },
-
   "dependencies": {
     "react-scripts": "latest",
-
     "react": "latest",
     "react-dom": "latest",
-
     "lodash": "latest",
-
     "@material-ui/core": "^3.9.2",
-
     "react-form-with-constraints": "^0.12.0",
     "react-form-with-constraints-material-ui": "^0.12.0",
     "react-form-with-constraints-tools": "^0.12.0"
   },
-
   "devDependencies": {
     "typescript": "latest",
-
     "@types/react": "latest",
     "@types/react-dom": "latest",
-
     "@types/lodash": "latest",
-
     "ts-node": "latest",
     "@types/node": "latest",
-
     "webpack-cli": "latest",
     "webpack": "latest",
     "@types/webpack": "latest",

@@ -4,13 +4,19 @@ import { configure, observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback, Input as _Input, InputProps } from 'react-form-with-constraints';
+import {
+  FormWithConstraints,
+  FieldFeedbacks,
+  FieldFeedback,
+  Input as _Input,
+  InputProps
+} from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './index.html';
 import './style.css';
 
-configure({enforceActions: true});
+configure({ enforceActions: true });
 
 type Hobby = string;
 
@@ -85,80 +91,97 @@ class Club {
   }
 }
 
-
 interface HobbiesProps {
   memberIndex: number;
   member: Member;
   validateField: (e: React.ChangeEvent<HTMLInputElement> | string) => void;
 }
 
-const Hobbies = observer<React.FunctionComponent<HobbiesProps>>(({memberIndex, member, validateField}) => {
-  function addHobby() {
-    member.addHobby();
-    validateField(`member${memberIndex}.checkNbHobbies`);
-  }
+const Hobbies = observer<React.FunctionComponent<HobbiesProps>>(
+  ({ memberIndex, member, validateField }) => {
+    function addHobby() {
+      member.addHobby();
+      validateField(`member${memberIndex}.checkNbHobbies`);
+    }
 
-  function removeHobby(index: number) {
-    member.removeHobby(index);
-    validateField(`member${memberIndex}.checkNbHobbies`);
-  }
+    function removeHobby(index: number) {
+      member.removeHobby(index);
+      validateField(`member${memberIndex}.checkNbHobbies`);
+    }
 
-  function updateHobby(e: React.ChangeEvent<HTMLInputElement>, index: number) {
-    member.updateHobby(index, e.target.value);
-    validateField(e);
-  }
+    function updateHobby(e: React.ChangeEvent<HTMLInputElement>, index: number) {
+      member.updateHobby(index, e.target.value);
+      validateField(e);
+    }
 
-  function renderHobby(hobby: Hobby, index: number) {
-    const hobbyLabel = `Hobby #${index + 1}`;
-    const hobbyName = `member${memberIndex}.hobby${index}`;
+    function renderHobby(hobby: Hobby, index: number) {
+      const hobbyLabel = `Hobby #${index + 1}`;
+      const hobbyName = `member${memberIndex}.hobby${index}`;
+
+      return (
+        <li key={index} className="form-group">
+          <div className="form-inline">
+            <Input
+              name={hobbyName}
+              id={hobbyName}
+              placeholder={hobbyLabel}
+              value={hobby}
+              onChange={e => updateHobby(e, index)}
+              required
+              minLength={3}
+              className="form-control"
+              style={{ width: 'auto' }}
+            />
+            <button
+              type="button"
+              title="Remove Hobby"
+              onClick={() => removeHobby(index)}
+              className="close"
+            >
+              &times;
+            </button>
+          </div>
+          <FieldFeedbacks for={hobbyName}>
+            <FieldFeedback when="*" />
+          </FieldFeedbacks>
+        </li>
+      );
+    }
+
+    const checkNbHobbiesName = `member${memberIndex}.checkNbHobbies`;
 
     return (
-      <li key={index} className="form-group">
-        <div className="form-inline">
-          <Input name={hobbyName} id={hobbyName} placeholder={hobbyLabel}
-                 value={hobby} onChange={e => updateHobby(e, index)}
-                 required minLength={3}
-                 className="form-control" style={{width: 'auto'}} />
-          <button type="button" title="Remove Hobby"
-                  onClick={() => removeHobby(index)}
-                  className="close">
-            &times;
+      <>
+        <div className="form-group">
+          <button
+            type="button"
+            name={checkNbHobbiesName}
+            onClick={addHobby}
+            className="btn btn-outline-primary"
+          >
+            Add Hobby
           </button>
+          <FieldFeedbacks for={checkNbHobbiesName}>
+            <FieldFeedback when={() => member.hobbies.length > 5}>
+              No more than 5 hobbies allowed
+            </FieldFeedback>
+          </FieldFeedbacks>
         </div>
-        <FieldFeedbacks for={hobbyName}>
-          <FieldFeedback when="*" />
-        </FieldFeedbacks>
-      </li>
+        <ul className="list-none">
+          {member.hobbies.map((hobby, index) => renderHobby(hobby, index))}
+        </ul>
+      </>
     );
   }
-
-  const checkNbHobbiesName = `member${memberIndex}.checkNbHobbies`;
-
-  return (
-    <>
-      <div className="form-group">
-        <button type="button" name={checkNbHobbiesName}
-                onClick={addHobby}
-                className="btn btn-outline-primary">Add Hobby</button>
-        <FieldFeedbacks for={checkNbHobbiesName}>
-          <FieldFeedback when={() => member.hobbies.length > 5}>No more than 5 hobbies allowed</FieldFeedback>
-        </FieldFeedbacks>
-      </div>
-      <ul className="list-none">
-        {member.hobbies.map((hobby, index) => renderHobby(hobby, index))}
-      </ul>
-    </>
-  );
-});
+);
 Hobbies.displayName = 'Hobbies';
-
 
 interface MembersProps {
   club: Club;
   validateField: (e: React.ChangeEvent<HTMLInputElement> | string) => void;
 }
 
-const Members = observer<React.FunctionComponent<MembersProps>>(({club, validateField}) => {
+const Members = observer<React.FunctionComponent<MembersProps>>(({ club, validateField }) => {
   function addMember() {
     club.addMember();
     validateField('checkNbMembers');
@@ -184,31 +207,44 @@ const Members = observer<React.FunctionComponent<MembersProps>>(({club, validate
     const memberLastNameName = `member${index}.lastName`;
 
     return (
-      <li key={index} >
+      <li key={index}>
         <h4>
           Member #{index + 1}
-          <button type="button" title="Remove Member"
-                  onClick={() => removeMember(index)}
-                  className="close">
+          <button
+            type="button"
+            title="Remove Member"
+            onClick={() => removeMember(index)}
+            className="close"
+          >
             &times;
           </button>
         </h4>
 
         <div className="form-group">
-          <Input name={memberFirstNameName} placeholder="First Name"
-                 value={member.firstName} onChange={e => updateMemberFirstName(e, member)}
-                 required minLength={3}
-                 className="form-control" />
+          <Input
+            name={memberFirstNameName}
+            placeholder="First Name"
+            value={member.firstName}
+            onChange={e => updateMemberFirstName(e, member)}
+            required
+            minLength={3}
+            className="form-control"
+          />
           <FieldFeedbacks for={memberFirstNameName}>
             <FieldFeedback when="*" />
           </FieldFeedbacks>
         </div>
 
         <div className="form-group">
-          <Input name={memberLastNameName} placeholder="Last Name"
-                 value={member.lastName} onChange={e => updateMemberLastName(e, member)}
-                 required minLength={3}
-                 className="form-control" />
+          <Input
+            name={memberLastNameName}
+            placeholder="Last Name"
+            value={member.lastName}
+            onChange={e => updateMemberLastName(e, member)}
+            required
+            minLength={3}
+            className="form-control"
+          />
           <FieldFeedbacks for={memberLastNameName}>
             <FieldFeedback when="*" />
           </FieldFeedbacks>
@@ -222,11 +258,18 @@ const Members = observer<React.FunctionComponent<MembersProps>>(({club, validate
   return (
     <>
       <div className="form-group">
-        <button type="button" name="checkNbMembers"
-                onClick={addMember}
-                className="btn btn-outline-primary">Add Member</button>
+        <button
+          type="button"
+          name="checkNbMembers"
+          onClick={addMember}
+          className="btn btn-outline-primary"
+        >
+          Add Member
+        </button>
         <FieldFeedbacks for="checkNbMembers">
-          <FieldFeedback when={() => club.members.length === 0}>At least one member must be entered</FieldFeedback>
+          <FieldFeedback when={() => club.members.length === 0}>
+            At least one member must be entered
+          </FieldFeedback>
         </FieldFeedbacks>
       </div>
       <ul className="list-none">
@@ -237,16 +280,14 @@ const Members = observer<React.FunctionComponent<MembersProps>>(({club, validate
 });
 Members.displayName = 'Members';
 
-
 interface DisplayClubProps {
   club: Club;
 }
 
-const DisplayClub = observer<React.FunctionComponent<DisplayClubProps>>(({club}) =>
-  <pre style={{fontSize: 'small'}}>Club = {JSON.stringify(club, null, 2)}</pre>
-);
+const DisplayClub = observer<React.FunctionComponent<DisplayClubProps>>(({ club }) => (
+  <pre style={{ fontSize: 'small' }}>Club = {JSON.stringify(club, null, 2)}</pre>
+));
 DisplayClub.displayName = 'DisplayClub';
-
 
 interface FormProps {
   club: Club;
@@ -259,16 +300,16 @@ class Form extends React.Component<FormProps> {
   validateField = (e: React.ChangeEvent<HTMLInputElement> | string) => {
     const target = typeof e === 'string' ? e : e.target;
     this.form!.validateFields(target);
-  }
+  };
 
-  handleSubmit = async (e: React.FormEvent<HTMLFormElement>) =>  {
+  handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     await this.form!.validateForm();
     if (this.form!.isValid()) {
       alert(`Valid form\n\nClub =\n${JSON.stringify(this.props.club, null, 2)}`);
     }
-  }
+  };
 
   updateClubName(e: React.ChangeEvent<HTMLInputElement>) {
     const { club } = this.props;
@@ -280,13 +321,21 @@ class Form extends React.Component<FormProps> {
     const { club } = this.props;
 
     return (
-      <FormWithConstraints ref={formWithConstraints => this.form = formWithConstraints}
-                           onSubmit={this.handleSubmit} noValidate>
+      <FormWithConstraints
+        ref={formWithConstraints => (this.form = formWithConstraints)}
+        onSubmit={this.handleSubmit}
+        noValidate
+      >
         <div className="form-group">
-          <Input name="clubName" placeholder="Club Name"
-                 value={club.name} onChange={e => this.updateClubName(e)}
-                 required minLength={3}
-                 className="form-control" />
+          <Input
+            name="clubName"
+            placeholder="Club Name"
+            value={club.name}
+            onChange={e => this.updateClubName(e)}
+            required
+            minLength={3}
+            className="form-control"
+          />
           <FieldFeedbacks for="clubName">
             <FieldFeedback when="*" />
           </FieldFeedbacks>
@@ -322,7 +371,10 @@ function App() {
   return (
     <div className="container">
       <p>
-        Inspired by <a href="https://redux-form.com/7.0.4/examples/fieldarrays/">Redux Form - Field Arrays Example</a>
+        Inspired by{' '}
+        <a href="https://redux-form.com/7.0.4/examples/fieldarrays/">
+          Redux Form - Field Arrays Example
+        </a>
       </p>
       <Form club={new Club()} />
       <DevTools />

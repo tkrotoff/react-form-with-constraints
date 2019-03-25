@@ -17,7 +17,10 @@ export class FieldsStore extends EventEmitter {
 
   addField(fieldName: string) {
     const fields = this.fields.filter(_field => _field.name === fieldName);
-    console.assert(fields.length === 0 || fields.length === 1, `Cannot have more than 1 field matching '${fieldName}'`);
+    console.assert(
+      fields.length === 0 || fields.length === 1,
+      `Cannot have more than 1 field matching '${fieldName}'`
+    );
 
     if (fields.length === 0) {
       const newField = new Field(fieldName);

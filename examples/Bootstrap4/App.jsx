@@ -7,7 +7,13 @@ import React, { useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { isEqual } from 'lodash-es';
 
-import { FormWithConstraints, Input, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints-bootstrap4';
+import {
+  FormWithConstraints,
+  Input,
+  FieldFeedbacks,
+  Async,
+  FieldFeedback
+} from 'react-form-with-constraints-bootstrap4';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './index.html';
@@ -47,7 +53,7 @@ function Form() {
     const target = e.target;
 
     setInputs(prevState => {
-      return {...prevState, [target.name]: target.value};
+      return { ...prevState, [target.name]: target.value };
     });
 
     await form.current.validateFields(target);
@@ -60,7 +66,7 @@ function Form() {
     const target = e.target;
 
     setInputs(prevState => {
-      return {...prevState, [target.name]: target.value};
+      return { ...prevState, [target.name]: target.value };
     });
 
     await form.current.validateFields(target, 'passwordConfirm');
@@ -93,11 +99,18 @@ function Form() {
   return (
     <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
       <div className="form-group">
-        <label htmlFor="username">Username <small>(already taken: john, paul, george, ringo)</small></label>
-        <Input id="username" name="username"
-               value={inputs.username} onChange={handleChange}
-               required minLength={3}
-               className="form-control" />
+        <label htmlFor="username">
+          Username <small>(already taken: john, paul, george, ringo)</small>
+        </label>
+        <Input
+          id="username"
+          name="username"
+          value={inputs.username}
+          onChange={handleChange}
+          required
+          minLength={3}
+          className="form-control"
+        />
         <span className="input-state" />
         <FieldFeedbacks for="username">
           <FieldFeedback when="tooShort">Too short</FieldFeedback>
@@ -105,50 +118,82 @@ function Form() {
           <Async
             promise={checkUsernameAvailability}
             pending={<span className="d-block">...</span>}
-            then={available => available ?
-              <FieldFeedback key="1" info style={{color: '#28a745'}}>Username available</FieldFeedback> :
-              <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>
+            then={available =>
+              available ? (
+                <FieldFeedback key="1" info style={{ color: '#28a745' }}>
+                  Username available
+                </FieldFeedback>
+              ) : (
+                <FieldFeedback key="2">Username already taken, choose another</FieldFeedback>
+              )
             }
           />
           <FieldFeedback when="valid">Looks good!</FieldFeedback>
         </FieldFeedbacks>
       </div>
-
       <div className="form-group">
         <label htmlFor="password">Password</label>
-        <Input type="password" id="password" name="password"
-               innerRef={password}
-               value={inputs.password} onChange={handlePasswordChange}
-               required pattern=".{5,}"
-               className="form-control" />
+        <Input
+          type="password"
+          id="password"
+          name="password"
+          innerRef={password}
+          value={inputs.password}
+          onChange={handlePasswordChange}
+          required
+          pattern=".{5,}"
+          className="form-control"
+        />
         <span className="input-state" />
         <FieldFeedbacks for="password">
           <FieldFeedback when="valueMissing" />
           <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
-          <FieldFeedback when={value => !/\d/.test(value)} warning>Should contain numbers</FieldFeedback>
-          <FieldFeedback when={value => !/[a-z]/.test(value)} warning>Should contain small letters</FieldFeedback>
-          <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>Should contain capital letters</FieldFeedback>
-          <FieldFeedback when={value => !/\W/.test(value)} warning>Should contain special characters</FieldFeedback>
+          <FieldFeedback when={value => !/\d/.test(value)} warning>
+            Should contain numbers
+          </FieldFeedback>
+          <FieldFeedback when={value => !/[a-z]/.test(value)} warning>
+            Should contain small letters
+          </FieldFeedback>
+          <FieldFeedback when={value => !/[A-Z]/.test(value)} warning>
+            Should contain capital letters
+          </FieldFeedback>
+          <FieldFeedback when={value => !/\W/.test(value)} warning>
+            Should contain special characters
+          </FieldFeedback>
           <FieldFeedback when="valid">Looks good!</FieldFeedback>
         </FieldFeedbacks>
       </div>
-
       <div className="form-group">
         <label htmlFor="password-confirm">Confirm Password</label>
-        <Input type="password" id="password-confirm" name="passwordConfirm"
-               value={inputs.passwordConfirm} onChange={handleChange}
-               required className="form-control" />
+        <Input
+          type="password"
+          id="password-confirm"
+          name="passwordConfirm"
+          value={inputs.passwordConfirm}
+          onChange={handleChange}
+          required
+          className="form-control"
+        />
         <span className="input-state" />
         <FieldFeedbacks for="passwordConfirm">
           <FieldFeedback when="*" />
-          <FieldFeedback when={value => value !== password.current.value}>Not the same password</FieldFeedback>
+          <FieldFeedback when={value => value !== password.current.value}>
+            Not the same password
+          </FieldFeedback>
           <FieldFeedback when="valid">Looks good!</FieldFeedback>
         </FieldFeedbacks>
       </div>
-
-      <button disabled={signUpButtonDisabled} className="btn btn-primary">Sign Up</button>{' '}
-      <button type="button" onClick={handleReset} disabled={resetButtonDisabled} className="btn btn-secondary">Reset</button>
-
+      <button disabled={signUpButtonDisabled} className="btn btn-primary">
+        Sign Up
+      </button>{' '}
+      <button
+        type="button"
+        onClick={handleReset}
+        disabled={resetButtonDisabled}
+        className="btn btn-secondary"
+      >
+        Reset
+      </button>
       <DisplayFields />
     </FormWithConstraints>
   );
@@ -158,9 +203,13 @@ function App() {
   return (
     <div className="container">
       <p>
-        Inspired by <a href="http://moduscreate.com/reactjs-form-validation-approaches/">Modus Create - ReactJS Form Validation Approaches</a>
+        Inspired by{' '}
+        <a href="http://moduscreate.com/reactjs-form-validation-approaches/">
+          Modus Create - ReactJS Form Validation Approaches
+        </a>
         <br />
-        Fixed version: <a href="https://codepen.io/tkrotoff/pen/MEeNvO">https://codepen.io/tkrotoff/pen/MEeNvO</a>
+        Fixed version:{' '}
+        <a href="https://codepen.io/tkrotoff/pen/MEeNvO">https://codepen.io/tkrotoff/pen/MEeNvO</a>
       </p>
       <Form />
     </div>

@@ -1,57 +1,63 @@
 import * as React from 'react';
 import { shallow as _shallow } from 'enzyme';
 
-import { Input, InputProps, InputContext, FormWithConstraints, Field, FieldFeedbackValidation, FieldFeedbackType } from './index';
+import {
+  Input,
+  InputProps,
+  InputContext,
+  FormWithConstraints,
+  Field,
+  FieldFeedbackValidation,
+  FieldFeedbackType
+} from './index';
 
-function shallow(node: React.ReactElement<InputProps>, options: {context: InputContext}) {
+function shallow(node: React.ReactElement<InputProps>, options: { context: InputContext }) {
   return _shallow<InputProps>(node, options);
 }
 
 test('fieldWillValidate() fieldDidValidate()', () => {
-  const wrapper = shallow(
-    <Input name="username" />,
-    {context: {form: new FormWithConstraints({})}}
-  );
+  const wrapper = shallow(<Input name="username" />, {
+    context: { form: new FormWithConstraints({}) }
+  });
   const input = wrapper.instance() as Input;
 
-  expect(wrapper.state()).toEqual({field: undefined});
+  expect(wrapper.state()).toEqual({ field: undefined });
 
   const field = new Field('username');
   input.fieldDidValidate(field);
-  expect(wrapper.state()).toEqual({field});
+  expect(wrapper.state()).toEqual({ field });
   input.fieldWillValidate('unknown');
-  expect(wrapper.state()).toEqual({field});
+  expect(wrapper.state()).toEqual({ field });
   input.fieldWillValidate('username');
-  expect(wrapper.state()).toEqual({field: 'pending'});
+  expect(wrapper.state()).toEqual({ field: 'pending' });
 
   const unknownField = new Field('unknown');
   input.fieldDidValidate(field);
-  expect(wrapper.state()).toEqual({field});
+  expect(wrapper.state()).toEqual({ field });
   input.fieldDidValidate(unknownField);
-  expect(wrapper.state()).toEqual({field});
+  expect(wrapper.state()).toEqual({ field });
 
   wrapper.unmount();
 });
 
 test('fieldDidReset()', () => {
-  const wrapper = shallow(
-    <Input name="username" />,
-    {context: {form: new FormWithConstraints({})}}
-  );
+  const wrapper = shallow(<Input name="username" />, {
+    context: { form: new FormWithConstraints({}) }
+  });
   const input = wrapper.instance() as Input;
 
-  expect(wrapper.state()).toEqual({field: undefined});
+  expect(wrapper.state()).toEqual({ field: undefined });
 
   const field = new Field('username');
   input.fieldDidValidate(field);
-  expect(wrapper.state()).toEqual({field});
+  expect(wrapper.state()).toEqual({ field });
 
   const unknownField = new Field('unknown');
   input.fieldDidReset(unknownField);
-  expect(wrapper.state()).toEqual({field});
+  expect(wrapper.state()).toEqual({ field });
 
   input.fieldDidReset(field);
-  expect(wrapper.state()).toEqual({field: undefined});
+  expect(wrapper.state()).toEqual({ field: undefined });
 
   wrapper.unmount();
 });
@@ -74,10 +80,9 @@ describe('render()', () => {
   };
 
   test('is-pending has-errors has-warnings has-infos', () => {
-    const wrapper = shallow(
-      <Input name="username" />,
-      {context: {form: new FormWithConstraints({})}}
-    );
+    const wrapper = shallow(<Input name="username" />, {
+      context: { form: new FormWithConstraints({}) }
+    });
     const input = wrapper.instance() as Input;
 
     const field = new Field('username');
@@ -87,9 +92,7 @@ describe('render()', () => {
 
     input.fieldWillValidate('username');
     wrapper.update();
-    expect(wrapper.html()).toEqual(
-      '<input name="username" class="is-pending"/>'
-    );
+    expect(wrapper.html()).toEqual('<input name="username" class="is-pending"/>');
 
     input.fieldDidValidate(field);
     wrapper.update();
@@ -101,10 +104,9 @@ describe('render()', () => {
   });
 
   test('is-pending has-errors has-warnings has-infos with className props', () => {
-    const wrapper = shallow(
-      <Input name="username" className="form-control" />,
-      {context: {form: new FormWithConstraints({})}}
-    );
+    const wrapper = shallow(<Input name="username" className="form-control" />, {
+      context: { form: new FormWithConstraints({}) }
+    });
     const input = wrapper.instance() as Input;
 
     const field = new Field('username');
@@ -114,9 +116,7 @@ describe('render()', () => {
 
     input.fieldWillValidate('username');
     wrapper.update();
-    expect(wrapper.html()).toEqual(
-      '<input name="username" class="form-control is-pending"/>'
-    );
+    expect(wrapper.html()).toEqual('<input name="username" class="form-control is-pending"/>');
 
     input.fieldDidValidate(field);
     wrapper.update();
@@ -129,14 +129,18 @@ describe('render()', () => {
 
   test('is-pending has-errors has-warnings has-infos with className and classes props', () => {
     const wrapper = shallow(
-      <Input name="username" className="form-control" classes={{
-        isPending: 'pending',
-        hasErrors: 'error',
-        hasWarnings: 'warning',
-        hasInfos: 'info',
-        isValid: 'valid'
-      }} />,
-      {context: {form: new FormWithConstraints({})}}
+      <Input
+        name="username"
+        className="form-control"
+        classes={{
+          isPending: 'pending',
+          hasErrors: 'error',
+          hasWarnings: 'warning',
+          hasInfos: 'info',
+          isValid: 'valid'
+        }}
+      />,
+      { context: { form: new FormWithConstraints({}) } }
     );
     const input = wrapper.instance() as Input;
 
@@ -147,9 +151,7 @@ describe('render()', () => {
 
     input.fieldWillValidate('username');
     wrapper.update();
-    expect(wrapper.html()).toEqual(
-      '<input name="username" class="form-control pending"/>'
-    );
+    expect(wrapper.html()).toEqual('<input name="username" class="form-control pending"/>');
 
     input.fieldDidValidate(field);
     wrapper.update();
@@ -162,8 +164,8 @@ describe('render()', () => {
 
   test('is-pending has-errors has-warnings has-infos with className and incomplete classes props', () => {
     const wrapper = shallow(
-      <Input name="username" className="form-control" classes={{hasErrors: 'error'}} />,
-      {context: {form: new FormWithConstraints({})}}
+      <Input name="username" className="form-control" classes={{ hasErrors: 'error' }} />,
+      { context: { form: new FormWithConstraints({}) } }
     );
     const input = wrapper.instance() as Input;
 
@@ -174,24 +176,19 @@ describe('render()', () => {
 
     input.fieldWillValidate('username');
     wrapper.update();
-    expect(wrapper.html()).toEqual(
-      '<input name="username" class="form-control"/>'
-    );
+    expect(wrapper.html()).toEqual('<input name="username" class="form-control"/>');
 
     input.fieldDidValidate(field);
     wrapper.update();
-    expect(wrapper.html()).toEqual(
-      '<input name="username" class="form-control error"/>'
-    );
+    expect(wrapper.html()).toEqual('<input name="username" class="form-control error"/>');
 
     wrapper.unmount();
   });
 
   test('is-pending has-errors has-warnings has-infos without className and empty classes props', () => {
-    const wrapper = shallow(
-      <Input name="username" classes={{}} />,
-      {context: {form: new FormWithConstraints({})}}
-    );
+    const wrapper = shallow(<Input name="username" classes={{}} />, {
+      context: { form: new FormWithConstraints({}) }
+    });
     const input = wrapper.instance() as Input;
 
     const field = new Field('username');
@@ -201,24 +198,19 @@ describe('render()', () => {
 
     input.fieldWillValidate('username');
     wrapper.update();
-    expect(wrapper.html()).toEqual(
-      '<input name="username"/>'
-    );
+    expect(wrapper.html()).toEqual('<input name="username"/>');
 
     input.fieldDidValidate(field);
     wrapper.update();
-    expect(wrapper.html()).toEqual(
-      '<input name="username"/>'
-    );
+    expect(wrapper.html()).toEqual('<input name="username"/>');
 
     wrapper.unmount();
   });
 
   test('is-pending has-errors has-warnings', () => {
-    const wrapper = shallow(
-      <Input name="username" />,
-      {context: {form: new FormWithConstraints({})}}
-    );
+    const wrapper = shallow(<Input name="username" />, {
+      context: { form: new FormWithConstraints({}) }
+    });
     const input = wrapper.instance() as Input;
 
     const field = new Field('username');
@@ -227,24 +219,19 @@ describe('render()', () => {
 
     input.fieldWillValidate('username');
     wrapper.update();
-    expect(wrapper.html()).toEqual(
-      '<input name="username" class="is-pending"/>'
-    );
+    expect(wrapper.html()).toEqual('<input name="username" class="is-pending"/>');
 
     input.fieldDidValidate(field);
     wrapper.update();
-    expect(wrapper.html()).toEqual(
-      '<input name="username" class="has-errors has-warnings"/>'
-    );
+    expect(wrapper.html()).toEqual('<input name="username" class="has-errors has-warnings"/>');
 
     wrapper.unmount();
   });
 
   test('is-pending has-errors', () => {
-    const wrapper = shallow(
-      <Input name="username" />,
-      {context: {form: new FormWithConstraints({})}}
-    );
+    const wrapper = shallow(<Input name="username" />, {
+      context: { form: new FormWithConstraints({}) }
+    });
     const input = wrapper.instance() as Input;
 
     const field = new Field('username');
@@ -252,38 +239,29 @@ describe('render()', () => {
 
     input.fieldWillValidate('username');
     wrapper.update();
-    expect(wrapper.html()).toEqual(
-      '<input name="username" class="is-pending"/>'
-    );
+    expect(wrapper.html()).toEqual('<input name="username" class="is-pending"/>');
 
     input.fieldDidValidate(field);
     wrapper.update();
-    expect(wrapper.html()).toEqual(
-      '<input name="username" class="has-errors"/>'
-    );
+    expect(wrapper.html()).toEqual('<input name="username" class="has-errors"/>');
 
     wrapper.unmount();
   });
 
   test('is-pending no has-*, is-valid', () => {
-    const wrapper = shallow(
-      <Input name="username" />,
-      {context: {form: new FormWithConstraints({})}}
-    );
+    const wrapper = shallow(<Input name="username" />, {
+      context: { form: new FormWithConstraints({}) }
+    });
     const input = wrapper.instance() as Input;
 
     input.fieldWillValidate('username');
     wrapper.update();
-    expect(wrapper.html()).toEqual(
-      '<input name="username" class="is-pending"/>'
-    );
+    expect(wrapper.html()).toEqual('<input name="username" class="is-pending"/>');
 
     const field = new Field('username');
     input.fieldDidValidate(field);
     wrapper.update();
-    expect(wrapper.html()).toEqual(
-      '<input name="username" class="is-valid"/>'
-    );
+    expect(wrapper.html()).toEqual('<input name="username" class="is-valid"/>');
 
     wrapper.unmount();
   });

@@ -3,7 +3,9 @@
 // See Proposal: Variadic Kinds -- Give specific types to variadic functions https://github.com/Microsoft/TypeScript/issues/5453
 type Args = any[];
 
-type Listener<ListenerReturnType = void> = (...args: Args) => ListenerReturnType | Promise<ListenerReturnType>;
+type Listener<ListenerReturnType = void> = (
+  ...args: Args
+) => ListenerReturnType | Promise<ListenerReturnType>;
 
 export default class EventEmitter<ListenerReturnType = void> {
   listeners = new Map<string, Listener<ListenerReturnType>[]>();
@@ -35,7 +37,10 @@ export default class EventEmitter<ListenerReturnType = void> {
   addListener(eventName: string, listener: Listener<ListenerReturnType>) {
     if (!this.listeners.has(eventName)) this.listeners.set(eventName, []);
     const listeners = this.listeners.get(eventName)!;
-    console.assert(listeners.indexOf(listener) === -1, `Listener already added for event '${eventName}'`);
+    console.assert(
+      listeners.indexOf(listener) === -1,
+      `Listener already added for event '${eventName}'`
+    );
     listeners.push(listener);
   }
 

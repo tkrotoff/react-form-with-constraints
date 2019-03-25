@@ -4,7 +4,7 @@
 
   "jsRules": {
     "max-line-length": [true, 200],
-    "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+    "trailing-comma": [true, { "multiline": "never", "singleline": "never" }],
     "quotemark": [true, "single", "jsx-double", "avoid-escape"],
     "object-literal-sort-keys": false,
     "no-console": false,
@@ -14,7 +14,8 @@
   "rules": {
     "deprecation": true,
     // Copy-pasted from Blueprint, see https://github.com/palantir/blueprint/blob/d5a6c02e8750415dfe3af9846749f50525e9a95b/tslint.json
-    "ban": [true,
+    "ban": [
+      true,
       ["Object", "assign", "use TS2.1 object spread { ...a, ...b }"],
       ["Object", "getOwnPropertyNames", "use Object.keys()"],
       ["describe", "only"],
@@ -25,7 +26,6 @@
     "no-invalid-this": [true, "check-function-in-method"],
     "variable-name": [true, "ban-keywords"],
 
-
     // Overwriting rules
 
     "indent": [true, "spaces", 2],
@@ -35,7 +35,7 @@
     "interface-name": false,
     "member-access": false,
     "object-literal-sort-keys": false,
-    "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+    "trailing-comma": [true, { "multiline": "never", "singleline": "never" }],
     "ordered-imports": false,
     "comment-format": false,
     "arrow-parens": false,
@@ -46,7 +46,8 @@
     "no-console": false,
     "interface-over-type-literal": false,
     "member-ordering": false,
-    "one-line": [true,
+    "one-line": [
+      true,
       "check-catch",
       "check-finally",
       //"check-else",
@@ -66,6 +67,9 @@
     // Does not search inside the dependency graph
     "no-implicit-dependencies": false,
 
-    "no-this-assignment": [true, {"allow-destructuring": true}]
+    "no-this-assignment": [true, { "allow-destructuring": true }],
+
+    // See [Rule to enforce semicolons after bound class methods](https://github.com/palantir/tslint/issues/3216#issuecomment-330591415)
+    "semicolon": [true, "always", "strict-bound-class-methods"]
   }
 }

@@ -14,20 +14,21 @@ import Nullable from './Nullable';
 type WhenString =
   | 'valid'
   | '*'
-  | 'badInput'        // input type="number"
+  | 'badInput' // input type="number"
   | 'patternMismatch' // pattern attribute
-  | 'rangeOverflow'   // max attribute
-  | 'rangeUnderflow'  // min attribute
-  | 'stepMismatch'    // step attribute
-  | 'tooLong'         // maxlength attribute
-  | 'tooShort'        // minlength attribute
-  | 'typeMismatch'    // input type="email" or input type="url"
-  | 'valueMissing';   // required attribute
+  | 'rangeOverflow' // max attribute
+  | 'rangeUnderflow' // min attribute
+  | 'stepMismatch' // step attribute
+  | 'tooLong' // maxlength attribute
+  | 'tooShort' // minlength attribute
+  | 'typeMismatch' // input type="email" or input type="url"
+  | 'valueMissing'; // required attribute
 type WhenFn = (value: string) => boolean;
 type When = WhenString | WhenFn;
 
 export interface FieldFeedbackClasses {
-  classes?: { // FIXME Should not be declared "?" thanks to defaultProps?
+  classes?: {
+    // FIXME Should not be declared "?" thanks to defaultProps?
     [index: string]: string | undefined;
     error?: string;
     warning?: string;
@@ -43,8 +44,10 @@ export interface FieldFeedbackBaseProps {
   info?: boolean;
 }
 
-export interface FieldFeedbackProps extends FieldFeedbackBaseProps, FieldFeedbackClasses, React.HTMLAttributes<HTMLSpanElement> {
-}
+export interface FieldFeedbackProps
+  extends FieldFeedbackBaseProps,
+    FieldFeedbackClasses,
+    React.HTMLAttributes<HTMLSpanElement> {}
 
 interface FieldFeedbackState {
   validation: FieldFeedbackValidation;
@@ -56,9 +59,13 @@ interface FieldFeedbackState {
 }
 
 // Why Nullable? See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/27973
-export type FieldFeedbackContext = FormWithConstraintsChildContext & FieldFeedbacksChildContext & Partial<Nullable<AsyncChildContext>>;
+export type FieldFeedbackContext = FormWithConstraintsChildContext &
+  FieldFeedbacksChildContext &
+  Partial<Nullable<AsyncChildContext>>;
 
-export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackProps> extends React.Component<Props, FieldFeedbackState> {
+export class FieldFeedback<
+  Props extends FieldFeedbackBaseProps = FieldFeedbackProps
+> extends React.Component<Props, FieldFeedbackState> {
   static defaultProps: FieldFeedbackProps = {
     when: () => true,
     classes: {
@@ -93,7 +100,9 @@ export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackP
 
     // Special case for when="valid"
     if (type === FieldFeedbackType.WhenValid && (error || warning || info)) {
-      throw new Error('Cannot have an attribute (error, warning...) with FieldFeedback when="valid"');
+      throw new Error(
+        'Cannot have an attribute (error, warning...) with FieldFeedback when="valid"'
+      );
     }
 
     this.state = {
@@ -130,24 +139,22 @@ export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackP
 
     const field = form.fieldsStore.getField(input.name)!;
 
-    const validation = {...this.state.validation}; // Copy state so we don't modify it directly (use of setState() instead)
+    const validation = { ...this.state.validation }; // Copy state so we don't modify it directly (use of setState() instead)
 
-    if (fieldFeedbacks.props.stop === 'first' && field.hasFeedbacks(fieldFeedbacks.key) ||
-        fieldFeedbacks.props.stop === 'first-error' && field.hasErrors(fieldFeedbacks.key) ||
-        fieldFeedbacks.props.stop === 'first-warning' && field.hasWarnings(fieldFeedbacks.key) ||
-        fieldFeedbacks.props.stop === 'first-info' && field.hasInfos(fieldFeedbacks.key)) {
+    if (
+      (fieldFeedbacks.props.stop === 'first' && field.hasFeedbacks(fieldFeedbacks.key)) ||
+      (fieldFeedbacks.props.stop === 'first-error' && field.hasErrors(fieldFeedbacks.key)) ||
+      (fieldFeedbacks.props.stop === 'first-warning' && field.hasWarnings(fieldFeedbacks.key)) ||
+      (fieldFeedbacks.props.stop === 'first-info' && field.hasInfos(fieldFeedbacks.key))
+    ) {
       // Do nothing
       validation.show = undefined; // undefined means the FieldFeedback was not checked
-    }
-
-    else {
+    } else {
       validation.show = false;
 
       if (typeof when === 'function') {
         validation.show = when(input.value);
-      }
-
-      else if (typeof when === 'string') {
+      } else if (typeof when === 'string') {
         if (when === 'valid') {
           // undefined => special case for when="valid": always displayed, then FieldFeedbackWhenValid decides what to do
           validation.show = undefined;
@@ -157,25 +164,22 @@ export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackP
           if (!validity.valid) {
             if (when === '*') {
               validation.show = true;
-            }
-            else if (
-              validity.badInput && when === 'badInput' ||
-              validity.patternMismatch && when === 'patternMismatch' ||
-              validity.rangeOverflow && when === 'rangeOverflow' ||
-              validity.rangeUnderflow && when === 'rangeUnderflow' ||
-              validity.stepMismatch && when === 'stepMismatch' ||
-              validity.tooLong && when === 'tooLong' ||
-              validity.tooShort && when === 'tooShort' ||
-              validity.typeMismatch && when === 'typeMismatch' ||
-              validity.valueMissing && when === 'valueMissing') {
-
+            } else if (
+              (validity.badInput && when === 'badInput') ||
+              (validity.patternMismatch && when === 'patternMismatch') ||
+              (validity.rangeOverflow && when === 'rangeOverflow') ||
+              (validity.rangeUnderflow && when === 'rangeUnderflow') ||
+              (validity.stepMismatch && when === 'stepMismatch') ||
+              (validity.tooLong && when === 'tooLong') ||
+              (validity.tooShort && when === 'tooShort') ||
+              (validity.typeMismatch && when === 'typeMismatch') ||
+              (validity.valueMissing && when === 'valueMissing')
+            ) {
               validation.show = true;
             }
           }
         }
-      }
-
-      else {
+      } else {
         throw new TypeError(`Invalid FieldFeedback 'when' type: ${typeof when}`);
       }
     }
@@ -188,35 +192,56 @@ export class FieldFeedback<Props extends FieldFeedbackBaseProps = FieldFeedbackP
     });
 
     return validation;
-  }
+  };
 
   fieldDidReset = (field: Field) => {
-    if (field.name === this.context.fieldFeedbacks.fieldName) { // Ignore the event if it's not for us
+    // Ignore the event if it's not for us
+    if (field.name === this.context.fieldFeedbacks.fieldName) {
       this.setState(prevState => ({
-        validation: {...prevState.validation, ...{show: undefined}},
+        validation: { ...prevState.validation, ...{ show: undefined } },
         validationMessage: ''
       }));
     }
-  }
+  };
 
   // Don't forget to update native/FieldFeedback.render()
   render() {
-    const { when, error, warning, info, className, classes, style, children, ...otherProps } = this.props as unknown as FieldFeedbackProps;
+    const { when, error, warning, info, className, classes, style, children, ...otherProps } = (this
+      .props as unknown) as FieldFeedbackProps;
     const { validation, validationMessage } = this.state;
 
     const fieldFeedbackClassName = classes![validation.type]!;
-    const classNames = className !== undefined ? `${className} ${fieldFeedbackClassName}` : fieldFeedbackClassName;
+    const classNames =
+      className !== undefined ? `${className} ${fieldFeedbackClassName}` : fieldFeedbackClassName;
 
     // Special case for when="valid": always displayed, then FieldFeedbackWhenValid decides what to do
     if (validation.type === FieldFeedbackType.WhenValid) {
-      return <FieldFeedbackWhenValid data-feedback={this.key} style={style} className={classNames} {...otherProps}>{children}</FieldFeedbackWhenValid>;
+      return (
+        <FieldFeedbackWhenValid
+          data-feedback={this.key}
+          style={style}
+          className={classNames}
+          {...otherProps}
+        >
+          {children}
+        </FieldFeedbackWhenValid>
+      );
     }
 
     if (validation.show) {
       const feedback = children !== undefined ? children : validationMessage;
 
       // <span style="display: block"> instead of <div> so FieldFeedback can be wrapped inside a <p>
-      return <span data-feedback={this.key} className={classNames} style={{display: 'block', ...style}} {...otherProps}>{feedback}</span>;
+      return (
+        <span
+          data-feedback={this.key}
+          className={classNames}
+          style={{ display: 'block', ...style }}
+          {...otherProps}
+        >
+          {feedback}
+        </span>
+      );
     }
 
     return null;

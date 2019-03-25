@@ -20,9 +20,12 @@ export default class Field {
   }
 
   hasFeedbacksOfType(type: FieldFeedbackType, fieldFeedbacksKey?: string) {
-    return this.validations.some(fieldFeedback =>
-      (fieldFeedbacksKey === undefined || fieldFeedback.key.startsWith(`${fieldFeedbacksKey}.`)) &&
-      fieldFeedback.type === type && fieldFeedback.show === true
+    return this.validations.some(
+      fieldFeedback =>
+        (fieldFeedbacksKey === undefined ||
+          fieldFeedback.key.startsWith(`${fieldFeedbacksKey}.`)) &&
+        fieldFeedback.type === type &&
+        fieldFeedback.show === true
     );
   }
 
@@ -39,9 +42,11 @@ export default class Field {
   }
 
   hasFeedbacks(fieldFeedbacksKey?: string) {
-    return this.hasErrors(fieldFeedbacksKey) ||
-           this.hasWarnings(fieldFeedbacksKey) ||
-           this.hasInfos(fieldFeedbacksKey);
+    return (
+      this.hasErrors(fieldFeedbacksKey) ||
+      this.hasWarnings(fieldFeedbacksKey) ||
+      this.hasInfos(fieldFeedbacksKey)
+    );
   }
 
   isValid() {

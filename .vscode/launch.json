@@ -23,7 +23,7 @@
       "args": ["--runInBand", "--no-cache"],
       "cwd": "${workspaceRoot}/packages/react-form-with-constraints-bootstrap4",
       "runtimeArgs": ["--nolazy"],
-      "env": {"NODE_ENV": "development"}
+      "env": { "NODE_ENV": "development" }
     },
     {
       "name": "Jest react-form-with-constraints-native",
@@ -33,7 +33,7 @@
       "args": ["--runInBand", "--no-cache"],
       "cwd": "${workspaceRoot}/packages/react-form-with-constraints-native",
       "runtimeArgs": ["--nolazy"],
-      "env": {"NODE_ENV": "development"}
+      "env": { "NODE_ENV": "development" }
     },
     {
       "name": "Jest react-form-with-constraints-tools",
@@ -43,7 +43,7 @@
       "args": ["--runInBand", "--no-cache"],
       "cwd": "${workspaceRoot}/packages/react-form-with-constraints-tools",
       "runtimeArgs": ["--nolazy"],
-      "env": {"NODE_ENV": "development"}
+      "env": { "NODE_ENV": "development" }
     },
     {
       "name": "Jest react-form-with-constraints-material-ui",
@@ -53,7 +53,7 @@
       "args": ["--runInBand", "--no-cache"],
       "cwd": "${workspaceRoot}/packages/react-form-with-constraints-material-ui",
       "runtimeArgs": ["--nolazy"],
-      "env": {"NODE_ENV": "development"}
+      "env": { "NODE_ENV": "development" }
     }
   ]
 }

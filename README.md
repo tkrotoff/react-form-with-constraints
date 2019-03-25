@@ -23,12 +23,14 @@ Check the [changelog](CHANGELOG.md) for breaking changes and fixes between relea
   <button>Submit</button>
 </form>
 ```
+
 ![input required](doc/input-required.png)
 ![input type="email"](doc/input-type-email.png)
 
 The `required` HTML5 attribute specifies that the user must fill in a value, [`type="email"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email) checks that the entered text looks like an email address.
 
 Resources:
+
 - [Making Forms Fabulous with HTML5](https://www.html5rocks.com/en/tutorials/forms/html5forms/)
 - [Constraint Validation: Native Client Side Validation for Web Forms](https://www.html5rocks.com/en/tutorials/forms/constraintvalidation/)
 - [MDN - Form data validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation)
@@ -87,7 +89,7 @@ Resources:
 
 - [React Native example (React classes)](examples/ReactNative):
 
-  | iOS                                                   |                                                       Android |
+  | iOS                                                   | Android                                                       |
   | ----------------------------------------------------- | ------------------------------------------------------------- |
   | ![react-native-example-ios](doc/react-native-ios.png) | ![react-native-example-android](doc/react-native-android.png) |
 
@@ -116,21 +118,24 @@ It uses [React context](https://reactjs.org/docs/legacy-context.html) to share t
 ## API
 
 The API reads like this: "for field when constraint violation display feedback", example:
+
 ```JSX
 <FieldFeedbacks for="password">
   <FieldFeedback when="valueMissing" />
   <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
 </FieldFeedbacks>
 ```
+
 ```
 for field "password"
   when constraint violation "valueMissing"    display <the HTML5 error message (*)>
   when constraint violation "patternMismatch" display "Should be at least 5 characters long"
 ```
 
-(*) [element.validationMessage](https://www.w3.org/TR/html51/sec-forms.html#the-constraint-validation-api)
+(\*) [element.validationMessage](https://www.w3.org/TR/html51/sec-forms.html#the-constraint-validation-api)
 
 Async support works as follow:
+
 ```JSX
 <FieldFeedbacks for="username">
   <Async
@@ -145,6 +150,7 @@ Async support works as follow:
 ```
 
 Trigger validation:
+
 ```JSX
 function MyForm() {
   const form = useRef(null);
@@ -190,6 +196,7 @@ function MyForm() {
 ```
 
 - [`FieldFeedbacks`](packages/react-form-with-constraints/src/FieldFeedbacks.tsx)
+
   - `for: string` => reference to a `name` attribute (e.g `<input name="username">`), should be unique to the current form
   - `stop?: 'first' | 'first-error' | 'first-warning' | 'first-info' | 'no'` =>
     when to stop rendering `FieldFeedback`s, by default stops at the first error encountered (`FieldFeedback`s order matters)
@@ -218,6 +225,7 @@ function MyForm() {
   ```
 
 - [`FieldFeedback`](packages/react-form-with-constraints/src/FieldFeedback.tsx)
+
   - `when?`:
     - [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) as a string => HTML5 constraint violation name
     - `'*'` => matches any HTML5 constraint violation
@@ -229,6 +237,7 @@ function MyForm() {
   - `children` => what to display when the constraint matches; if missing, displays the [HTML5 error message](https://www.w3.org/TR/html51/sec-forms.html#the-constraint-validation-api) if any
 
 - [`Async<T>`](packages/react-form-with-constraints/src/Async.tsx) => Async version of `FieldFeedback` (similar API as [react-promise](https://github.com/capaj/react-promise))
+
   - `promise: (value: string) => Promise<T>` => a promise you want to wait for
   - `pending?: React.ReactNode` => runs when promise is pending
   - `then?: (value: T) => React.ReactNode` => runs when promise is resolved
@@ -318,6 +327,7 @@ Files inside [`lib/`](https://unpkg.com/react-form-with-constraints@latest/lib/)
 A recent browser or Node.js is required or you will need to transpile the react-form-with-constraints source code using Babel (or TypeScript tsc).
 
 Several advantages:
+
 - The combine use of `"sideEffects": false` with `"module": ...` generates a smaller bundle thanks to [tree shaking](https://webpack.js.org/guides/tree-shaking/)
 - You can transpile react-form-with-constraints source code with your Babel's [preset-env](https://babeljs.io/docs/en/babel-preset-env) and [Browserslist](https://github.com/browserslist/browserslist) configuration
 

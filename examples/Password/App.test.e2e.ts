@@ -35,7 +35,9 @@ test('john@beatles/123456/12345', async () => {
   const passwordConfirm = (await page.$('input[name=passwordConfirm]'))!;
   await passwordConfirm.click();
   await passwordConfirm.type('12345');
-  const passwordConfirmFeedbacks = await page.$$('input[name=passwordConfirm] ~ span[data-feedback]');
+  const passwordConfirmFeedbacks = await page.$$(
+    'input[name=passwordConfirm] ~ span[data-feedback]'
+  );
   expect(passwordConfirmFeedbacks).toHaveLength(1);
   await expect(passwordConfirmFeedbacks[0]).toMatch('Not the same password');
 
@@ -66,7 +68,9 @@ test('john@beatles/Tr0ub4dor&3/Tr0ub4dor&3', async () => {
   const passwordConfirm = (await page.$('input[name=passwordConfirm]'))!;
   await passwordConfirm.click();
   await passwordConfirm.type('Tr0ub4dor&3');
-  const passwordConfirmFeedbacks = await page.$$('input[name=passwordConfirm] ~ span[data-feedback]');
+  const passwordConfirmFeedbacks = await page.$$(
+    'input[name=passwordConfirm] ~ span[data-feedback]'
+  );
   expect(passwordConfirmFeedbacks).toHaveLength(0);
 
   const signUp = (await page.$x("//button[text() = 'Sign Up']"))[0];
@@ -85,7 +89,6 @@ test('john@beatles/Tr0ub4dor&3/Tr0ub4dor&3', async () => {
       "email": "john@beatles",
       "password": "Tr0ub4dor&3",
       "passwordConfirm": "Tr0ub4dor&3"
-    }`
-  );
+    }`);
   await dialog.accept();
 });

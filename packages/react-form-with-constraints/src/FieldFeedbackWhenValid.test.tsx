@@ -2,13 +2,21 @@ import * as React from 'react';
 import { shallow as _shallow } from 'enzyme';
 
 import {
-  FormWithConstraints, Field,
-  FieldWillValidateEvent, FieldDidValidateEvent, FieldDidResetEvent,
-  FieldFeedbackWhenValid, FieldFeedbackWhenValidProps, FieldFeedbackWhenValidContext
+  FormWithConstraints,
+  Field,
+  FieldWillValidateEvent,
+  FieldDidValidateEvent,
+  FieldDidResetEvent,
+  FieldFeedbackWhenValid,
+  FieldFeedbackWhenValidProps,
+  FieldFeedbackWhenValidContext
 } from './index';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 
-function shallow(node: React.ReactElement<FieldFeedbackWhenValidProps>, options: {context: FieldFeedbackWhenValidContext}) {
+function shallow(
+  node: React.ReactElement<FieldFeedbackWhenValidProps>,
+  options: { context: FieldFeedbackWhenValidContext }
+) {
   return _shallow<FieldFeedbackWhenValidProps>(node, options);
 }
 
@@ -17,36 +25,59 @@ let fieldFeedbacks_username: FieldFeedbacks;
 
 beforeEach(() => {
   form_username = new FormWithConstraints({});
-  fieldFeedbacks_username = new FieldFeedbacks({for: 'username', stop: 'no'}, {form: form_username});
+  fieldFeedbacks_username = new FieldFeedbacks(
+    { for: 'username', stop: 'no' },
+    { form: form_username }
+  );
 });
 
 test('constructor()', () => {
-  const wrapper = shallow(
-    <FieldFeedbackWhenValid />,
-    {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
-  );
+  const wrapper = shallow(<FieldFeedbackWhenValid />, {
+    context: { form: form_username, fieldFeedbacks: fieldFeedbacks_username }
+  });
   const fieldFeedbackWhenValid = wrapper.instance() as FieldFeedbackWhenValid;
   expect(fieldFeedbackWhenValid.state.fieldIsValid).toEqual(undefined);
 });
 
 test('componentWillMount() componentWillUnmount()', () => {
-  const addFieldWillValidateEventListenerSpy = jest.spyOn(form_username, 'addFieldWillValidateEventListener');
-  const addFieldDidValidateEventListenerSpy = jest.spyOn(form_username, 'addFieldDidValidateEventListener');
-  const addFieldDidResetEventListenerSpy = jest.spyOn(form_username, 'addFieldDidResetEventListener');
-  const removeFieldWillValidateEventListenerSpy = jest.spyOn(form_username, 'removeFieldWillValidateEventListener');
-  const removeFieldDidValidateEventListenerSpy = jest.spyOn(form_username, 'removeFieldDidValidateEventListener');
-  const removeFieldDidResetEventListenerSpy = jest.spyOn(form_username, 'removeFieldDidResetEventListener');
-
-  const wrapper = shallow(
-    <FieldFeedbackWhenValid />,
-    {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
+  const addFieldWillValidateEventListenerSpy = jest.spyOn(
+    form_username,
+    'addFieldWillValidateEventListener'
   );
+  const addFieldDidValidateEventListenerSpy = jest.spyOn(
+    form_username,
+    'addFieldDidValidateEventListener'
+  );
+  const addFieldDidResetEventListenerSpy = jest.spyOn(
+    form_username,
+    'addFieldDidResetEventListener'
+  );
+  const removeFieldWillValidateEventListenerSpy = jest.spyOn(
+    form_username,
+    'removeFieldWillValidateEventListener'
+  );
+  const removeFieldDidValidateEventListenerSpy = jest.spyOn(
+    form_username,
+    'removeFieldDidValidateEventListener'
+  );
+  const removeFieldDidResetEventListenerSpy = jest.spyOn(
+    form_username,
+    'removeFieldDidResetEventListener'
+  );
+
+  const wrapper = shallow(<FieldFeedbackWhenValid />, {
+    context: { form: form_username, fieldFeedbacks: fieldFeedbacks_username }
+  });
   expect(addFieldWillValidateEventListenerSpy).toHaveBeenCalledTimes(1);
   expect(addFieldDidValidateEventListenerSpy).toHaveBeenCalledTimes(1);
   expect(removeFieldWillValidateEventListenerSpy).toHaveBeenCalledTimes(0);
   expect(removeFieldDidValidateEventListenerSpy).toHaveBeenCalledTimes(0);
-  expect(form_username.fieldWillValidateEventEmitter.listeners.get(FieldWillValidateEvent)).toHaveLength(1);
-  expect(form_username.fieldDidValidateEventEmitter.listeners.get(FieldDidValidateEvent)).toHaveLength(1);
+  expect(
+    form_username.fieldWillValidateEventEmitter.listeners.get(FieldWillValidateEvent)
+  ).toHaveLength(1);
+  expect(
+    form_username.fieldDidValidateEventEmitter.listeners.get(FieldDidValidateEvent)
+  ).toHaveLength(1);
   expect(addFieldDidResetEventListenerSpy).toHaveBeenCalledTimes(1);
   expect(removeFieldDidResetEventListenerSpy).toHaveBeenCalledTimes(0);
   expect(form_username.fieldDidResetEventEmitter.listeners.get(FieldDidResetEvent)).toHaveLength(1);
@@ -56,18 +87,23 @@ test('componentWillMount() componentWillUnmount()', () => {
   expect(addFieldDidValidateEventListenerSpy).toHaveBeenCalledTimes(1);
   expect(removeFieldWillValidateEventListenerSpy).toHaveBeenCalledTimes(1);
   expect(removeFieldDidValidateEventListenerSpy).toHaveBeenCalledTimes(1);
-  expect(form_username.fieldWillValidateEventEmitter.listeners.get(FieldWillValidateEvent)).toEqual(undefined);
-  expect(form_username.fieldDidValidateEventEmitter.listeners.get(FieldDidValidateEvent)).toEqual(undefined);
+  expect(form_username.fieldWillValidateEventEmitter.listeners.get(FieldWillValidateEvent)).toEqual(
+    undefined
+  );
+  expect(form_username.fieldDidValidateEventEmitter.listeners.get(FieldDidValidateEvent)).toEqual(
+    undefined
+  );
   expect(addFieldDidResetEventListenerSpy).toHaveBeenCalledTimes(1);
   expect(removeFieldDidResetEventListenerSpy).toHaveBeenCalledTimes(1);
-  expect(form_username.fieldDidResetEventEmitter.listeners.get(FieldDidResetEvent)).toEqual(undefined);
+  expect(form_username.fieldDidResetEventEmitter.listeners.get(FieldDidResetEvent)).toEqual(
+    undefined
+  );
 });
 
 test('fieldWillValidate() fieldDidValidate()', async () => {
-  const wrapper = shallow(
-    <FieldFeedbackWhenValid />,
-    {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
-  );
+  const wrapper = shallow(<FieldFeedbackWhenValid />, {
+    context: { form: form_username, fieldFeedbacks: fieldFeedbacks_username }
+  });
   const fieldFeedbackWhenValid = wrapper.instance() as FieldFeedbackWhenValid;
 
   expect(fieldFeedbackWhenValid.state.fieldIsValid).toEqual(undefined);
@@ -86,10 +122,9 @@ test('fieldWillValidate() fieldDidValidate()', async () => {
 });
 
 test('resetFields()', async () => {
-  const wrapper = shallow(
-    <FieldFeedbackWhenValid />,
-    {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
-  );
+  const wrapper = shallow(<FieldFeedbackWhenValid />, {
+    context: { form: form_username, fieldFeedbacks: fieldFeedbacks_username }
+  });
   const fieldFeedbackWhenValid = wrapper.instance() as FieldFeedbackWhenValid;
 
   const field = new Field('username');
@@ -102,41 +137,34 @@ test('resetFields()', async () => {
 });
 
 test('render()', () => {
-  let wrapper = shallow(
-    <FieldFeedbackWhenValid>Looks good!</FieldFeedbackWhenValid>,
-    {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
-  );
+  let wrapper = shallow(<FieldFeedbackWhenValid>Looks good!</FieldFeedbackWhenValid>, {
+    context: { form: form_username, fieldFeedbacks: fieldFeedbacks_username }
+  });
 
   expect(wrapper.html()).toEqual(null);
 
-  wrapper.setState({fieldIsValid: undefined});
+  wrapper.setState({ fieldIsValid: undefined });
   expect(wrapper.html()).toEqual(null);
 
-  wrapper.setState({fieldIsValid: true});
-  expect(wrapper.html()).toEqual(
-    '<span style="display:block">Looks good!</span>'
-  );
+  wrapper.setState({ fieldIsValid: true });
+  expect(wrapper.html()).toEqual('<span style="display:block">Looks good!</span>');
 
-  wrapper.setState({fieldIsValid: false});
+  wrapper.setState({ fieldIsValid: false });
   expect(wrapper.html()).toEqual(null);
 
   // With className
   wrapper = shallow(
     <FieldFeedbackWhenValid className="hello">Looks good!</FieldFeedbackWhenValid>,
-    {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
+    { context: { form: form_username, fieldFeedbacks: fieldFeedbacks_username } }
   );
-  wrapper.setState({fieldIsValid: true});
-  expect(wrapper.html()).toEqual(
-    '<span class="hello" style="display:block">Looks good!</span>'
-  );
+  wrapper.setState({ fieldIsValid: true });
+  expect(wrapper.html()).toEqual('<span class="hello" style="display:block">Looks good!</span>');
 
   // With div props
   wrapper = shallow(
-    <FieldFeedbackWhenValid style={{color: 'green'}}>Looks good!</FieldFeedbackWhenValid>,
-    {context: {form: form_username, fieldFeedbacks: fieldFeedbacks_username}}
+    <FieldFeedbackWhenValid style={{ color: 'green' }}>Looks good!</FieldFeedbackWhenValid>,
+    { context: { form: form_username, fieldFeedbacks: fieldFeedbacks_username } }
   );
-  wrapper.setState({fieldIsValid: true});
-  expect(wrapper.html()).toEqual(
-    '<span style="display:block;color:green">Looks good!</span>'
-  );
+  wrapper.setState({ fieldIsValid: true });
+  expect(wrapper.html()).toEqual('<span style="display:block;color:green">Looks good!</span>');
 });
