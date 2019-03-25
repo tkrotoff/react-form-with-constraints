@@ -23,7 +23,7 @@
     "tslint:js": "find . -type f \\( -name '*.js' -or -name '*.jsx' \\) -not -path '*/node_modules/*' -print -exec tslint --config tslint.json '{}' \\;",
     "tslint:tsconfig": "find . -type f -name 'tsconfig.json' -not -path '*/node_modules/*' -print -exec tslint --config tslint.json --project '{}' \\;",
 
-    "publish:lerna": "yarn lerna publish --npm-tag=next --no-git-tag-version --no-push --registry=https://registry.npmjs.org # Custom example: 0.8.0-beta.1"
+    "publish:lerna": "yarn lerna publish --dist-tag next --no-git-tag-version --no-push --registry=https://registry.npmjs.org # Custom example: 0.8.0-beta.1"
   },
 
   "workspaces": [
