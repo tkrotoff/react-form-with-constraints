@@ -34,27 +34,27 @@
     "test:coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"
   },
   "peerDependencies": {
-    "react-form-with-constraints": "^0.12.0",
-    "react-dom": ">=16"
+    "react-dom": ">=16",
+    "react-form-with-constraints": "^0.12.0"
   },
   "devDependencies": {
-    "typescript": "latest",
-    "react": "latest",
-    "@types/react": "latest",
-    "react-dom": "latest",
-    "@types/react-dom": "latest",
+    "@types/enzyme": "^3.9.1",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/jest": "^24.0.11",
+    "@types/react": "^16.8.8",
+    "@types/react-dom": "^16.8.3",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
+    "jest": "^24.5.0",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
     "react-form-with-constraints": "^0.12.0",
-    "jest": "latest",
-    "@types/jest": "latest",
-    "ts-jest": "latest",
-    "enzyme": "latest",
-    "@types/enzyme": "latest",
-    "enzyme-adapter-react-16": "latest",
-    "@types/enzyme-adapter-react-16": "latest",
-    "rollup": "latest",
-    "rollup-plugin-typescript2": "latest",
-    "rollup-plugin-uglify": "latest",
-    "rollup-plugin-filesize": "latest",
-    "rollup-plugin-strip": "latest"
+    "rollup": "^1.7.3",
+    "rollup-plugin-filesize": "^6.0.1",
+    "rollup-plugin-strip": "^1.2.1",
+    "rollup-plugin-typescript2": "^0.20.1",
+    "rollup-plugin-uglify": "^6.0.2",
+    "ts-jest": "^24.0.0",
+    "typescript": "^3.3.4000"
   }
 }

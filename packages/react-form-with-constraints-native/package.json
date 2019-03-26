@@ -33,28 +33,28 @@
     "test:coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"
   },
   "peerDependencies": {
-    "react-native": ">=0.57.8",
-    "react-form-with-constraints": "^0.12.0"
+    "react-form-with-constraints": "^0.12.0",
+    "react-native": ">=0.57.8"
   },
   "devDependencies": {
-    "typescript": "latest",
-    "react": "16.5.0",
-    "@types/react": "latest",
-    "react-native": "^0.57.8",
-    "@types/react-native": "latest",
-    "react-form-with-constraints": "^0.12.0",
-    "jest": "latest",
-    "@types/jest": "latest",
-    "ts-jest": "latest",
-    "react-test-renderer": "16.5.0",
-    "@types/react-test-renderer": "latest",
-    "enzyme": "latest",
-    "@types/enzyme": "latest",
-    "enzyme-adapter-react-16": "latest",
-    "@types/enzyme-adapter-react-16": "latest",
-    "babel-jest": "latest",
-    "@babel/core": "latest",
+    "@babel/core": "^7.4.0",
+    "@types/enzyme": "^3.9.1",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/jest": "^24.0.11",
+    "@types/react": "^16.8.8",
+    "@types/react-native": "^0.57.41",
+    "@types/react-test-renderer": "^16.8.1",
     "babel-core": "^7.0.0-bridge.0",
-    "metro-react-native-babel-preset": "latest"
+    "babel-jest": "^24.5.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
+    "jest": "^24.5.0",
+    "metro-react-native-babel-preset": "^0.53.1",
+    "react": "16.5.0",
+    "react-form-with-constraints": "^0.12.0",
+    "react-native": "^0.59.2",
+    "react-test-renderer": "16.8.5",
+    "ts-jest": "^24.0.0",
+    "typescript": "^3.3.4000"
   }
 }
