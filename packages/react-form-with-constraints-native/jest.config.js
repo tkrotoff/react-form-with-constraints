@@ -1,5 +1,3 @@
-const { defaults } = require('jest-config');
-
 module.exports = {
   preset: 'react-native',
 
@@ -8,8 +6,5 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
     '^.+\\.jsx?$': 'babel-jest'
-  },
-
-  testRegex: '\\.test\\.tsx?$',
-  moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx']
+  }
 };
