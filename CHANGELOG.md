@@ -1,3 +1,11 @@
+## v0.13.0
+
+### Features
+
+- Specify npm dependencies versions instead of using "latest"
+- ESLint
+- Prettier
+
 ## v0.12.0 (2019/03/21)
 
 ### Features

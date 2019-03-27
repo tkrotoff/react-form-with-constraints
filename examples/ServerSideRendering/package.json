@@ -21,8 +21,8 @@
     "express": "^4.16.4",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
-    "react-form-with-constraints": "^0.12.0",
-    "react-form-with-constraints-tools": "^0.12.0"
+    "react-form-with-constraints": "^0.13.0",
+    "react-form-with-constraints-tools": "^0.13.0"
   },
   "devDependencies": {
     "@types/express": "^4.16.1",

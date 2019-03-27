@@ -22,8 +22,8 @@
     "mobx-react-devtools": "^6.1.1",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
-    "react-form-with-constraints": "^0.12.0",
-    "react-form-with-constraints-tools": "^0.12.0",
+    "react-form-with-constraints": "^0.13.0",
+    "react-form-with-constraints-tools": "^0.13.0",
     "react-scripts": "^2.1.8"
   },
   "devDependencies": {

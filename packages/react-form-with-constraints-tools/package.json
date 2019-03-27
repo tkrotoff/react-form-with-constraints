@@ -1,6 +1,6 @@
 {
   "name": "react-form-with-constraints-tools",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/tkrotoff/react-form-with-constraints.git"
@@ -35,7 +35,7 @@
   },
   "peerDependencies": {
     "react-dom": ">=16",
-    "react-form-with-constraints": "^0.12.0"
+    "react-form-with-constraints": "^0.13.0"
   },
   "devDependencies": {
     "@types/enzyme": "^3.9.1",
@@ -48,7 +48,7 @@
     "jest": "^24.5.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
-    "react-form-with-constraints": "^0.12.0",
+    "react-form-with-constraints": "^0.13.0",
     "rollup": "^1.7.3",
     "rollup-plugin-filesize": "^6.0.1",
     "rollup-plugin-strip": "^1.2.1",
