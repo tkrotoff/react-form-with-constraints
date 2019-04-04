@@ -100,7 +100,7 @@ Resources:
 
 ## How it works
 
-The API works the same way as [React Router v4](https://reacttraining.com/react-router/web/example/basic):
+The API works the same way as [React Router](https://reacttraining.com/react-router/web/example/basic):
 
 ```JSX
 <Router>
@@ -159,14 +159,14 @@ function MyForm() {
     const target = e.target;
 
     // Validates only the given fields and returns Promise<Field[]>
-    const fields = await form.current.validateFields(target);
+    await form.current.validateFields(target);
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     // Validates the non-dirty fields and returns Promise<Field[]>
-    const fields = await form.current.validateForm();
+    await form.current.validateForm();
 
     if (form.current.isValid()) console.log('The form is valid');
     else console.log('The form is invalid');
@@ -194,6 +194,23 @@ function MyForm() {
   );
 }
 ```
+
+<br>
+
+**Important note:**
+
+If a field (i.e an `<input>`) does not have a matching `FieldFeedbacks`, the library won't known about this field (and thus won't perform validation).
+The field name should match `FieldFeedbacks.for`:
+
+```JSX
+<input name="MY_FIELD" ...>
+<FieldFeedbacks for="MY_FIELD">
+  ...
+</FieldFeedbacks>
+```
+
+<br>
+<br>
 
 - [`FieldFeedbacks`](packages/react-form-with-constraints/src/FieldFeedbacks.tsx)
 
