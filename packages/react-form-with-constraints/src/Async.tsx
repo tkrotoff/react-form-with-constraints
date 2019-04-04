@@ -32,10 +32,10 @@ export interface AsyncChildContext {
 
 export type AsyncContext = FormWithConstraintsChildContext & FieldFeedbacksChildContext;
 
-// See Asynchronous form errors and messages in AngularJS https://jaysoo.ca/2014/10/14/async-form-errors-and-messages-in-angularjs/
-// See Support for asynchronous values (like Promises and Observables) https://github.com/facebook/react/issues/6481
+// See [Asynchronous form errors and messages in AngularJS](https://jaysoo.ca/2014/10/14/async-form-errors-and-messages-in-angularjs/)
+// See [Support for asynchronous values (like Promises and Observables)](https://github.com/facebook/react/issues/6481)
 // See https://github.com/capaj/react-promise
-// See How to render promises in React https://gist.github.com/hex13/6d46f8b54631871ea8bf87576b635c49
+// See [How to render promises in React](https://gist.github.com/hex13/6d46f8b54631871ea8bf87576b635c49)
 // Cannot be inside a separated npm package since FieldFeedback needs to attach itself to Async
 class AsyncComponent<T = any> extends React.Component<AsyncProps<T>, AsyncState<T>> {}
 export class Async<T>

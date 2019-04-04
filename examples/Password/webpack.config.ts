@@ -1,7 +1,7 @@
 import path from 'path';
 import { Configuration } from 'webpack';
 
-// FIXME See Type definitions for TypeScript https://github.com/aackerman/circular-dependency-plugin/issues/17
+// FIXME See [Type definitions for TypeScript](https://github.com/aackerman/circular-dependency-plugin/issues/17)
 // @ts-ignore
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 

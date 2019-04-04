@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import './index.html';
 import './style.css';
 
-// Inspired by ReactJS Form Validation Approaches https://moduscreate.com/reactjs-form-validation-approaches/
+// Inspired by [ReactJS Form Validation Approaches](https://moduscreate.com/reactjs-form-validation-approaches/)
 
 interface Errors {
   email: string[];

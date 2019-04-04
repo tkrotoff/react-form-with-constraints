@@ -1,8 +1,8 @@
 jest.setTimeout(20000); // 20s
 
 function indent(text: string, indentation: string) {
-  // See Add a char to the start of each line in JavaScript using regular expression https://stackoverflow.com/q/11939575
-  // See Trim trailing spaces before newlines in a single multi-line string in JavaScript https://stackoverflow.com/q/5568797
+  // See [Add a char to the start of each line in JavaScript using regular expression](https://stackoverflow.com/q/11939575)
+  // See [Trim trailing spaces before newlines in a single multi-line string in JavaScript](https://stackoverflow.com/q/5568797)
   return text.replace(/^/gm, indentation).replace(/[^\S\r\n]+$/gm, '');
 }
 
@@ -42,7 +42,7 @@ test('john@beatles/123456/12345', async () => {
   await expect(passwordConfirmFeedbacks[0]).toMatch('Not the same password');
 
   const signUp = (await page.$x("//button[text() = 'Sign Up']"))[0];
-  // See Get Custom Attribute value https://github.com/GoogleChrome/puppeteer/issues/1451
+  // See [Get Custom Attribute value](https://github.com/GoogleChrome/puppeteer/issues/1451)
   const disabled = await page.evaluate(el => el.getAttribute('disabled'), signUp);
   expect(disabled).toEqual('');
 });
@@ -74,7 +74,7 @@ test('john@beatles/Tr0ub4dor&3/Tr0ub4dor&3', async () => {
   expect(passwordConfirmFeedbacks).toHaveLength(0);
 
   const signUp = (await page.$x("//button[text() = 'Sign Up']"))[0];
-  // See Get Custom Attribute value https://github.com/GoogleChrome/puppeteer/issues/1451
+  // See [Get Custom Attribute value](https://github.com/GoogleChrome/puppeteer/issues/1451)
   const disabled = await page.evaluate(el => el.getAttribute('disabled'), signUp);
   expect(disabled).toEqual(null);
 

@@ -102,7 +102,7 @@ class SignUp extends React.Component<Props, State> {
   ) => {
     const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
 
-    // FIXME See Computed property key names should not be widened https://github.com/Microsoft/TypeScript/issues/13948
+    // FIXME See [Computed property key names should not be widened](https://github.com/Microsoft/TypeScript/issues/13948)
     // @ts-ignore
     this.setState({
       [target.name as keyof State]: value
@@ -123,7 +123,7 @@ class SignUp extends React.Component<Props, State> {
 
     this.props.i18n.changeLanguage(target.value);
 
-    // FIXME See Computed property key names should not be widened https://github.com/Microsoft/TypeScript/issues/13948
+    // FIXME See [Computed property key names should not be widened](https://github.com/Microsoft/TypeScript/issues/13948)
     // @ts-ignore
     this.setState({
       [target.name as keyof State]: target.value

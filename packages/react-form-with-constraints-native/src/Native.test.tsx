@@ -372,7 +372,7 @@ describe('FormWithConstraints', () => {
         );
         const form = (wrapper.getInstance() as any) as FormWithConstraints;
 
-        // See async/await toThrow is not working https://github.com/facebook/jest/issues/1700
+        // See [async/await toThrow is not working](https://github.com/facebook/jest/issues/1700)
 
         await expect(form.validateFields('username')).resolves.toEqual([
           { name: 'username', validations: [] }

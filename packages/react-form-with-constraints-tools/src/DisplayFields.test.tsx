@@ -75,7 +75,7 @@ describe('render()', () => {
 
     form_username.fieldsStore.addField('username');
 
-    // See http://airbnb.io/enzyme/docs/guides/migration-from-2-to-3.html#for-mount-updates-are-sometimes-required-when-they-werent-before
+    // See https://airbnb.io/enzyme/docs/guides/migration-from-2-to-3.html#for-mount-updates-are-sometimes-required-when-they-werent-before
     wrapper.update();
 
     expect(wrapper.text()).toEqual(
@@ -143,7 +143,7 @@ describe('render()', () => {
     username.addOrReplaceValidation(validation_empty);
     await form_username.emitFieldDidValidateEvent(username);
 
-    // See http://airbnb.io/enzyme/docs/guides/migration-from-2-to-3.html#for-mount-updates-are-sometimes-required-when-they-werent-before
+    // See https://airbnb.io/enzyme/docs/guides/migration-from-2-to-3.html#for-mount-updates-are-sometimes-required-when-they-werent-before
     wrapper.update();
 
     expect(wrapper.text()).toEqual(

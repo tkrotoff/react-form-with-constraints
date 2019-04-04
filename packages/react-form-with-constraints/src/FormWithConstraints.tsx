@@ -131,7 +131,7 @@ export class FormWithConstraints
 
     if (inputsOrNames.length === 0) {
       // [name] matches <input name="...">, <select name="...">, <button name="...">, ...
-      // See Convert JavaScript NodeList to Array? https://stackoverflow.com/a/33822526/990356
+      // See [Convert JavaScript NodeList to Array?](https://stackoverflow.com/a/33822526/990356)
       inputs = [...this.form!.querySelectorAll<HTMLInputElement>('[name]')];
 
       // Remove elements without ValidityState, example:

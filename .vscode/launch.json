@@ -9,7 +9,7 @@
       "args": ["--runInBand", "--no-cache"],
       "cwd": "${workspaceRoot}/packages/react-form-with-constraints",
       "runtimeArgs": [
-        "--nolazy" // See What does the Node.js `--nolazy` flag mean? http://stackoverflow.com/q/21534565/990356
+        "--nolazy" // See [What does the Node.js `--nolazy` flag mean?](https://stackoverflow.com/q/21534565/990356)
       ],
       "env": {
         "NODE_ENV": "development"

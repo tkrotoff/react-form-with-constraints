@@ -204,7 +204,7 @@ function App() {
     <div className="container">
       <p>
         Inspired by{' '}
-        <a href="http://moduscreate.com/reactjs-form-validation-approaches/">
+        <a href="https://moduscreate.com/blog/reactjs-form-validation-approaches/">
           Modus Create - ReactJS Form Validation Approaches
         </a>
         <br />

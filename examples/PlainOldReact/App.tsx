@@ -5,8 +5,8 @@ import './index.html';
 import './style.css';
 
 // Inspired by
-// - Validating a React form upon submit https://goshakkk.name/submit-time-validation-react/
-// - How to do Simple Form Validation in #Reactjs https://learnetto.com/blog/how-to-do-simple-form-validation-in-reactjs
+// - [Validating a React form upon submit](https://goshakkk.name/submit-time-validation-react/)
+// - [How to do Simple Form Validation in #Reactjs](https://learnetto.com/blog/how-to-do-simple-form-validation-in-reactjs)
 
 interface Errors {
   email: string[];

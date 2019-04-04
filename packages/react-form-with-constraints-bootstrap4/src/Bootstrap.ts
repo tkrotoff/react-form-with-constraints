@@ -30,7 +30,7 @@ import {
 // see https://github.com/twbs/bootstrap/blob/v3.3.7/less/forms.less#L431
 //
 // - Bootstrap 2 "div.control-group.warning":
-// see http://getbootstrap.com/2.3.2/base-css.html#forms
+// see https://getbootstrap.com/2.3.2/base-css.html#forms
 // see https://github.com/twbs/bootstrap/blob/v2.3.2/less/forms.less#L347
 //
 // ## Info
@@ -38,7 +38,7 @@ import {
 // - Bootstrap >= 3: not available
 //
 // - Bootstrap 2 "div.control-group.info":
-// see http://getbootstrap.com/2.3.2/base-css.html#forms
+// see https://getbootstrap.com/2.3.2/base-css.html#forms
 // see https://github.com/twbs/bootstrap/blob/v2.3.2/less/forms.less#L347
 //
 // ## WhenValid
@@ -60,7 +60,7 @@ export class FieldFeedback extends _FieldFeedback {
 
   static defaultProps: FieldFeedbackProps = {
     // See https://github.com/facebook/react/issues/3725#issuecomment-169163998
-    // See React.Component.defaultProps objects are overridden, not merged? https://stackoverflow.com/q/40428847
+    // See [React.Component.defaultProps objects are overridden, not merged?](https://stackoverflow.com/q/40428847)
     ..._FieldFeedback.defaultProps,
     classes: {
       error: 'invalid-feedback',
@@ -84,7 +84,7 @@ export class FieldFeedbackTooltip extends _FieldFeedback {
 
   static defaultProps: FieldFeedbackProps = {
     // See https://github.com/facebook/react/issues/3725#issuecomment-169163998
-    // See React.Component.defaultProps objects are overridden, not merged? https://stackoverflow.com/q/40428847
+    // See [React.Component.defaultProps objects are overridden, not merged?](https://stackoverflow.com/q/40428847)
     ..._FieldFeedback.defaultProps,
     classes: {
       error: 'invalid-tooltip',

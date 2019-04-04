@@ -24,7 +24,7 @@ const config: Configuration[] = [
       server: './server.tsx'
     },
 
-    // See How can I use webpack with express? https://stackoverflow.com/a/31655760/990356
+    // See [How can I use webpack with express?](https://stackoverflow.com/a/31655760/990356)
     target: 'node',
 
     // See https://youtu.be/duhudXkHRf4?t=1062

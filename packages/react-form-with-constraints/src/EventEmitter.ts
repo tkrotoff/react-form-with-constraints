@@ -1,6 +1,6 @@
 // FIXME
-// See Thoughts about variadic generics? https://github.com/Microsoft/TypeScript/issues/1773
-// See Proposal: Variadic Kinds -- Give specific types to variadic functions https://github.com/Microsoft/TypeScript/issues/5453
+// See [Thoughts about variadic generics?](https://github.com/Microsoft/TypeScript/issues/1773)
+// See [Proposal: Variadic Kinds -- Give specific types to variadic functions](https://github.com/Microsoft/TypeScript/issues/5453)
 type Args = any[];
 
 type Listener<ListenerReturnType = void> = (

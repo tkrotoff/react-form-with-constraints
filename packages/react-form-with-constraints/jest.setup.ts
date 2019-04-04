@@ -3,12 +3,12 @@ import * as Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
-// FIXME See console.assert not throwing with v22.4.0 https://github.com/facebook/jest/issues/5634
+// FIXME See [console.assert not throwing with v22.4.0](https://github.com/facebook/jest/issues/5634)
 import * as assert from 'assert';
 console.assert = assert;
 
-// See Event: 'unhandledRejection' https://nodejs.org/api/process.html#process_event_unhandledrejection
-// See Bluebird Error management configuration http://bluebirdjs.com/docs/api/error-management-configuration.html
+// See [Event: 'unhandledRejection'](https://nodejs.org/api/process.html#process_event_unhandledrejection)
+// See [Bluebird Error management configuration](http://bluebirdjs.com/docs/api/error-management-configuration.html)
 //
 // Node.js error:
 // (node:38141) UnhandledPromiseRejectionWarning: Unhandled promise rejection.

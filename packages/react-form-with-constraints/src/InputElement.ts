@@ -1,4 +1,4 @@
-// See React Native TextInput https://facebook.github.io/react-native/docs/textinput.html
+// See [React Native TextInput](https://facebook.github.io/react-native/docs/textinput.html)
 // Here so we don't have to "import { TextInput } from 'react-native'" and depend on React Native
 export interface TextInput {
   //value?: string; // Always undefined, use instead props.value

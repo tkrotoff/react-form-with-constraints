@@ -2,14 +2,14 @@ import FieldFeedbackValidation from './FieldFeedbackValidation';
 import FieldFeedbackType from './FieldFeedbackType';
 import clearArray from './clearArray';
 
-// Field is a better name than Input, see Django Form fields https://docs.djangoproject.com/en/1.11/ref/forms/fields/
+// Field is a better name than Input, see [Django Form fields](https://docs.djangoproject.com/en/1.11/ref/forms/fields/)
 export default class Field {
   public readonly validations: FieldFeedbackValidation[] = [];
 
   constructor(public readonly name: string) {}
 
   addOrReplaceValidation(validation: FieldFeedbackValidation) {
-    // See Update if exists or add new element to array of objects https://stackoverflow.com/a/49375465/990356
+    // See [Update if exists or add new element to array of objects](https://stackoverflow.com/a/49375465/990356)
     const i = this.validations.findIndex(_validation => _validation.key === validation.key);
     if (i > -1) this.validations[i] = validation;
     else this.validations.push(validation);

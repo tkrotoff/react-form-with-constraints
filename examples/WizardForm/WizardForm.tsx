@@ -29,7 +29,7 @@ export default class WizardForm extends React.Component<Props, State> {
   handleChange = (target: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) => {
     const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
 
-    // FIXME See Computed property key names should not be widened https://github.com/Microsoft/TypeScript/issues/13948
+    // FIXME See [Computed property key names should not be widened](https://github.com/Microsoft/TypeScript/issues/13948)
     // @ts-ignore
     this.setState({
       [target.name as keyof State]: value
