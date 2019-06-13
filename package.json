@@ -24,13 +24,13 @@
     "examples/Bootstrap4",
     "examples/ClubMembers",
     "examples/HTML5ConstraintValidationAPI",
-    "examples/PlainOldReact",
+    "examples/MaterialUI",
     "examples/Password",
     "examples/PasswordWithoutState",
+    "examples/PlainOldReact",
     "examples/ServerSideRendering",
     "examples/SignUp",
-    "examples/WizardForm",
-    "examples/MaterialUI"
+    "examples/WizardForm"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^1.5.0",
