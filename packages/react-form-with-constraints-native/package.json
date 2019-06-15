@@ -46,7 +46,7 @@
     "@types/react-test-renderer": "^16.8.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.8.0",
-    "enzyme": "^3.10.0",
+    "enzyme": "3.9.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "jest": "^24.8.0",
     "metro-react-native-babel-preset": "^0.54.1",

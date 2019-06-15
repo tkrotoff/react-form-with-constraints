@@ -50,7 +50,7 @@
     "@types/js-beautify": "^1.8.1",
     "@types/prop-types": "^15.7.1",
     "@types/react": "^16.8.20",
-    "enzyme": "^3.10.0",
+    "enzyme": "3.9.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "jest": "^24.8.0",
     "js-beautify": "^1.10.0",
