@@ -22,7 +22,7 @@ export default {
     sourcemap: true,
     globals: {
       'react-form-with-constraints': 'ReactFormWithConstraints',
-      '@material-ui/core': 'material-ui', // FIXME See [UMD package: export MaterialUI variable](https://github.com/mui-org/material-ui/issues/12387)
+      '@material-ui/core': 'MaterialUI',
       react: 'React',
       'prop-types': 'PropTypes'
     }

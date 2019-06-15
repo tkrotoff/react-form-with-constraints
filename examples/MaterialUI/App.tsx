@@ -10,7 +10,6 @@ import {
   FormControlLabel,
   Button,
   Switch,
-  MuiThemeProvider,
   createMuiTheme,
   Theme,
   CssBaseline,
@@ -18,6 +17,7 @@ import {
   withStyles,
   WithStyles
 } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
 
 import {
   FormWithConstraints,
@@ -44,8 +44,8 @@ async function checkUsernameAvailability(value: string) {
 function styles(theme: Theme) {
   return createStyles({
     button: {
-      marginTop: theme.spacing.unit,
-      marginRight: theme.spacing.unit
+      marginTop: theme.spacing(),
+      marginRight: theme.spacing()
     }
   });
 }
@@ -239,9 +239,6 @@ function Form(props: FormProps) {
 const App = withStyles(styles)(Form);
 
 const darkTheme = createMuiTheme({
-  typography: {
-    useNextVariants: true
-  },
   palette: {
     type: 'dark'
   }
@@ -266,11 +263,11 @@ function AppWithTheme() {
   return (
     <>
       {withTheme ? (
-        <MuiThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={darkTheme}>
           {renderWithThemeSwitch()}
           <CssBaseline />
           <App />
-        </MuiThemeProvider>
+        </ThemeProvider>
       ) : (
         <>
           {renderWithThemeSwitch()}

@@ -3,6 +3,7 @@
 ### Features
 
 - Specify npm dependencies versions instead of using "latest"
+- Upgrade to Material-UI >= 4.1.1
 - ESLint
 - Prettier
 

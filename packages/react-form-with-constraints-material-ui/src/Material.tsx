@@ -4,7 +4,6 @@ import * as PropTypes from 'prop-types';
 import {
   FormControl as _FormControl,
   TextField as _TextField,
-  MuiThemeProvider,
   Theme,
   createMuiTheme,
   createStyles,
@@ -13,6 +12,7 @@ import {
 } from '@material-ui/core';
 import { FormControlProps } from '@material-ui/core/FormControl';
 import { TextFieldProps } from '@material-ui/core/TextField';
+import { ThemeProvider } from '@material-ui/styles';
 
 import {
   FormWithConstraints as _FormWithConstraints,
@@ -156,11 +156,7 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
   }
 }
 
-const defaultTheme = createMuiTheme({
-  typography: {
-    useNextVariants: true
-  }
-});
+const defaultTheme = createMuiTheme({});
 
 // See https://v3-5-0.material-ui.com/customization/themes/#nesting-the-theme
 function formWithConstraintsTheme(outerTheme: Theme | null) {
@@ -183,7 +179,7 @@ function formWithConstraintsTheme(outerTheme: Theme | null) {
 
 export class FormWithConstraints extends _FormWithConstraints {
   render() {
-    return <MuiThemeProvider theme={formWithConstraintsTheme}>{super.render()}</MuiThemeProvider>;
+    return <ThemeProvider theme={formWithConstraintsTheme}>{super.render()}</ThemeProvider>;
   }
 }
 
@@ -193,7 +189,7 @@ function fieldFeedbackStyles(theme: Theme) {
       // Simulates FormHelperText margin
       // See https://github.com/mui-org/material-ui/blob/v1.0.0-beta.44/packages/material-ui/src/Form/FormHelperText.js#L12
       '&:not(:last-child)': {
-        marginBottom: theme.spacing.unit
+        marginBottom: theme.spacing()
       }
     }
   });

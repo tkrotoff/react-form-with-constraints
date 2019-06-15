@@ -4,19 +4,15 @@ import {
   Input,
   FormHelperText,
   /*TextField, FormControl,*/
-  createMuiTheme,
-  MuiThemeProvider
+  createMuiTheme
 } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
 
 import { FormWithConstraints, Async, FieldFeedback, TextField, FormControl } from './index';
 import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
 import checkUsernameAvailability from '../../react-form-with-constraints/src/checkUsernameAvailability';
 
-const defaultTheme = createMuiTheme({
-  typography: {
-    useNextVariants: true
-  }
-});
+const defaultTheme = createMuiTheme({});
 
 export default class SignUp extends React.Component {
   form: FormWithConstraints | null = null;
@@ -32,7 +28,7 @@ export default class SignUp extends React.Component {
       // <MuiThemeProvider theme={outerTheme => outerTheme} />
       // However, no outer theme is present.
       // Make sure a theme is already injected higher in the React tree or provide a theme object.
-      <MuiThemeProvider theme={defaultTheme}>
+      <ThemeProvider theme={defaultTheme}>
         <FormWithConstraints ref={formWithConstraints => (this.form = formWithConstraints)}>
           <TextField
             name="username"
@@ -109,7 +105,7 @@ export default class SignUp extends React.Component {
             }
           />
         </FormWithConstraints>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }
