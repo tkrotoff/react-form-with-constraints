@@ -38,23 +38,23 @@
     "react-form-with-constraints": "^0.13.0"
   },
   "devDependencies": {
-    "@types/enzyme": "^3.9.1",
+    "@types/enzyme": "^3.9.3",
     "@types/enzyme-adapter-react-16": "^1.0.5",
-    "@types/jest": "^24.0.11",
-    "@types/react": "^16.8.8",
-    "@types/react-dom": "^16.8.3",
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.11.2",
-    "jest": "^24.5.0",
-    "react": "^16.8.5",
-    "react-dom": "^16.8.5",
+    "@types/jest": "^24.0.14",
+    "@types/react": "^16.8.20",
+    "@types/react-dom": "^16.8.4",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "jest": "^24.8.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-form-with-constraints": "^0.13.0",
-    "rollup": "^1.7.3",
-    "rollup-plugin-filesize": "^6.0.1",
+    "rollup": "^1.15.3",
+    "rollup-plugin-filesize": "^6.1.0",
     "rollup-plugin-strip": "^1.2.1",
-    "rollup-plugin-typescript2": "^0.20.1",
+    "rollup-plugin-typescript2": "^0.21.1",
     "rollup-plugin-uglify": "^6.0.2",
-    "ts-jest": "^24.0.0",
-    "typescript": "^3.3.4000"
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.2"
   }
 }

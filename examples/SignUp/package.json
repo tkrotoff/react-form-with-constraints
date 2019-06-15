@@ -18,30 +18,30 @@
     "i18next": "i18next --namespace-separator '__NS' --key-separator '__KS'"
   },
   "dependencies": {
-    "i18next": "^15.0.7",
+    "i18next": "^17.0.3",
     "i18next-browser-languagedetector": "^3.0.1",
     "lodash": "^4.17.11",
-    "react": "^16.8.5",
-    "react-dom": "^16.8.5",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-form-with-constraints": "^0.13.0",
     "react-form-with-constraints-tools": "^0.13.0",
     "react-i18next": "^10.6.0",
-    "react-scripts": "^2.1.8"
+    "react-scripts": "^3.0.1"
   },
   "devDependencies": {
     "@types/i18next": "^12.1.0",
     "@types/lodash": "^4.14.123",
-    "@types/node": "^11.11.8",
-    "@types/react": "^16.8.8",
-    "@types/react-dom": "^16.8.3",
-    "@types/webpack": "^4.4.26",
-    "file-loader": "^3.0.1",
+    "@types/node": "^12.0.8",
+    "@types/react": "^16.8.20",
+    "@types/react-dom": "^16.8.4",
+    "@types/webpack": "^4.4.32",
+    "file-loader": "^4.0.0",
     "i18next-parser": "^0.13.0",
     "source-map-loader": "^0.2.4",
-    "ts-loader": "^5.3.3",
-    "ts-node": "^8.0.3",
-    "typescript": "^3.3.4000",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "ts-loader": "^6.0.2",
+    "ts-node": "^8.2.0",
+    "typescript": "^3.5.2",
+    "webpack": "^4.34.0",
+    "webpack-cli": "^3.3.4"
   }
 }
