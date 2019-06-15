@@ -25,9 +25,7 @@ function stringifyWithUndefinedAndWithoutPropertyQuotes(obj: object, space?: str
   return str;
 }
 
-export interface DisplayFieldsProps {}
-
-export class DisplayFields extends React.Component<DisplayFieldsProps> {
+export class DisplayFields extends React.Component {
   static contextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
     form: PropTypes.instanceOf(FormWithConstraints).isRequired
   };

@@ -12,18 +12,15 @@ import {
 
 import beautifyHtml from '../../react-form-with-constraints/src/beautifyHtml';
 
-import { DisplayFields, DisplayFieldsProps } from './index';
+import { DisplayFields } from './index';
 import SignUp from './SignUp';
 
 function mount(node: React.ReactElement<FormWithConstraintsProps>) {
   return _mount<FormWithConstraintsProps, {}>(node);
 }
 
-function shallow(
-  node: React.ReactElement<DisplayFieldsProps>,
-  options: { context: FormWithConstraintsChildContext }
-) {
-  return _shallow<DisplayFieldsProps>(node, options);
+function shallow(node: React.ReactElement, options: { context: FormWithConstraintsChildContext }) {
+  return _shallow(node, options);
 }
 
 test('componentWillMount() componentWillUnmount()', () => {
