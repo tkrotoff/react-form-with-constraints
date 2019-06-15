@@ -8,7 +8,7 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": false,
     "noLib": false,
-    "lib": ["dom", "dom.iterable", "es2018"],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "experimentalDecorators": true,
 
     "strict": true,
