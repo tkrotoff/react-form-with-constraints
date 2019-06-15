@@ -25,8 +25,7 @@
     "react-dom": "^16.8.6",
     "react-form-with-constraints": "^0.13.0",
     "react-form-with-constraints-material-ui": "^0.13.0",
-    "react-form-with-constraints-tools": "^0.13.0",
-    "react-scripts": "^3.0.1"
+    "react-form-with-constraints-tools": "^0.13.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.123",
