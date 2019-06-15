@@ -49,10 +49,10 @@
     "enzyme-adapter-react-16": "^1.14.0",
     "jest": "^24.8.0",
     "metro-react-native-babel-preset": "^0.54.1",
-    "react": "^16.8.6",
+    "react": "16.8.3",
     "react-form-with-constraints": "^0.13.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
-    "react-test-renderer": "^16.8.6",
+    "react-test-renderer": "16.8.3",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.2"
   }

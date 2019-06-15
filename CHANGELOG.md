@@ -4,6 +4,7 @@
 
 - Specify npm dependencies versions instead of using "latest"
 - Upgrade to Material-UI >= 4.1.1
+- Upgrade to Expo SDK 33
 - ESLint
 - Prettier
 
