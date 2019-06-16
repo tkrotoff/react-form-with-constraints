@@ -14,8 +14,11 @@
   "main": "App.jsx",
   "scripts": {
     "clean": "rm -rf build",
+    "start": "webpack-dev-server -d --host 0.0.0.0",
+    "start:prod": "webpack-dev-server -p --compress --host 0.0.0.0",
     "build": "webpack -d",
     "build:watch": "webpack -d --watch",
+    "build:prod": "webpack -p",
     "pretest:e2e": "yarn build",
     "test:e2e": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose --config jest-e2e.config.js"
   },
@@ -47,6 +50,7 @@
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
     "webpack": "^4.34.0",
-    "webpack-cli": "^3.3.4"
+    "webpack-cli": "^3.3.4",
+    "webpack-dev-server": "^3.7.1"
   }
 }
