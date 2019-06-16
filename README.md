@@ -307,7 +307,7 @@ The field name should match `FieldFeedbacks.for`:
 ## Browser support
 
 react-form-with-constraints needs [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) which is supported by all modern browsers and IE >= 10.
-It also needs a polyfill such as [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/usage/polyfill/) to support IE <= 11, see [React JavaScript Environment Requirements](https://reactjs.org/docs/javascript-environment-requirements.html).
+It also needs a polyfill such as [core-js](https://github.com/zloirock/core-js) to support IE >= 10, see [React JavaScript Environment Requirements](https://reactjs.org/docs/javascript-environment-requirements.html).
 
 You can use HTML5 attributes like `type="email"`, `required`, [`minlength`](https://caniuse.com/#feat=input-minlength)...
 
@@ -387,7 +387,8 @@ module.exports = {
     [
       '@babel/preset-env',
       {
-        useBuiltIns: 'usage'
+        useBuiltIns: 'usage',
+        corejs: 3
       }
     ],
     '@babel/preset-react'

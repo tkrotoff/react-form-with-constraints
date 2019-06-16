@@ -20,8 +20,8 @@
     "test:e2e": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose --config jest-e2e.config.js"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4",
     "bootstrap": "^4.3.1",
+    "core-js": "^3.1.4",
     "lodash-es": "^4.17.11",
     "raf": "^3.4.1",
     "react": "^16.8.6",

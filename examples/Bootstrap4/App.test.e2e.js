@@ -1,4 +1,4 @@
-import '@babel/polyfill';
+import 'regenerator-runtime/runtime';
 
 jest.setTimeout(20000); // 20s
 

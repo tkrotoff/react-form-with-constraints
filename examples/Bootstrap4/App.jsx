@@ -1,6 +1,7 @@
 // @ts-check
 
-import '@babel/polyfill';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import 'raf/polyfill';
 
 import React, { useState, useRef } from 'react';

@@ -9,6 +9,7 @@ module.exports = {
           browsers: ['> 1%', 'IE >= 10']
         },
         useBuiltIns: 'entry',
+        corejs: 3,
         debug: false
       }
     ],
