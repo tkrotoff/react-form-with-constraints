@@ -9,6 +9,7 @@ coverage/
 .prettierignore
 .eslintignore
 .editorconfig
+.browserslistrc
 *.png
 yarn.lock
 yarn-error.log

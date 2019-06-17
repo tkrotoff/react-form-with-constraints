@@ -1,0 +1,49 @@
+// Taken and adapted from https://github.com/tkrotoff/bootstrap-input-spinner/blob/v0.1.0/src/bootstrap4-input-spinner.scss
+
+.spinner-border,
+.spinner-grow {
+  display: none;
+}
+
+@function calcInputRightPadding($rightElementWidth) {
+  @return calc(
+    #{$rightElementWidth} - #{$input-border-width} * 2 + #{$input-height-inner-quarter} * 2
+  );
+}
+
+@function calcInputTopMargin($rightElementHeight) {
+  // Fix for IE, see https://github.com/postcss/autoprefixer/issues/1153
+  $input-height-without-calc-for-ie: str-replace($input-height, 'calc');
+
+  @return calc((#{$input-height-without-calc-for-ie} + #{$rightElementHeight}) / -2);
+}
+
+input.is-pending {
+  // Cannot use the same as the validation icons because .spinner-border is too big
+  padding-right: calcInputRightPadding($spinner-width);
+
+  &.is-pending-sm {
+    // Same as the validation icons, this is possible because .spinner-border-sm is small enough
+    //padding-right: calcInputRightPadding($spinner-width-sm);
+    // See https://github.com/twbs/bootstrap/blob/v4.3.1/scss/mixins/_forms.scss#L59
+    padding-right: $input-height-inner;
+  }
+
+  + .spinner-border,
+  + .spinner-grow {
+    display: block;
+
+    float: right;
+
+    // Same as the validation icons
+    // See https://github.com/twbs/bootstrap/blob/v4.3.1/scss/mixins/_forms.scss#L62
+    margin-right: $input-height-inner-quarter;
+
+    margin-top: calcInputTopMargin($spinner-height);
+
+    &.spinner-border-sm,
+    &.spinner-grow-sm {
+      margin-top: calcInputTopMargin($spinner-height-sm);
+    }
+  }
+}

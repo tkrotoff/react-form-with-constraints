@@ -1,6 +1,7 @@
 // @ts-check
 
 const path = require('path');
+const postcssPresetEnv = require('postcss-preset-env');
 
 module.exports = {
   entry: {
@@ -26,6 +27,13 @@ module.exports = {
         use: [
           { loader: 'style-loader', options: { sourceMap: true } },
           { loader: 'css-loader', options: { sourceMap: true } },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [postcssPresetEnv],
+              sourceMap: true
+            }
+          },
           { loader: 'sass-loader', options: { sourceMap: true } }
         ]
       }

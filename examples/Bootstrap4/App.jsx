@@ -110,9 +110,9 @@ function Form() {
           onChange={handleChange}
           required
           minLength={3}
-          className="form-control"
+          className="form-control is-pending-sm"
         />
-        <span className="input-state" />
+        <span className="spinner-border spinner-border-sm" />
         <FieldFeedbacks for="username">
           <FieldFeedback when="tooShort">Too short</FieldFeedback>
           <FieldFeedback when="*" />
@@ -145,7 +145,6 @@ function Form() {
           pattern=".{5,}"
           className="form-control"
         />
-        <span className="input-state" />
         <FieldFeedbacks for="password">
           <FieldFeedback when="valueMissing" />
           <FieldFeedback when="patternMismatch">Should be at least 5 characters long</FieldFeedback>
@@ -175,7 +174,6 @@ function Form() {
           required
           className="form-control"
         />
-        <span className="input-state" />
         <FieldFeedbacks for="passwordConfirm">
           <FieldFeedback when="*" />
           <FieldFeedback when={value => value !== password.current.value}>
