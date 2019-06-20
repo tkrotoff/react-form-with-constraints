@@ -3,7 +3,6 @@
 import typescript from 'rollup-plugin-typescript2';
 import { uglify } from 'rollup-plugin-uglify';
 import filesize from 'rollup-plugin-filesize';
-import strip from 'rollup-plugin-strip';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -37,11 +36,6 @@ export default {
 
     isProd && uglify(),
 
-    filesize(),
-
-    isProd &&
-      strip({
-        include: ['**/*.js', '**/*.ts', '**/*.tsx'] // See https://github.com/rollup/rollup-plugin-strip/pull/7
-      })
+    filesize()
   ]
 };

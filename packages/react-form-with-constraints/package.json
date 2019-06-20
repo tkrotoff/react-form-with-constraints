@@ -61,7 +61,6 @@
     "react-dom": "^16.8.6",
     "rollup": "^1.15.3",
     "rollup-plugin-filesize": "^6.1.0",
-    "rollup-plugin-strip": "^1.2.1",
     "rollup-plugin-typescript2": "^0.21.1",
     "rollup-plugin-uglify": "^6.0.2",
     "ts-jest": "^24.0.2",
