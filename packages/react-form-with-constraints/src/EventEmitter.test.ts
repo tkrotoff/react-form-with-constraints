@@ -107,12 +107,11 @@ describe('emit', () => {
     eventEmitter.addListener('event1', listener10);
     clearArray(eventEmitter.listeners.get('event1')!);
 
-    const assert = console.assert;
-    console.assert = jest.fn();
+    const consoleSpy = jest.spyOn(console, 'assert').mockImplementation();
     const ret = await eventEmitter.emit('event1');
     expect(console.assert).toHaveBeenCalledTimes(1);
     expect(console.assert).toHaveBeenLastCalledWith(false, "No listener for event 'event1'");
-    console.assert = assert;
+    consoleSpy.mockRestore();
     expect(ret).toEqual([]);
 
     expect(listener10).toHaveBeenCalledTimes(0);
@@ -192,15 +191,14 @@ describe('removeListener()', () => {
     eventEmitter.addListener('event1', listener10);
     eventEmitter.addListener('event1', listener11);
 
-    const assert = console.assert;
-    console.assert = jest.fn();
+    const consoleSpy = jest.spyOn(console, 'assert').mockImplementation();
     eventEmitter.addListener('event1', listener10);
     expect(console.assert).toHaveBeenCalledTimes(1);
     expect(console.assert).toHaveBeenLastCalledWith(
       false,
       "Listener already added for event 'event1'"
     );
-    console.assert = assert;
+    consoleSpy.mockRestore();
 
     expect(eventEmitter.listeners).toEqual(
       toMap({
