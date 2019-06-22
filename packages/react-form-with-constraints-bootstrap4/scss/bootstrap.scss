@@ -5,6 +5,8 @@
   display: block !important; // See [Is there an opposite to display:none?](https://stackoverflow.com/a/37289654/990356)
 }
 
+// stylelint-disable max-nesting-depth
+
 // See [v4-beta form-validation-state() mixin does not work](https://github.com/twbs/bootstrap/issues/23371)
 // See [Fix form-validation-state() for unknown pseudo classes](https://github.com/twbs/bootstrap/pull/27409)
 // See [ability to generate warning form state](https://github.com/twbs/bootstrap/pull/26471)
