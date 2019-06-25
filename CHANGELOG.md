@@ -1,4 +1,4 @@
-## v0.13.0
+## v0.13.0 (25/06/2019)
 
 ### Features
 
@@ -6,8 +6,10 @@
 - Upgrade to Material-UI >= 4.1.1
 - Upgrade to Expo SDK 33
 - Remove console.\* from packages before publishing
-- ESLint
 - Prettier
+- ESLint
+- Stylelint
+- Husky
 
 ## v0.12.0 (2019/03/21)
 
