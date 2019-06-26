@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { configure, observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
-import DevTools from 'mobx-react-devtools';
 
 import {
   FormWithConstraints,
@@ -16,7 +15,7 @@ import { DisplayFields } from 'react-form-with-constraints-tools';
 import './index.html';
 import './style.css';
 
-configure({ enforceActions: true });
+configure({ enforceActions: 'always' });
 
 type Hobby = string;
 
@@ -377,7 +376,6 @@ function App() {
         </a>
       </p>
       <Form club={new Club()} />
-      <DevTools />
     </div>
   );
 }

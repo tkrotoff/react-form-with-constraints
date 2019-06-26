@@ -25,6 +25,9 @@
     "react-form-with-constraints-tools": "^0.13.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
     "@types/expect-puppeteer": "^3.3.1",
     "@types/jest": "^24.0.14",
     "@types/jest-environment-puppeteer": "^4.0.0",
@@ -41,7 +44,6 @@
     "puppeteer": "^1.13.0",
     "source-map-loader": "^0.2.4",
     "ts-jest": "^24.0.2",
-    "ts-loader": "^6.0.2",
     "ts-node": "^8.2.0",
     "typescript": "^3.5.2",
     "webpack": "^4.34.0",

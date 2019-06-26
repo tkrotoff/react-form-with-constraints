@@ -27,14 +27,7 @@ const config: Configuration = {
 
   module: {
     rules: [
-      {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        options: {
-          onlyCompileBundledFiles: true,
-          compilerOptions: { noEmit: false, module: 'esnext', sourceMap: true }
-        }
-      },
+      { test: /\.tsx?$/, loader: 'babel-loader' },
       { test: /\.js$/, loader: 'source-map-loader' },
       {
         test: /\.css$/,

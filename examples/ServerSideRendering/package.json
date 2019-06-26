@@ -25,6 +25,9 @@
     "react-form-with-constraints-tools": "^0.13.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
     "@types/express": "^4.16.1",
     "@types/node": "^12.0.8",
     "@types/react": "^16.8.20",
@@ -33,7 +36,6 @@
     "@types/webpack-node-externals": "^1.6.3",
     "file-loader": "^4.0.0",
     "source-map-loader": "^0.2.4",
-    "ts-loader": "^6.0.2",
     "ts-node": "^8.2.0",
     "typescript": "^3.5.2",
     "webpack": "^4.34.0",

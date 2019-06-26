@@ -6,10 +6,8 @@
     "moduleResolution": "node",
     "jsx": "react",
     "esModuleInterop": false,
-    "allowSyntheticDefaultImports": false,
     "noLib": false,
     "lib": ["dom", "dom.iterable", "esnext"],
-    "experimentalDecorators": true,
 
     "strict": true,
     "noUnusedLocals": true,

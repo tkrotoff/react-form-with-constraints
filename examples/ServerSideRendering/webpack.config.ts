@@ -9,14 +9,7 @@ const output = {
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
-const tsLoaderRule = {
-  test: /\.tsx?$/,
-  loader: 'ts-loader',
-  options: {
-    onlyCompileBundledFiles: true,
-    compilerOptions: { noEmit: false, module: 'esnext', sourceMap: true }
-  }
-};
+const babelLoaderRule = { test: /\.tsx?$/, loader: 'babel-loader' };
 
 const config: Configuration[] = [
   {
@@ -34,7 +27,7 @@ const config: Configuration[] = [
     resolve: { extensions },
     module: {
       rules: [
-        tsLoaderRule,
+        babelLoaderRule,
         { test: /\.(html|css)$/, loader: 'file-loader', options: { name: '[name].[ext]' } }
       ]
     }
@@ -47,7 +40,7 @@ const config: Configuration[] = [
     output,
     resolve: { extensions },
     module: {
-      rules: [tsLoaderRule, { test: /\.js$/, loader: 'source-map-loader' }]
+      rules: [babelLoaderRule, { test: /\.js$/, loader: 'source-map-loader' }]
     }
   }
 ];
