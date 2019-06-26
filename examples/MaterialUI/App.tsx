@@ -238,6 +238,8 @@ function Form(props: FormProps) {
 
 const App = withStyles(styles)(Form);
 
+const noTheme = createMuiTheme();
+
 const darkTheme = createMuiTheme({
   palette: {
     type: 'dark'
@@ -269,11 +271,11 @@ function AppWithTheme() {
           <App />
         </ThemeProvider>
       ) : (
-        <>
+        <ThemeProvider theme={noTheme}>
           {renderWithThemeSwitch()}
           <CssBaseline />
           <App />
-        </>
+        </ThemeProvider>
       )}
     </>
   );
