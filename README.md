@@ -84,7 +84,7 @@ Resources:
 - [Material-UI example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/MaterialUI)
 - [WizardForm example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/WizardForm)
 - [SignUp example (React classes)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/SignUp)
-- [ClubMembers example (React classes + MobX)](https://codesandbox.io/s/q8364yn60j)
+- [ClubMembers example (React classes + MobX)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/ClubMembers)
 - [Password without state example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/PasswordWithoutState)
 
 - [React Native example (React classes)](examples/ReactNative):
