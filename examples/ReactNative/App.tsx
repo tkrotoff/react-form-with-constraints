@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Button, ActivityIndicator } from 'react-native';
 import { isEqual, omit } from 'lodash';
 
 import {
@@ -137,7 +137,7 @@ export default class App extends React.Component<Props, State> {
     } = this.state;
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <FormWithConstraints ref={formWithConstraints => (this.form = formWithConstraints)}>
           <View style={styles.flow}>
             <Text onPress={() => this.username!.focus()}>
@@ -221,7 +221,7 @@ export default class App extends React.Component<Props, State> {
           <Button title="Sign Up" onPress={this.handleSubmit} disabled={signUpButtonDisabled} />
           <Button title="Reset" onPress={this.handleReset} disabled={resetButtonDisabled} />
         </FormWithConstraints>
-      </View>
+      </ScrollView>
     );
   }
 }
