@@ -37,8 +37,8 @@
     "prepublishOnly": "yarn clean && run-p tsc build dist",
     "prepack": "cp ../../LICENSE . && jscodeshift --transform=../../removeConsoleTransform.ts lib lib-es5",
     "postpack": "rm LICENSE",
-    "test": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose",
-    "test:coverage": "node --trace-warnings node_modules/.bin/jest --no-cache --coverage"
+    "test": "jest --verbose",
+    "test:coverage": "jest --coverage"
   },
   "peerDependencies": {
     "react-form-with-constraints": "^0.13.0"

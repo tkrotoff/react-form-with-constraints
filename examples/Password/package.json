@@ -15,7 +15,7 @@
     "tsc": "tsc",
     "build": "webpack -d",
     "build:watch": "webpack -d --watch",
-    "test:e2e": "node --trace-warnings node_modules/.bin/jest --no-cache --verbose --config jest-e2e.config.js"
+    "test:e2e": "jest --config jest-e2e.config.js --verbose"
   },
   "dependencies": {
     "react": "^16.8.6",
