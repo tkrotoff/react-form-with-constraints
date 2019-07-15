@@ -63,8 +63,7 @@ describe('render()', () => {
   test('0 field', () => {
     const wrapper = shallow(<DisplayFields />, { context: { form: form_username } });
 
-    expect(wrapper.text()).toEqual(`Fields = []`);
-    expect(wrapper.html()).toEqual(`<pre style="font-size:small">Fields = []</pre>`);
+    expect(wrapper.text()).toEqual('[]');
   });
 
   test('add field', () => {
@@ -76,7 +75,7 @@ describe('render()', () => {
     wrapper.update();
 
     expect(wrapper.text()).toEqual(
-      `Fields = [
+      `[
   {
     name: "username",
     validations: []
@@ -87,7 +86,7 @@ describe('render()', () => {
     form_username.fieldsStore.addField('password');
     wrapper.update();
     expect(wrapper.text()).toEqual(
-      `Fields = [
+      `[
   {
     name: "username",
     validations: []
@@ -107,7 +106,7 @@ describe('render()', () => {
     form_username.fieldsStore.addField('password');
     wrapper.update();
     expect(wrapper.text()).toEqual(
-      `Fields = [
+      `[
   {
     name: "username",
     validations: []
@@ -122,7 +121,7 @@ describe('render()', () => {
     form_username.fieldsStore.removeField('password');
     wrapper.update();
     expect(wrapper.text()).toEqual(
-      `Fields = [
+      `[
   {
     name: "username",
     validations: []
@@ -144,7 +143,7 @@ describe('render()', () => {
     wrapper.update();
 
     expect(wrapper.text()).toEqual(
-      `Fields = [
+      `[
   {
     name: "username",
     validations: [
@@ -159,7 +158,7 @@ describe('render()', () => {
     );
   });
 
-  test.skip('form.resetFields()', async () => {
+  test('form.emitFieldDidResetEvent()', async () => {
     const wrapper = shallow(<DisplayFields />, { context: { form: form_username } });
 
     form_username.fieldsStore.addField('username');
@@ -169,7 +168,7 @@ describe('render()', () => {
     await form_username.emitFieldDidValidateEvent(username);
     wrapper.update();
     expect(wrapper.text()).toEqual(
-      `Fields = [
+      `[
   {
     name: "username",
     validations: [
@@ -183,10 +182,14 @@ describe('render()', () => {
 ]`
     );
 
-    await form_username.resetFields();
+    // Fails because "this.form.querySelectorAll()" does not work in shallow mode
+    //await form_username.resetFields();
+    username.clearValidations();
+    await form_username.emitFieldDidResetEvent(username);
+
     wrapper.update();
     expect(wrapper.text()).toEqual(
-      `Fields = [
+      `[
   {
     name: "username",
     validations: []

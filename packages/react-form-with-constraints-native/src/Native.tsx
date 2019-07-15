@@ -6,6 +6,7 @@ import {
   FormWithConstraints as _FormWithConstraints,
   FieldFeedbacks,
   Async,
+  Field,
   FieldFeedback as _FieldFeedback,
   FieldFeedbackBaseProps as _FieldFeedbackBaseProps,
   FieldFeedbackType,
@@ -17,11 +18,13 @@ import {
 export class FormWithConstraints extends _FormWithConstraints {
   // @ts-ignore
   // Property 'validateFields' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'.
-  abstract validateFields(...inputsOrNames: Array<TextInput | string>);
+  abstract validateFields(...inputsOrNames: Array<TextInput | string>): Promise<Readonly<Field>[]>;
 
   // @ts-ignore
   // Property 'validateFieldsWithoutFeedback' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'.
-  abstract validateFieldsWithoutFeedback(...inputsOrNames: Array<TextInput | string>);
+  abstract validateFieldsWithoutFeedback(
+    ...inputsOrNames: Array<TextInput | string>
+  ): Promise<Readonly<Field>[]>;
 
   // @ts-ignore
   // Property 'normalizeInputs' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'.
@@ -79,7 +82,9 @@ export class FormWithConstraints extends _FormWithConstraints {
 
   // @ts-ignore
   // Property 'resetFields' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'.
-  abstract async resetFields(...inputsOrNames: Array<TextInput | string>);
+  abstract async resetFields(
+    ...inputsOrNames: Array<TextInput | string>
+  ): Promise<Readonly<Field>[]>;
 
   render() {
     return <View {...(this.props as any)} />;

@@ -583,7 +583,11 @@ class SignUp extends React.Component<Props, State> {
             <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre>
           </div>
 
-          <DisplayFields />
+          <pre>
+            <small>
+              Fields = <DisplayFields />
+            </small>
+          </pre>
         </FormWithConstraints>
       </>
     );

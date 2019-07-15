@@ -128,7 +128,7 @@ describe('validate()', () => {
 
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(0);
     const fields = await form.validateFields(input_username_valid);
-    expect(fields).toEqual([{ name: 'username', validations: [] }]);
+    expect(fields).toEqual([{ name: 'username', element: input_username_valid, validations: [] }]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(1);
     expect(emitValidateFieldEventSpy).toHaveBeenLastCalledWith(input_username_valid);
 
@@ -147,6 +147,7 @@ describe('validate()', () => {
     expect(fields).toEqual([
       {
         name: 'username',
+        element: input_username_valid,
         validations: [{ key: '0.0', type: 'error', show: false }]
       }
     ]);
@@ -208,6 +209,7 @@ describe('render()', () => {
     expect(fields).toEqual([
       {
         name: 'username',
+        element: input_username_valueMissing,
         validations: [{ key: '0.0', type: 'error', show: true }]
       }
     ]);
@@ -232,6 +234,7 @@ describe('render()', () => {
     expect(fields).toEqual([
       {
         name: 'username',
+        element: input_username_valueMissing,
         validations: [{ key: '0.0', type: 'error', show: true }]
       }
     ]);
@@ -273,6 +276,7 @@ describe('render()', () => {
       expect(fields).toEqual([
         {
           name: 'username',
+          element: input_username_valueMissing,
           validations: [
             { key: '0.0', type: 'error', show: true },
             { key: '0.1', type: 'error', show: true },
@@ -303,6 +307,7 @@ describe('render()', () => {
       expect(fields).toEqual([
         {
           name: 'username',
+          element: input_username_valueMissing,
           validations: [
             { key: '0.0', type: 'error', show: true },
             { key: '0.1', type: 'error', show: undefined },
@@ -331,6 +336,7 @@ describe('render()', () => {
       expect(fieldFeedbackValidations).toEqual([
         {
           name: 'username',
+          element: input_username_valueMissing,
           validations: [
             { key: '0.0', type: 'warning', show: true },
             { key: '0.1', type: 'error', show: true },

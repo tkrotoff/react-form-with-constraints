@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import * as PropTypes from 'prop-types';
 
 import {
@@ -9,20 +8,78 @@ import {
   FieldFeedbackType,
   FieldFeedbacks as _FieldFeedbacks,
   Async as _Async,
-  FieldEvent
+  FieldEvent,
+  Field,
+  isHTMLInput,
+  HTMLInput,
+  TextInput
 } from 'react-form-with-constraints';
 
-// See [Preserving undefined that JSON.stringify otherwise removes](https://stackoverflow.com/q/26540706)
-// See [JSON.stringify without quotes on properties?](https://stackoverflow.com/q/11233498)
-function stringifyWithUndefinedAndWithoutPropertyQuotes(obj: object, space?: string | number) {
+// Before:
+// [
+//   {
+//     "element": "<input id=\"username\" name=\"username\" required=\"\" minlength=\"3\" class=\"form-control is-pending-sm is-invalid\" value=\"\">",
+//     "name": "username",
+//     "validations": [
+//       { "key": "0.0", "type": "error", "show": false },
+//       { "key": "0.1", "type": "error", "show": true },
+//       { "key": "0.2", "type": "whenValid" }
+//     ]
+//   }
+// ]
+//
+// After:
+// [
+//   {
+//     element: <input id="username" name="username" required="" minlength="3" class="form-control is-pending-sm is-invalid" value="">,
+//     name: "username",
+//     validations: [
+//       { key: "0.0", type: "error", show: false },
+//       { key: "0.1", type: "error", show: true },
+//       { key: "0.2", type: "whenValid", show: undefined }
+//     ]
+//   }
+// ]
+function beautifulStringify(obj: object, space?: string | number) {
+  // Keep undefined
+  // See [Preserving undefined that JSON.stringify otherwise removes](https://stackoverflow.com/q/26540706)
   let str = JSON.stringify(
     obj,
     (_key, value) => (value === undefined ? '__undefined__' : value),
     space
   );
   str = str.replace(/"__undefined__"/g, 'undefined');
+
+  // Remove quotes from properties
+  // Before: "name":
+  // After: name:
+  // See [JSON.stringify without quotes on properties?](https://stackoverflow.com/q/11233498)
   str = str.replace(/"([^"]+)":/g, '$1:');
+
+  // Before: element: "<input id=\"username\" name=\"username\" required=\"\">",
+  // After: element: <input id=\"username\" name=\"username\" required=\"\">,
+  str = str.replace(/: "(.*[\\"].*)",/g, ': $1,');
+
+  // Before: <input id=\"username\" name=\"username\" required=\"\">
+  // After: <input id="username" name="username" required="">
+  str = str.replace(/\\"/g, '"');
+
   return str;
+}
+
+// Cannot display field.element directly, will throw "Converting circular structure to JSON" when calling JSON.stringify()
+function normalizeFieldElementProperty(fields: Field[]) {
+  return fields.map(field => {
+    const { element, ...otherProps } = field;
+    return element
+      ? {
+          element: isHTMLInput(element)
+            ? (element as HTMLInput).outerHTML
+            : (element as TextInput).props,
+          ...otherProps
+        }
+      : field;
+  });
 }
 
 export class DisplayFields extends React.Component {
@@ -52,8 +109,8 @@ export class DisplayFields extends React.Component {
   };
 
   render() {
-    let str = stringifyWithUndefinedAndWithoutPropertyQuotes(
-      this.context.form.fieldsStore.fields,
+    let str = beautifulStringify(
+      normalizeFieldElementProperty(this.context.form.fieldsStore.fields),
       2
     );
 
@@ -72,7 +129,7 @@ export class DisplayFields extends React.Component {
       '{ key: $1, type: $2, show: $3 }'
     );
 
-    return <pre style={{ fontSize: 'small' }}>Fields = {str}</pre>;
+    return str;
   }
 }
 
@@ -98,6 +155,8 @@ export class FieldFeedbacks extends _FieldFeedbacks {
 }
 
 export class FieldFeedback extends _FieldFeedback {
+  private rootEl: HTMLLIElement | null = null;
+
   private getTextDecoration() {
     const { show } = this.state.validation;
 
@@ -118,7 +177,7 @@ export class FieldFeedback extends _FieldFeedback {
     const { key, type } = this.state.validation;
 
     return (
-      <li>
+      <li ref={rootEl => (this.rootEl = rootEl)}>
         <span style={{ textDecoration: this.getTextDecoration() }}>
           key="{key}" type="{type}"
         </span>{' '}
@@ -128,19 +187,15 @@ export class FieldFeedback extends _FieldFeedback {
   }
 
   componentDidUpdate() {
-    // FIXME
-    // eslint-disable-next-line react/no-find-dom-node
-    const el = ReactDOM.findDOMNode(this) as HTMLLIElement;
-
     // Hack: make FieldFeedback <span style="display: inline">
     // Also make Bootstrap 4 happy because it sets 'display: none', see https://github.com/twbs/bootstrap/blob/v4.1.2/scss/mixins/_forms.scss#L31
-    const fieldFeedbackSpans = el.querySelectorAll<HTMLSpanElement>('[data-feedback]');
+    const fieldFeedbackSpans = this.rootEl!.querySelectorAll<HTMLSpanElement>('[data-feedback]');
     for (const fieldFeedbackSpan of fieldFeedbackSpans) {
       fieldFeedbackSpan.style.display = 'inline';
     }
 
     // Change Async parent style
-    const li = el.closest('li.async');
+    const li = this.rootEl!.closest('li.async');
     if (li !== null) {
       const async = li.querySelector<HTMLSpanElement>('span[style]');
       async!.style.textDecoration = this.getTextDecoration();
@@ -149,31 +204,31 @@ export class FieldFeedback extends _FieldFeedback {
     // Change whenValid style
     const { type } = this.state.validation;
     if (type === FieldFeedbackType.WhenValid) {
-      const span = el.querySelector<HTMLSpanElement>('span[style]');
-      const whenValid = el.querySelector<HTMLSpanElement>(`span.${this.props.classes!.valid}`);
+      const span = this.rootEl!.querySelector<HTMLSpanElement>('span[style]');
+      const whenValid = this.rootEl!.querySelector<HTMLSpanElement>(
+        `span.${this.props.classes!.valid}`
+      );
       span!.style.textDecoration = whenValid !== null ? '' : 'line-through';
     }
   }
 }
 
 export class Async<T> extends _Async<T> {
+  private rootEl: HTMLLIElement | null = null;
+
   private getTextDecoration() {
     return 'line-through dotted';
   }
 
   componentWillUpdate() {
-    // FIXME
-    // eslint-disable-next-line react/no-find-dom-node
-    const el = ReactDOM.findDOMNode(this) as HTMLLIElement;
-
     // Reset style
-    const async = el.querySelector<HTMLSpanElement>('span[style]');
+    const async = this.rootEl!.querySelector<HTMLSpanElement>('span[style]');
     async!.style.textDecoration = this.getTextDecoration();
   }
 
   render() {
     return (
-      <li className="async">
+      <li className="async" ref={rootEl => (this.rootEl = rootEl)}>
         <span style={{ textDecoration: this.getTextDecoration() }}>Async</span>
         <ul>{super.render()}</ul>
       </li>

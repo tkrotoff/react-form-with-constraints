@@ -6,7 +6,7 @@ import { withFieldWillValidateEventEmitter } from './withFieldWillValidateEventE
 import { withFieldDidValidateEventEmitter } from './withFieldDidValidateEventEmitter';
 import { withFieldDidResetEventEmitter } from './withFieldDidResetEventEmitter';
 import Field from './Field';
-import { InputElement } from './InputElement';
+import { IHTMLInput, InputElement, HTMLInput } from './InputElement';
 import { FieldsStore } from './FieldsStore';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 import flattenDeep from './flattenDeep';
@@ -57,7 +57,7 @@ export class FormWithConstraints
    * Validates the given fields, either HTMLInputElements or field names.
    * If called without arguments, validates all fields ($('[name]')).
    */
-  validateFields(...inputsOrNames: Array<InputElement | string>) {
+  validateFields(...inputsOrNames: Array<IHTMLInput | string>) {
     return this._validateFields(/* forceValidateFields */ true, ...inputsOrNames);
   }
 
@@ -69,13 +69,13 @@ export class FormWithConstraints
   /**
    * Validates fields without feedback only.
    */
-  validateFieldsWithoutFeedback(...inputsOrNames: Array<InputElement | string>) {
+  validateFieldsWithoutFeedback(...inputsOrNames: Array<IHTMLInput | string>) {
     return this._validateFields(/* forceValidateFields */ false, ...inputsOrNames);
   }
 
   private async _validateFields(
     forceValidateFields: boolean,
-    ...inputsOrNames: Array<InputElement | string>
+    ...inputsOrNames: Array<IHTMLInput | string>
   ) {
     const fields = new Array<Readonly<Field>>();
 
@@ -83,7 +83,10 @@ export class FormWithConstraints
 
     for (const input of inputs) {
       const field = await this.validateField(forceValidateFields, new InputElement(input));
-      if (field !== undefined) fields.push(field);
+      if (field !== undefined) {
+        field.element = input as HTMLInput;
+        fields.push(field);
+      }
     }
 
     return fields;
@@ -122,11 +125,7 @@ export class FormWithConstraints
 
   // If called without arguments, returns all fields ($('[name]'))
   // Returns the inputs in the same order they were given
-  protected normalizeInputs(
-    ...inputsOrNames: Array<
-      InputElement /* HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement... */ | string
-    >
-  ) {
+  protected normalizeInputs(...inputsOrNames: Array<IHTMLInput | string>) {
     let inputs;
 
     if (inputsOrNames.length === 0) {
@@ -199,7 +198,7 @@ export class FormWithConstraints
     return this.resetFields();
   }
 
-  async resetFields(...inputsOrNames: Array<InputElement | string>) {
+  async resetFields(...inputsOrNames: Array<IHTMLInput | string>) {
     const fields = new Array<Readonly<Field>>();
 
     const inputs = this.normalizeInputs(...inputsOrNames);

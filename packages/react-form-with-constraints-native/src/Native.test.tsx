@@ -17,6 +17,13 @@ import {
   input_username_valid
 } from '../../react-form-with-constraints/src/InputElementMock';
 
+// FIXME
+// Cannot write "expect(fields).toEqual([{... element: signUp.username ...}])" after calling form.validateFields() or form.validateFields('username')
+// deepForEach() inside normalizeInputs() does not return the real TextInput
+// and Node.js crashes: "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory"
+// However it works fine with form.validateFields(signUp.username) because we don't call deepForEach()
+const expectTextInput = expect.anything();
+
 // Taken and adapted from FormWithConstraints.test.tsx
 describe('FormWithConstraints', () => {
   describe('validate', () => {
@@ -34,6 +41,7 @@ describe('FormWithConstraints', () => {
         expect(fields).toEqual([
           {
             name: 'username',
+            element: signUp.username,
             validations: [
               { key: '0.0', type: 'error', show: false },
               { key: '0.1', type: 'error', show: false },
@@ -43,6 +51,7 @@ describe('FormWithConstraints', () => {
           },
           {
             name: 'passwordConfirm',
+            element: signUp.passwordConfirm,
             validations: [
               { key: '2.0', type: 'error', show: true },
               { key: '2.1', type: 'whenValid', show: undefined }
@@ -71,6 +80,7 @@ describe('FormWithConstraints', () => {
         expect(fields).toEqual([
           {
             name: 'username',
+            element: expectTextInput,
             validations: [
               { key: '0.0', type: 'error', show: false },
               { key: '0.1', type: 'error', show: false },
@@ -80,6 +90,7 @@ describe('FormWithConstraints', () => {
           },
           {
             name: 'passwordConfirm',
+            element: expectTextInput,
             validations: [
               { key: '2.0', type: 'error', show: true },
               { key: '2.1', type: 'whenValid', show: undefined }
@@ -108,6 +119,7 @@ describe('FormWithConstraints', () => {
         expect(fields).toEqual([
           {
             name: 'username',
+            element: signUp.username,
             validations: [
               { key: '0.0', type: 'error', show: false },
               { key: '0.1', type: 'error', show: false },
@@ -117,6 +129,7 @@ describe('FormWithConstraints', () => {
           },
           {
             name: 'passwordConfirm',
+            element: expectTextInput,
             validations: [
               { key: '2.0', type: 'error', show: true },
               { key: '2.1', type: 'whenValid', show: undefined }
@@ -145,6 +158,7 @@ describe('FormWithConstraints', () => {
         expect(fields).toEqual([
           {
             name: 'username',
+            element: expectTextInput,
             validations: [
               { key: '0.0', type: 'error', show: false },
               { key: '0.1', type: 'error', show: false },
@@ -154,6 +168,7 @@ describe('FormWithConstraints', () => {
           },
           {
             name: 'password',
+            element: expectTextInput,
             validations: [
               { key: '1.0', type: 'error', show: false },
               { key: '1.1', type: 'error', show: false },
@@ -166,6 +181,7 @@ describe('FormWithConstraints', () => {
           },
           {
             name: 'passwordConfirm',
+            element: expectTextInput,
             validations: [
               { key: '2.0', type: 'error', show: true },
               { key: '2.1', type: 'whenValid', show: undefined }
@@ -195,6 +211,7 @@ describe('FormWithConstraints', () => {
         expect(fields).toEqual([
           {
             name: 'username',
+            element: expectTextInput,
             validations: [
               { key: '0.0', type: 'error', show: true },
               { key: '0.1', type: 'error', show: undefined },
@@ -203,6 +220,7 @@ describe('FormWithConstraints', () => {
           },
           {
             name: 'password',
+            element: expectTextInput,
             validations: [
               { key: '1.0', type: 'error', show: true },
               { key: '1.1', type: 'error', show: undefined },
@@ -215,6 +233,7 @@ describe('FormWithConstraints', () => {
           },
           {
             name: 'passwordConfirm',
+            element: expectTextInput,
             validations: [
               { key: '2.0', type: 'error', show: false },
               { key: '2.1', type: 'whenValid', show: undefined }
@@ -238,6 +257,7 @@ describe('FormWithConstraints', () => {
         expect(fields).toEqual([
           {
             name: 'username',
+            element: expectTextInput,
             validations: [
               { key: '0.0', type: 'error', show: false },
               { key: '0.1', type: 'error', show: false },
@@ -247,6 +267,7 @@ describe('FormWithConstraints', () => {
           },
           {
             name: 'password',
+            element: expectTextInput,
             validations: [
               { key: '1.0', type: 'error', show: false },
               { key: '1.1', type: 'error', show: false },
@@ -259,6 +280,7 @@ describe('FormWithConstraints', () => {
           },
           {
             name: 'passwordConfirm',
+            element: expectTextInput,
             validations: [
               { key: '2.0', type: 'error', show: true },
               { key: '2.1', type: 'whenValid', show: undefined }
@@ -290,6 +312,7 @@ describe('FormWithConstraints', () => {
         expect(fields1).toEqual([
           {
             name: 'username',
+            element: expectTextInput,
             validations: [
               { key: '0.0', type: 'error', show: false },
               { key: '0.1', type: 'error', show: false },
@@ -299,6 +322,7 @@ describe('FormWithConstraints', () => {
           },
           {
             name: 'password',
+            element: expectTextInput,
             validations: [
               { key: '1.0', type: 'error', show: false },
               { key: '1.1', type: 'error', show: false },
@@ -311,6 +335,7 @@ describe('FormWithConstraints', () => {
           },
           {
             name: 'passwordConfirm',
+            element: expectTextInput,
             validations: [
               { key: '2.0', type: 'error', show: true },
               { key: '2.1', type: 'whenValid', show: undefined }
@@ -375,7 +400,7 @@ describe('FormWithConstraints', () => {
         // See [async/await toThrow is not working](https://github.com/facebook/jest/issues/1700)
 
         await expect(form.validateFields('username')).resolves.toEqual([
-          { name: 'username', validations: [] }
+          { name: 'username', element: expectTextInput, validations: [] }
         ]);
         await expect(form.validateFields()).rejects.toEqual(
           new Error(`Multiple elements matching '[name="password"]' inside the form`)
@@ -434,6 +459,7 @@ describe('FormWithConstraints', () => {
       expect(fields).toEqual([
         {
           name: 'username',
+          element: expectTextInput,
           validations: [
             { key: '0.0', type: 'error', show: false },
             { key: '0.1', type: 'error', show: false },
@@ -443,6 +469,7 @@ describe('FormWithConstraints', () => {
         },
         {
           name: 'password',
+          element: expectTextInput,
           validations: [
             { key: '1.0', type: 'error', show: false },
             { key: '1.1', type: 'error', show: false },
@@ -455,6 +482,7 @@ describe('FormWithConstraints', () => {
         },
         {
           name: 'passwordConfirm',
+          element: expectTextInput,
           validations: [
             { key: '2.0', type: 'error', show: false },
             { key: '2.1', type: 'whenValid', show: undefined }
@@ -484,6 +512,7 @@ describe('FormWithConstraints', () => {
       expect(fields).toEqual([
         {
           name: 'username',
+          element: expectTextInput,
           validations: [
             { key: '0.0', type: 'error', show: false },
             { key: '0.1', type: 'error', show: false },
@@ -493,6 +522,7 @@ describe('FormWithConstraints', () => {
         },
         {
           name: 'password',
+          element: expectTextInput,
           validations: [
             { key: '1.0', type: 'error', show: false },
             { key: '1.1', type: 'error', show: false },
@@ -505,6 +535,7 @@ describe('FormWithConstraints', () => {
         },
         {
           name: 'passwordConfirm',
+          element: expectTextInput,
           validations: [
             { key: '2.0', type: 'error', show: true },
             { key: '2.1', type: 'whenValid', show: undefined }
@@ -516,6 +547,55 @@ describe('FormWithConstraints', () => {
         [{ name: 'username', value: 'error' }],
         [{ name: 'password', value: '123456' }],
         [{ name: 'passwordConfirm', value: '12345' }]
+      ]);
+
+      wrapper.unmount();
+    });
+  });
+
+  describe('resetFields()', () => {
+    test('inputs', async () => {
+      const wrapper = renderer.create(<SignUp />);
+      const signUp = (wrapper.getInstance() as any) as SignUp;
+
+      signUp.setState({ username: 'john' });
+      signUp.setState({ password: '123456' });
+      signUp.setState({ passwordConfirm: '12345' });
+
+      let fields = await signUp.form!.validateFields(signUp.username!, signUp.passwordConfirm!);
+      expect(fields).toEqual([
+        {
+          name: 'username',
+          element: signUp.username,
+          validations: [
+            { key: '0.0', type: 'error', show: false },
+            { key: '0.1', type: 'error', show: false },
+            { key: '0.3', type: 'error', show: true },
+            { key: '0.2', type: 'whenValid', show: undefined }
+          ]
+        },
+        {
+          name: 'passwordConfirm',
+          element: signUp.passwordConfirm,
+          validations: [
+            { key: '2.0', type: 'error', show: true },
+            { key: '2.1', type: 'whenValid', show: undefined }
+          ]
+        }
+      ]);
+
+      fields = await signUp.form!.resetFields(signUp.username!, signUp.passwordConfirm!);
+      expect(fields).toEqual([
+        {
+          name: 'username',
+          element: signUp.username,
+          validations: []
+        },
+        {
+          name: 'passwordConfirm',
+          element: signUp.passwordConfirm,
+          validations: []
+        }
       ]);
 
       wrapper.unmount();

@@ -31,6 +31,7 @@ describe('FormWithConstraints', () => {
     expect(fields).toEqual([
       {
         name: 'username',
+        element: signUp.username,
         validations: [
           { key: '0.0', type: 'error', show: true },
           { key: '0.1', type: 'error', show: undefined },
@@ -39,6 +40,7 @@ describe('FormWithConstraints', () => {
       },
       {
         name: 'password',
+        element: signUp.password,
         validations: [
           { key: '1.0', type: 'error', show: true },
           { key: '1.1', type: 'error', show: undefined },
@@ -51,6 +53,7 @@ describe('FormWithConstraints', () => {
       },
       {
         name: 'passwordConfirm',
+        element: signUp.passwordConfirm,
         validations: [
           { key: '2.0', type: 'error', show: false },
           { key: '2.1', type: 'whenValid', show: undefined }
@@ -98,6 +101,7 @@ describe('FormWithConstraints', () => {
     expect(fields).toEqual([
       {
         name: 'username',
+        element: signUp.username,
         validations: [
           { key: '0.0', type: 'error', show: false },
           { key: '0.1', type: 'error', show: false },
@@ -107,6 +111,7 @@ describe('FormWithConstraints', () => {
       },
       {
         name: 'password',
+        element: signUp.password,
         validations: [
           { key: '1.0', type: 'error', show: false },
           { key: '1.1', type: 'error', show: false },
@@ -119,6 +124,7 @@ describe('FormWithConstraints', () => {
       },
       {
         name: 'passwordConfirm',
+        element: signUp.passwordConfirm,
         validations: [
           { key: '2.0', type: 'error', show: true },
           { key: '2.1', type: 'whenValid', show: undefined }
@@ -360,6 +366,7 @@ describe('Async', () => {
     expect(fields).toEqual([
       {
         name: 'username',
+        element: signUp.username,
         validations: [
           { key: '0.0', type: 'error', show: false },
           { key: '0.1', type: 'error', show: false },
@@ -369,6 +376,7 @@ describe('Async', () => {
       },
       {
         name: 'password',
+        element: signUp.password,
         validations: [
           { key: '1.0', type: 'error', show: false },
           { key: '1.1', type: 'error', show: false },
@@ -381,6 +389,7 @@ describe('Async', () => {
       },
       {
         name: 'passwordConfirm',
+        element: signUp.passwordConfirm,
         validations: [
           { key: '2.0', type: 'error', show: false },
           { key: '2.1', type: 'whenValid', show: undefined }
@@ -474,6 +483,7 @@ describe('Async', () => {
     expect(fields).toEqual([
       {
         name: 'username',
+        element: signUp.username,
         validations: [
           { key: '0.0', type: 'error', show: false },
           { key: '0.1', type: 'error', show: false },
@@ -483,6 +493,7 @@ describe('Async', () => {
       },
       {
         name: 'password',
+        element: signUp.password,
         validations: [
           { key: '1.0', type: 'error', show: false },
           { key: '1.1', type: 'error', show: false },
@@ -495,6 +506,7 @@ describe('Async', () => {
       },
       {
         name: 'passwordConfirm',
+        element: signUp.passwordConfirm,
         validations: [
           { key: '2.0', type: 'error', show: true },
           { key: '2.1', type: 'whenValid', show: undefined }

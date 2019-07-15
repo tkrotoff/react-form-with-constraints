@@ -39,7 +39,12 @@ export class IValidityState implements ValidityState {
   }
 }
 
-export class InputElement {
+// Type for Field.element
+export type HTMLInput = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+// Minimum interface accepted by validateFields() and friends
+// eslint-disable-next-line @typescript-eslint/interface-name-prefix
+export interface IHTMLInput {
   readonly name: string;
   readonly type: string; // Not needed internally, can be text, radio...
   readonly value: string;
@@ -50,14 +55,25 @@ export class InputElement {
   // ValidityState is supported by IE >= 10
   readonly validity: IValidityState;
   readonly validationMessage: string;
+}
 
-  // Need to duplicate the input when the user changes rapidly the input
-  // otherwise we will treat only the last input value instead of every input value change
-  constructor(
-    input: /*HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement*/ InputElement | TextInput
-  ) {
-    if ((input as any).props === undefined) {
-      input = input as InputElement;
+export function isHTMLInput(input: IHTMLInput | TextInput) {
+  return (input as any).props === undefined;
+}
+
+// Need to duplicate the input when the user changes rapidly the input
+// otherwise we will treat only the last input value instead of every input value change
+// Cannot be named Field or Input: already taken
+export class InputElement implements IHTMLInput {
+  readonly name: string;
+  readonly type: string;
+  readonly value: string;
+  readonly validity: IValidityState;
+  readonly validationMessage: string;
+
+  constructor(input: IHTMLInput | TextInput) {
+    if (isHTMLInput(input)) {
+      input = input as IHTMLInput;
       this.name = input.name;
       this.type = input.type;
       this.value = input.value;

@@ -92,7 +92,7 @@ describe('validate()', () => {
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(0);
     const fields = await form_username.validateFields(input_username_valid);
 
-    expect(fields).toEqual([{ name: 'username', validations: [] }]);
+    expect(fields).toEqual([{ name: 'username', element: input_username_valid, validations: [] }]);
     expect(emitValidateFieldEventSpy).toHaveBeenCalledTimes(1);
     expect(emitValidateFieldEventSpy).toHaveBeenLastCalledWith(input_username_valid);
   });
@@ -146,6 +146,7 @@ describe('render()', () => {
     expect(fields).toEqual([
       {
         name: 'username',
+        element: input,
         validations: [{ key: '0.0', type: 'info', show: true }]
       }
     ]);
@@ -162,6 +163,7 @@ describe('render()', () => {
     expect(fields).toEqual([
       {
         name: 'username',
+        element: input,
         validations: [{ key: '0.1', type: 'error', show: true }]
       }
     ]);
@@ -197,6 +199,7 @@ describe('render()', () => {
     expect(fields).toEqual([
       {
         name: 'username',
+        element: input_username_error_valid,
         validations: [{ key: '0.0', type: 'error', show: true }]
       }
     ]);
@@ -228,7 +231,9 @@ describe('render()', () => {
     expect(wrapper.html()).toEqual('<span data-feedbacks="0">Pending...</span>');
 
     const fields = await fieldsPromise;
-    expect(fields).toEqual([{ name: 'username', validations: [] }]);
+    expect(fields).toEqual([
+      { name: 'username', element: input_username_error_valid, validations: [] }
+    ]);
     expect(wrapper.html()).toEqual('<span data-feedbacks="0"></span>');
   });
 });

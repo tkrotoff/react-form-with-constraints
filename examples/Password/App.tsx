@@ -189,7 +189,11 @@ function Form() {
 
       <button disabled={signUpButtonDisabled}>Sign Up</button>
 
-      <DisplayFields />
+      <pre>
+        <small>
+          Fields = <DisplayFields />
+        </small>
+      </pre>
     </FormWithConstraints>
   );
 }

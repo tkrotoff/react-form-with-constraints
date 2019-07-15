@@ -193,7 +193,11 @@ function Form() {
       >
         Reset
       </button>
-      <DisplayFields />
+      <pre>
+        <small>
+          Fields = <DisplayFields />
+        </small>
+      </pre>
     </FormWithConstraints>
   );
 }

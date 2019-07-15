@@ -15,7 +15,7 @@ export const validValidityState: IValidityState = {
 };
 
 export class InputElementMock implements InputElement {
-  readonly type = 'input'; // Can also be checkbox;
+  readonly type = 'input'; // Can also be checkbox
   readonly validity: IValidityState;
 
   constructor(

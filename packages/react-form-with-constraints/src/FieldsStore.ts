@@ -7,9 +7,9 @@ export enum FieldEvent {
 }
 
 export class FieldsStore extends EventEmitter {
-  fields = new Array<Field>();
+  readonly fields = new Array<Field>();
 
-  getField(fieldName: string): Readonly<Field> | undefined {
+  getField(fieldName: string) {
     const fields = this.fields.filter(_field => _field.name === fieldName);
     //console.assert(fields.length === 1, `Unknown field '${fieldName}'`);
     return fields.length === 1 ? fields[0] : undefined;

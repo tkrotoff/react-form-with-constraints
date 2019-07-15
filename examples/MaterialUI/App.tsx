@@ -231,7 +231,11 @@ function Form(props: FormProps) {
         Reset
       </Button>
 
-      <DisplayFields />
+      <pre>
+        <small>
+          Fields = <DisplayFields />
+        </small>
+      </pre>
     </FormWithConstraints>
   );
 }

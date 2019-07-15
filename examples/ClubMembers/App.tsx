@@ -346,7 +346,11 @@ class Form extends React.Component<FormProps> {
 
         <DisplayClub club={club} />
 
-        <DisplayFields />
+        <pre>
+          <small>
+            Fields = <DisplayFields />
+          </small>
+        </pre>
       </FormWithConstraints>
     );
   }
