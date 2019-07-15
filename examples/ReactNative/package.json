@@ -16,12 +16,10 @@
     "prestart": "yarn rm-duplicated-react-native",
     "pretest": "yarn rm-duplicated-react-native",
     "clean:node_modules": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
-    "clean": "rm -f yarn.lock && rm -rf node_modules/react-form-with-constraints && rm -rf node_modules/react-form-with-constraints-native",
+    "clean": "rm -f yarn.lock && rm -rf node_modules/react-form-with-constraints && rm -rf node_modules/react-form-with-constraints-native && rm -rf node_modules/react-form-with-constraints-tools",
     "clean:all": "rm -rf .expo && yarn clean && yarn clean:node_modules",
     "tsc": "tsc",
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
     "test": "jest"
   },
   "dependencies": {
@@ -30,6 +28,7 @@
     "react": "^16.8.6",
     "react-form-with-constraints": "../../packages/react-form-with-constraints",
     "react-form-with-constraints-native": "../../packages/react-form-with-constraints-native",
+    "react-form-with-constraints-tools": "../../packages/react-form-with-constraints-tools",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz"
   },
   "devDependencies": {

@@ -10,6 +10,9 @@ import {
   FieldFeedback as _FieldFeedback,
   FieldFeedbackProps
 } from 'react-form-with-constraints-native';
+import { DisplayFields } from 'react-form-with-constraints-tools';
+
+import TextFixedWidth from './TextFixedWidth';
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -220,6 +223,9 @@ export default class App extends React.Component<Props, State> {
 
           <Button title="Sign Up" onPress={this.handleSubmit} disabled={signUpButtonDisabled} />
           <Button title="Reset" onPress={this.handleReset} disabled={resetButtonDisabled} />
+          <TextFixedWidth>
+            Fields = <DisplayFields />
+          </TextFixedWidth>
         </FormWithConstraints>
       </ScrollView>
     );
