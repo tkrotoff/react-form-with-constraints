@@ -37,7 +37,7 @@ export type AsyncContext = FormWithConstraintsChildContext & FieldFeedbacksChild
 // See https://github.com/capaj/react-promise
 // See [How to render promises in React](https://gist.github.com/hex13/6d46f8b54631871ea8bf87576b635c49)
 // Cannot be inside a separated npm package since FieldFeedback needs to attach itself to Async
-class AsyncComponent<T = any> extends React.Component<AsyncProps<T>, AsyncState<T>> {}
+class AsyncComponent<T = any> extends React.PureComponent<AsyncProps<T>, AsyncState<T>> {}
 export class Async<T>
   extends withValidateFieldEventEmitter<
     // FieldFeedback returns FieldFeedbackValidation
@@ -122,6 +122,8 @@ export class Async<T>
       case Status.Rejected:
         if (props.catch) element = props.catch(state.value);
         break;
+      default:
+        console.assert(false, `Unknown status: '${state.status}'`);
     }
 
     return element;

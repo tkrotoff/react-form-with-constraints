@@ -88,20 +88,20 @@ export class DisplayFields extends React.Component {
   };
   context!: FormWithConstraintsChildContext;
 
+  /* eslint-disable react/destructuring-assignment */
+
   componentWillMount() {
-    const { form } = this.context;
-    form.fieldsStore.addListener(FieldEvent.Added, this.reRender);
-    form.fieldsStore.addListener(FieldEvent.Removed, this.reRender);
-    form.addFieldDidValidateEventListener(this.reRender);
-    form.addFieldDidResetEventListener(this.reRender);
+    this.context.form.fieldsStore.addListener(FieldEvent.Added, this.reRender);
+    this.context.form.fieldsStore.addListener(FieldEvent.Removed, this.reRender);
+    this.context.form.addFieldDidValidateEventListener(this.reRender);
+    this.context.form.addFieldDidResetEventListener(this.reRender);
   }
 
   componentWillUnmount() {
-    const { form } = this.context;
-    form.fieldsStore.removeListener(FieldEvent.Added, this.reRender);
-    form.fieldsStore.removeListener(FieldEvent.Removed, this.reRender);
-    form.removeFieldDidValidateEventListener(this.reRender);
-    form.removeFieldDidResetEventListener(this.reRender);
+    this.context.form.fieldsStore.removeListener(FieldEvent.Added, this.reRender);
+    this.context.form.fieldsStore.removeListener(FieldEvent.Removed, this.reRender);
+    this.context.form.removeFieldDidValidateEventListener(this.reRender);
+    this.context.form.removeFieldDidResetEventListener(this.reRender);
   }
 
   reRender = () => {
@@ -131,6 +131,8 @@ export class DisplayFields extends React.Component {
 
     return str;
   }
+
+  /* eslint-enable react/destructuring-assignment */
 }
 
 export { FormWithConstraints };
@@ -168,6 +170,8 @@ export class FieldFeedback extends _FieldFeedback {
       case undefined:
         textDecoration = 'line-through dotted';
         break;
+      default:
+        textDecoration = '';
     }
 
     return textDecoration;
@@ -216,20 +220,20 @@ export class FieldFeedback extends _FieldFeedback {
 export class Async<T> extends _Async<T> {
   private rootEl: HTMLLIElement | null = null;
 
-  private getTextDecoration() {
+  private static getTextDecoration() {
     return 'line-through dotted';
   }
 
   componentWillUpdate() {
     // Reset style
     const async = this.rootEl!.querySelector<HTMLSpanElement>('span[style]');
-    async!.style.textDecoration = this.getTextDecoration();
+    async!.style.textDecoration = Async.getTextDecoration();
   }
 
   render() {
     return (
       <li className="async" ref={rootEl => (this.rootEl = rootEl)}>
-        <span style={{ textDecoration: this.getTextDecoration() }}>Async</span>
+        <span style={{ textDecoration: Async.getTextDecoration() }}>Async</span>
         <ul>{super.render()}</ul>
       </li>
     );

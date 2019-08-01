@@ -33,20 +33,18 @@ export class FieldFeedbackWhenValid<
     fieldIsValid: undefined
   };
 
-  componentWillMount() {
-    const { form } = this.context;
+  /* eslint-disable react/destructuring-assignment */
 
-    form.addFieldWillValidateEventListener(this.fieldWillValidate);
-    form.addFieldDidValidateEventListener(this.fieldDidValidate);
-    form.addFieldDidResetEventListener(this.fieldDidReset);
+  componentWillMount() {
+    this.context.form.addFieldWillValidateEventListener(this.fieldWillValidate);
+    this.context.form.addFieldDidValidateEventListener(this.fieldDidValidate);
+    this.context.form.addFieldDidResetEventListener(this.fieldDidReset);
   }
 
   componentWillUnmount() {
-    const { form } = this.context;
-
-    form.removeFieldWillValidateEventListener(this.fieldWillValidate);
-    form.removeFieldDidValidateEventListener(this.fieldDidValidate);
-    form.removeFieldDidResetEventListener(this.fieldDidReset);
+    this.context.form.removeFieldWillValidateEventListener(this.fieldWillValidate);
+    this.context.form.removeFieldDidValidateEventListener(this.fieldDidValidate);
+    this.context.form.removeFieldDidResetEventListener(this.fieldDidReset);
   }
 
   fieldWillValidate = (fieldName: string) => {
@@ -80,4 +78,6 @@ export class FieldFeedbackWhenValid<
       <span {...otherProps} style={{ display: 'block', ...style }} />
     ) : null;
   }
+
+  /* eslint-enable react/destructuring-assignment */
 }

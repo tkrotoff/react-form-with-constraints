@@ -4,10 +4,16 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {},
   extends: [
-    'plugin:prettier/recommended',
-    'eslint:recommended',
+    // /!\ Order seems to matter
+
+    'airbnb',
     'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended'
+    'plugin:prettier/recommended',
+    'prettier/@typescript-eslint',
+    'prettier/react'
+
+    // Already done by Airbnb
+    //'plugin:react/recommended'
   ],
   plugins: ['prettier', '@typescript-eslint', 'react', 'react-hooks'],
   settings: {
@@ -28,8 +34,26 @@ module.exports = {
 
   rules: {
     'no-console': 'off',
+    'no-alert': 'off',
+    'no-underscore-dangle': 'off',
+    'no-plusplus': 'off',
+    'lines-between-class-members': 'off',
+    'spaced-comment': 'off',
+    'no-restricted-syntax': 'off',
+    'no-lonely-if': 'off',
+
+    // See [no-return-assign should be configurable to ignore arrow-functions](https://github.com/eslint/eslint/issues/9471)
+    'no-return-assign': 'off',
 
     'prettier/prettier': 'error',
+
+    'import/no-extraneous-dependencies': 'off',
+    'import/no-unresolved': 'off',
+    'import/prefer-default-export': 'off',
+
+    'jsx-a11y/label-has-for': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
+    'jsx-a11y/iframe-has-title': 'off',
 
     '@typescript-eslint/indent': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
@@ -43,6 +67,9 @@ module.exports = {
     '@typescript-eslint/array-type': 'off',
 
     'react/no-unescaped-entities': 'off',
+    'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
+    'react/jsx-pascal-case': 'off',
+
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn'
   },

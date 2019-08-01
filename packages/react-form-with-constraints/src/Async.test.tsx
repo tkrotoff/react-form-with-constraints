@@ -119,7 +119,7 @@ describe('render()', () => {
       <FieldFeedbacks for="username">
         <Async
           promise={checkUsernameAvailability}
-          pending={'Pending...'}
+          pending="Pending..."
           then={availability =>
             availability.available ? (
               <FieldFeedback key="1" info>
@@ -179,7 +179,7 @@ describe('render()', () => {
       <FieldFeedbacks for="username">
         <Async
           promise={checkUsernameAvailability}
-          pending={'Pending...'}
+          pending="Pending..."
           then={availability =>
             availability.available
               ? `Username '${availability.value}' available`
@@ -215,7 +215,7 @@ describe('render()', () => {
       <FieldFeedbacks for="username">
         <Async
           promise={checkUsernameAvailability}
-          pending={'Pending...'}
+          pending="Pending..."
           then={availability =>
             availability.available
               ? `Username '${availability.value}' available`

@@ -56,7 +56,7 @@ export default class App extends React.Component<Props, State> {
 
   state: State = this.getInitialState();
 
-  private getInitialState() {
+  getInitialState() {
     return {
       username: '',
       password: '',
@@ -64,14 +64,6 @@ export default class App extends React.Component<Props, State> {
       signUpButtonDisabled: false,
       resetButtonDisabled: true
     };
-  }
-
-  private shouldDisableResetButton(state: State) {
-    const omitList = ['signUpButtonDisabled', 'resetButtonDisabled'];
-    return (
-      isEqual(omit(this.getInitialState(), omitList), omit(state, omitList)) &&
-      !this.form!.hasFeedbacks()
-    );
   }
 
   handleUsernameChange = (text: string) => {
@@ -129,6 +121,14 @@ export default class App extends React.Component<Props, State> {
     this.form!.resetFields();
     this.setState({ resetButtonDisabled: true });
   };
+
+  shouldDisableResetButton(state: State) {
+    const omitList = ['signUpButtonDisabled', 'resetButtonDisabled'];
+    return (
+      isEqual(omit(this.getInitialState(), omitList), omit(state, omitList)) &&
+      !this.form!.hasFeedbacks()
+    );
+  }
 
   render() {
     const {
@@ -239,7 +239,7 @@ const fieldFeedbackTheme = StyleSheet.create({
   whenValid: { color: 'green' }
 });
 
-class FieldFeedback extends React.Component<FieldFeedbackProps> {
+class FieldFeedback extends React.PureComponent<FieldFeedbackProps> {
   render() {
     return <_FieldFeedback theme={fieldFeedbackTheme} {...this.props} />;
   }

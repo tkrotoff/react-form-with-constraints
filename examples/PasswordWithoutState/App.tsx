@@ -10,13 +10,11 @@ function Form() {
   const form = useRef<FormWithConstraints | null>(null);
   const password = useRef<HTMLInputElement | null>(null);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const target = e.target;
+  function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     form.current!.validateFields(target);
   }
 
-  async function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const target = e.target;
+  async function handlePasswordChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     form.current!.validateFields(target, 'passwordConfirm');
   }
 
@@ -95,7 +93,7 @@ function Form() {
         </FieldFeedbacks>
       </div>
 
-      <button>Sign Up</button>
+      <button type="submit">Sign Up</button>
     </FormWithConstraints>
   );
 }

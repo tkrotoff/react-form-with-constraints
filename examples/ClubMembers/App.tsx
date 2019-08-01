@@ -192,11 +192,13 @@ const Members = observer<React.FunctionComponent<MembersProps>>(({ club, validat
   }
 
   function updateMemberFirstName(e: React.ChangeEvent<HTMLInputElement>, member: Member) {
+    // eslint-disable-next-line no-param-reassign
     member.firstName = e.target.value;
     validateField(e);
   }
 
   function updateMemberLastName(e: React.ChangeEvent<HTMLInputElement>, member: Member) {
+    // eslint-disable-next-line no-param-reassign
     member.lastName = e.target.value;
     validateField(e);
   }
@@ -306,6 +308,7 @@ class Form extends React.Component<FormProps> {
 
     await this.form!.validateForm();
     if (this.form!.isValid()) {
+      // eslint-disable-next-line react/destructuring-assignment
       alert(`Valid form\n\nClub =\n${JSON.stringify(this.props.club, null, 2)}`);
     }
   };
@@ -342,7 +345,9 @@ class Form extends React.Component<FormProps> {
 
         <Members club={club} validateField={this.validateField} />
 
-        <button className="btn btn-primary mb-3">Submit</button>
+        <button type="submit" className="btn btn-primary mb-3">
+          Submit
+        </button>
 
         <DisplayClub club={club} />
 
@@ -356,7 +361,7 @@ class Form extends React.Component<FormProps> {
   }
 }
 
-export class Input extends _Input {
+class Input extends _Input {
   static defaultProps: InputProps = {
     classes: {
       // See https://github.com/facebook/react/issues/3725#issuecomment-169163998

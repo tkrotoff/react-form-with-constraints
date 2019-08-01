@@ -20,7 +20,7 @@ Check the [changelog](CHANGELOG.md) for breaking changes and fixes between relea
 <form>
   <label for="email">Email:</label>
   <input type="email" id="email" required>
-  <button>Submit</button>
+  <button type="submit">Submit</button>
 </form>
 ```
 
@@ -155,9 +155,7 @@ Trigger validation:
 function MyForm() {
   const form = useRef(null);
 
-  async function handleChange(e) {
-    const target = e.target;
-
+  async function handleChange({ target }) {
     // Validates only the given fields and returns Promise<Field[]>
     await form.current.validateFields(target);
   }

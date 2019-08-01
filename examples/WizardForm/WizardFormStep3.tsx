@@ -16,11 +16,9 @@ interface Props {
 export default function WizardFormStep3(props: Props) {
   const form = useRef<FormWithConstraints | null>(null);
 
-  function handleChange(
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>
-  ) {
-    const target = e.target;
-
+  function handleChange({
+    target
+  }: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) {
     props.onChange(target);
 
     form.current!.validateFields(target);
@@ -35,13 +33,15 @@ export default function WizardFormStep3(props: Props) {
     }
   }
 
+  const { favoriteColor, employed, notes, previousPage } = props;
+
   return (
     <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
       <div>
         <label>
           Favorite Color
           <br />
-          <select name="favoriteColor" value={props.favoriteColor} onChange={handleChange} required>
+          <select name="favoriteColor" value={favoriteColor} onChange={handleChange} required>
             <option value="" disabled>
               Select a color...
             </option>
@@ -61,7 +61,7 @@ export default function WizardFormStep3(props: Props) {
           <input
             type="checkbox"
             name="employed"
-            checked={props.employed ? props.employed : false}
+            checked={employed || false}
             onChange={handleChange}
           />
           Employed
@@ -69,13 +69,13 @@ export default function WizardFormStep3(props: Props) {
       </div>
       <div>
         <label htmlFor="notes">Notes</label>
-        <textarea name="notes" id="notes" value={props.notes} onChange={handleChange} />
+        <textarea name="notes" id="notes" value={notes} onChange={handleChange} />
       </div>
-      <button type="button" onClick={props.previousPage}>
+      <button type="button" onClick={previousPage}>
         Previous
       </button>
       &nbsp;
-      <button>Submit</button>
+      <button type="submit">Submit</button>
     </FormWithConstraints>
   );
 }

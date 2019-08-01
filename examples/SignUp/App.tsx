@@ -7,7 +7,7 @@ import {
   FormWithConstraints,
   FieldFeedbacks,
   FieldFeedback,
-  Async as Async_,
+  Async as _Async,
   AsyncProps
 } from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
@@ -29,10 +29,8 @@ async function checkUsernameAvailability(value: string) {
 }
 
 // Async with a default React component for pending state
-function Async<T>(props: AsyncProps<T>) {
-  return (
-    <Async_ promise={props.promise} pending={<Spinner />} then={props.then} catch={props.catch} />
-  );
+function Async<T>({ promise, then, catch: _catch }: AsyncProps<T>) {
+  return <_Async promise={promise} pending={<Spinner />} then={then} catch={_catch} />;
 }
 
 const VALIDATE_DEBOUNCE_WAIT = 1000;
@@ -67,7 +65,10 @@ class SignUp extends React.Component<Props, State> {
 
   private getInitialState() {
     return {
-      language: this.props.i18n.language.substring(0, 2), // en-US => en, fr-FR => fr
+      // en-US => en, fr-FR => fr
+      // eslint-disable-next-line react/destructuring-assignment
+      language: this.props.i18n.language.substring(0, 2),
+
       firstName: '',
       lastName: '',
       username: '',
@@ -87,11 +88,11 @@ class SignUp extends React.Component<Props, State> {
     };
   }
 
+  // eslint-disable-next-line react/sort-comp
   handleChange = async (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    { target }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
     _debounce = true
   ) => {
-    const target = e.target;
     await this._handleChange(target, _debounce, true);
   };
 
@@ -111,16 +112,14 @@ class SignUp extends React.Component<Props, State> {
     await this.validateFields(target, _debounce, forceValidateFields);
   };
 
-  handleBlur = async (
-    e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    const target = e.target;
+  handleBlur = async ({
+    target
+  }: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     await this._handleChange(target, false, false);
   };
 
-  handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const target = e.target;
-
+  handleLanguageChange = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.i18n.changeLanguage(target.value);
 
     // FIXME See [Computed property key names should not be widened](https://github.com/Microsoft/TypeScript/issues/13948)
@@ -142,9 +141,11 @@ class SignUp extends React.Component<Props, State> {
     target: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement,
     forceValidateFields: boolean
   ) {
-    forceValidateFields
-      ? await this.form!.validateFields(target)
-      : await this.form!.validateFieldsWithoutFeedback(target);
+    if (forceValidateFields) {
+      await this.form!.validateFields(target);
+    } else {
+      await this.form!.validateFieldsWithoutFeedback(target);
+    }
 
     this.setState(prevState => ({
       signUpButtonDisabled: !this.form!.isValid(),
@@ -169,9 +170,11 @@ class SignUp extends React.Component<Props, State> {
 
     if (forceValidateFields) await this.form!.resetFields(target);
 
-    _debounce
-      ? await this.validateFieldsWithDebounce(target, forceValidateFields)
-      : await this.validateFieldsWithoutDebounce(target, forceValidateFields);
+    if (_debounce) {
+      await this.validateFieldsWithDebounce(target, forceValidateFields);
+    } else {
+      await this.validateFieldsWithoutDebounce(target, forceValidateFields);
+    }
   }
 
   handleHasWebsiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -435,7 +438,7 @@ class SignUp extends React.Component<Props, State> {
               {/* See https://github.com/facebook/react/issues/4085#issuecomment-262990423 */}
               <select
                 name="favoriteColor"
-                value={favoriteColor ? favoriteColor : ''}
+                value={favoriteColor || ''}
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
                 required
@@ -471,7 +474,7 @@ class SignUp extends React.Component<Props, State> {
               <input
                 type="checkbox"
                 name="isEmployed"
-                checked={isEmployed !== undefined ? isEmployed : false}
+                checked={isEmployed || false}
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
               />
@@ -495,7 +498,7 @@ class SignUp extends React.Component<Props, State> {
               <input
                 type="checkbox"
                 name="hasWebsite"
-                checked={hasWebsite !== undefined ? hasWebsite : false}
+                checked={hasWebsite || false}
                 onChange={this.handleHasWebsiteChange}
                 onBlur={this.handleBlur}
               />
@@ -574,7 +577,9 @@ class SignUp extends React.Component<Props, State> {
             </FieldFeedbacks>
           </div>
 
-          <button disabled={signUpButtonDisabled}>{t('Sign Up')}</button>
+          <button type="submit" disabled={signUpButtonDisabled}>
+            {t('Sign Up')}
+          </button>
           <button type="button" onClick={this.handleReset} disabled={resetButtonDisabled}>
             {t('Reset')}
           </button>

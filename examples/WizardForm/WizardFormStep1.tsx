@@ -12,9 +12,7 @@ interface Props {
 export default function WizardFormStep1(props: Props) {
   const form = useRef<FormWithConstraints | null>(null);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const target = e.target;
-
+  function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     props.onChange(target);
 
     form.current!.validateFields(target);
@@ -29,6 +27,8 @@ export default function WizardFormStep1(props: Props) {
     }
   }
 
+  const { firstName, lastName } = props;
+
   return (
     <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
       <div>
@@ -36,7 +36,7 @@ export default function WizardFormStep1(props: Props) {
         <input
           name="firstName"
           id="first-name"
-          value={props.firstName}
+          value={firstName}
           onChange={handleChange}
           required
           minLength={3}
@@ -52,7 +52,7 @@ export default function WizardFormStep1(props: Props) {
         <input
           name="lastName"
           id="last-name"
-          value={props.lastName}
+          value={lastName}
           onChange={handleChange}
           required
           minLength={3}
@@ -63,7 +63,7 @@ export default function WizardFormStep1(props: Props) {
         </FieldFeedbacks>
       </div>
 
-      <button>Next</button>
+      <button type="submit">Next</button>
     </FormWithConstraints>
   );
 }

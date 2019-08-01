@@ -139,7 +139,9 @@ export class FieldFeedback<
 
     const field = form.fieldsStore.getField(input.name)!;
 
-    const validation = { ...this.state.validation }; // Copy state so we don't modify it directly (use of setState() instead)
+    // Copy state so we don't modify it directly (use of setState() instead)
+    // eslint-disable-next-line react/no-access-state-in-setstate, react/destructuring-assignment
+    const validation = { ...this.state.validation };
 
     if (
       (fieldFeedbacks.props.stop === 'first' && field.hasFeedbacks(fieldFeedbacks.key)) ||
@@ -159,7 +161,7 @@ export class FieldFeedback<
           // undefined => special case for when="valid": always displayed, then FieldFeedbackWhenValid decides what to do
           validation.show = undefined;
         } else {
-          const validity = input.validity;
+          const { validity } = input;
 
           if (!validity.valid) {
             if (when === '*') {
@@ -196,6 +198,7 @@ export class FieldFeedback<
 
   fieldDidReset = (field: Field) => {
     // Ignore the event if it's not for us
+    // eslint-disable-next-line react/destructuring-assignment
     if (field.name === this.context.fieldFeedbacks.fieldName) {
       this.setState(prevState => ({
         validation: { ...prevState.validation, ...{ show: undefined } },

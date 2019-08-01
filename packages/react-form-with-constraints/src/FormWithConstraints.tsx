@@ -18,7 +18,7 @@ export interface FormWithConstraintsChildContext {
 
 export interface FormWithConstraintsProps extends React.FormHTMLAttributes<HTMLFormElement> {}
 
-class FormWithConstraintsComponent extends React.Component<FormWithConstraintsProps> {}
+class FormWithConstraintsComponent extends React.PureComponent<FormWithConstraintsProps> {}
 export class FormWithConstraints
   extends withFieldDidResetEventEmitter(
     withFieldWillValidateEventEmitter(
@@ -82,6 +82,7 @@ export class FormWithConstraints
     const inputs = this.normalizeInputs(...inputsOrNames);
 
     for (const input of inputs) {
+      // eslint-disable-next-line no-await-in-loop
       const field = await this.validateField(forceValidateFields, new InputElement(input));
       if (field !== undefined) {
         field.element = input as HTMLInput;
@@ -175,9 +176,9 @@ export class FormWithConstraints
           }
 
           return element;
-        } else {
-          return input;
         }
+
+        return input;
       });
     }
 
@@ -204,6 +205,7 @@ export class FormWithConstraints
     const inputs = this.normalizeInputs(...inputsOrNames);
 
     for (const input of inputs) {
+      // eslint-disable-next-line no-await-in-loop
       const field = await this.resetField(new InputElement(input));
       if (field !== undefined) fields.push(field);
     }

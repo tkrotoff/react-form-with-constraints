@@ -52,8 +52,7 @@ function Form() {
     }
   }, [isSubmitted, errors]);
 
-  function handleEmailChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const target = e.target;
+  function handleEmailChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     setErrors(prevState => {
       return {
         ...prevState,
@@ -62,8 +61,7 @@ function Form() {
     });
   }
 
-  function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const target = e.target;
+  function handlePasswordChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     setErrors(prevState => {
       return {
         ...prevState,
@@ -73,8 +71,7 @@ function Form() {
     });
   }
 
-  function handlePasswordConfirmChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const target = e.target;
+  function handlePasswordConfirmChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     setErrors(prevState => {
       return {
         ...prevState,
@@ -151,7 +148,7 @@ function Form() {
         </div>
       </div>
 
-      <button>Submit</button>
+      <button type="submit">Submit</button>
     </form>
   );
 }

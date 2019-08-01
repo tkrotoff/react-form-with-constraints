@@ -73,6 +73,7 @@ export class InputElement implements IHTMLInput {
 
   constructor(input: IHTMLInput | TextInput) {
     if (isHTMLInput(input)) {
+      // eslint-disable-next-line no-param-reassign
       input = input as IHTMLInput;
       this.name = input.name;
       this.type = input.type;
@@ -89,6 +90,7 @@ export class InputElement implements IHTMLInput {
 
       this.validationMessage = input.validationMessage;
     } else {
+      // eslint-disable-next-line no-param-reassign
       input = input as TextInput;
       this.name = input.props!.name;
       this.type = undefined as any;

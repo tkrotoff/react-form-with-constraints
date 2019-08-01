@@ -41,6 +41,8 @@ export class FormControl extends React.Component<FormControlProps, FormControlSt
     field: undefined
   };
 
+  /* eslint-disable react/destructuring-assignment */
+
   componentWillMount() {
     this.context.form.addFieldWillValidateEventListener(this.fieldWillValidate);
     this.context.form.addFieldDidValidateEventListener(this.fieldDidValidate);
@@ -73,6 +75,8 @@ export class FormControl extends React.Component<FormControlProps, FormControlSt
     // Return the first and only entry
     return fieldNames.values().next().value;
   }
+
+  /* eslint-enable react/destructuring-assignment */
 
   fieldWillValidate = (fieldName: string) => {
     // Ignore the event if it's not for us
@@ -116,6 +120,8 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
     field: undefined
   };
 
+  /* eslint-disable react/destructuring-assignment */
+
   componentWillMount() {
     this.context.form.addFieldWillValidateEventListener(this.fieldWillValidate);
     this.context.form.addFieldDidValidateEventListener(this.fieldDidValidate);
@@ -149,6 +155,8 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
     }
   };
 
+  /* eslint-enable react/destructuring-assignment */
+
   render() {
     const { field } = this.state;
     const error = field !== undefined && field.hasErrors();
@@ -161,7 +169,7 @@ const defaultTheme = createMuiTheme({});
 // See https://v3-5-0.material-ui.com/customization/themes/#nesting-the-theme
 function formWithConstraintsTheme(outerTheme: Theme | null) {
   return {
-    ...(outerTheme ? outerTheme : defaultTheme),
+    ...(outerTheme || defaultTheme),
     overrides: {
       MuiFormHelperText: {
         root: {
@@ -213,7 +221,7 @@ export const FieldFeedback = withStyles(fieldFeedbackStyles)(
   //     <FieldFeedbackWS className="FieldFeedbackWS-root-125" ...></FieldFeedback>
   //   </FieldFeedbackWS>
   // </WithStyles(FieldFeedbackWS)>
-  class FieldFeedbackWS extends React.Component<FieldFeedbackPropsWithStyles> {
+  class FieldFeedbackWS extends React.PureComponent<FieldFeedbackPropsWithStyles> {
     render() {
       const { classes, className, ...otherProps } = this.props;
 

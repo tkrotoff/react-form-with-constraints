@@ -16,6 +16,8 @@ export default class Field {
   // Cannot be set as readonly :/
   public element?: HTMLInput | TextInput;
 
+  // FIXME See https://github.com/typescript-eslint/typescript-eslint/issues/426
+  // eslint-disable-next-line no-useless-constructor, no-empty-function
   constructor(public readonly name: string) {}
 
   addOrReplaceValidation(validation: FieldFeedbackValidation) {

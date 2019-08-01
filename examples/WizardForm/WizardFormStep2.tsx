@@ -15,9 +15,7 @@ interface Props {
 export default function WizardFormStep2(props: Props) {
   const form = useRef<FormWithConstraints | null>(null);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const target = e.target;
-
+  function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     props.onChange(target);
 
     form.current!.validateFields(target);
@@ -32,6 +30,8 @@ export default function WizardFormStep2(props: Props) {
     }
   }
 
+  const { email, gender, previousPage } = props;
+
   return (
     <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
       <div>
@@ -40,7 +40,7 @@ export default function WizardFormStep2(props: Props) {
           type="email"
           name="email"
           id="email"
-          value={props.email}
+          value={email}
           onChange={handleChange}
           required
         />
@@ -55,7 +55,7 @@ export default function WizardFormStep2(props: Props) {
             type="radio"
             name="gender"
             value={Gender.Male}
-            checked={props.gender === Gender.Male}
+            checked={gender === Gender.Male}
             onChange={handleChange}
             required
           />
@@ -66,7 +66,7 @@ export default function WizardFormStep2(props: Props) {
             type="radio"
             name="gender"
             value={Gender.Female}
-            checked={props.gender === Gender.Female}
+            checked={gender === Gender.Female}
             onChange={handleChange}
           />
           Female
@@ -75,11 +75,11 @@ export default function WizardFormStep2(props: Props) {
           <FieldFeedback when="*" />
         </FieldFeedbacks>
       </div>
-      <button type="button" onClick={props.previousPage}>
+      <button type="button" onClick={previousPage}>
         Previous
       </button>
       &nbsp;
-      <button>Next</button>
+      <button type="submit">Next</button>
     </FormWithConstraints>
   );
 }

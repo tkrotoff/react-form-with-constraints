@@ -41,11 +41,11 @@ export default class WizardForm extends React.Component<Props, State> {
   };
 
   nextStep = () => {
-    this.setState({ step: this.state.step + 1 });
+    this.setState(prevState => ({ step: prevState.step + 1 }));
   };
 
   previousStep = () => {
-    this.setState({ step: this.state.step - 1 });
+    this.setState(prevState => ({ step: prevState.step - 1 }));
   };
 
   render() {

@@ -50,9 +50,7 @@ function Form() {
     return isEqual(getInitialInputsState(), state) && !form.current.hasFeedbacks();
   }
 
-  async function handleChange(e) {
-    const target = e.target;
-
+  async function handleChange({ target }) {
     setInputs(prevState => {
       return { ...prevState, [target.name]: target.value };
     });
@@ -63,9 +61,7 @@ function Form() {
     setResetButtonDisabled(shouldDisableResetButton(inputs));
   }
 
-  async function handlePasswordChange(e) {
-    const target = e.target;
-
+  async function handlePasswordChange({ target }) {
     setInputs(prevState => {
       return { ...prevState, [target.name]: target.value };
     });
@@ -182,7 +178,7 @@ function Form() {
           <FieldFeedback when="valid">Looks good!</FieldFeedback>
         </FieldFeedbacks>
       </div>
-      <button disabled={signUpButtonDisabled} className="btn btn-primary">
+      <button type="submit" disabled={signUpButtonDisabled} className="btn btn-primary">
         Sign Up
       </button>{' '}
       <button

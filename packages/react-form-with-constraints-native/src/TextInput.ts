@@ -8,7 +8,7 @@ import { Constructor } from 'react-form-with-constraints';
 export interface Props extends TextInputProps {
   name: string;
 }
-export declare class TextInputComponent extends React.Component<Props> {}
+export declare class TextInputComponent extends React.PureComponent<Props> {}
 export const TextInputBase = (_TextInput as any) as Constructor<_TextInput> &
   typeof TextInputComponent;
 export class TextInput extends TextInputBase {}

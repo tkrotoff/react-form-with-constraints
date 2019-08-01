@@ -27,6 +27,7 @@ export default class EventEmitter<ListenerReturnType = void> {
         // - listener returns a Promise:
         //   => wait for the listener call to finish (e.g listeners are executed in sequence),
         //      without we would call each listener without waiting for their results
+        // eslint-disable-next-line no-await-in-loop
         ret.push(await listener(...args));
       }
     }

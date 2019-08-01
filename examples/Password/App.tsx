@@ -50,9 +50,7 @@ function Form() {
   });
   const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(false);
 
-  async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const target = e.target;
-
+  async function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     setInputs(prevState => {
       return { ...prevState, [target.name]: target.value };
     });
@@ -72,9 +70,7 @@ function Form() {
     setSignUpButtonDisabled(!form.current!.isValid());
   }
 
-  async function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const target = e.target;
-
+  async function handlePasswordChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     setInputs(prevState => {
       return { ...prevState, [target.name]: target.value };
     });
@@ -187,7 +183,9 @@ function Form() {
         </FieldFeedbacks>
       </div>
 
-      <button disabled={signUpButtonDisabled}>Sign Up</button>
+      <button type="submit" disabled={signUpButtonDisabled}>
+        Sign Up
+      </button>
 
       <pre>
         <small>

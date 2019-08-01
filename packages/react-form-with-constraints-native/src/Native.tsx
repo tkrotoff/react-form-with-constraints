@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Text, View, TextProps, StyleProp } from 'react-native';
 import { TextInput } from './TextInput'; // Specific to TypeScript
 
+// eslint-disable-next-line import/order
 import {
   FormWithConstraints as _FormWithConstraints,
   FieldFeedbacks,

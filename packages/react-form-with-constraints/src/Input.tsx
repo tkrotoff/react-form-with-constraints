@@ -42,6 +42,8 @@ export class Input extends React.Component<InputProps, InputState> {
     field: undefined
   };
 
+  /* eslint-disable react/destructuring-assignment */
+
   componentWillMount() {
     this.context.form.addFieldWillValidateEventListener(this.fieldWillValidate);
     this.context.form.addFieldDidValidateEventListener(this.fieldDidValidate);
@@ -75,6 +77,8 @@ export class Input extends React.Component<InputProps, InputState> {
     }
   };
 
+  /* eslint-enable react/destructuring-assignment */
+
   fieldValidationStates() {
     const { field } = this.state;
 
@@ -102,7 +106,11 @@ export class Input extends React.Component<InputProps, InputState> {
     validationStates.forEach(validationState => {
       const tmp = classes![validationState];
       if (tmp !== undefined) {
-        classNames !== undefined ? (classNames += ` ${tmp}`) : (classNames = tmp);
+        if (classNames !== undefined) {
+          classNames += ` ${tmp}`;
+        } else {
+          classNames = tmp;
+        }
       }
     });
 

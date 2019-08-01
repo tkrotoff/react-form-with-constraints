@@ -27,7 +27,7 @@ export interface FieldFeedbacksChildContext {
   fieldFeedbacks: FieldFeedbacks;
 }
 
-class FieldFeedbacksComponent extends React.Component<FieldFeedbacksProps> {}
+class FieldFeedbacksComponent extends React.PureComponent<FieldFeedbacksProps> {}
 export class FieldFeedbacks
   extends withValidateFieldEventEmitter<
     // FieldFeedback returns FieldFeedbackValidation
@@ -98,7 +98,7 @@ export class FieldFeedbacks
 
     form.fieldsStore.addField(this.fieldName);
 
-    const parent = fieldFeedbacksParent ? fieldFeedbacksParent : form;
+    const parent = fieldFeedbacksParent || form;
     parent.addValidateFieldEventListener(this.validate);
   }
 
@@ -107,7 +107,7 @@ export class FieldFeedbacks
 
     form.fieldsStore.removeField(this.fieldName);
 
-    const parent = fieldFeedbacksParent ? fieldFeedbacksParent : form;
+    const parent = fieldFeedbacksParent || form;
     parent.removeValidateFieldEventListener(this.validate);
   }
 

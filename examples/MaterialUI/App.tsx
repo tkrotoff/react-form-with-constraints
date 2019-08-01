@@ -58,7 +58,7 @@ interface InputsState {
   passwordConfirm: string;
 }
 
-function Form(props: FormProps) {
+function Form({ classes }: FormProps) {
   const form = useRef<FormWithConstraints | null>(null);
   const password = useRef<HTMLInputElement | null>(null);
 
@@ -78,9 +78,7 @@ function Form(props: FormProps) {
     return isEqual(getInitialInputsState(), state) && !form.current!.hasFeedbacks();
   }
 
-  async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const target = e.target;
-
+  async function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     setInputs(prevState => {
       return { ...prevState, [target.name]: target.value };
     });
@@ -91,9 +89,7 @@ function Form(props: FormProps) {
     setResetButtonDisabled(shouldDisableResetButton(inputs));
   }
 
-  async function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const target = e.target;
-
+  async function handlePasswordChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     setInputs(prevState => {
       return { ...prevState, [target.name]: target.value };
     });
@@ -223,11 +219,11 @@ function Form(props: FormProps) {
         type="submit"
         disabled={signUpButtonDisabled}
         color="primary"
-        className={props.classes.button}
+        className={classes.button}
       >
         Sign Up
       </Button>
-      <Button onClick={handleReset} disabled={resetButtonDisabled} className={props.classes.button}>
+      <Button onClick={handleReset} disabled={resetButtonDisabled} className={classes.button}>
         Reset
       </Button>
 
