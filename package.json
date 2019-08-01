@@ -37,27 +37,27 @@
     "examples/WizardForm"
   ],
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^1.12.0",
-    "@typescript-eslint/parser": "^1.12.0",
-    "eslint": "^5.16.0",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint": "^6.1.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.14.2",
+    "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.6.1",
-    "husky": "^2.5.0",
-    "lerna": "^3.15.0",
+    "husky": "^3.0.2",
+    "lerna": "^3.16.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "stylelint": "^10.1.0",
     "stylelint-config-airbnb": "^0.0.0",
     "stylelint-config-recommended-scss": "^3.3.0",
-    "stylelint-order": "^3.0.0",
-    "stylelint-scss": "^3.8.0",
-    "tslint": "^5.17.0",
+    "stylelint-order": "^3.0.1",
+    "stylelint-scss": "^3.8.2",
+    "tslint": "^5.18.0",
     "tslint-react": "^4.0.0",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   }
 }

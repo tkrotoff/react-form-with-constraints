@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "expo": "^33.0.6",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "react": "^16.8.6",
     "react-form-with-constraints": "../../packages/react-form-with-constraints",
     "react-form-with-constraints-native": "../../packages/react-form-with-constraints-native",
@@ -33,15 +33,15 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.3.3",
-    "@types/jest": "^24.0.14",
+    "@types/jest": "^24.0.16",
     "@types/lodash": "^4.14.134",
-    "@types/react": "^16.8.20",
+    "@types/react": "^16.8.24",
     "@types/react-native": "^0.57.63",
-    "@types/react-test-renderer": "^16.8.2",
+    "@types/react-test-renderer": "^16.8.3",
     "babel-preset-expo": "^5.2.0",
     "expo-cli": "^2.20.0",
     "jest-expo": "^33.0.2",
     "react-test-renderer": "^16.8.6",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   }
 }

@@ -13,9 +13,8 @@ const MuiFormControl_MuiTextField = 'MuiFormControl-root-\\d+ MuiTextField-root-
 const MuiInputBase = 'MuiInputBase-root-\\d+ .*';
 const MuiInputBase_error = 'MuiInputBase-root-\\d+ .* Mui-error .*';
 const MuiInput = '.* MuiInput-input-\\d+';
-const MuiFormHelperText = 'MuiFormHelperText-root-\\d+ MuiFormHelperText-filled-\\d+';
-const MuiFormHelperText_error =
-  'MuiFormHelperText-root-\\d+ Mui-error MuiFormHelperText-filled-\\d+';
+const MuiFormHelperText = 'MuiFormHelperText-root-\\d+';
+const MuiFormHelperText_error = 'MuiFormHelperText-root-\\d+ Mui-error';
 
 describe('FormWithConstraints', () => {
   test('change inputs', async () => {

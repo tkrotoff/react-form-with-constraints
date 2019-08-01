@@ -1,4 +1,17 @@
-## v0.13.0 (25/06/2019)
+## v0.14.0 (2019/08/02)
+
+### Features
+
+- Add `Field.element: HTMLInput | TextInput | undefined`, see #41
+- Fix react-form-with-constraints-tools package.json `"main": "lib-es5/index.js"`
+
+### Breaking Changes
+
+- Make DisplayFields work with React Native. You will need to write:
+  - HTML: `<pre>Fields = <DisplayFields /></pre>`
+  - React Native: `<Text>Fields = <DisplayFields /></Text>`
+
+## v0.13.0 (2019/06/25)
 
 ### Features
 

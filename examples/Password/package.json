@@ -20,32 +20,32 @@
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-form-with-constraints": "^0.13.0",
-    "react-form-with-constraints-tools": "^0.13.0"
+    "react-form-with-constraints": "^0.14.0",
+    "react-form-with-constraints-tools": "^0.14.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
+    "@babel/core": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
     "@types/expect-puppeteer": "^3.3.1",
-    "@types/jest": "^24.0.14",
+    "@types/jest": "^24.0.16",
     "@types/jest-environment-puppeteer": "^4.0.0",
-    "@types/node": "^12.0.8",
-    "@types/puppeteer": "^1.12.3",
-    "@types/react": "^16.8.20",
-    "@types/react-dom": "^16.8.4",
-    "@types/webpack": "^4.4.32",
+    "@types/node": "^12.6.9",
+    "@types/puppeteer": "^1.19.0",
+    "@types/react": "^16.8.24",
+    "@types/react-dom": "^16.8.5",
+    "@types/webpack": "^4.32.1",
     "circular-dependency-plugin": "^5.0.2",
-    "file-loader": "^4.0.0",
+    "file-loader": "^4.1.0",
     "http-server": "^0.11.1",
     "jest": "^24.8.0",
-    "jest-puppeteer": "^4.1.0",
-    "puppeteer": "^1.13.0",
+    "jest-puppeteer": "^4.3.0",
+    "puppeteer": "^1.19.0",
     "source-map-loader": "^0.2.4",
     "ts-jest": "^24.0.2",
-    "ts-node": "^8.2.0",
-    "typescript": "^3.5.2",
-    "webpack": "^4.34.0",
-    "webpack-cli": "^3.3.4"
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.0",
+    "webpack-cli": "^3.3.6"
   }
 }
