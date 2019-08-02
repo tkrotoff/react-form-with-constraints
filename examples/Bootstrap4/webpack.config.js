@@ -19,7 +19,12 @@ module.exports = {
 
   module: {
     rules: [
-      { test: /\.jsx?$/, loader: 'babel-loader' },
+      {
+        test: /\.jsx?$/,
+        // See [Babel should not transpile core-js](https://github.com/zloirock/core-js/issues/514#issuecomment-476533317)
+        exclude: /\/core-js/,
+        loader: 'babel-loader'
+      },
       { test: /\.js$/, loader: 'source-map-loader' },
       { test: /\.html$/, loader: 'file-loader', options: { name: '[path][name].[ext]' } },
       {
