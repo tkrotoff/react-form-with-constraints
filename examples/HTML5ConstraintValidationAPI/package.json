@@ -11,6 +11,7 @@
     "constraints",
     "constraint-validation-api"
   ],
+  "main": "App.tsx",
   "scripts": {
     "clean": "rm -rf build",
     "tsc": "tsc",
