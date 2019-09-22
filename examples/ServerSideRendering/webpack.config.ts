@@ -13,9 +13,7 @@ const babelLoaderRule = { test: /\.tsx?$/, loader: 'babel-loader' };
 
 const config: Configuration[] = [
   {
-    entry: {
-      server: './server.tsx'
-    },
+    entry: { server: './server.tsx' },
 
     // See [How can I use webpack with express?](https://stackoverflow.com/a/31655760/990356)
     target: 'node',
@@ -34,9 +32,7 @@ const config: Configuration[] = [
   },
 
   {
-    entry: {
-      browser: './browser.tsx'
-    },
+    entry: { browser: './browser.tsx' },
     output,
     resolve: { extensions },
     module: {

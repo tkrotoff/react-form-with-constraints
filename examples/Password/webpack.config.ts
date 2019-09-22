@@ -6,9 +6,7 @@ import { Configuration } from 'webpack';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 
 const config: Configuration = {
-  entry: {
-    App: './App.tsx'
-  },
+  entry: './App.tsx',
 
   output: {
     path: path.join(__dirname, 'build'),

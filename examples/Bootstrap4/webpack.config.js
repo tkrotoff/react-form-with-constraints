@@ -4,9 +4,7 @@ const path = require('path');
 const postcssPresetEnv = require('postcss-preset-env');
 
 module.exports = {
-  entry: {
-    App: './App.jsx'
-  },
+  entry: './App.jsx',
 
   output: {
     path: path.join(__dirname, 'build'),

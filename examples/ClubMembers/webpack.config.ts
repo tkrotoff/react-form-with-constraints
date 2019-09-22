@@ -2,9 +2,7 @@ import path from 'path';
 import { Configuration } from 'webpack';
 
 const config: Configuration = {
-  entry: {
-    App: './App.tsx'
-  },
+  entry: './App.tsx',
 
   output: {
     path: path.join(__dirname, 'build'),
