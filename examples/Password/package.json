@@ -9,7 +9,6 @@
     "validation",
     "react-form-with-constraints"
   ],
-  "main": "App.tsx",
   "scripts": {
     "clean": "rm -rf build",
     "tsc": "tsc",

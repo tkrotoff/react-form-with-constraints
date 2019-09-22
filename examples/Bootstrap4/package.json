@@ -11,7 +11,6 @@
     "bootstrap",
     "bootstrap4"
   ],
-  "main": "App.jsx",
   "scripts": {
     "clean": "rm -rf build",
     "start": "webpack-dev-server -d --host 0.0.0.0",

@@ -10,7 +10,6 @@
     "react-form-with-constraints",
     "server-side"
   ],
-  "main": "App.tsx",
   "scripts": {
     "clean": "rm -rf build",
     "tsc": "tsc",
