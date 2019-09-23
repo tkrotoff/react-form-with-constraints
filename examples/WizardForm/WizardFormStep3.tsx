@@ -46,7 +46,7 @@ export default function WizardFormStep3(props: Props) {
               Select a color...
             </option>
             {colorKeys.map(colorKey => (
-              <option value={Color[colorKey as any]} key={colorKey}>
+              <option value={Color[colorKey as keyof typeof Color]} key={colorKey}>
                 {colorKey}
               </option>
             ))}
