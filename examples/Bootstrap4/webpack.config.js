@@ -23,7 +23,6 @@ module.exports = {
         exclude: /\/core-js/,
         loader: 'babel-loader'
       },
-      { test: /\.js$/, loader: 'source-map-loader' },
       { test: /\.html$/, loader: 'file-loader', options: { name: '[path][name].[ext]' } },
       {
         test: /\.scss$/,

@@ -16,7 +16,6 @@ const config: Configuration = {
   module: {
     rules: [
       { test: /\.tsx?$/, loader: 'babel-loader' },
-      { test: /\.js$/, loader: 'source-map-loader' },
       { test: /\.html$/, loader: 'file-loader', options: { name: '[path][name].[ext]' } }
     ]
   }

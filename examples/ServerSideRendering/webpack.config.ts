@@ -36,7 +36,7 @@ const config: Configuration[] = [
     output,
     resolve: { extensions },
     module: {
-      rules: [babelLoaderRule, { test: /\.js$/, loader: 'source-map-loader' }]
+      rules: [babelLoaderRule]
     }
   }
 ];
