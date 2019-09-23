@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { StyleSheet } from 'react-native';
-import * as renderer from 'react-test-renderer';
+import * as TestRenderer from 'react-test-renderer';
 
 import {
   FormWithConstraints,
@@ -29,7 +29,7 @@ describe('FormWithConstraints', () => {
   describe('validate', () => {
     describe('validateFields()', () => {
       test('inputs', async () => {
-        const wrapper = renderer.create(<SignUp />);
+        const wrapper = TestRenderer.create(<SignUp />);
         const signUp = (wrapper.getInstance() as any) as SignUp;
         const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
@@ -68,7 +68,7 @@ describe('FormWithConstraints', () => {
       });
 
       test('field names', async () => {
-        const wrapper = renderer.create(<SignUp />);
+        const wrapper = TestRenderer.create(<SignUp />);
         const signUp = (wrapper.getInstance() as any) as SignUp;
         const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
@@ -107,7 +107,7 @@ describe('FormWithConstraints', () => {
       });
 
       test('inputs + field names', async () => {
-        const wrapper = renderer.create(<SignUp />);
+        const wrapper = TestRenderer.create(<SignUp />);
         const signUp = (wrapper.getInstance() as any) as SignUp;
         const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
@@ -146,7 +146,7 @@ describe('FormWithConstraints', () => {
       });
 
       test('without arguments', async () => {
-        const wrapper = renderer.create(<SignUp />);
+        const wrapper = TestRenderer.create(<SignUp />);
         const signUp = (wrapper.getInstance() as any) as SignUp;
         const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
@@ -199,7 +199,7 @@ describe('FormWithConstraints', () => {
       });
 
       test('change inputs', async () => {
-        const wrapper = renderer.create(<SignUp />);
+        const wrapper = TestRenderer.create(<SignUp />);
         const signUp = (wrapper.getInstance() as any) as SignUp;
         const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
@@ -300,7 +300,7 @@ describe('FormWithConstraints', () => {
 
     describe('validateFieldsWithoutFeedback()', () => {
       test('without arguments', async () => {
-        const wrapper = renderer.create(<SignUp />);
+        const wrapper = TestRenderer.create(<SignUp />);
         const signUp = (wrapper.getInstance() as any) as SignUp;
         const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
@@ -367,7 +367,7 @@ describe('FormWithConstraints', () => {
     });
 
     test('validateForm()', async () => {
-      const wrapper = renderer.create(<SignUp />);
+      const wrapper = TestRenderer.create(<SignUp />);
       const signUp = (wrapper.getInstance() as any) as SignUp;
       const validateFieldsWithoutFeedbackSpy = jest.spyOn(
         signUp.form!,
@@ -384,7 +384,7 @@ describe('FormWithConstraints', () => {
 
     describe('normalizeInputs', () => {
       test('Multiple elements matching', async () => {
-        const wrapper = renderer.create(
+        const wrapper = TestRenderer.create(
           <FormWithConstraints>
             <TextInput name="username" />
             <FieldFeedbacks for="username" />
@@ -413,7 +413,7 @@ describe('FormWithConstraints', () => {
       });
 
       test('Could not find field', async () => {
-        const wrapper = renderer.create(
+        const wrapper = TestRenderer.create(
           <FormWithConstraints>
             <TextInput name="username" />
           </FormWithConstraints>
@@ -430,7 +430,7 @@ describe('FormWithConstraints', () => {
       });
 
       test('Could not find field - child with props undefined', async () => {
-        const wrapper = renderer.create(
+        const wrapper = TestRenderer.create(
           <FormWithConstraints>ChildWithPropsUndefined</FormWithConstraints>
         );
         const form = (wrapper.getInstance() as any) as FormWithConstraints;
@@ -447,7 +447,7 @@ describe('FormWithConstraints', () => {
 
   describe('Async', () => {
     test('then', async () => {
-      const wrapper = renderer.create(<SignUp />);
+      const wrapper = TestRenderer.create(<SignUp />);
       const signUp = (wrapper.getInstance() as any) as SignUp;
       const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
@@ -500,7 +500,7 @@ describe('FormWithConstraints', () => {
     });
 
     test('catch', async () => {
-      const wrapper = renderer.create(<SignUp />);
+      const wrapper = TestRenderer.create(<SignUp />);
       const signUp = (wrapper.getInstance() as any) as SignUp;
       const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
@@ -555,7 +555,7 @@ describe('FormWithConstraints', () => {
 
   describe('resetFields()', () => {
     test('inputs', async () => {
-      const wrapper = renderer.create(<SignUp />);
+      const wrapper = TestRenderer.create(<SignUp />);
       const signUp = (wrapper.getInstance() as any) as SignUp;
 
       signUp.setState({ username: 'john' });
@@ -636,7 +636,7 @@ describe('FieldFeedback', () => {
       { for: 'username', stop: 'no' },
       { form: form_username as any }
     );
-    fieldFeedbacks_username.componentWillMount(); // Needed because of fieldsStore.addField() inside componentWillMount()
+    fieldFeedbacks_username.componentDidMount(); // Needed because of fieldsStore.addField() inside componentDidMount()
   });
 
   describe('render()', () => {
@@ -725,7 +725,7 @@ describe('FieldFeedback', () => {
         { for: 'username', stop: 'no' },
         { form: form as any }
       );
-      fieldFeedbacks.componentWillMount(); // Needed because of fieldsStore.addField() inside componentWillMount()
+      fieldFeedbacks.componentDidMount(); // Needed because of fieldsStore.addField() inside componentDidMount()
 
       const wrapper = shallow(
         <FieldFeedback when={value => value.length === 0} theme={fieldFeedbackTheme}>
