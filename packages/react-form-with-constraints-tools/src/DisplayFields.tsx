@@ -224,7 +224,7 @@ export class Async<T> extends _Async<T> {
     return 'line-through dotted';
   }
 
-  componentWillUpdate() {
+  componentDidUpdate() {
     // Reset style
     const async = this.rootEl!.querySelector<HTMLSpanElement>('span[style]');
     async!.style.textDecoration = Async.getTextDecoration();
