@@ -28,10 +28,7 @@ const config: Configuration = {
       { test: /\.tsx?$/, loader: 'babel-loader' },
       {
         test: /\.css$/,
-        use: [
-          { loader: 'style-loader', options: { sourceMap: true } },
-          { loader: 'css-loader', options: { sourceMap: true } }
-        ]
+        use: [{ loader: 'style-loader' }, { loader: 'css-loader', options: { sourceMap: true } }]
       },
       { test: /\.html$/, loader: 'file-loader', options: { name: '[path][name].[ext]' } }
     ]
