@@ -23,7 +23,7 @@ function shallow(node: React.ReactElement, options: { context: FormWithConstrain
   return _shallow(node, options);
 }
 
-test('componentWillMount() componentWillUnmount()', () => {
+test('componentDidMount() componentWillUnmount()', () => {
   const form = new FormWithConstraints({});
   const fieldsStoreAddListenerSpy = jest.spyOn(form.fieldsStore, 'addListener');
   const fieldsStoreRemoveListenerSpy = jest.spyOn(form.fieldsStore, 'removeListener');

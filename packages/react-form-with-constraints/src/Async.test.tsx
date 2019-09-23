@@ -42,7 +42,7 @@ beforeEach(() => {
     { for: 'username', stop: 'no' },
     { form: form_username }
   );
-  fieldFeedbacks_username.componentWillMount(); // Needed because of fieldsStore.addField() inside componentWillMount()
+  fieldFeedbacks_username.componentDidMount(); // Needed because of fieldsStore.addField() inside componentDidMount()
 });
 
 test('constructor()', () => {
@@ -53,7 +53,7 @@ test('constructor()', () => {
   expect(async.state).toEqual({ status: Status.None });
 });
 
-test('componentWillMount() componentWillUnmount()', () => {
+test('componentDidMount() componentWillUnmount()', () => {
   const addValidateFieldEventListenerSpy = jest.spyOn(
     fieldFeedbacks_username,
     'addValidateFieldEventListener'

@@ -39,7 +39,7 @@ test('constructor()', () => {
   expect(fieldFeedbackWhenValid.state.fieldIsValid).toEqual(undefined);
 });
 
-test('componentWillMount() componentWillUnmount()', () => {
+test('componentDidMount() componentWillUnmount()', () => {
   const addFieldWillValidateEventListenerSpy = jest.spyOn(
     form_username,
     'addFieldWillValidateEventListener'

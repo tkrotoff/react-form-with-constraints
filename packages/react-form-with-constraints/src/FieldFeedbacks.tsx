@@ -93,7 +93,7 @@ export class FieldFeedbacks
     return this.computeFieldFeedbackKey();
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { form, fieldFeedbacks: fieldFeedbacksParent } = this.context;
 
     form.fieldsStore.addField(this.fieldName);

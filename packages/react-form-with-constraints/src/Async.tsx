@@ -64,7 +64,7 @@ export class Async<T>
     status: Status.None
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.context.fieldFeedbacks.addValidateFieldEventListener(this.validate);
   }
 

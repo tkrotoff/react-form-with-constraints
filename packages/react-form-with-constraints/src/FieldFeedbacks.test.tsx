@@ -82,7 +82,7 @@ test('computeFieldFeedbackKey()', () => {
   expect(fieldFeedbacks.computeFieldFeedbackKey()).toEqual('0.10');
 });
 
-describe('componentWillMount()', () => {
+describe('componentDidMount()', () => {
   test('initialize FieldsStore', () => {
     const form = new FormWithConstraints({});
     expect(form.fieldsStore.fields).toEqual([]);

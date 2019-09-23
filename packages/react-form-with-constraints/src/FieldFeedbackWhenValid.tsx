@@ -35,7 +35,7 @@ export class FieldFeedbackWhenValid<
 
   /* eslint-disable react/destructuring-assignment */
 
-  componentWillMount() {
+  componentDidMount() {
     this.context.form.addFieldWillValidateEventListener(this.fieldWillValidate);
     this.context.form.addFieldDidValidateEventListener(this.fieldDidValidate);
     this.context.form.addFieldDidResetEventListener(this.fieldDidReset);

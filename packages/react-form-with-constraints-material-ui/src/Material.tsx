@@ -43,7 +43,7 @@ export class FormControl extends React.Component<FormControlProps, FormControlSt
 
   /* eslint-disable react/destructuring-assignment */
 
-  componentWillMount() {
+  componentDidMount() {
     this.context.form.addFieldWillValidateEventListener(this.fieldWillValidate);
     this.context.form.addFieldDidValidateEventListener(this.fieldDidValidate);
     this.context.form.addFieldDidResetEventListener(this.fieldDidReset);
@@ -122,7 +122,7 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
 
   /* eslint-disable react/destructuring-assignment */
 
-  componentWillMount() {
+  componentDidMount() {
     this.context.form.addFieldWillValidateEventListener(this.fieldWillValidate);
     this.context.form.addFieldDidValidateEventListener(this.fieldDidValidate);
     this.context.form.addFieldDidResetEventListener(this.fieldDidReset);

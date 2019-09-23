@@ -115,7 +115,7 @@ export class FieldFeedback<
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { form, fieldFeedbacks, async } = this.context;
 
     if (async) async.addValidateFieldEventListener(this.validate);

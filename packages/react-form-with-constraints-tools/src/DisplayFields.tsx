@@ -90,7 +90,7 @@ export class DisplayFields extends React.Component {
 
   /* eslint-disable react/destructuring-assignment */
 
-  componentWillMount() {
+  componentDidMount() {
     this.context.form.fieldsStore.addListener(FieldEvent.Added, this.reRender);
     this.context.form.fieldsStore.addListener(FieldEvent.Removed, this.reRender);
     this.context.form.addFieldDidValidateEventListener(this.reRender);
