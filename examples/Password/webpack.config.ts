@@ -38,4 +38,4 @@ const config: Configuration = {
   }
 };
 
-export = config;
+export default config;
