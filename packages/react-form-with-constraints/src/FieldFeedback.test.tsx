@@ -342,6 +342,7 @@ describe('validate()', () => {
 
     expect(validations).toEqual([{ key: '0.0', type: 'error', show: true }]);
 
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<span data-feedback="0.0" class="error" style="display: block;">Suffering from being missing</span>'
     );
@@ -383,6 +384,7 @@ describe('render()', () => {
     );
 
     expect(validations).toEqual([{ key: '0.0', type: 'error', show: true }]);
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<span data-feedback="0.0" class="error" style="display: block;">Cannot be empty</span>'
     );
@@ -400,6 +402,7 @@ describe('render()', () => {
     );
 
     expect(validations).toEqual([{ key: '0.0', type: 'warning', show: true }]);
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<span data-feedback="0.0" class="warning" style="display: block;">Cannot be empty</span>'
     );
@@ -417,6 +420,7 @@ describe('render()', () => {
     );
 
     expect(validations).toEqual([{ key: '0.0', type: 'info', show: true }]);
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<span data-feedback="0.0" class="info" style="display: block;">Cannot be empty</span>'
     );
@@ -430,6 +434,7 @@ describe('render()', () => {
     const validations = await fieldFeedbacks_username.emitValidateFieldEvent(input_username_valid);
 
     expect(validations).toEqual([{ key: '0.0', type: 'error', show: false }]);
+    wrapper.update();
     expect(wrapper.html()).toEqual(null);
   });
 
@@ -442,6 +447,7 @@ describe('render()', () => {
     );
 
     expect(validations).toEqual([{ key: '0.0', type: 'error', show: true }]);
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<span data-feedback="0.0" class="error" style="display: block;">Suffering from being missing</span>'
     );
@@ -459,6 +465,7 @@ describe('render()', () => {
     );
 
     expect(validations).toEqual([{ key: '0.0', type: 'error', show: true }]);
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<span data-feedback="0.0" class="alreadyExistingClassName error" style="display: block;">Cannot be empty</span>'
     );
@@ -476,6 +483,7 @@ describe('render()', () => {
     );
 
     expect(validations).toEqual([{ key: '0.0', type: 'error', show: true }]);
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<span data-feedback="0.0" class="error" style="display: block; color: yellow;">Cannot be empty</span>'
     );
@@ -491,6 +499,7 @@ describe('render()', () => {
       new Field(fieldFeedbacks_username.fieldName)
     );
     expect(noReturn).toEqual([undefined]);
+    wrapper.update();
     expect(wrapper.html()).toEqual(
       '<span data-feedback="0.0" class="when-valid" style="display: block;">Looks good!</span>'
     );

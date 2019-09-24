@@ -3,8 +3,9 @@ import { mount } from 'enzyme';
 
 import SignUp from './SignUp';
 import beautifyHtml from '../../react-form-with-constraints/src/beautifyHtml';
-import sleep from '../../react-form-with-constraints/src/sleep';
 import { validValidityState } from '../../react-form-with-constraints/src/InputElementMock';
+
+const flushPromises = () => new Promise(resolve => setImmediate(resolve));
 
 describe('FormWithConstraints', () => {
   test('change inputs', async () => {
@@ -151,6 +152,7 @@ describe('FormWithConstraints', () => {
       ]
     ]);
 
+    await flushPromises();
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username" class="form-control is-invalid">
@@ -183,6 +185,7 @@ describe('FormWithConstraints', () => {
 
     await signUp.form!.validateFields();
 
+    await flushPromises();
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username" class="form-control is-invalid">
@@ -220,14 +223,7 @@ describe('FormWithConstraints', () => {
 
     await signUp.form!.validateFields();
 
-    // FIXME
-    // Strange bug that does not happen with core/FormWithConstraints.test.tsx
-    // FieldFeedbackWhenValid render() is being called after wrapper.html() and thus the test fails
-    // with `<span data-feedback="2.1" class="valid-feedback">Looks good!</span>` not being there
-    // Don't fully understand why
-    // Happens with React v16.3.1, Jest v22.4.3 and Enzyme v3.3.0, maybe later versions will have a different behavior
-    await sleep(0);
-
+    await flushPromises();
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username" class="form-control is-info is-valid">
@@ -264,14 +260,7 @@ describe('Async', () => {
 
     const fields = await signUp.form!.validateFields();
 
-    // FIXME
-    // Strange bug that does not happen with core/FormWithConstraints.test.tsx
-    // FieldFeedbackWhenValid render() is being called after wrapper.html() and thus the test fails
-    // with `<span data-feedback="2.1" class="valid-feedback">Looks good!</span>` not being there
-    // Don't fully understand why
-    // Happens with React v16.3.1, Jest v22.4.3 and Enzyme v3.3.0, maybe later versions will have a different behavior
-    await sleep(0);
-
+    await flushPromises();
     expect(fields).toEqual([
       {
         name: 'username',
@@ -336,6 +325,7 @@ describe('Async', () => {
       ]
     ]);
 
+    await flushPromises();
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username" class="form-control is-info is-valid">
@@ -433,6 +423,7 @@ describe('Async', () => {
       ]
     ]);
 
+    await flushPromises();
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username" class="form-control is-invalid">
