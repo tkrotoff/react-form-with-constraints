@@ -18,15 +18,11 @@ export default class SignUp extends React.Component<SignUpProps, SignUpState> {
   password: TextInput | null = null;
   passwordConfirm: TextInput | null = null;
 
-  constructor(props: SignUpProps) {
-    super(props);
-
-    this.state = {
-      username: '',
-      password: '',
-      passwordConfirm: ''
-    };
-  }
+  state = {
+    username: '',
+    password: '',
+    passwordConfirm: ''
+  };
 
   render() {
     const { username, password, passwordConfirm } = this.state;
