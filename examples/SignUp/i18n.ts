@@ -6,9 +6,8 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 const fr = require('./locales/fr/translation.json');
 
 export default i18n
-  // FIXME
-  .use(LanguageDetector as any)
-  .use(initReactI18next as any)
+  .use(LanguageDetector)
+  .use(initReactI18next)
   .init({
     debug: false,
 
