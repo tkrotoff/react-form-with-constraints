@@ -28,7 +28,7 @@
     "build": "run-p build:*",
     "build:esnext": "tsc --project tsconfig.lib.json",
     "build:es5": "tsc --project tsconfig.lib-es5.json",
-    "prepublishOnly": "yarn clean && run-p tsc build",
+    "prepublishOnly": "yarn clean && run-p build",
     "prepack": "cp ../../LICENSE . && jscodeshift --transform=../../removeConsoleTransform.ts lib lib-es5",
     "postpack": "rm LICENSE",
     "test": "jest --verbose",

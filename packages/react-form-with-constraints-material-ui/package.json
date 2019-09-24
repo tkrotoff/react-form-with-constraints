@@ -33,7 +33,7 @@
     "dist": "run-p dist:*",
     "dist:dev": "NODE_ENV=development rollup --config",
     "dist:prod": "NODE_ENV=production rollup --config",
-    "prepublishOnly": "yarn clean && run-p tsc build dist",
+    "prepublishOnly": "yarn clean && run-p build dist",
     "prepack": "cp ../../LICENSE . && jscodeshift --transform=../../removeConsoleTransform.ts lib lib-es5",
     "postpack": "rm LICENSE",
     "test": "jest --verbose",
