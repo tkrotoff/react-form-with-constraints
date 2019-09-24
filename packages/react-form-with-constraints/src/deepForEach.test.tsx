@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import { deepForEach } from './index';
 
-// tslint:disable:jsx-key
-
 test('deepForEach', () => {
   const component = (
     <div id="1">

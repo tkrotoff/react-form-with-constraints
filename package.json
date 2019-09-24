@@ -13,11 +13,9 @@
     "test:e2e": "lerna run test:e2e --stream --concurrency 1",
     "test:coverage": "lerna run test:coverage --stream",
     "format": "prettier --write \"**/*\"",
+    "lint": "run-p eslint stylelint",
     "eslint": "eslint . '**/*.{js,jsx,ts,tsx}'",
     "stylelint": "stylelint '**/*.scss'",
-    "lint": "run-p eslint tslint:* stylelint",
-    "tslint:js": "find . -type f \\( -name '*.js' -or -name '*.jsx' \\) -not -path '*/node_modules/*' -not -path '*/build/*' -not -path '*/dist/*' -not -path '*/lib/*' -not -path '*/lib-es5/*' -not -path '*/coverage/*' -print -exec tslint --config tslint.json '{}' \\;",
-    "tslint:tsconfig": "find . -type f -name 'tsconfig.json' -not -path '*/node_modules/*' -not -path '*/build/*' -not -path '*/dist/*' -not -path '*/lib/*' -not -path '*/lib-es5/*' -not -path '*/coverage/*' -print -exec tslint --config tslint.json --project '{}' \\;",
     "precommit": "yarn build && run-p tsc lint format",
     "prepush": "yarn precommit && run-p test test:e2e",
     "publish:lerna": "lerna publish --dist-tag next --no-git-tag-version --no-push --registry=https://registry.npmjs.org # Custom example: 0.8.0-beta.1",
@@ -57,8 +55,6 @@
     "stylelint-config-recommended-scss": "^3.3.0",
     "stylelint-order": "^3.0.1",
     "stylelint-scss": "^3.8.2",
-    "tslint": "^5.18.0",
-    "tslint-react": "^4.0.0",
     "typescript": "^3.5.3"
   }
 }

@@ -6,7 +6,6 @@ test('constructor(HTMLInputElement)', () => {
     type: 'text',
     value: 'john',
 
-    // tslint:disable:no-object-literal-type-assertion
     // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
     validity: { valid: true } as ValidityState,
 
