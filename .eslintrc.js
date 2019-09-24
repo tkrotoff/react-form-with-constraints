@@ -41,6 +41,7 @@ module.exports = {
     'spaced-comment': 'off',
     'no-restricted-syntax': 'off',
     'no-lonely-if': 'off',
+    'max-classes-per-file': 'off',
 
     // See [no-return-assign should be configurable to ignore arrow-functions](https://github.com/eslint/eslint/issues/9471)
     'no-return-assign': 'off',
@@ -65,10 +66,14 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-parameter-properties': 'off',
     '@typescript-eslint/array-type': 'off',
+    '@typescript-eslint/ban-ts-ignore': 'off',
 
     'react/no-unescaped-entities': 'off',
-    'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
+    'react/jsx-filename-extension': ['error', { extensions: ['.tsx', '.jsx'] }],
     'react/jsx-pascal-case': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/static-property-placement': ['error', 'static public field'],
+    'react/state-in-constructor': ['error', 'never'],
 
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn'

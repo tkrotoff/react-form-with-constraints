@@ -23,26 +23,26 @@
     "test": "jest"
   },
   "dependencies": {
-    "expo": "^33.0.6",
+    "expo": "^35.0.0",
     "lodash": "^4.17.15",
-    "react": "^16.8.6",
+    "react": "16.8.3",
     "react-form-with-constraints": "../../packages/react-form-with-constraints",
     "react-form-with-constraints-native": "../../packages/react-form-with-constraints-native",
     "react-form-with-constraints-tools": "../../packages/react-form-with-constraints-tools",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/preset-typescript": "^7.3.3",
-    "@types/jest": "^24.0.16",
-    "@types/lodash": "^4.14.134",
-    "@types/react": "^16.8.24",
-    "@types/react-native": "^0.57.63",
-    "@types/react-test-renderer": "^16.8.3",
-    "babel-preset-expo": "^5.2.0",
-    "expo-cli": "^2.20.0",
-    "jest-expo": "^33.0.2",
-    "react-test-renderer": "^16.8.6",
-    "typescript": "^3.5.3"
+    "@babel/core": "^7.6.2",
+    "@babel/preset-typescript": "^7.6.0",
+    "@types/jest": "^24.0.18",
+    "@types/lodash": "^4.14.139",
+    "@types/react": "^16.9.2",
+    "@types/react-native": "^0.60.15",
+    "@types/react-test-renderer": "^16.9.0",
+    "babel-preset-expo": "^7.0.0",
+    "expo-cli": "^3.1.2",
+    "jest-expo": "^35.0.0",
+    "react-test-renderer": "16.8.3",
+    "typescript": "^3.6.3"
   }
 }

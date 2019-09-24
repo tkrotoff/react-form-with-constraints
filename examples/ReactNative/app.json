@@ -2,6 +2,6 @@
   "expo": {
     "name": "React Native example",
     "slug": "react-native-example",
-    "sdkVersion": "33.0.0"
+    "sdkVersion": "35.0.0"
   }
 }

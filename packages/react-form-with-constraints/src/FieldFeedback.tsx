@@ -105,6 +105,7 @@ export class FieldFeedback<
       );
     }
 
+    // eslint-disable-next-line react/state-in-constructor
     this.state = {
       validation: {
         key: this.key,
