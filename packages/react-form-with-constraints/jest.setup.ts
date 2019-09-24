@@ -3,7 +3,7 @@ import * as Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
-// FIXME See [console.assert not throwing with v22.4.0](https://github.com/facebook/jest/issues/5634)
+// See [console.assert not throwing with v22.4.0](https://github.com/facebook/jest/issues/5634)
 // eslint-disable-next-line import/newline-after-import, import/first
 import * as assert from 'assert';
 console.assert = assert;
