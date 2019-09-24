@@ -32,6 +32,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
     "@babel/preset-typescript": "^7.3.3",
     "@types/jest": "^24.0.16",
     "@types/lodash": "^4.14.134",
