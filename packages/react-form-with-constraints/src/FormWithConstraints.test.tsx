@@ -1357,9 +1357,13 @@ describe('validate', () => {
   });
 
   describe('validateFieldsWithoutFeedback()', () => {
-    test('inputs', async () => {});
+    test('inputs', async () => {
+      //
+    });
 
-    test('field names', async () => {});
+    test('field names', async () => {
+      //
+    });
 
     test('inputs + field names', async () => {
       const wrapper = mount(<SignUp />);

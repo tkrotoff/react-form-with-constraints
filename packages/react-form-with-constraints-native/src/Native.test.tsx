@@ -659,9 +659,13 @@ describe('FieldFeedback', () => {
         </Text>`);
     });
 
-    test('warning', async () => {});
+    test('warning', async () => {
+      //
+    });
 
-    test('info', async () => {});
+    test('info', async () => {
+      //
+    });
 
     test('no error', async () => {
       const wrapper = shallow(
@@ -690,7 +694,9 @@ describe('FieldFeedback', () => {
       expect(wrapper.debug()).toEqual('<Text data-feedback="0.0" style={[undefined]} />');
     });
 
-    test('with already existing class', async () => {});
+    test('with already existing class', async () => {
+      //
+    });
 
     test('with div props', async () => {
       const wrapper = shallow(

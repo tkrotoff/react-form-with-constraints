@@ -51,6 +51,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'import/no-unresolved': 'off',
     'import/prefer-default-export': 'off',
+    'import/extensions': 'off',
 
     'jsx-a11y/label-has-for': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
@@ -74,6 +75,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/static-property-placement': ['error', 'static public field'],
     'react/state-in-constructor': ['error', 'never'],
+    'react/sort-comp': 'off',
 
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn'
