@@ -13,10 +13,9 @@ before_script:
   - chmod +x ./cc-test-reporter
 
 script:
-  - yarn lint
   - yarn prepublishOnly
   - yarn build
-  - yarn tsc
+  - yarn lint
   - yarn test:coverage
   - yarn test:e2e
 
