@@ -1,3 +1,9 @@
+## v0.14.1 (2020/02/28)
+
+### Features
+
+- Update npm packages
+
 ## v0.14.0 (2019/09/25)
 
 ### Breaking Changes

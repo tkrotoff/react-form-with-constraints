@@ -1,6 +1,6 @@
 {
   "name": "server-side-rendering-example",
-  "version": "1.0.0",
+  "version": "0.14.1",
   "private": true,
   "description": "react-form-with-constraints server-side rendering example",
   "keywords": [
@@ -21,8 +21,8 @@
     "express": "^4.17.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-form-with-constraints": "^0.14.0",
-    "react-form-with-constraints-tools": "^0.14.0"
+    "react-form-with-constraints": "^0.14.1",
+    "react-form-with-constraints-tools": "^0.14.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
