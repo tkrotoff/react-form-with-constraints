@@ -36,24 +36,24 @@
     "test:coverage": "jest --coverage"
   },
   "peerDependencies": {
-    "@material-ui/core": "^4.4.3",
+    "@material-ui/core": "^4.9.4",
     "react-form-with-constraints": "^0.14.0"
   },
   "devDependencies": {
-    "@material-ui/core": "^4.4.3",
-    "@types/enzyme": "^3.10.3",
-    "@types/enzyme-adapter-react-16": "^1.0.5",
-    "@types/jest": "^24.0.18",
+    "@material-ui/core": "^4.9.4",
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/jest": "^25.1.3",
     "@types/jscodeshift": "^0.6.3",
-    "@types/react": "^16.9.2",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
-    "jest": "^24.9.0",
-    "jscodeshift": "^0.6.4",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "@types/react": "^16.9.23",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jest": "^25.1.0",
+    "jscodeshift": "^0.7.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
     "react-form-with-constraints": "^0.14.0",
-    "ts-jest": "^24.1.0",
-    "typescript": "^3.6.3"
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.2"
   }
 }
