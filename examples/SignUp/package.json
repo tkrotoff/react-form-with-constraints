@@ -15,7 +15,7 @@
     "tsc": "tsc",
     "build": "webpack -d",
     "build:watch": "webpack -d --watch",
-    "i18next": "i18next --namespace-separator '__NS' --key-separator '__KS'"
+    "i18next": "i18next '**/*.{jsx,tsx}'"
   },
   "dependencies": {
     "i18next": "^19.3.2",
