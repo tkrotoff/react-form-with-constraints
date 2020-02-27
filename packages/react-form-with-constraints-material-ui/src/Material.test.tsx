@@ -168,7 +168,7 @@ describe('FormWithConstraints', () => {
       <form>
         <div class="${MuiFormControl_MuiTextField}">
           <div class="${MuiInputBase_error}">
-            <input aria-invalid="true" class="${MuiInput}" name="username" type="text" value="">
+            <input aria-invalid="true" name="username" type="text" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText_error}">
             <span data-feedbacks="0">
@@ -178,7 +178,7 @@ describe('FormWithConstraints', () => {
         </div>
         <div class="${MuiFormControl}">
           <div class="${MuiInputBase}">
-            <input aria-invalid="false" class="${MuiInput}" id="password" name="password" type="password" value="">
+            <input aria-invalid="false" id="password" name="password" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
             <span data-feedbacks="1">
@@ -191,7 +191,7 @@ describe('FormWithConstraints', () => {
         </div>
         <div class="${MuiFormControl_MuiTextField}">
           <div class="${MuiInputBase_error}">
-            <input aria-invalid="true" class="${MuiInput}" name="passwordConfirm" type="password" value="">
+            <input aria-invalid="true" name="passwordConfirm" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText_error}">
             <span data-feedbacks="2">
@@ -221,7 +221,7 @@ describe('FormWithConstraints', () => {
       <form>
         <div class="${MuiFormControl_MuiTextField}">
           <div class="${MuiInputBase_error}">
-            <input aria-invalid="true" class="${MuiInput}" name="username" type="text" value="">
+            <input aria-invalid="true" name="username" type="text" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText_error}">
             <span data-feedbacks="0">
@@ -231,7 +231,7 @@ describe('FormWithConstraints', () => {
         </div>
         <div class="${MuiFormControl}">
           <div class="${MuiInputBase}">
-            <input aria-invalid="false" class="${MuiInput}" id="password" name="password" type="password" value="">
+            <input aria-invalid="false" id="password" name="password" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
             <span data-feedbacks="1">
@@ -244,7 +244,7 @@ describe('FormWithConstraints', () => {
         </div>
         <div class="${MuiFormControl_MuiTextField}">
           <div class="${MuiInputBase_error}">
-            <input aria-invalid="true" class="${MuiInput}" name="passwordConfirm" type="password" value="">
+            <input aria-invalid="true" name="passwordConfirm" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText_error}">
             <span data-feedbacks="2">
@@ -263,7 +263,7 @@ describe('FormWithConstraints', () => {
       <form>
         <div class="${MuiFormControl_MuiTextField}">
           <div class="${MuiInputBase}">
-            <input aria-invalid="false" class="${MuiInput}" name="username" type="text" value="">
+            <input aria-invalid="false" name="username" type="text" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
             <span data-feedbacks="0"></span>
@@ -271,7 +271,7 @@ describe('FormWithConstraints', () => {
         </div>
         <div class="${MuiFormControl}">
           <div class="${MuiInputBase}">
-            <input aria-invalid="false" class="${MuiInput}" id="password" name="password" type="password" value="">
+            <input aria-invalid="false" id="password" name="password" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
             <span data-feedbacks="1"></span>
@@ -279,7 +279,7 @@ describe('FormWithConstraints', () => {
         </div>
         <div class="${MuiFormControl_MuiTextField}">
           <div class="${MuiInputBase}">
-            <input aria-invalid="false" class="${MuiInput}" name="passwordConfirm" type="password" value="">
+            <input aria-invalid="false" name="passwordConfirm" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
             <span data-feedbacks="2"></span>
@@ -300,7 +300,7 @@ describe('FormWithConstraints', () => {
       <form>
         <div class="${MuiFormControl_MuiTextField}">
           <div class="${MuiInputBase}">
-            <input aria-invalid="false" class="${MuiInput}" name="username" type="text" value="">
+            <input aria-invalid="false" name="username" type="text" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
             <span data-feedbacks="0">
@@ -311,7 +311,7 @@ describe('FormWithConstraints', () => {
         </div>
         <div class="${MuiFormControl}">
           <div class="${MuiInputBase}">
-            <input aria-invalid="false" class="${MuiInput}" id="password" name="password" type="password" value="">
+            <input aria-invalid="false" id="password" name="password" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
             <span data-feedbacks="1">
@@ -324,7 +324,7 @@ describe('FormWithConstraints', () => {
         </div>
         <div class="${MuiFormControl_MuiTextField}">
           <div class="${MuiInputBase}">
-            <input aria-invalid="false" class="${MuiInput}" name="passwordConfirm" type="password" value="">
+            <input aria-invalid="false" name="passwordConfirm" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
             <span data-feedbacks="2">
@@ -421,7 +421,7 @@ describe('Async', () => {
       <form>
         <div class="${MuiFormControl_MuiTextField}">
           <div class="${MuiInputBase}">
-            <input aria-invalid="false" class="${MuiInput}" name="username" type="text" value="">
+            <input aria-invalid="false" name="username" type="text" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
             <span data-feedbacks="0">
@@ -432,7 +432,7 @@ describe('Async', () => {
         </div>
         <div class="${MuiFormControl}">
           <div class="${MuiInputBase}">
-            <input aria-invalid="false" class="${MuiInput}" id="password" name="password" type="password" value="">
+            <input aria-invalid="false" id="password" name="password" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
             <span data-feedbacks="1">
@@ -445,7 +445,7 @@ describe('Async', () => {
         </div>
         <div class="${MuiFormControl_MuiTextField}">
           <div class="${MuiInputBase}">
-            <input aria-invalid="false" class="${MuiInput}" name="passwordConfirm" type="password" value="">
+            <input aria-invalid="false" name="passwordConfirm" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
             <span data-feedbacks="2">
@@ -539,7 +539,7 @@ describe('Async', () => {
       <form>
         <div class="${MuiFormControl_MuiTextField}">
           <div class="${MuiInputBase_error}">
-            <input aria-invalid="true" class="${MuiInput}" name="username" type="text" value="">
+            <input aria-invalid="true" name="username" type="text" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText_error}">
             <span data-feedbacks="0">
@@ -549,7 +549,7 @@ describe('Async', () => {
         </div>
         <div class="${MuiFormControl}">
           <div class="${MuiInputBase}">
-            <input aria-invalid="false" class="${MuiInput}" id="password" name="password" type="password" value="">
+            <input aria-invalid="false" id="password" name="password" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
             <span data-feedbacks="1">
@@ -562,7 +562,7 @@ describe('Async', () => {
         </div>
         <div class="${MuiFormControl_MuiTextField}">
           <div class="${MuiInputBase_error}">
-            <input aria-invalid="true" class="${MuiInput}" name="passwordConfirm" type="password" value="">
+            <input aria-invalid="true" name="passwordConfirm" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText_error}">
             <span data-feedbacks="2">
