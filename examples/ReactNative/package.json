@@ -20,7 +20,7 @@
     "clean:all": "rm -rf .expo && yarn clean && yarn clean:node_modules",
     "tsc": "tsc",
     "start": "expo start",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "dependencies": {
     "expo": "^36.0.2",
