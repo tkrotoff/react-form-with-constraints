@@ -1,3 +1,10 @@
+## v0.14.2 (2020/02/28)
+
+### Features
+
+- Enable Airbnb ESLint restricted syntax, should reduce the bundle size
+- No default export, see [Avoid Export Default](https://basarat.gitbook.io/typescript/main-1/defaultisbad)
+
 ## v0.14.1 (2020/02/28)
 
 ### Features
