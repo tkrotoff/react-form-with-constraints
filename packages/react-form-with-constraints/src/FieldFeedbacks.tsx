@@ -4,9 +4,9 @@ import * as PropTypes from 'prop-types';
 import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
 import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 import { InputElement } from './InputElement';
-import FieldFeedbackValidation from './FieldFeedbackValidation';
-import flattenDeep from './flattenDeep';
-import Nullable from './Nullable';
+import { FieldFeedbackValidation } from './FieldFeedbackValidation';
+import { flattenDeep } from './flattenDeep';
+import { Nullable } from './Nullable';
 
 export interface FieldFeedbacksProps {
   for?: string;

@@ -10,10 +10,9 @@ import {
   FieldFeedbackType
 } from 'react-form-with-constraints';
 
-import beautifyHtml from '../../react-form-with-constraints/src/beautifyHtml';
-
+import { beautifyHtml } from '../../react-form-with-constraints/src/beautifyHtml';
 import { DisplayFields } from './index';
-import SignUp from './SignUp';
+import { SignUp } from './SignUp';
 
 function mount(node: React.ReactElement<FormWithConstraintsProps>) {
   return _mount<FormWithConstraintsProps, {}>(node);

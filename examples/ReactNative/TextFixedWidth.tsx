@@ -6,7 +6,7 @@ interface Props {
 }
 
 // See [React Native - how to set fixed width to individual characters (number, letter, etc)](https://stackoverflow.com/q/38933459)
-export default function TextFixedWidth({ children }: Props) {
+export function TextFixedWidth({ children }: Props) {
   const fontFamily = Platform.OS === 'ios' ? 'Courier' : 'monospace';
 
   return <Text style={{ fontFamily }}>{children}</Text>;

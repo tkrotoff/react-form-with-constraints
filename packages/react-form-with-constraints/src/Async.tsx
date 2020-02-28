@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
 import { FieldFeedbacks, FieldFeedbacksChildContext } from './FieldFeedbacks';
 import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
-import FieldFeedbackValidation from './FieldFeedbackValidation';
+import { FieldFeedbackValidation } from './FieldFeedbackValidation';
 import { InputElement } from './InputElement';
 
 export enum Status {

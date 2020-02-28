@@ -1,3 +1,4 @@
+// @ts-ignore
 jest.setTimeout(20000); // 20s
 
 function indent(text: string, indentation: string) {

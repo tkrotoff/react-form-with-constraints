@@ -1,4 +1,4 @@
-import clearArray from './clearArray';
+import { clearArray } from './clearArray';
 
 test('clearArray', () => {
   const array1 = [1, 2, 3, 4, 5];

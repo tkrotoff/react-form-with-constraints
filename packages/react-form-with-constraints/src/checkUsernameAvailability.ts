@@ -1,6 +1,6 @@
-import sleep from './sleep';
+import { sleep } from './sleep';
 
-export default async function checkUsernameAvailability(value: string) {
+export async function checkUsernameAvailability(value: string) {
   await sleep(10);
   if (value === 'error') {
     throw new Error(`Something wrong with username '${value}'`);

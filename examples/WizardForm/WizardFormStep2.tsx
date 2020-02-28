@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 
 import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
 
-import Gender from './Gender';
+import { Gender } from './Gender';
 
 interface Props {
   email: string;
@@ -12,7 +12,7 @@ interface Props {
   nextPage: () => void;
 }
 
-export default function WizardFormStep2(props: Props) {
+export function WizardFormStep2(props: Props) {
   const form = useRef<FormWithConstraints | null>(null);
 
   function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {

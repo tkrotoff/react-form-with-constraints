@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import { FormWithConstraints, FieldFeedback, Async } from './index';
-import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
-import checkUsernameAvailability from './checkUsernameAvailability';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
+import { checkUsernameAvailability } from './checkUsernameAvailability';
 
-export default class SignUp extends React.Component {
+export class SignUp extends React.Component {
   form: FormWithConstraints | null = null;
   username: HTMLInputElement | null = null;
   password: HTMLInputElement | null = null;

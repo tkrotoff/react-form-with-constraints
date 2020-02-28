@@ -5,12 +5,12 @@ import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 import { withFieldWillValidateEventEmitter } from './withFieldWillValidateEventEmitter';
 import { withFieldDidValidateEventEmitter } from './withFieldDidValidateEventEmitter';
 import { withFieldDidResetEventEmitter } from './withFieldDidResetEventEmitter';
-import Field from './Field';
+import { Field } from './Field';
 import { IHTMLInput, InputElement, HTMLInput } from './InputElement';
 import { FieldsStore } from './FieldsStore';
-import FieldFeedbackValidation from './FieldFeedbackValidation';
-import flattenDeep from './flattenDeep';
-import notUndefined from './notUndefined';
+import { FieldFeedbackValidation } from './FieldFeedbackValidation';
+import { flattenDeep } from './flattenDeep';
+import { notUndefined } from './notUndefined';
 
 export interface FormWithConstraintsChildContext {
   form: FormWithConstraints;

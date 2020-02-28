@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import WizardForm from './WizardForm';
+import { WizardForm } from './WizardForm';
 
 import './index.html';
 import './style.css';

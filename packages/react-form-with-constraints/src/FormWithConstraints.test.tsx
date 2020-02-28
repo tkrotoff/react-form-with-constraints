@@ -8,10 +8,10 @@ import {
   FieldFeedback,
   Async
 } from './index';
-import SignUp from './SignUp';
-import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
-import sleep from './sleep';
-import beautifyHtml from './beautifyHtml';
+import { SignUp } from './SignUp';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
+import { sleep } from './sleep';
+import { beautifyHtml } from './beautifyHtml';
 import { validValidityState } from './InputElementMock';
 
 function mount(node: React.ReactElement<FormWithConstraintsProps>) {

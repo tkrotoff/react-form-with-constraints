@@ -1,6 +1,6 @@
-import EventEmitter from './EventEmitter';
-import Constructor from './Constructor';
-import Field from './Field';
+import { EventEmitter } from './EventEmitter';
+import { Constructor } from './Constructor';
+import { Field } from './Field';
 
 export const FieldDidResetEvent = 'FIELD_DID_RESET_EVENT';
 

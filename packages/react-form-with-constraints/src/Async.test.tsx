@@ -12,14 +12,14 @@ import {
   FieldFeedbacksContext,
   ValidateFieldEvent
 } from './index';
-import checkUsernameAvailability from './checkUsernameAvailability';
+import { checkUsernameAvailability } from './checkUsernameAvailability';
 import {
   input_unknown_valueMissing,
   input_username_valid,
   input_username_error_valid
 } from './InputElementMock';
-import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
-import beautifyHtml from './beautifyHtml';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
+import { beautifyHtml } from './beautifyHtml';
 
 function shallow(node: React.ReactElement<AsyncProps<any>>, options: { context: AsyncContext }) {
   return _shallow<AsyncProps<any>>(node, options);

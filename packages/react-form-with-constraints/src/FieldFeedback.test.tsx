@@ -14,7 +14,7 @@ import {
   input_username_valueMissing,
   input_username_valid
 } from './InputElementMock';
-import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 
 function shallow(
   node: React.ReactElement<FieldFeedbackProps>,

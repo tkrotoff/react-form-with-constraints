@@ -12,7 +12,7 @@ import {
 } from 'react-form-with-constraints-native';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
-import TextFixedWidth from './TextFixedWidth';
+import { TextFixedWidth } from './TextFixedWidth';
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));

@@ -7,7 +7,7 @@ type Listener<ListenerReturnType = void> = (
   ...args: Args
 ) => ListenerReturnType | Promise<ListenerReturnType>;
 
-export default class EventEmitter<ListenerReturnType = void> {
+export class EventEmitter<ListenerReturnType = void> {
   listeners = new Map<string, Listener<ListenerReturnType>[]>();
 
   async emit(eventName: string, ...args: Args) {

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 // Recursive React.Children.forEach()
 // Taken from https://github.com/fernandopasik/react-children-utilities/blob/v0.2.2/src/index.js#L68
-export default function deepForEach(
+export function deepForEach(
   children: React.ReactNode,
   fn: (child: React.ReactElement<any>) => void
 ) {

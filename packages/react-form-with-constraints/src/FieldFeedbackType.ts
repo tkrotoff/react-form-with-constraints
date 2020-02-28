@@ -12,11 +12,9 @@
 // This caused an error with PropTypes:
 // `Warning: Failed context type: Right-hand side of 'instanceof' is not an object`
 // with `form: PropTypes.instanceOf(FormWithConstraints).isRequired` inside FieldFeedbacks
-enum FieldFeedbackType {
+export enum FieldFeedbackType {
   Error = 'error',
   Warning = 'warning',
   Info = 'info',
   WhenValid = 'whenValid'
 }
-
-export default FieldFeedbackType;

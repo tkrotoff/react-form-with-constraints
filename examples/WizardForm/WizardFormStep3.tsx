@@ -13,7 +13,7 @@ interface Props {
   onSubmit: () => void;
 }
 
-export default function WizardFormStep3(props: Props) {
+export function WizardFormStep3(props: Props) {
   const form = useRef<FormWithConstraints | null>(null);
 
   function handleChange({

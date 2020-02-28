@@ -1,7 +1,7 @@
 import { html_beautify } from 'js-beautify';
 
 // TODO Replace by Prettier when HTML is supported
-export default function beautifyHtml(html: string, indentation: string) {
+export function beautifyHtml(html: string, indentation: string) {
   return html_beautify(html, {
     indent_size: 2,
     inline: [] // FIXME See [Add function default_options() to beautifier.js](https://github.com/beautify-web/js-beautify/issues/1364)

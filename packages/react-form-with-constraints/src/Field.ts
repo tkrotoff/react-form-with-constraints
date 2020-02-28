@@ -1,10 +1,10 @@
-import FieldFeedbackValidation from './FieldFeedbackValidation';
-import FieldFeedbackType from './FieldFeedbackType';
-import clearArray from './clearArray';
+import { FieldFeedbackValidation } from './FieldFeedbackValidation';
+import { FieldFeedbackType } from './FieldFeedbackType';
+import { clearArray } from './clearArray';
 import { TextInput, HTMLInput } from './InputElement';
 
 // Field is a better name than Input, see [Django Form fields](https://docs.djangoproject.com/en/1.11/ref/forms/fields/)
-export default class Field {
+export class Field {
   public readonly validations: FieldFeedbackValidation[] = [];
 
   // Can be useful for the user to get the DOM element

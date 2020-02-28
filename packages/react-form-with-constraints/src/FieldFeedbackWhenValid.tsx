@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
 import { FieldFeedbacks, FieldFeedbacksChildContext } from './FieldFeedbacks';
 import { FieldFeedbackClasses } from './FieldFeedback';
-import Field from './Field';
+import { Field } from './Field';
 
 export interface FieldFeedbackWhenValidBaseProps {}
 

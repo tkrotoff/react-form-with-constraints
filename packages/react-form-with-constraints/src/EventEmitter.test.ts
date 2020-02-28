@@ -1,5 +1,5 @@
 import { EventEmitter } from './index';
-import clearArray from './clearArray';
+import { clearArray } from './clearArray';
 
 // See [How to convert a plain object into an ES6 Map?](https://stackoverflow.com/questions/36644438)
 function toMap(object: object) {

@@ -5,11 +5,11 @@ import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWith
 import { FieldFeedbacks, FieldFeedbacksChildContext } from './FieldFeedbacks';
 import { Async, AsyncChildContext } from './Async';
 import { InputElement } from './InputElement';
-import FieldFeedbackValidation from './FieldFeedbackValidation';
+import { FieldFeedbackValidation } from './FieldFeedbackValidation';
 import { FieldFeedbackWhenValid } from './FieldFeedbackWhenValid';
-import FieldFeedbackType from './FieldFeedbackType';
-import Field from './Field';
-import Nullable from './Nullable';
+import { FieldFeedbackType } from './FieldFeedbackType';
+import { Field } from './Field';
+import { Nullable } from './Nullable';
 
 type WhenString =
   | 'valid'

@@ -9,7 +9,7 @@ interface Props {
   nextPage: () => void;
 }
 
-export default function WizardFormStep1(props: Props) {
+export function WizardFormStep1(props: Props) {
   const form = useRef<FormWithConstraints | null>(null);
 
   function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {

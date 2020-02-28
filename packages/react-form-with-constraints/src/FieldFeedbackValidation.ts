@@ -1,6 +1,6 @@
-import FieldFeedbackType from './FieldFeedbackType';
+import { FieldFeedbackType } from './FieldFeedbackType';
 
-export default interface FieldFeedbackValidation {
+export interface FieldFeedbackValidation {
   readonly key: string;
   readonly type: FieldFeedbackType;
 

@@ -1,4 +1,4 @@
-import flattenDeep from './flattenDeep';
+import { flattenDeep } from './flattenDeep';
 
 test('flattenDeep', () => {
   expect(flattenDeep([1, null, 2, undefined, 3, 4])).toEqual([1, null, 2, undefined, 3, 4]);

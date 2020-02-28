@@ -3,6 +3,11 @@ import { shallow } from 'enzyme';
 import { StyleSheet } from 'react-native';
 import * as TestRenderer from 'react-test-renderer';
 
+import { beautifyHtml } from '../../react-form-with-constraints/src/beautifyHtml';
+import {
+  input_username_valueMissing,
+  input_username_valid
+} from '../../react-form-with-constraints/src/InputElementMock';
 import {
   FormWithConstraints,
   FieldFeedbacks,
@@ -10,12 +15,7 @@ import {
   FieldFeedbackWhenValid,
   TextInput
 } from './index';
-import SignUp from './SignUp';
-import beautifyHtml from '../../react-form-with-constraints/src/beautifyHtml';
-import {
-  input_username_valueMissing,
-  input_username_valid
-} from '../../react-form-with-constraints/src/InputElementMock';
+import { SignUp } from './SignUp';
 
 // FIXME
 // Cannot write "expect(fields).toEqual([{... element: signUp.username ...}])" after calling form.validateFields() or form.validateFields('username')

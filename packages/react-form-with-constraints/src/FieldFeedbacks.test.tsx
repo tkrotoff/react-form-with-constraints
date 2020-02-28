@@ -13,8 +13,8 @@ import {
   input_unknown_valueMissing,
   input_username_valid
 } from './InputElementMock';
-import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
-import beautifyHtml from './beautifyHtml';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
+import { beautifyHtml } from './beautifyHtml';
 
 function shallow(
   node: React.ReactElement<FieldFeedbacksProps>,

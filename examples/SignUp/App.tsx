@@ -13,8 +13,8 @@ import {
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './i18n';
-import Spinner from './Spinner';
-import Gender from './Gender';
+import { Loader } from './Loader';
+import { Gender } from './Gender';
 import './index.html';
 import './style.css';
 
@@ -30,7 +30,7 @@ async function checkUsernameAvailability(value: string) {
 
 // Async with a default React component for pending state
 function Async<T>({ promise, then, catch: _catch }: AsyncProps<T>) {
-  return <_Async promise={promise} pending={<Spinner />} then={then} catch={_catch} />;
+  return <_Async promise={promise} pending={<Loader />} then={then} catch={_catch} />;
 }
 
 const VALIDATE_DEBOUNCE_WAIT = 1000;

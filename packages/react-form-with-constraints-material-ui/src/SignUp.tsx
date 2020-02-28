@@ -8,13 +8,13 @@ import {
 } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 
+import { checkUsernameAvailability } from '../../react-form-with-constraints/src/checkUsernameAvailability';
 import { FormWithConstraints, Async, FieldFeedback, TextField, FormControl } from './index';
-import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
-import checkUsernameAvailability from '../../react-form-with-constraints/src/checkUsernameAvailability';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 
 const defaultTheme = createMuiTheme({});
 
-export default class SignUp extends React.Component {
+export class SignUp extends React.Component {
   form: FormWithConstraints | null = null;
   username: HTMLInputElement | null = null;
   password: HTMLInputElement | null = null;

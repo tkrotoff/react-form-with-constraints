@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Color } from './Color';
-import WizardFormStep1 from './WizardFormStep1';
-import WizardFormStep2 from './WizardFormStep2';
-import WizardFormStep3 from './WizardFormStep3';
+import { WizardFormStep1 } from './WizardFormStep1';
+import { WizardFormStep2 } from './WizardFormStep2';
+import { WizardFormStep3 } from './WizardFormStep3';
 
 interface Props {}
 
@@ -16,7 +16,7 @@ interface State {
   favoriteColor: '' | Color;
 }
 
-export default class WizardForm extends React.Component<Props, State> {
+export class WizardForm extends React.Component<Props, State> {
   state: State = {
     step: 1,
 

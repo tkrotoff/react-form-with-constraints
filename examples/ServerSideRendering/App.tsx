@@ -194,6 +194,6 @@ function Form() {
   );
 }
 
-export default function App() {
+export function App() {
   return <Form />;
 }

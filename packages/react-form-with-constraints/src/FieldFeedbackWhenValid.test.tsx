@@ -11,7 +11,7 @@ import {
   FieldFeedbackWhenValidProps,
   FieldFeedbackWhenValidContext
 } from './index';
-import FieldFeedbacks from './FieldFeedbacksEnzymeFix';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 
 function shallow(
   node: React.ReactElement<FieldFeedbackWhenValidProps>,

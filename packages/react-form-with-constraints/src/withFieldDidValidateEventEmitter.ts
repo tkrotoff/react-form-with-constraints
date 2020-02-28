@@ -1,6 +1,6 @@
-import EventEmitter from './EventEmitter';
-import Constructor from './Constructor';
-import Field from './Field';
+import { EventEmitter } from './EventEmitter';
+import { Constructor } from './Constructor';
+import { Field } from './Field';
 
 export const FieldDidValidateEvent = 'FIELD_DID_VALIDATE_EVENT';
 
