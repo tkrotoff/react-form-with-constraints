@@ -194,9 +194,10 @@ export class FieldFeedback extends _FieldFeedback {
     // Hack: make FieldFeedback <span style="display: inline">
     // Also make Bootstrap 4 happy because it sets 'display: none', see https://github.com/twbs/bootstrap/blob/v4.1.2/scss/mixins/_forms.scss#L31
     const fieldFeedbackSpans = this.rootEl!.querySelectorAll<HTMLSpanElement>('[data-feedback]');
-    for (const fieldFeedbackSpan of fieldFeedbackSpans) {
+    fieldFeedbackSpans.forEach(fieldFeedbackSpan => {
+      // eslint-disable-next-line no-param-reassign
       fieldFeedbackSpan.style.display = 'inline';
-    }
+    });
 
     // Change Async parent style
     const li = this.rootEl!.closest('li.async');

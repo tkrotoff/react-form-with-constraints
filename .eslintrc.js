@@ -39,7 +39,6 @@ module.exports = {
     'no-plusplus': 'off',
     'lines-between-class-members': 'off',
     'spaced-comment': 'off',
-    'no-restricted-syntax': 'off',
     'no-lonely-if': 'off',
     'max-classes-per-file': 'off',
 

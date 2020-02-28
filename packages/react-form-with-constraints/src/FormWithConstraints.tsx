@@ -81,7 +81,8 @@ export class FormWithConstraints
 
     const inputs = this.normalizeInputs(...inputsOrNames);
 
-    for (const input of inputs) {
+    for (let i = 0; i < inputs.length; i++) {
+      const input = inputs[i];
       // eslint-disable-next-line no-await-in-loop
       const field = await this.validateField(forceValidateFields, new InputElement(input));
       if (field !== undefined) {
@@ -132,7 +133,8 @@ export class FormWithConstraints
     if (inputsOrNames.length === 0) {
       // [name] matches <input name="...">, <select name="...">, <button name="...">, ...
       // See [Convert JavaScript NodeList to Array?](https://stackoverflow.com/a/33822526/990356)
-      inputs = [...this.form!.querySelectorAll<HTMLInputElement>('[name]')];
+      // [...HTMLCollection] vs Array.from(HTMLCollection): the latter doesn't need downlevelIteration with IE
+      inputs = Array.from(this.form!.querySelectorAll<HTMLInputElement>('[name]'));
 
       // Remove elements without ValidityState, example:
       // <iframe src="https://www.google.com/recaptcha..." name="a-49ekipqfmwsv">
@@ -158,7 +160,9 @@ export class FormWithConstraints
       inputs = inputsOrNames.map(input => {
         if (typeof input === 'string') {
           const query = `[name="${input}"]`;
-          const elements = [...this.form!.querySelectorAll<HTMLInputElement>(query)];
+
+          // [...HTMLCollection] vs Array.from(HTMLCollection): the latter doesn't need downlevelIteration with IE
+          const elements = Array.from(this.form!.querySelectorAll<HTMLInputElement>(query));
 
           // Checks
 
@@ -204,7 +208,8 @@ export class FormWithConstraints
 
     const inputs = this.normalizeInputs(...inputsOrNames);
 
-    for (const input of inputs) {
+    for (let i = 0; i < inputs.length; i++) {
+      const input = inputs[i];
       // eslint-disable-next-line no-await-in-loop
       const field = await this.resetField(new InputElement(input));
       if (field !== undefined) fields.push(field);

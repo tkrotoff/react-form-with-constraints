@@ -8,8 +8,6 @@
     "esModuleInterop": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noLib": false,
-    "lib": ["dom", "dom.iterable", "esnext"],
 
     "strict": true,
     "noUnusedLocals": true,

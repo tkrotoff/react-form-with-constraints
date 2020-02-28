@@ -20,7 +20,9 @@ export class EventEmitter<ListenerReturnType = void> {
 
     if (listeners !== undefined) {
       console.assert(listeners.length > 0, `No listener for event '${eventName}'`);
-      for (const listener of listeners) {
+      for (let i = 0; i < listeners.length; i++) {
+        const listener = listeners[i];
+
         // Why await? Two cases:
         // - listener does not return a Promise:
         //   => await changes nothing: the next listener call happens when the current one is done
