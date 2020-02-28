@@ -3,7 +3,6 @@
   "compilerOptions": {
     "outDir": "lib-es5",
     "target": "es5",
-    "downlevelIteration": true,
     "module": "commonjs",
     "inlineSourceMap": true,
     "inlineSources": true,

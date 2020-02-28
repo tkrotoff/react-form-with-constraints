@@ -133,7 +133,7 @@ export class FormWithConstraints
     if (inputsOrNames.length === 0) {
       // [name] matches <input name="...">, <select name="...">, <button name="...">, ...
       // See [Convert JavaScript NodeList to Array?](https://stackoverflow.com/a/33822526/990356)
-      // [...HTMLCollection] vs Array.from(HTMLCollection): the latter doesn't need downlevelIteration with IE
+      // [...NodeList] vs Array.from(NodeList): the latter doesn't need downlevelIteration with IE
       inputs = Array.from(this.form!.querySelectorAll<HTMLInputElement>('[name]'));
 
       // Remove elements without ValidityState, example:
@@ -161,7 +161,7 @@ export class FormWithConstraints
         if (typeof input === 'string') {
           const query = `[name="${input}"]`;
 
-          // [...HTMLCollection] vs Array.from(HTMLCollection): the latter doesn't need downlevelIteration with IE
+          // [...NodeList] vs Array.from(NodeList): the latter doesn't need downlevelIteration with IE
           const elements = Array.from(this.form!.querySelectorAll<HTMLInputElement>(query));
 
           // Checks

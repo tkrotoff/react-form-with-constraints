@@ -69,7 +69,8 @@ export class FormControl extends React.Component<FormControlProps, FormControlSt
 
     console.assert(
       fieldNames.size === 1,
-      `0 or multiple [name="*"] instead of 1: '${[...fieldNames]}'`
+      // [...Set] vs Array.from(Set): the latter doesn't need downlevelIteration with IE
+      `0 or multiple [name="*"] instead of 1: '${Array.from(fieldNames)}'`
     );
 
     // Return the first and only entry
