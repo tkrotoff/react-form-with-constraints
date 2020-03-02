@@ -355,39 +355,26 @@ For this to work, do not exclude `node_modules` from your webpack configuration,
 module: {
   rules: [
     {
-      test: /\.(js|jsx?)$/,
+      test: /\.jsx?$/,
 
-      // See [Enable babel-preset-env for node_modules that target newer Node versions](https://github.com/facebook/create-react-app/issues/1125)
-      // See [Create React App 2.0: "You can now use packages written for latest Node versions without breaking the build"](https://reactjs.org/blog/2018/10/01/create-react-app-v2.html)
-      // See ["If you have to exclude node_modules/, how do you get babel to polyfill/transform code in 3rd party code?"](https://github.com/webpack/webpack/issues/6544#issuecomment-417108242)
-      // See [Compile dependencies with babel-preset-env](https://github.com/facebook/create-react-app/pull/3776)
       //exclude: /node_modules/,
+      // [Babel should not transpile core-js](https://github.com/zloirock/core-js/issues/514#issuecomment-476533317)
       exclude: /\/core-js/,
 
-      loader: 'babel-loader',
-      options: {
-        // See https://github.com/facebook/create-react-app/blob/v2.1.0/packages/react-scripts/config/webpack.config.dev.js#L284
-        compact: false
-      }
+      loader: 'babel-loader'
     }
   ]
 }
 ```
 
-You probably want to configure Babel with `sourceType: 'unambiguous'`:
-
 ```JS
 // babel.config.js
 module.exports = {
-  // See https://github.com/facebook/create-react-app/blob/v2.1.0/packages/babel-preset-react-app/dependencies.js#L64
-  // See [Add Babel config sourceType: 'unambiguous' for dependencies](https://github.com/facebook/create-react-app/pull/5052)
-  sourceType: 'unambiguous',
-
   presets: [
     [
       '@babel/preset-env',
       {
-        useBuiltIns: 'usage',
+        useBuiltIns: 'entry',
         corejs: 3
       }
     ],
