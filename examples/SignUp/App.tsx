@@ -168,7 +168,7 @@ class SignUp extends React.Component<Props, State> {
     }
     this.previousValidateFields = target.name;
 
-    if (forceValidateFields) await this.form!.resetFields(target);
+    if (forceValidateFields) this.form!.resetFields(target);
 
     if (_debounce) {
       await this.validateFieldsWithDebounce(target, forceValidateFields);

@@ -12,7 +12,7 @@ export function withFieldDidValidateEventEmitter<TBase extends Constructor<{}>>(
     fieldDidValidateEventEmitter = new EventEmitter();
 
     emitFieldDidValidateEvent(field: Field) {
-      return this.fieldDidValidateEventEmitter.emit(FieldDidValidateEvent, field);
+      return this.fieldDidValidateEventEmitter.emitSync(FieldDidValidateEvent, field);
     }
 
     addFieldDidValidateEventListener(listener: Listener) {

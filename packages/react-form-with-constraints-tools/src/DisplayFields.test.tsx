@@ -129,14 +129,14 @@ describe('render()', () => {
     );
   });
 
-  test('form.emitFieldDidValidateEvent()', async () => {
+  test('form.emitFieldDidValidateEvent()', () => {
     const wrapper = shallow(<DisplayFields />, { context: { form: form_username } });
 
     form_username.fieldsStore.addField('username');
     form_username.fieldsStore.addField('password');
     const username = form_username.fieldsStore.getField('username')!;
     username.addOrReplaceValidation(validation_empty);
-    await form_username.emitFieldDidValidateEvent(username);
+    form_username.emitFieldDidValidateEvent(username);
 
     // See https://airbnb.io/enzyme/docs/guides/migration-from-2-to-3.html#for-mount-updates-are-sometimes-required-when-they-werent-before
     wrapper.update();
@@ -157,14 +157,14 @@ describe('render()', () => {
     );
   });
 
-  test('form.emitFieldDidResetEvent()', async () => {
+  test('form.emitFieldDidResetEvent()', () => {
     const wrapper = shallow(<DisplayFields />, { context: { form: form_username } });
 
     form_username.fieldsStore.addField('username');
     form_username.fieldsStore.addField('password');
     const username = form_username.fieldsStore.getField('username')!;
     username.addOrReplaceValidation(validation_empty);
-    await form_username.emitFieldDidValidateEvent(username);
+    form_username.emitFieldDidValidateEvent(username);
     wrapper.update();
     expect(wrapper.text()).toEqual(
       `[
@@ -182,9 +182,9 @@ describe('render()', () => {
     );
 
     // Fails because "this.form.querySelectorAll()" does not work in shallow mode
-    //await form_username.resetFields();
+    // form_username.resetFields();
     username.clearValidations();
-    await form_username.emitFieldDidResetEvent(username);
+    form_username.emitFieldDidResetEvent(username);
 
     wrapper.update();
     expect(wrapper.text()).toEqual(

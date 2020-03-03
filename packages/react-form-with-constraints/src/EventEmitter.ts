@@ -10,31 +10,40 @@ type Listener<ListenerReturnType = void> = (
 export class EventEmitter<ListenerReturnType = void> {
   listeners = new Map<string, Listener<ListenerReturnType>[]>();
 
-  async emit(eventName: string, ...args: Args) {
-    const listeners = this.listeners.get(eventName)!;
+  emitSync(eventName: string, ...args: Args) {
+    const listeners = this.getListeners(eventName);
+    const ret = new Array<ListenerReturnType>();
+    listeners.forEach(listener => ret.push(listener(...args) as ListenerReturnType));
+    return ret;
+  }
+
+  async emitAsync(eventName: string, ...args: Args) {
+    const listeners = this.getListeners(eventName);
+    const ret = new Array<ListenerReturnType>();
+    for (let i = 0; i < listeners.length; i++) {
+      // Why await? Two cases:
+      // - listener does not return a Promise:
+      //   => await changes nothing: the next listener call happens when the current one is done
+      // - listener returns a Promise:
+      //   => wait for the listener call to finish (e.g listeners are executed in sequence),
+      //      without we would call each listener without waiting for their results
+      // eslint-disable-next-line no-await-in-loop
+      ret.push(await listeners[i](...args));
+    }
+    return ret;
+  }
+
+  private getListeners(eventName: string) {
+    const listeners = this.listeners.get(eventName);
 
     // Assert disabled: an event can be emitted even without listeners
     //console.assert(listeners !== undefined, `Unknown event '${eventName}'`);
 
-    const ret = new Array<ListenerReturnType>();
-
     if (listeners !== undefined) {
       console.assert(listeners.length > 0, `No listener for event '${eventName}'`);
-      for (let i = 0; i < listeners.length; i++) {
-        const listener = listeners[i];
-
-        // Why await? Two cases:
-        // - listener does not return a Promise:
-        //   => await changes nothing: the next listener call happens when the current one is done
-        // - listener returns a Promise:
-        //   => wait for the listener call to finish (e.g listeners are executed in sequence),
-        //      without we would call each listener without waiting for their results
-        // eslint-disable-next-line no-await-in-loop
-        ret.push(await listener(...args));
-      }
+      return listeners;
     }
-
-    return ret;
+    return [];
   }
 
   addListener(eventName: string, listener: Listener<ListenerReturnType>) {

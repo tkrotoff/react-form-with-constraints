@@ -24,7 +24,7 @@ test('getField()', () => {
 
 test('addField()', () => {
   const store = new FieldsStore();
-  const emitSpy = jest.spyOn(store, 'emit');
+  const emitSpy = jest.spyOn(store, 'emitSync');
 
   store.addField('username');
   expect(emitSpy).toHaveBeenCalledTimes(1);
@@ -51,7 +51,7 @@ test('addField() - existing field', () => {
 
 test('removeField()', () => {
   const store = new FieldsStore();
-  const emitSpy = jest.spyOn(store, 'emit');
+  const emitSpy = jest.spyOn(store, 'emitSync');
 
   store.addField('username');
   expect(emitSpy).toHaveBeenCalledTimes(1);

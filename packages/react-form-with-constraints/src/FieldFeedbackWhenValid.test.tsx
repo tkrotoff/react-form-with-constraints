@@ -100,7 +100,7 @@ test('componentDidMount() componentWillUnmount()', () => {
   );
 });
 
-test('fieldWillValidate() fieldDidValidate()', async () => {
+test('fieldWillValidate() fieldDidValidate()', () => {
   const wrapper = shallow(<FieldFeedbackWhenValid />, {
     context: { form: form_username, fieldFeedbacks: fieldFeedbacks_username }
   });
@@ -108,30 +108,30 @@ test('fieldWillValidate() fieldDidValidate()', async () => {
 
   expect(fieldFeedbackWhenValid.state.fieldIsValid).toEqual(undefined);
 
-  let noReturn = await form_username.emitFieldWillValidateEvent('username');
+  let noReturn = form_username.emitFieldWillValidateEvent('username');
   expect(noReturn).toEqual([undefined]);
   expect(fieldFeedbackWhenValid.state.fieldIsValid).toEqual(undefined);
 
-  noReturn = await form_username.emitFieldDidValidateEvent(new Field('username'));
+  noReturn = form_username.emitFieldDidValidateEvent(new Field('username'));
   expect(noReturn).toEqual([undefined]);
   expect(fieldFeedbackWhenValid.state.fieldIsValid).toEqual(true);
 
-  noReturn = await form_username.emitFieldWillValidateEvent('unknown');
+  noReturn = form_username.emitFieldWillValidateEvent('unknown');
   expect(noReturn).toEqual([undefined]);
   expect(fieldFeedbackWhenValid.state.fieldIsValid).toEqual(true); // Untouched
 });
 
-test('resetFields()', async () => {
+test('resetFields()', () => {
   const wrapper = shallow(<FieldFeedbackWhenValid />, {
     context: { form: form_username, fieldFeedbacks: fieldFeedbacks_username }
   });
   const fieldFeedbackWhenValid = wrapper.instance() as FieldFeedbackWhenValid;
 
   const field = new Field('username');
-  await form_username.emitFieldDidValidateEvent(field);
+  form_username.emitFieldDidValidateEvent(field);
   expect(fieldFeedbackWhenValid.state.fieldIsValid).toEqual(true);
 
-  const noReturn = await form_username.emitFieldDidResetEvent(field);
+  const noReturn = form_username.emitFieldDidResetEvent(field);
   expect(noReturn).toEqual([undefined]);
   expect(fieldFeedbackWhenValid.state.fieldIsValid).toEqual(undefined);
 });

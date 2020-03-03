@@ -14,7 +14,7 @@ export function withValidateFieldEventEmitter<ListenerReturnType, TBase extends 
     validateFieldEventEmitter = new EventEmitter<ListenerReturnType>();
 
     emitValidateFieldEvent(input: InputElement) {
-      return this.validateFieldEventEmitter.emit(ValidateFieldEvent, input);
+      return this.validateFieldEventEmitter.emitAsync(ValidateFieldEvent, input);
     }
 
     addValidateFieldEventListener(listener: Listener) {

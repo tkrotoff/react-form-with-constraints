@@ -279,7 +279,7 @@ The field name should match `FieldFeedbacks.for`:
 
   - `hasFeedbacks(): boolean` => indicates if any of the fields have any kind of feedback
 
-  - `resetFields(...inputsOrNames: Array<Input | string>): Promise<Field[]>` =>
+  - `resetFields(...inputsOrNames: Array<Input | string>): Field[]` =>
     Resets the given fields and re-render the proper `FieldFeedback`s.
     Without arguments, all fields (`$('[name]')`) are reset.
 

@@ -490,12 +490,12 @@ describe('render()', () => {
     expect(wrapper.props().style).toEqual({ color: 'yellow' });
   });
 
-  test('when="valid"', async () => {
+  test('when="valid"', () => {
     const wrapper = mount(<FieldFeedback when="valid">Looks good!</FieldFeedback>, {
       context: { form: form_username, fieldFeedbacks: fieldFeedbacks_username }
     });
 
-    const noReturn = await form_username.emitFieldDidValidateEvent(
+    const noReturn = form_username.emitFieldDidValidateEvent(
       new Field(fieldFeedbacks_username.fieldName)
     );
     expect(noReturn).toEqual([undefined]);

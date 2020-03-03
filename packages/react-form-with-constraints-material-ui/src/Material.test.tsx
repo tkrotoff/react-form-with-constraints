@@ -254,7 +254,7 @@ describe('FormWithConstraints', () => {
       </form>`)
     );
 
-    await signUp.form!.resetFields();
+    signUp.form!.resetFields();
 
     await flushPromises();
     expect(beautifyHtml(wrapper.html(), '      ')).toMatch(

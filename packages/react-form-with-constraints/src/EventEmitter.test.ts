@@ -52,14 +52,14 @@ test('addListener', () => {
   );
 });
 
-describe('emit', () => {
-  test('with and without args', async () => {
+describe('emitSync()', () => {
+  test('with and without args', () => {
     const eventEmitter = new EventEmitter();
     eventEmitter.addListener('event1', listener10);
     eventEmitter.addListener('event1', listener11);
     eventEmitter.addListener('event2', listener20);
 
-    let ret = await eventEmitter.emit('event1');
+    let ret = eventEmitter.emitSync('event1');
     expect(ret).toEqual([10, 11]);
     expect(listener10).toHaveBeenCalledTimes(1);
     expect(listener10).toHaveBeenLastCalledWith();
@@ -67,7 +67,7 @@ describe('emit', () => {
     expect(listener11).toHaveBeenLastCalledWith();
     expect(listener20).toHaveBeenCalledTimes(0);
 
-    ret = await eventEmitter.emit('event1', 'arg1');
+    ret = eventEmitter.emitSync('event1', 'arg1');
     expect(ret).toEqual([10, 11]);
     expect(listener10).toHaveBeenCalledTimes(2);
     expect(listener10).toHaveBeenLastCalledWith('arg1');
@@ -75,7 +75,7 @@ describe('emit', () => {
     expect(listener11).toHaveBeenLastCalledWith('arg1');
     expect(listener20).toHaveBeenCalledTimes(0);
 
-    ret = await eventEmitter.emit('event1', 'arg1', 'arg2');
+    ret = eventEmitter.emitSync('event1', 'arg1', 'arg2');
     expect(ret).toEqual([10, 11]);
     expect(listener10).toHaveBeenCalledTimes(3);
     expect(listener10).toHaveBeenLastCalledWith('arg1', 'arg2');
@@ -83,7 +83,7 @@ describe('emit', () => {
     expect(listener11).toHaveBeenLastCalledWith('arg1', 'arg2');
     expect(listener20).toHaveBeenCalledTimes(0);
 
-    ret = await eventEmitter.emit('event2');
+    ret = eventEmitter.emitSync('event2');
     expect(ret).toEqual([20]);
     expect(listener10).toHaveBeenCalledTimes(3);
     expect(listener11).toHaveBeenCalledTimes(3);
@@ -91,24 +91,24 @@ describe('emit', () => {
     expect(listener20).toHaveBeenLastCalledWith();
   });
 
-  test('unknown event', async () => {
+  test('unknown event', () => {
     const eventEmitter = new EventEmitter();
     eventEmitter.addListener('event1', listener10);
 
     // Assert disabled: mess with the unit tests
-    //expect(() => eventEmitter.emit('unknown')).toThrow("Unknown event 'unknown'");
-    const ret = await eventEmitter.emit('unknown');
+    //expect(() => eventEmitter.emitSync('unknown')).toThrow("Unknown event 'unknown'");
+    const ret = eventEmitter.emitSync('unknown');
     expect(ret).toEqual([]);
     expect(listener10).toHaveBeenCalledTimes(0);
   });
 
-  test('no listener', async () => {
+  test('no listener', () => {
     const eventEmitter = new EventEmitter();
     eventEmitter.addListener('event1', listener10);
     clearArray(eventEmitter.listeners.get('event1')!);
 
     const consoleSpy = jest.spyOn(console, 'assert').mockImplementation();
-    const ret = await eventEmitter.emit('event1');
+    const ret = eventEmitter.emitSync('event1');
     expect(console.assert).toHaveBeenCalledTimes(1);
     expect(console.assert).toHaveBeenLastCalledWith(false, "No listener for event 'event1'");
     consoleSpy.mockRestore();
@@ -116,6 +116,31 @@ describe('emit', () => {
 
     expect(listener10).toHaveBeenCalledTimes(0);
   });
+});
+
+test('emitAsync()', async () => {
+  const asyncListener10 = jest.fn().mockResolvedValue(10);
+  const asyncListener11 = jest.fn().mockResolvedValue(11);
+  const asyncListener20 = jest.fn().mockResolvedValue(20);
+
+  let isFulfilled = false;
+  Promise.all([asyncListener10, asyncListener11, asyncListener20]).then(() => (isFulfilled = true));
+
+  const eventEmitter = new EventEmitter();
+  eventEmitter.addListener('event1', asyncListener10);
+  eventEmitter.addListener('event1', asyncListener11);
+  eventEmitter.addListener('event2', asyncListener20);
+
+  const promise = eventEmitter.emitAsync('event1', 'arg1');
+  expect(isFulfilled).toEqual(false);
+  const ret = await promise;
+  expect(isFulfilled).toEqual(true);
+  expect(ret).toEqual([10, 11]);
+  expect(asyncListener10).toHaveBeenCalledTimes(1);
+  expect(asyncListener10).toHaveBeenLastCalledWith('arg1');
+  expect(asyncListener11).toHaveBeenCalledTimes(1);
+  expect(asyncListener11).toHaveBeenLastCalledWith('arg1');
+  expect(asyncListener20).toHaveBeenCalledTimes(0);
 });
 
 describe('removeListener()', () => {

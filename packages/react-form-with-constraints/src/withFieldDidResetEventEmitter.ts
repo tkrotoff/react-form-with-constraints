@@ -12,7 +12,7 @@ export function withFieldDidResetEventEmitter<TBase extends Constructor<{}>>(Bas
     fieldDidResetEventEmitter = new EventEmitter();
 
     emitFieldDidResetEvent(field: Field) {
-      return this.fieldDidResetEventEmitter.emit(FieldDidResetEvent, field);
+      return this.fieldDidResetEventEmitter.emitSync(FieldDidResetEvent, field);
     }
 
     addFieldDidResetEventListener(listener: Listener) {

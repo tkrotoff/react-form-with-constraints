@@ -205,7 +205,7 @@ describe('FormWithConstraints', () => {
         </span>
       </form>`);
 
-    await signUp.form!.resetFields();
+    signUp.form!.resetFields();
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>

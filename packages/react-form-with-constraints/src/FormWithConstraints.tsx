@@ -203,22 +203,19 @@ export class FormWithConstraints
     return this.resetFields();
   }
 
-  async resetFields(...inputsOrNames: Array<IHTMLInput | string>) {
+  resetFields(...inputsOrNames: Array<IHTMLInput | string>) {
     const fields = new Array<Readonly<Field>>();
 
     const inputs = this.normalizeInputs(...inputsOrNames);
-
-    for (let i = 0; i < inputs.length; i++) {
-      const input = inputs[i];
-      // eslint-disable-next-line no-await-in-loop
-      const field = await this.resetField(new InputElement(input));
+    inputs.forEach(input => {
+      const field = this.resetField(new InputElement(input));
       if (field !== undefined) fields.push(field);
-    }
+    });
 
     return fields;
   }
 
-  private async resetField(input: InputElement) {
+  private resetField(input: InputElement) {
     const fieldName = input.name;
     const field = this.fieldsStore.getField(fieldName);
 
@@ -227,7 +224,7 @@ export class FormWithConstraints
       // so let's ignore this field
     } else {
       field.clearValidations();
-      await this.emitFieldDidResetEvent(field);
+      this.emitFieldDidResetEvent(field);
     }
 
     return field;

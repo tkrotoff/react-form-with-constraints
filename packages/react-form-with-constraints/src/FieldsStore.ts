@@ -25,7 +25,7 @@ export class FieldsStore extends EventEmitter {
     if (fields.length === 0) {
       const newField = new Field(fieldName);
       this.fields.push(newField);
-      this.emit(FieldEvent.Added, newField);
+      this.emitSync(FieldEvent.Added, newField);
     } else {
       // We can have multiple FieldFeedbacks for the same field,
       // thus addField() can be called multiple times
@@ -42,7 +42,7 @@ export class FieldsStore extends EventEmitter {
     const index = this.fields.indexOf(fields[0]);
     if (index > -1) {
       this.fields.splice(index, 1);
-      this.emit(FieldEvent.Removed, fieldName);
+      this.emitSync(FieldEvent.Removed, fieldName);
     }
   }
 

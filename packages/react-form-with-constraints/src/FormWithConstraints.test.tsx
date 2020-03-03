@@ -1884,7 +1884,7 @@ test('hasFeedbacks()', async () => {
   expect(fields.every(field => field.hasFeedbacks())).toEqual(true);
   expect(signUp.form!.hasFeedbacks()).toEqual(true);
 
-  await signUp.form!.resetFields();
+  signUp.form!.resetFields();
   expect(signUp.form!.hasFeedbacks()).toEqual(false);
 
   wrapper.unmount();
@@ -1920,7 +1920,7 @@ describe('resetFields()', () => {
         </span>
       </form>`);
 
-    await signUp.form!.resetFields(signUp.username!, signUp.passwordConfirm!);
+    signUp.form!.resetFields(signUp.username!, signUp.passwordConfirm!);
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
@@ -1969,7 +1969,7 @@ describe('resetFields()', () => {
         </span>
       </form>`);
 
-    await signUp.form!.resetFields('username', 'passwordConfirm');
+    signUp.form!.resetFields('username', 'passwordConfirm');
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
@@ -2018,7 +2018,7 @@ describe('resetFields()', () => {
         </span>
       </form>`);
 
-    await signUp.form!.resetFields(signUp.username!, 'passwordConfirm');
+    signUp.form!.resetFields(signUp.username!, 'passwordConfirm');
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
@@ -2067,7 +2067,7 @@ describe('resetFields()', () => {
         </span>
       </form>`);
 
-    await signUp.form!.resetFields();
+    signUp.form!.resetFields();
 
     expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
       <form>
@@ -2090,9 +2090,9 @@ describe('resetFields()', () => {
     );
     const form = wrapper.instance() as FormWithConstraints;
 
-    await expect(form.resetFields()).resolves.toEqual([]); // Ignore input without FieldFeedbacks
-    await expect(form.resetFields('username')).resolves.toEqual([]); // Ignore input without FieldFeedbacks
-    await expect(form.resetFields('unknown')).rejects.toEqual(
+    expect(form.resetFields()).toEqual([]); // Ignore input without FieldFeedbacks
+    expect(form.resetFields('username')).toEqual([]); // Ignore input without FieldFeedbacks
+    expect(() => form.resetFields('unknown')).toThrow(
       new Error(`Could not find field '[name="unknown"]' inside the form`)
     );
 
@@ -2105,7 +2105,7 @@ test('reset()', async () => {
   const signUp = wrapper.instance() as SignUp;
   const resetFieldsSpy = jest.spyOn(signUp.form!, 'resetFields');
 
-  await signUp.form!.reset();
+  signUp.form!.reset();
 
   expect(resetFieldsSpy).toHaveBeenCalledTimes(1);
   expect(resetFieldsSpy.mock.calls).toEqual([[]]);

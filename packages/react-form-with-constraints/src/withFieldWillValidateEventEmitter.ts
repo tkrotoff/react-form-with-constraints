@@ -11,7 +11,7 @@ export function withFieldWillValidateEventEmitter<TBase extends Constructor<{}>>
     fieldWillValidateEventEmitter = new EventEmitter();
 
     emitFieldWillValidateEvent(fieldName: string) {
-      return this.fieldWillValidateEventEmitter.emit(FieldWillValidateEvent, fieldName);
+      return this.fieldWillValidateEventEmitter.emitSync(FieldWillValidateEvent, fieldName);
     }
 
     addFieldWillValidateEventListener(listener: Listener) {

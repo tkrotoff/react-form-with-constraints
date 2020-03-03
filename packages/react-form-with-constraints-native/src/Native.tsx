@@ -83,9 +83,7 @@ export class FormWithConstraints extends _FormWithConstraints {
 
   // @ts-ignore
   // Property 'resetFields' in type 'FormWithConstraints' is not assignable to the same property in base type 'FormWithConstraints'.
-  abstract async resetFields(
-    ...inputsOrNames: Array<TextInput | string>
-  ): Promise<Readonly<Field>[]>;
+  abstract resetFields(...inputsOrNames: Array<TextInput | string>): Readonly<Field>[];
 
   render() {
     return <View {...(this.props as any)} />;

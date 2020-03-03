@@ -584,7 +584,7 @@ describe('FormWithConstraints', () => {
         }
       ]);
 
-      fields = await signUp.form!.resetFields(signUp.username!, signUp.passwordConfirm!);
+      fields = signUp.form!.resetFields(signUp.username!, signUp.passwordConfirm!);
       expect(fields).toEqual([
         {
           name: 'username',
