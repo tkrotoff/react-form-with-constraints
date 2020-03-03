@@ -12,10 +12,10 @@ interface Props {
 export function WizardFormStep1(props: Props) {
   const form = useRef<FormWithConstraints | null>(null);
 
-  function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
+  async function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     props.onChange(target);
 
-    form.current!.validateFields(target);
+    await form.current!.validateFields(target);
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {

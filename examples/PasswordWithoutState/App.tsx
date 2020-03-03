@@ -10,12 +10,12 @@ function Form() {
   const form = useRef<FormWithConstraints | null>(null);
   const password = useRef<HTMLInputElement | null>(null);
 
-  function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
-    form.current!.validateFields(target);
+  async function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
+    await form.current!.validateFields(target);
   }
 
   async function handlePasswordChange({ target }: React.ChangeEvent<HTMLInputElement>) {
-    form.current!.validateFields(target, 'passwordConfirm');
+    await form.current!.validateFields(target, 'passwordConfirm');
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
