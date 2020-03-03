@@ -29,6 +29,7 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: yarn install
+      - run: yarn prepublishOnly
       - run: yarn lerna publish from-git --yes
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
