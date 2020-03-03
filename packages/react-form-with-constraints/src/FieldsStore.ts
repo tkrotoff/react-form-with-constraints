@@ -6,7 +6,7 @@ export enum FieldEvent {
   Removed = 'FIELD_REMOVED'
 }
 
-export class FieldsStore extends EventEmitter {
+export class FieldsStore extends EventEmitter<[Field | string], void> {
   readonly fields = new Array<Field>();
 
   getField(fieldName: string) {

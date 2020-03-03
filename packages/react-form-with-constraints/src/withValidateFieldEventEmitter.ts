@@ -8,10 +8,11 @@ export const ValidateFieldEvent = 'VALIDATE_FIELD_EVENT';
 export function withValidateFieldEventEmitter<ListenerReturnType, TBase extends Constructor<{}>>(
   Base: TBase
 ) {
-  type Listener = (input: InputElement) => ListenerReturnType | Promise<ListenerReturnType>;
+  type ListenerArg = InputElement;
+  type Listener = (input: ListenerArg) => ListenerReturnType | Promise<ListenerReturnType>;
 
   return class ValidateFieldEventEmitter extends Base {
-    validateFieldEventEmitter = new EventEmitter<ListenerReturnType>();
+    validateFieldEventEmitter = new EventEmitter<[ListenerArg], ListenerReturnType>();
 
     emitValidateFieldEvent(input: InputElement) {
       return this.validateFieldEventEmitter.emitAsync(ValidateFieldEvent, input);

@@ -1,23 +1,18 @@
-// FIXME
-// See [Thoughts about variadic generics?](https://github.com/Microsoft/TypeScript/issues/1773)
-// See [Proposal: Variadic Kinds -- Give specific types to variadic functions](https://github.com/Microsoft/TypeScript/issues/5453)
-type Args = any[];
+// FIXME [Proposal: Variadic Kinds -- Give specific types to variadic functions](https://github.com/Microsoft/TypeScript/issues/5453)
 
-type Listener<ListenerReturnType = void> = (
-  ...args: Args
-) => ListenerReturnType | Promise<ListenerReturnType>;
+type Listener<Args extends any[], ReturnType> = (...args: Args) => ReturnType | Promise<ReturnType>;
 
-export class EventEmitter<ListenerReturnType = void> {
-  listeners = new Map<string, Listener<ListenerReturnType>[]>();
+export class EventEmitter<ListenerArgs extends any[], ListenerReturnType> {
+  listeners = new Map<string, Listener<ListenerArgs, ListenerReturnType>[]>();
 
-  emitSync(eventName: string, ...args: Args) {
+  emitSync(eventName: string, ...args: ListenerArgs) {
     const listeners = this.getListeners(eventName);
     const ret = new Array<ListenerReturnType>();
     listeners.forEach(listener => ret.push(listener(...args) as ListenerReturnType));
     return ret;
   }
 
-  async emitAsync(eventName: string, ...args: Args) {
+  async emitAsync(eventName: string, ...args: ListenerArgs) {
     const listeners = this.getListeners(eventName);
     const ret = new Array<ListenerReturnType>();
     for (let i = 0; i < listeners.length; i++) {
@@ -46,7 +41,7 @@ export class EventEmitter<ListenerReturnType = void> {
     return [];
   }
 
-  addListener(eventName: string, listener: Listener<ListenerReturnType>) {
+  addListener(eventName: string, listener: Listener<ListenerArgs, ListenerReturnType>) {
     if (!this.listeners.has(eventName)) this.listeners.set(eventName, []);
     const listeners = this.listeners.get(eventName)!;
     console.assert(
@@ -60,7 +55,7 @@ export class EventEmitter<ListenerReturnType = void> {
   // "removeListener will remove, at most, one instance of a listener from the listener array.
   // If any single listener has been added multiple times to the listener array for the specified eventName,
   // then removeListener must be called multiple times to remove each instance."
-  removeListener(eventName: string, listener: Listener<ListenerReturnType>) {
+  removeListener(eventName: string, listener: Listener<ListenerArgs, ListenerReturnType>) {
     const listeners = this.listeners.get(eventName)!;
     console.assert(listeners !== undefined, `Unknown event '${eventName}'`);
 

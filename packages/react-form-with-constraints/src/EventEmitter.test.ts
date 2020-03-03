@@ -6,9 +6,9 @@ function toMap(object: object) {
   return new Map(Object.entries(object));
 }
 
-const listener10 = jest.fn().mockReturnValue(10);
-const listener11 = jest.fn().mockReturnValue(11);
-const listener20 = jest.fn().mockReturnValue(20);
+const listener10 = jest.fn<10, any[]>().mockReturnValue(10);
+const listener11 = jest.fn<11, any[]>().mockReturnValue(11);
+const listener20 = jest.fn<20, any[]>().mockReturnValue(20);
 
 beforeEach(() => {
   listener10.mockClear();
@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 test('addListener', () => {
-  const eventEmitter = new EventEmitter();
+  const eventEmitter = new EventEmitter<[], number>();
   expect(eventEmitter.listeners).toEqual(toMap({}));
 
   eventEmitter.addListener('event1', listener10);
@@ -54,7 +54,7 @@ test('addListener', () => {
 
 describe('emitSync()', () => {
   test('with and without args', () => {
-    const eventEmitter = new EventEmitter();
+    const eventEmitter = new EventEmitter<[] | [string] | [string, string], number>();
     eventEmitter.addListener('event1', listener10);
     eventEmitter.addListener('event1', listener11);
     eventEmitter.addListener('event2', listener20);
@@ -92,7 +92,7 @@ describe('emitSync()', () => {
   });
 
   test('unknown event', () => {
-    const eventEmitter = new EventEmitter();
+    const eventEmitter = new EventEmitter<[], number>();
     eventEmitter.addListener('event1', listener10);
 
     // Assert disabled: mess with the unit tests
@@ -103,7 +103,7 @@ describe('emitSync()', () => {
   });
 
   test('no listener', () => {
-    const eventEmitter = new EventEmitter();
+    const eventEmitter = new EventEmitter<[], number>();
     eventEmitter.addListener('event1', listener10);
     clearArray(eventEmitter.listeners.get('event1')!);
 
@@ -119,14 +119,14 @@ describe('emitSync()', () => {
 });
 
 test('emitAsync()', async () => {
-  const asyncListener10 = jest.fn().mockResolvedValue(10);
-  const asyncListener11 = jest.fn().mockResolvedValue(11);
-  const asyncListener20 = jest.fn().mockResolvedValue(20);
+  const asyncListener10 = jest.fn<Promise<10>, any[]>().mockResolvedValue(10);
+  const asyncListener11 = jest.fn<Promise<11>, any[]>().mockResolvedValue(11);
+  const asyncListener20 = jest.fn<Promise<20>, any[]>().mockResolvedValue(20);
 
   let isFulfilled = false;
   Promise.all([asyncListener10, asyncListener11, asyncListener20]).then(() => (isFulfilled = true));
 
-  const eventEmitter = new EventEmitter();
+  const eventEmitter = new EventEmitter<[string], number>();
   eventEmitter.addListener('event1', asyncListener10);
   eventEmitter.addListener('event1', asyncListener11);
   eventEmitter.addListener('event2', asyncListener20);
@@ -145,7 +145,7 @@ test('emitAsync()', async () => {
 
 describe('removeListener()', () => {
   test('known event', () => {
-    const eventEmitter = new EventEmitter();
+    const eventEmitter = new EventEmitter<[], number>();
     eventEmitter.addListener('event1', listener10);
     eventEmitter.addListener('event1', listener11);
     expect(eventEmitter.listeners).toEqual(
@@ -166,7 +166,7 @@ describe('removeListener()', () => {
   });
 
   test('unknown event', () => {
-    const eventEmitter = new EventEmitter();
+    const eventEmitter = new EventEmitter<[], number>();
     eventEmitter.addListener('event1', listener10);
     expect(eventEmitter.listeners).toEqual(
       toMap({
@@ -190,7 +190,7 @@ describe('removeListener()', () => {
   test('no listener', () => {
     const unknownListener = jest.fn();
 
-    const eventEmitter = new EventEmitter();
+    const eventEmitter = new EventEmitter<[], number>();
     eventEmitter.addListener('event1', listener10);
     expect(eventEmitter.listeners).toEqual(
       toMap({
@@ -212,7 +212,7 @@ describe('removeListener()', () => {
   });
 
   test('multiple listeners', () => {
-    const eventEmitter = new EventEmitter();
+    const eventEmitter = new EventEmitter<[], number>();
     eventEmitter.addListener('event1', listener10);
     eventEmitter.addListener('event1', listener11);
 
