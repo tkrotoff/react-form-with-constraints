@@ -4,8 +4,6 @@
     "outDir": "lib-es5",
     "target": "es5",
     "module": "commonjs",
-    "inlineSourceMap": true,
-    "inlineSources": true,
     "declaration": false
   }
 }

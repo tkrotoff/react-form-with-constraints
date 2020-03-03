@@ -31,7 +31,7 @@ export default {
     typescript({
       clean: true,
       tsconfig: 'tsconfig.lib-es5.json',
-      tsconfigOverride: { compilerOptions: { module: 'esnext', inlineSources: false } }
+      tsconfigOverride: { compilerOptions: { module: 'esnext' } }
     }),
 
     isProd && uglify(),
