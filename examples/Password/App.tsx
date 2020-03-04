@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { FormWithConstraints, FieldFeedbacks, Async, FieldFeedback } from 'react-form-with-constraints';
-import { DisplayFields } from 'react-form-with-constraints-tools';
+//import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './index.html';
 import './style.css';
@@ -164,7 +164,7 @@ class Form extends React.Component<Props, State> {
 
         <button disabled={this.state.signUpButtonDisabled}>Sign Up</button>
 
-        <DisplayFields />
+        {/*<DisplayFields />*/}
       </FormWithConstraints>
     );
   }

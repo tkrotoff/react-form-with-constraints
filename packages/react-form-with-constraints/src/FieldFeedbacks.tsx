@@ -1,12 +1,11 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
-import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
+import { FormWithConstraintsApi, FormWithConstraintsContext } from './FormWithConstraints';
 import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 import { InputElement } from './InputElement';
 import FieldFeedbackValidation from './FieldFeedbackValidation';
 import flattenDeep from './flattenDeep';
-import Nullable from './Nullable';
+import { uniqueId } from 'lodash';
 
 export interface FieldFeedbacksProps {
   for?: string;
@@ -16,58 +15,99 @@ export interface FieldFeedbacksProps {
    * no => shows everything
    * Default is 'first-error'
    */
-  stop: 'first' | 'first-error' | 'first-warning' | 'first-info' | 'no';
+  stop?: 'first' | 'first-error' | 'first-warning' | 'first-info' | 'no';
+
+  children?: React.ReactNode;
 }
 
-// Why Nullable? See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/27973
-export type FieldFeedbacksContext = FormWithConstraintsChildContext & Partial<Nullable<FieldFeedbacksChildContext>>;
+export const FieldFeedbacksContext = React.createContext<FieldFeedbacksApi | undefined>(undefined);
 
-export interface FieldFeedbacksChildContext {
-  fieldFeedbacks: FieldFeedbacks;
-}
+export function FieldFeedbacks(props: FieldFeedbacksProps) {
+  const form = React.useContext(FormWithConstraintsContext)!;
+  const fieldFeedbacksParent = React.useContext(FieldFeedbacksContext); // Can be undefined
 
-class FieldFeedbacksComponent extends React.Component<FieldFeedbacksProps> {}
-export class FieldFeedbacks extends
-                              withValidateFieldEventEmitter<
-                                // FieldFeedback returns FieldFeedbackValidation
-                                // Async returns FieldFeedbackValidation[] | undefined
-                                // FieldFeedbacks returns (FieldFeedbackValidation | undefined)[]
-                                FieldFeedbackValidation | (FieldFeedbackValidation | undefined)[] | undefined,
-                                typeof FieldFeedbacksComponent
-                              >(
-                                FieldFeedbacksComponent
-                              )
-                            implements React.ChildContextProvider<FieldFeedbacksChildContext> {
-  static defaultProps: FieldFeedbacksProps = {
-    stop: 'first-error'
-  };
+  const api = new FieldFeedbacksApi(props, form, fieldFeedbacksParent);
 
-  static contextTypes: React.ValidationMap<FieldFeedbacksContext> = {
-    form: PropTypes.instanceOf(FormWithConstraints).isRequired,
-    fieldFeedbacks: PropTypes.instanceOf(FieldFeedbacks)
-  };
-  context!: FieldFeedbacksContext;
+  const parent = fieldFeedbacksParent ? fieldFeedbacksParent : form;
 
-  static childContextTypes: React.ValidationMap<FieldFeedbacksChildContext> = {
-    fieldFeedbacks: PropTypes.instanceOf(FieldFeedbacks).isRequired
-  };
-  getChildContext(): FieldFeedbacksChildContext {
-    return {
-      fieldFeedbacks: this
+  React.useEffect(() => {
+    form.fieldsStore.addField(api.fieldName);
+    parent.addValidateFieldEventListener(validate);
+
+    return function cleanup() {
+      form.fieldsStore.removeField(api.fieldName);
+      parent.removeValidateFieldEventListener(validate);
     };
+  }, []);
+
+  async function validate(input: InputElement) {
+    let validations;
+
+    if (input.name === api.fieldName) { // Ignore the event if it's not for us
+      const field = form.fieldsStore.getField(api.fieldName)!;
+
+      if (fieldFeedbacksParent && (
+          fieldFeedbacksParent.props.stop === 'first' && field.hasFeedbacks(fieldFeedbacksParent.id) ||
+          fieldFeedbacksParent.props.stop === 'first-error' && field.hasErrors(fieldFeedbacksParent.id) ||
+          fieldFeedbacksParent.props.stop === 'first-warning' && field.hasWarnings(fieldFeedbacksParent.id) ||
+          fieldFeedbacksParent.props.stop === 'first-info' && field.hasInfos(fieldFeedbacksParent.id))) {
+        // Do nothing
+      }
+      else {
+        validations = await _validate(input);
+      }
+    }
+
+    return validations;
   }
 
-  // Tested: there is no conflict with React key prop (https://reactjs.org/docs/lists-and-keys.html)
-  readonly key: string; // '0', '1', '2'...
+  async function _validate(input: InputElement) {
+    const arrayOfArrays = await api.emitValidateFieldEvent(input);
+    const validations = flattenDeep<FieldFeedbackValidation | undefined>(arrayOfArrays);
+    return validations;
+  }
 
-  readonly fieldName: string; // Instead of reading props each time
+  function render() {
+    const { children } = props;
 
-  constructor(props: FieldFeedbacksProps, context: FieldFeedbacksContext) {
-    super(props, context);
+    return (
+      <FieldFeedbacksContext.Provider value={api}>
+        {
+          // See https://codepen.io/tkrotoff/pen/yzKKdB
+          children !== undefined ? children : null
+        }
+      </FieldFeedbacksContext.Provider>
+    );
+  }
 
-    const { form, fieldFeedbacks: fieldFeedbacksParent } = context;
+  return render();
+}
 
-    this.key = fieldFeedbacksParent ? fieldFeedbacksParent.computeFieldFeedbackKey() : form.computeFieldFeedbacksKey();
+FieldFeedbacks.defaultProps = {
+  stop: 'first-error'
+};
+
+export class FieldFeedbacksApi
+  extends
+    withValidateFieldEventEmitter<
+      // FieldFeedback returns FieldFeedbackValidation
+      // Async returns FieldFeedbackValidation[] | undefined
+      // FieldFeedbacks returns (FieldFeedbackValidation | undefined)[]
+      FieldFeedbackValidation | (FieldFeedbackValidation | undefined)[] | undefined,
+      typeof Object
+    >(Object) {
+
+  public readonly id: string; // '0', '1', '2'...
+
+  public readonly fieldName: string; // Instead of reading props each time
+
+  uniqueId = uniqueId();
+
+  constructor(public props: FieldFeedbacksProps, form: FormWithConstraintsApi, fieldFeedbacksParent?: FieldFeedbacksApi) {
+    super();
+
+    console.log('FieldFeedbacksApi uniqueId=', this.uniqueId);
+    this.id = fieldFeedbacksParent ? fieldFeedbacksParent.computeFieldFeedbackId() : form.computeFieldFeedbacksId();
 
     if (fieldFeedbacksParent) {
       this.fieldName = fieldFeedbacksParent.fieldName;
@@ -78,65 +118,12 @@ export class FieldFeedbacks extends
     }
   }
 
-  private fieldFeedbackKeyCounter = 0;
-  computeFieldFeedbackKey() {
-    return `${this.key}.${this.fieldFeedbackKeyCounter++}`;
+  private fieldFeedbackIdCounter = 0;
+  private computeFieldFeedbackId() {
+    return `${this.id}.${this.fieldFeedbackIdCounter++}`;
   }
 
-  addFieldFeedback() {
-    return this.computeFieldFeedbackKey();
-  }
-
-  componentWillMount() {
-    const { form, fieldFeedbacks: fieldFeedbacksParent } = this.context;
-
-    form.fieldsStore.addField(this.fieldName);
-
-    const parent = fieldFeedbacksParent ? fieldFeedbacksParent : form;
-    parent.addValidateFieldEventListener(this.validate);
-  }
-
-  componentWillUnmount() {
-    const { form, fieldFeedbacks: fieldFeedbacksParent } = this.context;
-
-    form.fieldsStore.removeField(this.fieldName);
-
-    const parent = fieldFeedbacksParent ? fieldFeedbacksParent : form;
-    parent.removeValidateFieldEventListener(this.validate);
-  }
-
-  validate = async (input: InputElement) => {
-    const { form, fieldFeedbacks: fieldFeedbacksParent } = this.context;
-
-    let validations;
-
-    if (input.name === this.fieldName) { // Ignore the event if it's not for us
-      const field = form.fieldsStore.getField(this.fieldName)!;
-
-      if (fieldFeedbacksParent && (
-          fieldFeedbacksParent.props.stop === 'first' && field.hasFeedbacks(fieldFeedbacksParent.key) ||
-          fieldFeedbacksParent.props.stop === 'first-error' && field.hasErrors(fieldFeedbacksParent.key) ||
-          fieldFeedbacksParent.props.stop === 'first-warning' && field.hasWarnings(fieldFeedbacksParent.key) ||
-          fieldFeedbacksParent.props.stop === 'first-info' && field.hasInfos(fieldFeedbacksParent.key))) {
-        // Do nothing
-      }
-      else {
-        validations = await this._validate(input);
-      }
-    }
-
-    return validations;
-  }
-
-  async _validate(input: InputElement) {
-    const arrayOfArrays = await this.emitValidateFieldEvent(input);
-    const validations = flattenDeep<FieldFeedbackValidation | undefined>(arrayOfArrays);
-    return validations;
-  }
-
-  render() {
-    const { children } = this.props;
-    // See https://codepen.io/tkrotoff/pen/yzKKdB
-    return children !== undefined ? children : null;
+  public addFieldFeedback() {
+    return this.computeFieldFeedbackId();
   }
 }

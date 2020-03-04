@@ -10,22 +10,22 @@ test('constructor()', () => {
 
 // Validations rules for a password: not empty, minimum length, should contain letters, should contain numbers
 const validation_empty: FieldFeedbackValidation = {
-  key: '0.0',
+  id: '0.0',
   type: FieldFeedbackType.Error,
   show: true
 };
 const validation_length: FieldFeedbackValidation = {
-  key: '0.1',
+  id: '0.1',
   type: FieldFeedbackType.Error,
   show: true
 };
 const validation_letters: FieldFeedbackValidation = {
-  key: '1.0',
+  id: '1.0',
   type: FieldFeedbackType.Warning,
   show: true
 };
 const validation_numbers: FieldFeedbackValidation = {
-  key: '1.1',
+  id: '1.1',
   type: FieldFeedbackType.Warning,
   show: true
 };
@@ -42,7 +42,7 @@ test('addOrReplaceValidation()', () => {
   });
 
   const validation_empty2: FieldFeedbackValidation = {
-    key: validation_empty.key,
+    id: validation_empty.id,
     type: validation_empty.type,
     show: false
   };
@@ -53,7 +53,7 @@ test('addOrReplaceValidation()', () => {
   });
 
   const validation_length2: FieldFeedbackValidation = {
-    key: validation_length.key,
+    id: validation_length.id,
     type: validation_length.type,
     show: false
   };
@@ -123,7 +123,7 @@ test('has*() + isValid()', () => {
 
 
   const validation_empty2: FieldFeedbackValidation = {
-    key: validation_empty.key,
+    id: validation_empty.id,
     type: validation_empty.type,
     show: false
   };
@@ -147,7 +147,7 @@ test('has*() + isValid()', () => {
 
 
   const validation_length2: FieldFeedbackValidation = {
-    key: validation_length.key,
+    id: validation_length.id,
     type: validation_length.type,
     show: false
   };
@@ -171,7 +171,7 @@ test('has*() + isValid()', () => {
 
 
   const validation_letters2: FieldFeedbackValidation = {
-    key: validation_letters.key,
+    id: validation_letters.id,
     type: validation_letters.type,
     show: false
   };
@@ -195,7 +195,7 @@ test('has*() + isValid()', () => {
 
 
   const validation_numbers2: FieldFeedbackValidation = {
-    key: validation_numbers.key,
+    id: validation_numbers.id,
     type: validation_numbers.type,
     show: false
   };

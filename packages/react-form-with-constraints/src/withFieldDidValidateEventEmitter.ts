@@ -5,7 +5,7 @@ import Field from './Field';
 export const FieldDidValidateEvent = 'FIELD_DID_VALIDATE_EVENT';
 
 // See TypeScript 2.2 Support for Mix-in classes https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html
-const withFieldDidValidateEventEmitter = <TBase extends Constructor<{}>>(Base: TBase) => {
+export function withFieldDidValidateEventEmitter<TBase extends Constructor<{}>>(Base: TBase) {
   type Listener = (field: Field) => void;
 
   return class FieldDidValidateEventEmitter extends Base {
@@ -23,6 +23,4 @@ const withFieldDidValidateEventEmitter = <TBase extends Constructor<{}>>(Base: T
       this.fieldDidValidateEventEmitter.removeListener(FieldDidValidateEvent, listener);
     }
   };
-};
-
-export { withFieldDidValidateEventEmitter };
+}

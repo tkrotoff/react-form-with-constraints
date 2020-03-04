@@ -1,7 +1,7 @@
 import FieldFeedbackType from './FieldFeedbackType';
 
 export default interface FieldFeedbackValidation {
-  readonly key: string;
+  readonly id: string;
   readonly type: FieldFeedbackType;
 
   // undefined => means the FieldFeedback was not checked

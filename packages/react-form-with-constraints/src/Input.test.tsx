@@ -57,17 +57,17 @@ test('fieldDidReset()', () => {
 
 describe('render()', () => {
   const validation_error: FieldFeedbackValidation = {
-    key: '0.0',
+    id: '0.0',
     type: FieldFeedbackType.Error,
     show: true
   };
   const validation_warning: FieldFeedbackValidation = {
-    key: '0.1',
+    id: '0.1',
     type: FieldFeedbackType.Warning,
     show: true
   };
   const validation_info: FieldFeedbackValidation = {
-    key: '0.2',
+    id: '0.2',
     type: FieldFeedbackType.Info,
     show: true
   };

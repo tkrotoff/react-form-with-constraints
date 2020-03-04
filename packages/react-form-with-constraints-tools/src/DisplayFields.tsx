@@ -1,10 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as PropTypes from 'prop-types';
 
 import {
   FormWithConstraints,
-  FormWithConstraintsChildContext,
+  FormWithConstraintsContext,
   FieldFeedback as _FieldFeedback, FieldFeedbackType,
   FieldFeedbacks as _FieldFeedbacks,
   Async as _Async,
@@ -14,25 +13,21 @@ import {
 export interface DisplayFieldsProps {}
 
 export class DisplayFields extends React.Component<DisplayFieldsProps> {
-  static contextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
-    form: PropTypes.instanceOf(FormWithConstraints).isRequired
-  };
-  context!: FormWithConstraintsChildContext;
+  static contextType = FormWithConstraintsContext;
+  context!: React.ContextType<typeof FormWithConstraintsContext>;
 
   componentWillMount() {
-    const { form } = this.context;
-    form.fieldsStore.addListener(FieldEvent.Added, this.reRender);
-    form.fieldsStore.addListener(FieldEvent.Removed, this.reRender);
-    form.addFieldDidValidateEventListener(this.reRender);
-    form.addFieldDidResetEventListener(this.reRender);
+    this.context!.fieldsStore.addListener(FieldEvent.Added, this.reRender);
+    this.context!.fieldsStore.addListener(FieldEvent.Removed, this.reRender);
+    this.context!.addFieldDidValidateEventListener(this.reRender);
+    this.context!.addFieldDidResetEventListener(this.reRender);
   }
 
   componentWillUnmount() {
-    const { form } = this.context;
-    form.fieldsStore.removeListener(FieldEvent.Added, this.reRender);
-    form.fieldsStore.removeListener(FieldEvent.Removed, this.reRender);
-    form.removeFieldDidValidateEventListener(this.reRender);
-    form.removeFieldDidResetEventListener(this.reRender);
+    this.context!.fieldsStore.removeListener(FieldEvent.Added, this.reRender);
+    this.context!.fieldsStore.removeListener(FieldEvent.Removed, this.reRender);
+    this.context!.removeFieldDidValidateEventListener(this.reRender);
+    this.context!.removeFieldDidResetEventListener(this.reRender);
   }
 
   reRender = () => {
@@ -40,7 +35,7 @@ export class DisplayFields extends React.Component<DisplayFieldsProps> {
   }
 
   render() {
-    let str = stringifyWithUndefinedAndWithoutPropertyQuotes(this.context.form.fieldsStore.fields, 2);
+    let str = stringifyWithUndefinedAndWithoutPropertyQuotes(this.context!.fieldsStore.fields, 2);
 
     // Cosmetic: improve formatting
     //

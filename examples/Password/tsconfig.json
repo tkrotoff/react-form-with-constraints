@@ -6,7 +6,8 @@
     "allowSyntheticDefaultImports": true
   },
   "files": [
-    "App.tsx"
+    "App.tsx",
+    "App.hooks.tsx"
   ],
   "include": [
     "*.test.e2e.ts"

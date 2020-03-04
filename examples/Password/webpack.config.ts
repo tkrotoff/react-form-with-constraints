@@ -7,7 +7,7 @@ import CircularDependencyPlugin from 'circular-dependency-plugin';
 
 const config: Configuration = {
   entry: {
-    App: './App.tsx'
+    App: './App.hooks.tsx'
   },
 
   output: {

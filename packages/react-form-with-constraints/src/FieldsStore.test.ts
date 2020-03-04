@@ -1,7 +1,7 @@
 import { FieldsStore, FieldEvent, FieldFeedbackValidation, FieldFeedbackType } from './index';
 
 const validation_empty: FieldFeedbackValidation = {
-  key: '0.0',
+  id: '0.0',
   type: FieldFeedbackType.Error,
   show: true
 };

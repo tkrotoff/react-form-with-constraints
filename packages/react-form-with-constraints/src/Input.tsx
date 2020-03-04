@@ -1,7 +1,6 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
-import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
+import { FormWithConstraintsContext } from './FormWithConstraints';
 import Field from './Field';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -20,14 +19,7 @@ interface InputState {
   field: undefined | 'pending' | Field;
 }
 
-export type InputContext = FormWithConstraintsChildContext;
-
 export class Input extends React.Component<InputProps, InputState> {
-  static contextTypes: React.ValidationMap<InputContext> = {
-    form: PropTypes.instanceOf(FormWithConstraints).isRequired
-  };
-  context!: InputContext;
-
   static defaultProps: InputProps = {
     classes: {
       isPending: 'is-pending',
@@ -38,20 +30,23 @@ export class Input extends React.Component<InputProps, InputState> {
     }
   };
 
+  static contextType = FormWithConstraintsContext;
+  context!: React.ContextType<typeof FormWithConstraintsContext>;
+
   state: InputState = {
     field: undefined
   };
 
   componentWillMount() {
-    this.context.form.addFieldWillValidateEventListener(this.fieldWillValidate);
-    this.context.form.addFieldDidValidateEventListener(this.fieldDidValidate);
-    this.context.form.addFieldDidResetEventListener(this.fieldDidReset);
+    this.context!.addFieldWillValidateEventListener(this.fieldWillValidate);
+    this.context!.addFieldDidValidateEventListener(this.fieldDidValidate);
+    this.context!.addFieldDidResetEventListener(this.fieldDidReset);
   }
 
   componentWillUnmount() {
-    this.context.form.removeFieldWillValidateEventListener(this.fieldWillValidate);
-    this.context.form.removeFieldDidValidateEventListener(this.fieldDidValidate);
-    this.context.form.removeFieldDidResetEventListener(this.fieldDidReset);
+    this.context!.removeFieldWillValidateEventListener(this.fieldWillValidate);
+    this.context!.removeFieldDidValidateEventListener(this.fieldDidValidate);
+    this.context!.removeFieldDidResetEventListener(this.fieldDidReset);
   }
 
   fieldWillValidate = (fieldName: string) => {

@@ -10,7 +10,7 @@ export default class Field {
 
   addOrReplaceValidation(validation: FieldFeedbackValidation) {
     // See Update if exists or add new element to array of objects https://stackoverflow.com/a/49375465/990356
-    const i = this.validations.findIndex(_validation => _validation.key === validation.key);
+    const i = this.validations.findIndex(_validation => _validation.id === validation.id);
     if (i > -1) this.validations[i] = validation;
     else this.validations.push(validation);
   }
@@ -19,29 +19,29 @@ export default class Field {
     clearArray(this.validations);
   }
 
-  hasFeedbacksOfType(type: FieldFeedbackType, fieldFeedbacksKey?: string) {
+  hasFeedbacksOfType(type: FieldFeedbackType, fieldFeedbacksId?: string) {
     return this.validations.some(fieldFeedback =>
-      (fieldFeedbacksKey === undefined || fieldFeedback.key.startsWith(`${fieldFeedbacksKey}.`)) &&
+      (fieldFeedbacksId === undefined || fieldFeedback.id.startsWith(`${fieldFeedbacksId}.`)) &&
       fieldFeedback.type === type && fieldFeedback.show === true
     );
   }
 
-  hasErrors(fieldFeedbacksKey?: string) {
-    return this.hasFeedbacksOfType(FieldFeedbackType.Error, fieldFeedbacksKey);
+  hasErrors(fieldFeedbacksId?: string) {
+    return this.hasFeedbacksOfType(FieldFeedbackType.Error, fieldFeedbacksId);
   }
 
-  hasWarnings(fieldFeedbacksKey?: string) {
-    return this.hasFeedbacksOfType(FieldFeedbackType.Warning, fieldFeedbacksKey);
+  hasWarnings(fieldFeedbacksId?: string) {
+    return this.hasFeedbacksOfType(FieldFeedbackType.Warning, fieldFeedbacksId);
   }
 
-  hasInfos(fieldFeedbacksKey?: string) {
-    return this.hasFeedbacksOfType(FieldFeedbackType.Info, fieldFeedbacksKey);
+  hasInfos(fieldFeedbacksId?: string) {
+    return this.hasFeedbacksOfType(FieldFeedbackType.Info, fieldFeedbacksId);
   }
 
-  hasFeedbacks(fieldFeedbacksKey?: string) {
-    return this.hasErrors(fieldFeedbacksKey) ||
-           this.hasWarnings(fieldFeedbacksKey) ||
-           this.hasInfos(fieldFeedbacksKey);
+  hasFeedbacks(fieldFeedbacksId?: string) {
+    return this.hasErrors(fieldFeedbacksId) ||
+           this.hasWarnings(fieldFeedbacksId) ||
+           this.hasInfos(fieldFeedbacksId);
   }
 
   isValid() {

@@ -1,3 +1,5 @@
+import { uniqueId } from 'lodash';
+
 // FIXME
 // See Thoughts about variadic generics? https://github.com/Microsoft/TypeScript/issues/1773
 // See Proposal: Variadic Kinds -- Give specific types to variadic functions https://github.com/Microsoft/TypeScript/issues/5453
@@ -8,10 +10,20 @@ type Listener<ListenerReturnType = void> = (...args: Args) => ListenerReturnType
 export default class EventEmitter<ListenerReturnType = void> {
   listeners = new Map<string, Listener<ListenerReturnType>[]>();
 
+  id = uniqueId();
+  constructor() {
+    //console.log('EventEmitter id=', this.id);
+  }
+
   async emit(eventName: string, ...args: Args) {
     const listeners = this.listeners.get(eventName)!;
+    if (listeners !== undefined) {
+      console.log('EventEmitter.emit() id=', this.id, 'eventName=', eventName, 'listeners.length=', listeners.length);
+    } else {
+      console.log('EventEmitter.emit() id=', this.id, 'eventName=', eventName, 'listeners.length=', 0);
+    }
 
-    // Assert disabled: an even can be emitted even without listeners
+    // Assert disabled: an event can be emitted even without listeners
     //console.assert(listeners !== undefined, `Unknown event '${eventName}'`);
 
     const ret = new Array<ListenerReturnType>();
