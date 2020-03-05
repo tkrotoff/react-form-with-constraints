@@ -1,3 +1,20 @@
+## v0.15.0 (2020/03/05)
+
+### Breaking Changes
+
+- Dissociate emitSync and emitAsync
+  - resetFields() does not return a Promise anymore
+  - fieldWillValidate(), fieldDidValidate() and fieldDidReset() are sync instead of async: this might affect your tests
+
+### Features
+
+- Improve README
+- No need for downlevelIteration anymore
+
+### Fixes
+
+- Fix .map files
+
 ## v0.14.2 (2020/02/28)
 
 ### Features

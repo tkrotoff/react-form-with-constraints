@@ -1,6 +1,6 @@
 {
   "name": "react-form-with-constraints-material-ui",
-  "version": "0.14.2",
+  "version": "0.15.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/tkrotoff/react-form-with-constraints.git"
@@ -52,7 +52,7 @@
     "jscodeshift": "^0.7.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-form-with-constraints": "^0.14.2",
+    "react-form-with-constraints": "^0.15.0",
     "ts-jest": "^25.2.1",
     "typescript": "^3.8.2"
   }
