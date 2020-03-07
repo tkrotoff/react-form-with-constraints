@@ -13,6 +13,7 @@ import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzym
 import { sleep } from './sleep';
 import { beautifyHtml } from './beautifyHtml';
 import { validValidityState } from './InputElementMock';
+import * as assert from './assert';
 
 function mount(node: React.ReactElement<FormWithConstraintsProps>) {
   return _mount<FormWithConstraintsProps, {}>(node);
@@ -1216,15 +1217,15 @@ describe('validate', () => {
       signUp.password!.value = '12345';
       signUp.passwordConfirm!.value = '12345';
 
-      const consoleSpy = jest.spyOn(console, 'assert').mockImplementation();
-      expect(console.assert).toHaveBeenCalledTimes(0);
+      const assertSpy = jest.spyOn(assert, 'assert').mockImplementation();
+      expect(assert.assert).toHaveBeenCalledTimes(0);
       const fields = await signUp.form!.validateFields();
-      expect(console.assert).toHaveBeenCalledTimes(56);
-      expect(console.assert).toHaveBeenCalledWith(
+      expect(assert.assert).toHaveBeenCalledTimes(56);
+      expect(assert.assert).toHaveBeenCalledWith(
         false,
         `FieldsStore does not match emitValidateFieldEvent() result, did the user changed the input rapidly?`
       );
-      consoleSpy.mockRestore();
+      assertSpy.mockRestore();
 
       // eslint-disable-next-line no-constant-condition
       if (false /* Disable code because it randomly fails */) {

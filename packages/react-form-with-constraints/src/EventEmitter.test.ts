@@ -1,5 +1,6 @@
 import { EventEmitter } from './index';
 import { clearArray } from './clearArray';
+import * as assert from './assert';
 
 // See [How to convert a plain object into an ES6 Map?](https://stackoverflow.com/questions/36644438)
 function toMap(object: object) {
@@ -107,11 +108,11 @@ describe('emitSync()', () => {
     eventEmitter.addListener('event1', listener10);
     clearArray(eventEmitter.listeners.get('event1')!);
 
-    const consoleSpy = jest.spyOn(console, 'assert').mockImplementation();
+    const assertSpy = jest.spyOn(assert, 'assert').mockImplementation();
     const ret = eventEmitter.emitSync('event1');
-    expect(console.assert).toHaveBeenCalledTimes(1);
-    expect(console.assert).toHaveBeenLastCalledWith(false, "No listener for event 'event1'");
-    consoleSpy.mockRestore();
+    expect(assert.assert).toHaveBeenCalledTimes(1);
+    expect(assert.assert).toHaveBeenLastCalledWith(false, "No listener for event 'event1'");
+    assertSpy.mockRestore();
     expect(ret).toEqual([]);
 
     expect(listener10).toHaveBeenCalledTimes(0);
@@ -216,14 +217,14 @@ describe('removeListener()', () => {
     eventEmitter.addListener('event1', listener10);
     eventEmitter.addListener('event1', listener11);
 
-    const consoleSpy = jest.spyOn(console, 'assert').mockImplementation();
+    const assertSpy = jest.spyOn(assert, 'assert').mockImplementation();
     eventEmitter.addListener('event1', listener10);
-    expect(console.assert).toHaveBeenCalledTimes(1);
-    expect(console.assert).toHaveBeenLastCalledWith(
+    expect(assert.assert).toHaveBeenCalledTimes(1);
+    expect(assert.assert).toHaveBeenLastCalledWith(
       false,
       "Listener already added for event 'event1'"
     );
-    consoleSpy.mockRestore();
+    assertSpy.mockRestore();
 
     expect(eventEmitter.listeners).toEqual(
       toMap({
