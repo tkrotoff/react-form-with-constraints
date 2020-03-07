@@ -19,5 +19,5 @@ console.assert = assert;
 // In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
 //
 process.on('unhandledRejection', (reason: Error | any, _promise: Promise<any>) => {
-  console.error('Unhandled promise rejection:', reason);
+  throw reason;
 });
