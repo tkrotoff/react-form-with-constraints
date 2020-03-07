@@ -6,6 +6,7 @@ import { FieldFeedbacks, FieldFeedbacksChildContext } from './FieldFeedbacks';
 import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 import { FieldFeedbackValidation } from './FieldFeedbackValidation';
 import { InputElement } from './InputElement';
+import { assert } from './assert';
 
 export enum Status {
   None,
@@ -123,7 +124,7 @@ export class Async<T>
         if (props.catch) element = props.catch(state.value);
         break;
       default:
-        console.assert(false, `Unknown status: '${state.status}'`);
+        assert(false, `Unknown status: '${state.status}'`);
     }
 
     return element;

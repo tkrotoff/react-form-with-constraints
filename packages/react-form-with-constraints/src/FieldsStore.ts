@@ -1,5 +1,6 @@
 import { Field } from './Field';
 import { EventEmitter } from './EventEmitter';
+import { assert } from './assert';
 
 export enum FieldEvent {
   Added = 'FIELD_ADDED',
@@ -11,13 +12,13 @@ export class FieldsStore extends EventEmitter<[Field | string], void> {
 
   getField(fieldName: string) {
     const fields = this.fields.filter(_field => _field.name === fieldName);
-    //console.assert(fields.length === 1, `Unknown field '${fieldName}'`);
+    //assert(fields.length === 1, `Unknown field '${fieldName}'`);
     return fields.length === 1 ? fields[0] : undefined;
   }
 
   addField(fieldName: string) {
     const fields = this.fields.filter(_field => _field.name === fieldName);
-    console.assert(
+    assert(
       fields.length === 0 || fields.length === 1,
       `Cannot have more than 1 field matching '${fieldName}'`
     );
@@ -37,7 +38,7 @@ export class FieldsStore extends EventEmitter<[Field | string], void> {
 
     // We can have multiple FieldFeedbacks for the same field,
     // thus removeField() can be called multiple times
-    //console.assert(fields.length === 1, `Unknown field '${fieldName}'`);
+    //assert(fields.length === 1, `Unknown field '${fieldName}'`);
 
     const index = this.fields.indexOf(fields[0]);
     if (index > -1) {

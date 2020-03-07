@@ -11,6 +11,7 @@ import { FieldsStore } from './FieldsStore';
 import { FieldFeedbackValidation } from './FieldFeedbackValidation';
 import { flattenDeep } from './flattenDeep';
 import { notUndefined } from './notUndefined';
+import { assert } from './assert';
 
 export interface FormWithConstraintsChildContext {
   form: FormWithConstraints;
@@ -120,7 +121,7 @@ export class FormWithConstraints
       // Internal check that everything is OK
       // Can be temporary out of sync if the user rapidly change the input, in this case:
       // emitFieldWillValidateEvent() returns the result of the first change while the store already contains the final validations
-      console.assert(
+      assert(
         JSON.stringify(
           flattenDeep<FieldFeedbackValidation | undefined>(arrayOfArrays).filter(notUndefined)
         ) /* validationsFromEmitValidateFieldEvent */ ===

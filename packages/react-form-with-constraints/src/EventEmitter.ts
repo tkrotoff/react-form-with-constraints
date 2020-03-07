@@ -1,3 +1,5 @@
+import { assert } from './assert';
+
 // FIXME [Proposal: Variadic Kinds -- Give specific types to variadic functions](https://github.com/Microsoft/TypeScript/issues/5453)
 
 type Listener<Args extends any[], ReturnType> = (...args: Args) => ReturnType | Promise<ReturnType>;
@@ -32,10 +34,10 @@ export class EventEmitter<ListenerArgs extends any[], ListenerReturnType> {
     const listeners = this.listeners.get(eventName);
 
     // Assert disabled: an event can be emitted even without listeners
-    //console.assert(listeners !== undefined, `Unknown event '${eventName}'`);
+    //assert(listeners !== undefined, `Unknown event '${eventName}'`);
 
     if (listeners !== undefined) {
-      console.assert(listeners.length > 0, `No listener for event '${eventName}'`);
+      assert(listeners.length > 0, `No listener for event '${eventName}'`);
       return listeners;
     }
     return [];
@@ -44,10 +46,7 @@ export class EventEmitter<ListenerArgs extends any[], ListenerReturnType> {
   addListener(eventName: string, listener: Listener<ListenerArgs, ListenerReturnType>) {
     if (!this.listeners.has(eventName)) this.listeners.set(eventName, []);
     const listeners = this.listeners.get(eventName)!;
-    console.assert(
-      listeners.indexOf(listener) === -1,
-      `Listener already added for event '${eventName}'`
-    );
+    assert(listeners.indexOf(listener) === -1, `Listener already added for event '${eventName}'`);
     listeners.push(listener);
   }
 
@@ -56,11 +55,11 @@ export class EventEmitter<ListenerArgs extends any[], ListenerReturnType> {
   // If any single listener has been added multiple times to the listener array for the specified eventName,
   // then removeListener must be called multiple times to remove each instance."
   removeListener(eventName: string, listener: Listener<ListenerArgs, ListenerReturnType>) {
-    const listeners = this.listeners.get(eventName)!;
-    console.assert(listeners !== undefined, `Unknown event '${eventName}'`);
+    const listeners = this.listeners.get(eventName);
+    assert(listeners !== undefined, `Unknown event '${eventName}'`);
 
     const index = listeners.lastIndexOf(listener);
-    console.assert(index > -1, `Listener not found for event '${eventName}'`);
+    assert(index > -1, `Listener not found for event '${eventName}'`);
     listeners.splice(index, 1);
 
     if (listeners.length === 0) this.listeners.delete(eventName);

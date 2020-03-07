@@ -16,3 +16,4 @@ export * from './InputElement';
 export * from './Constructor';
 export * from './Input';
 export * from './deepForEach';
+export * from './assert';
