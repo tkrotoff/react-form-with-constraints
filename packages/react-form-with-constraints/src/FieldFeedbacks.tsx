@@ -5,7 +5,6 @@ import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWith
 import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 import { InputElement } from './InputElement';
 import { FieldFeedbackValidation } from './FieldFeedbackValidation';
-import { flattenDeep } from './flattenDeep';
 import { Nullable } from './Nullable';
 
 export interface FieldFeedbacksProps {
@@ -137,7 +136,7 @@ export class FieldFeedbacks
 
   async _validate(input: InputElement) {
     const arrayOfArrays = await this.emitValidateFieldEvent(input);
-    const validations = flattenDeep<FieldFeedbackValidation | undefined>(arrayOfArrays);
+    const validations = arrayOfArrays.flat(Infinity) as (FieldFeedbackValidation | undefined)[];
     return validations;
   }
 

@@ -9,7 +9,6 @@ import { Field } from './Field';
 import { IHTMLInput, InputElement, HTMLInput, TextInput } from './InputElement';
 import { FieldsStore } from './FieldsStore';
 import { FieldFeedbackValidation } from './FieldFeedbackValidation';
-import { flattenDeep } from './flattenDeep';
 import { notUndefined } from './notUndefined';
 import { assert } from './assert';
 
@@ -123,7 +122,9 @@ export class FormWithConstraints
       // emitFieldWillValidateEvent() returns the result of the first change while the store already contains the final validations
       assert(
         JSON.stringify(
-          flattenDeep<FieldFeedbackValidation | undefined>(arrayOfArrays).filter(notUndefined)
+          (arrayOfArrays.flat(Infinity) as (FieldFeedbackValidation | undefined)[]).filter(
+            notUndefined
+          )
         ) /* validationsFromEmitValidateFieldEvent */ ===
           JSON.stringify(field.validations) /* validationsFromStore */,
         `FieldsStore does not match emitValidateFieldEvent() result, did the user changed the input rapidly?`
