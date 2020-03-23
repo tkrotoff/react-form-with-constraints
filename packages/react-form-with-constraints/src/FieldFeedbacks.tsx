@@ -18,7 +18,7 @@ export interface FieldFeedbacksProps {
   stop: 'first' | 'first-error' | 'first-warning' | 'first-info' | 'no';
 }
 
-// Why Nullable? See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/27973
+// Why Nullable? https://github.com/DefinitelyTyped/DefinitelyTyped/pull/27973
 export type FieldFeedbacksContext = FormWithConstraintsChildContext &
   Partial<Nullable<FieldFeedbacksChildContext>>;
 
@@ -142,7 +142,7 @@ export class FieldFeedbacks
 
   render() {
     const { children } = this.props;
-    // See https://codepen.io/tkrotoff/pen/yzKKdB
+    // https://codepen.io/tkrotoff/pen/yzKKdB
     return children !== undefined ? children : null;
   }
 }

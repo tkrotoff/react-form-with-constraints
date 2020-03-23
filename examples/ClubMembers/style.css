@@ -1,4 +1,4 @@
-/* See https://github.com/twbs/bootstrap/blob/v4.1.2/scss/_close.scss */
+/* https://github.com/twbs/bootstrap/blob/v4.1.2/scss/_close.scss */
 button.close {
   float: initial;
   padding-left: 0.5rem;
@@ -9,7 +9,7 @@ ul.list-none {
 }
 
 /*
- * See https://github.com/twbs/bootstrap/blob/v4.1.2/scss/mixins/_forms.scss#L30
+ * https://github.com/twbs/bootstrap/blob/v4.1.2/scss/mixins/_forms.scss#L30
  */
 [data-feedback].error {
   margin-top: 0.25rem; /* $form-feedback-margin-top => $form-text-margin-top => .25rem */

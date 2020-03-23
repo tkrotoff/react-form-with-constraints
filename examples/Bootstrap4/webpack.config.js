@@ -3,7 +3,8 @@
 const path = require('path');
 const postcssPresetEnv = require('postcss-preset-env');
 
-module.exports = {
+/** @type import('webpack').Configuration */
+const config = {
   entry: './App.jsx',
 
   output: {
@@ -19,7 +20,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        // See [Babel should not transpile core-js](https://github.com/zloirock/core-js/issues/514#issuecomment-476533317)
+        // [Babel should not transpile core-js](https://github.com/zloirock/core-js/issues/514#issuecomment-476533317)
         exclude: /\/core-js/,
         loader: 'babel-loader'
       },
@@ -42,3 +43,5 @@ module.exports = {
     ]
   }
 };
+
+module.exports = config;

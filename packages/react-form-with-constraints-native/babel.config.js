@@ -1,3 +1,5 @@
+// @ts-check
+
 module.exports = api => {
   api.cache(true);
   return {

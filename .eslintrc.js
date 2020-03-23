@@ -1,6 +1,7 @@
 // @ts-check
 
-module.exports = {
+/** @type {import('eslint').Linter.Config} */
+const config = {
   parser: '@typescript-eslint/parser',
   parserOptions: {},
   extends: [
@@ -42,7 +43,7 @@ module.exports = {
     'no-lonely-if': 'off',
     'max-classes-per-file': 'off',
 
-    // See [no-return-assign should be configurable to ignore arrow-functions](https://github.com/eslint/eslint/issues/9471)
+    // [no-return-assign should be configurable to ignore arrow-functions](https://github.com/eslint/eslint/issues/9471)
     'no-return-assign': 'off',
 
     'prettier/prettier': 'error',
@@ -81,8 +82,8 @@ module.exports = {
   },
 
   // FIXME ?
-  // See [Support for mixed JS and TS codebases - do not lint JS files](https://github.com/typescript-eslint/typescript-eslint/issues/109)
-  // See [typescript/no-var-requires should only be enabled on ts/tsx files](https://github.com/Shopify/eslint-plugin-shopify/issues/159)
+  // [Support for mixed JS and TS codebases - do not lint JS files](https://github.com/typescript-eslint/typescript-eslint/issues/109)
+  // [typescript/no-var-requires should only be enabled on ts/tsx files](https://github.com/Shopify/eslint-plugin-shopify/issues/159)
   overrides: [
     {
       files: ['*.js'],
@@ -92,3 +93,5 @@ module.exports = {
     }
   ]
 };
+
+module.exports = config;

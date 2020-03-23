@@ -12,7 +12,7 @@
 }
 
 @function calcInputTopMargin($rightElementHeight) {
-  // Fix for IE, see https://github.com/postcss/autoprefixer/issues/1153
+  // Fix for IE, https://github.com/postcss/autoprefixer/issues/1153
   $input-height-without-calc-for-ie: str-replace($input-height, 'calc');
 
   @return calc((#{$input-height-without-calc-for-ie} + #{$rightElementHeight}) / -2);
@@ -25,7 +25,7 @@ input.is-pending {
   &.is-pending-sm {
     // Same as the validation icons, this is possible because .spinner-border-sm is small enough
     //padding-right: calcInputRightPadding($spinner-width-sm);
-    // See https://github.com/twbs/bootstrap/blob/v4.3.1/scss/mixins/_forms.scss#L59
+    // https://github.com/twbs/bootstrap/blob/v4.3.1/scss/mixins/_forms.scss#L59
     padding-right: $input-height-inner;
   }
 
@@ -36,7 +36,7 @@ input.is-pending {
     float: right;
 
     // Same as the validation icons
-    // See https://github.com/twbs/bootstrap/blob/v4.3.1/scss/mixins/_forms.scss#L62
+    // https://github.com/twbs/bootstrap/blob/v4.3.1/scss/mixins/_forms.scss#L62
     margin-right: $input-height-inner-quarter;
 
     margin-top: calcInputTopMargin($spinner-height);

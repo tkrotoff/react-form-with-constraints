@@ -168,7 +168,7 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
 
 const defaultTheme = createMuiTheme({});
 
-// See https://v3-5-0.material-ui.com/customization/themes/#nesting-the-theme
+// https://v3-5-0.material-ui.com/customization/themes/#nesting-the-theme
 function formWithConstraintsTheme(outerTheme: Theme | null) {
   return {
     ...(outerTheme || defaultTheme),
@@ -176,7 +176,7 @@ function formWithConstraintsTheme(outerTheme: Theme | null) {
       MuiFormHelperText: {
         root: {
           // Make FormHelperText invisible when there is no content
-          // See https://github.com/mui-org/material-ui/blob/v3.5.1/packages/material-ui/src/FormHelperText/FormHelperText.js#L14-L16
+          // https://github.com/mui-org/material-ui/blob/v3.5.1/packages/material-ui/src/FormHelperText/FormHelperText.js#L14-L16
           '&:empty': {
             marginTop: 0,
             minHeight: 0
@@ -197,7 +197,7 @@ function fieldFeedbackStyles(theme: Theme) {
   return createStyles({
     root: {
       // Simulates FormHelperText margin
-      // See https://github.com/mui-org/material-ui/blob/v1.0.0-beta.44/packages/material-ui/src/Form/FormHelperText.js#L12
+      // https://github.com/mui-org/material-ui/blob/v1.0.0-beta.44/packages/material-ui/src/Form/FormHelperText.js#L12
       '&:not(:last-child)': {
         marginBottom: theme.spacing()
       }

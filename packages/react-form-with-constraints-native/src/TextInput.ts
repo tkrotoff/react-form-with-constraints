@@ -3,7 +3,7 @@ import { TextInput as _TextInput, TextInputProps } from 'react-native';
 
 import { Constructor } from 'react-form-with-constraints';
 
-// See [[react-native] Wrong type for component ref](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16318#issuecomment-381512846)
+// [[react-native] Wrong type for component ref](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16318#issuecomment-381512846)
 
 export interface Props extends TextInputProps {
   name: string;

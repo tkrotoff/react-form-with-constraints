@@ -94,7 +94,7 @@ export { FieldFeedbacks };
 
 export { Async };
 
-// See [Tips for styling your React Native apps](https://medium.com/the-react-native-log/tips-for-styling-your-react-native-apps-3f61608655eb)
+// [Tips for styling your React Native apps](https://medium.com/the-react-native-log/tips-for-styling-your-react-native-apps-3f61608655eb)
 export interface FieldFeedbackTheme {
   error?: StyleProp<{ color: string }>;
   warning?: StyleProp<{ color: string }>;
@@ -106,7 +106,7 @@ export interface FieldFeedbackProps extends _FieldFeedbackBaseProps, TextProps {
   theme?: FieldFeedbackTheme;
 }
 
-// See [Clone a js object except for one key](https://stackoverflow.com/q/34698905)
+// [Clone a js object except for one key](https://stackoverflow.com/q/34698905)
 function omitClassesDefaultProps() {
   const { classes, ...otherProps } = _FieldFeedback.defaultProps;
   return otherProps;

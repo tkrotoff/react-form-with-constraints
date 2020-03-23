@@ -43,7 +43,7 @@ export class FormWithConstraints
     };
   }
 
-  // Could be named innerRef instead, see https://github.com/ant-design/ant-design/issues/5489#issuecomment-332208652
+  // Could be named innerRef instead, https://github.com/ant-design/ant-design/issues/5489#issuecomment-332208652
   private form: HTMLFormElement | null = null;
 
   fieldsStore = new FieldsStore();
@@ -143,7 +143,7 @@ export class FormWithConstraints
 
     if (inputsOrNames.length === 0) {
       // [name] matches <input name="...">, <select name="...">, <button name="...">, ...
-      // See [Convert JavaScript NodeList to Array?](https://stackoverflow.com/a/33822526/990356)
+      // [Convert JavaScript NodeList to Array?](https://stackoverflow.com/a/33822526/990356)
       // [...NodeList] vs Array.from(NodeList): the latter doesn't need downlevelIteration with IE
       inputs = Array.from(this.form!.querySelectorAll<HTMLInputElement>('[name]'));
 

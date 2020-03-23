@@ -14,7 +14,7 @@ function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// See https://en.wikipedia.org/wiki/List_of_the_most_common_passwords
+// https://en.wikipedia.org/wiki/List_of_the_most_common_passwords
 async function isACommonPassword(password: string) {
   console.log('isACommonPassword');
   await sleep(1000);

@@ -1,6 +1,9 @@
+// @ts-check
+
 const { defaults } = require('jest-config');
 
-module.exports = {
+/** @type Partial<import('@jest/types').Config.InitialOptions> */
+const config = {
   preset: 'jest-expo',
 
   // FIXME Fix for error:
@@ -10,3 +13,5 @@ module.exports = {
     fileExtension => fileExtension !== 'json'
   )
 };
+
+module.exports = config;

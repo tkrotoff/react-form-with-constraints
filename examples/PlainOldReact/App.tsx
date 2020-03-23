@@ -49,7 +49,7 @@ function Form() {
     passwordConfirm: []
   });
 
-  // FIXME See [SetStateAction returned from useState hook does not accept a second callback argument](https://github.com/facebook/react/issues/14174)
+  // FIXME [SetStateAction returned from useState hook does not accept a second callback argument](https://github.com/facebook/react/issues/14174)
   const [isSubmitted, setIsSubmitted] = useState(false);
   useEffect(() => {
     if (isSubmitted) {

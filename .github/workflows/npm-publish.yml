@@ -1,3 +1,5 @@
+# https://github.com/actions/starter-workflows/blob/c934669ce246e6d64e54006b714b04199cbe445b/ci/npm-publish.yml
+
 name: Node.js Package
 
 on:

@@ -42,7 +42,7 @@ import {
 // ]
 function beautifulStringify(obj: object, space?: string | number) {
   // Keep undefined
-  // See [Preserving undefined that JSON.stringify otherwise removes](https://stackoverflow.com/q/26540706)
+  // [Preserving undefined that JSON.stringify otherwise removes](https://stackoverflow.com/q/26540706)
   let str = JSON.stringify(
     obj,
     (_key, value) => (value === undefined ? '__undefined__' : value),
@@ -53,7 +53,7 @@ function beautifulStringify(obj: object, space?: string | number) {
   // Remove quotes from properties
   // Before: "name":
   // After: name:
-  // See [JSON.stringify without quotes on properties?](https://stackoverflow.com/q/11233498)
+  // [JSON.stringify without quotes on properties?](https://stackoverflow.com/q/11233498)
   str = str.replace(/"([^"]+)":/g, '$1:');
 
   // Before: element: "<input id=\"username\" name=\"username\" required=\"\">",
@@ -192,7 +192,7 @@ export class FieldFeedback extends _FieldFeedback {
 
   componentDidUpdate() {
     // Hack: make FieldFeedback <span style="display: inline">
-    // Also make Bootstrap 4 happy because it sets 'display: none', see https://github.com/twbs/bootstrap/blob/v4.1.2/scss/mixins/_forms.scss#L31
+    // Also make Bootstrap 4 happy because it sets 'display: none', https://github.com/twbs/bootstrap/blob/v4.1.2/scss/mixins/_forms.scss#L31
     const fieldFeedbackSpans = this.rootEl!.querySelectorAll<HTMLSpanElement>('[data-feedback]');
     fieldFeedbackSpans.forEach(fieldFeedbackSpan => {
       // eslint-disable-next-line no-param-reassign

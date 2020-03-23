@@ -50,10 +50,9 @@ export class EventEmitter<ListenerArgs extends any[], ListenerReturnType> {
     listeners.push(listener);
   }
 
-  // See https://nodejs.org/api/events.html#events_emitter_removelistener_eventname_listener
-  // "removeListener will remove, at most, one instance of a listener from the listener array.
+  // ["removeListener() will remove, at most, one instance of a listener from the listener array.
   // If any single listener has been added multiple times to the listener array for the specified eventName,
-  // then removeListener must be called multiple times to remove each instance."
+  // then removeListener() must be called multiple times to remove each instance."](https://nodejs.org/api/events.html#events_emitter_removelistener_eventname_listener)
   removeListener(eventName: string, listener: Listener<ListenerArgs, ListenerReturnType>) {
     const listeners = this.listeners.get(eventName);
     assert(listeners !== undefined, `Unknown event '${eventName}'`);

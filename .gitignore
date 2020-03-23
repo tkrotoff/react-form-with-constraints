@@ -9,5 +9,5 @@ lib-es5/
 coverage/
 
 # rollup-plugin-typescript2
-# See [.rpt2_cache should be in /tmp](https://github.com/ezolenko/rollup-plugin-typescript2/issues/34)
+# [.rpt2_cache should be in /tmp](https://github.com/ezolenko/rollup-plugin-typescript2/issues/34)
 .rpt2_cache/

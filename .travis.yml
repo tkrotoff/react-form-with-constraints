@@ -22,7 +22,7 @@ after_success:
   - yarn add codecov --ignore-workspace-root-check
   - yarn codecov
 
-  # See https://github.com/codeclimate/test-reporter/issues/263
+  # https://github.com/codeclimate/test-reporter/issues/263
   # prettier-ignore
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
       for f in packages/*; do

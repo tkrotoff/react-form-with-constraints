@@ -53,12 +53,12 @@ interface FieldFeedbackState {
   validation: FieldFeedbackValidation;
 
   // Copy of input.validationMessage
-  // See https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement
-  // See https://www.w3.org/TR/html51/sec-forms.html#the-constraint-validation-api
+  // https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement
+  // https://www.w3.org/TR/html51/sec-forms.html#the-constraint-validation-api
   validationMessage: string;
 }
 
-// Why Nullable? See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/27973
+// Why Nullable? https://github.com/DefinitelyTyped/DefinitelyTyped/pull/27973
 export type FieldFeedbackContext = FormWithConstraintsChildContext &
   FieldFeedbacksChildContext &
   Partial<Nullable<AsyncChildContext>>;

@@ -1,6 +1,9 @@
+// @ts-check
+
 const { defaults } = require('jest-config');
 
-module.exports = {
+/** @type Partial<import('@jest/types').Config.InitialOptions> */
+const config = {
   setupFiles: ['./jest.setup.ts'],
   coveragePathIgnorePatterns: [...defaults.coveragePathIgnorePatterns, './jest.setup.ts'],
 
@@ -19,3 +22,5 @@ module.exports = {
     }
   }
 };
+
+module.exports = config;
