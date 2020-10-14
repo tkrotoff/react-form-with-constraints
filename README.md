@@ -1,9 +1,9 @@
 # react-form-with-constraints
 
 [![npm version](https://badge.fury.io/js/react-form-with-constraints.svg)](https://badge.fury.io/js/react-form-with-constraints)
-[![Build Status](https://travis-ci.org/tkrotoff/react-form-with-constraints.svg?branch=master)](https://travis-ci.org/tkrotoff/react-form-with-constraints)
+[![Build status](https://travis-ci.org/tkrotoff/react-form-with-constraints.svg?branch=master)](https://travis-ci.org/tkrotoff/react-form-with-constraints)
 [![codecov](https://codecov.io/gh/tkrotoff/react-form-with-constraints/branch/master/graph/badge.svg)](https://codecov.io/gh/tkrotoff/react-form-with-constraints)
-[![Bundle Size](https://badgen.net/bundlephobia/minzip/react-form-with-constraints)](https://bundlephobia.com/result?p=react-form-with-constraints@latest)
+[![Bundle size](https://badgen.net/bundlephobia/minzip/react-form-with-constraints)](https://bundlephobia.com/result?p=react-form-with-constraints@latest)
 [![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![Airbnb Code Style](https://badgen.net/badge/code%20style/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
 
