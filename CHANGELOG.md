@@ -1,3 +1,9 @@
+## Next
+
+### Fixes
+
+- Set field.element as soon as possible
+
 ## v0.15.0 (2020/03/05)
 
 ### Breaking Changes

@@ -10,8 +10,7 @@ export class Field {
   // Can be useful for the user to get the DOM element
   // See https://github.com/tkrotoff/react-form-with-constraints/issues/41
   //
-  // Only available when the field has been validated
-  // Populated by FormWithConstraints._validateFields()
+  // Populated by FormWithConstraints.validateField()
   //
   // Cannot be set as readonly :/
   public element?: HTMLInput | TextInput;

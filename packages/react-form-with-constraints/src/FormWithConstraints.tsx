@@ -6,7 +6,7 @@ import { withFieldWillValidateEventEmitter } from './withFieldWillValidateEventE
 import { withFieldDidValidateEventEmitter } from './withFieldDidValidateEventEmitter';
 import { withFieldDidResetEventEmitter } from './withFieldDidResetEventEmitter';
 import { Field } from './Field';
-import { IHTMLInput, InputElement, HTMLInput } from './InputElement';
+import { IHTMLInput, InputElement, HTMLInput, TextInput } from './InputElement';
 import { FieldsStore } from './FieldsStore';
 import { FieldFeedbackValidation } from './FieldFeedbackValidation';
 import { flattenDeep } from './flattenDeep';
@@ -84,17 +84,25 @@ export class FormWithConstraints
     for (let i = 0; i < inputs.length; i++) {
       const input = inputs[i];
       // eslint-disable-next-line no-await-in-loop
-      const field = await this.validateField(forceValidateFields, new InputElement(input));
-      if (field !== undefined) {
-        field.element = input as HTMLInput;
-        fields.push(field);
-      }
+      const field = await this.validateField(
+        forceValidateFields,
+        new InputElement(input),
+        input as HTMLInput | TextInput
+      );
+      if (field !== undefined) fields.push(field);
     }
 
     return fields;
   }
 
-  private async validateField(forceValidateFields: boolean, input: InputElement) {
+  private async validateField(
+    forceValidateFields: boolean,
+    input: InputElement,
+
+    // We need to pass the native input separately instead of it being a property of InputElement
+    // otherwise react-form-with-constraints-native unit tests will crash
+    nativeInput: HTMLInput | TextInput
+  ) {
     const fieldName = input.name;
     const field = this.fieldsStore.getField(fieldName);
 
@@ -102,6 +110,7 @@ export class FormWithConstraints
       // Means the field (<input name="username">) does not have a FieldFeedbacks
       // so let's ignore this field
     } else if (forceValidateFields || !field.hasFeedbacks()) {
+      field.element = nativeInput as HTMLInput | TextInput;
       field.clearValidations();
 
       this.emitFieldWillValidateEvent(fieldName);
