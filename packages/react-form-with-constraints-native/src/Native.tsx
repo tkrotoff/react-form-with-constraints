@@ -89,9 +89,7 @@ export class FormWithConstraints extends _FormWithConstraints {
   }
 }
 
-export { FieldFeedbacks };
-
-export { Async };
+export { FieldFeedbacks, Async };
 
 // [Tips for styling your React Native apps](https://medium.com/the-react-native-log/tips-for-styling-your-react-native-apps-3f61608655eb)
 export interface FieldFeedbackTheme {

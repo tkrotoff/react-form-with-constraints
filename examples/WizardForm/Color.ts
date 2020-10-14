@@ -1,4 +1,4 @@
-enum Color {
+export enum Color {
   Red = 'Red',
   Orange = 'Orange',
   Yellow = 'Yellow',
@@ -8,6 +8,4 @@ enum Color {
   Violet = 'Violet'
 }
 
-const colorKeys = Object.keys(Color);
-
-export { Color, colorKeys };
+export const colorKeys = Object.keys(Color);
