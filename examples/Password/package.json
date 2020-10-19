@@ -24,9 +24,9 @@
     "react-form-with-constraints-tools": "^0.15.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.6",
-    "@babel/preset-react": "^7.8.3",
-    "@babel/preset-typescript": "^7.8.3",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-react": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1",
     "@types/circular-dependency-plugin": "^5.0.0",
     "@types/expect-puppeteer": "^4.4.0",
     "@types/jest": "^25.1.3",

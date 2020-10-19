@@ -28,9 +28,9 @@
     "react-form-with-constraints-tools": "^0.15.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.6",
-    "@babel/preset-react": "^7.8.3",
-    "@babel/preset-typescript": "^7.8.3",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-react": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1",
     "@types/lodash": "^4.14.149",
     "@types/node": "^13.7.6",
     "@types/react": "^16.9.23",
