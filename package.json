@@ -18,7 +18,7 @@
     "stylelint": "stylelint '**/*.scss'",
     "precommit": "yarn build && run-p lint format",
     "prepush": "run-p test test:e2e",
-    "publish:lerna": "lerna publish --dist-tag next --no-git-tag-version --no-push --registry=https://registry.npmjs.org # Custom example: 0.8.0-beta.1",
+    "publish:next:lerna": "lerna publish --dist-tag next --no-git-tag-version --no-push --registry=https://registry.npmjs.org # Custom example: 0.8.0-beta.1",
     "npm:update": "find . -type f -name 'package.json' -not -path './.git/*' -not -path '*/node_modules/*' -execdir npx npm-check-updates --upgrade \\;"
   },
   "workspaces": [

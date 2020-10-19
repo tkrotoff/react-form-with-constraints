@@ -1,6 +1,6 @@
 {
   "name": "plain-old-react-example",
-  "version": "0.15.0",
+  "version": "0.15.2",
   "private": true,
   "description": "Plain old React form validation example",
   "keywords": [
