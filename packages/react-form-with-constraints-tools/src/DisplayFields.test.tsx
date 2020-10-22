@@ -15,7 +15,7 @@ import { DisplayFields } from './index';
 import { SignUp } from './SignUp';
 
 function mount(node: React.ReactElement<FormWithConstraintsProps>) {
-  return _mount<FormWithConstraintsProps, {}>(node);
+  return _mount<FormWithConstraintsProps, Record<string, unknown>>(node);
 }
 
 function shallow(node: React.ReactElement, options: { context: FormWithConstraintsChildContext }) {

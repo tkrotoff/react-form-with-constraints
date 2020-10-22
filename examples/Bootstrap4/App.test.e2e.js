@@ -16,7 +16,7 @@ test('john/123456/12345', async () => {
   const username = await page.$('input[name=username]');
   await username.click();
   await username.type('john');
-  await page.waitFor('input[name=username] ~ span[data-feedback].invalid-feedback');
+  await page.waitForSelector('input[name=username] ~ span[data-feedback].invalid-feedback');
   //const usernameFeedbacks = await page.$$('input[name=username] ~ span[data-feedback]');
   const usernameFeedbacks = await username.$x('./following-sibling::span[@data-feedback]');
   expect(usernameFeedbacks).toHaveLength(1);
@@ -25,7 +25,7 @@ test('john/123456/12345', async () => {
   const password = await page.$('input[name=password]');
   await password.click();
   await password.type('123456');
-  await page.waitFor('input[name=password] ~ span[data-feedback]');
+  await page.waitForSelector('input[name=password] ~ span[data-feedback]');
   const passwordFeedbacks = await page.$$('input[name=password] ~ span[data-feedback]');
   expect(passwordFeedbacks).toHaveLength(4);
   await expect(passwordFeedbacks[0]).toMatch('Should contain small letters');
@@ -52,7 +52,7 @@ test('jimmy/12345/12345', async () => {
   const username = await page.$('input[name=username]');
   await username.click();
   await username.type('jimmy');
-  await page.waitFor('input[name=username] ~ span[data-feedback].valid-feedback');
+  await page.waitForSelector('input[name=username] ~ span[data-feedback].valid-feedback');
   //const usernameFeedbacks = await page.$$('input[name=username] ~ span[data-feedback]');
   const usernameFeedbacks = await username.$x('./following-sibling::span[@data-feedback]');
   expect(usernameFeedbacks).toHaveLength(2);
@@ -62,7 +62,7 @@ test('jimmy/12345/12345', async () => {
   const password = await page.$('input[name=password]');
   await password.click();
   await password.type('12345');
-  await page.waitFor('input[name=password] ~ span[data-feedback]');
+  await page.waitForSelector('input[name=password] ~ span[data-feedback]');
   const passwordFeedbacks = await page.$$('input[name=password] ~ span[data-feedback]');
   expect(passwordFeedbacks).toHaveLength(4);
   await expect(passwordFeedbacks[0]).toMatch('Should contain small letters');

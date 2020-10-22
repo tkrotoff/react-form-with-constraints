@@ -90,6 +90,20 @@ class Club {
   }
 }
 
+class Input extends _Input {
+  static defaultProps: InputProps = {
+    classes: {
+      // https://github.com/facebook/react/issues/3725#issuecomment-169163998
+      // [React.Component.defaultProps objects are overridden, not merged?](https://stackoverflow.com/q/40428847)
+      ..._Input.defaultProps.classes,
+      hasErrors: 'is-invalid',
+      hasWarnings: undefined,
+      hasInfos: undefined,
+      isValid: 'is-valid'
+    }
+  };
+}
+
 interface HobbiesProps {
   memberIndex: number;
   member: Member;
@@ -359,20 +373,6 @@ class Form extends React.Component<FormProps> {
       </FormWithConstraints>
     );
   }
-}
-
-class Input extends _Input {
-  static defaultProps: InputProps = {
-    classes: {
-      // https://github.com/facebook/react/issues/3725#issuecomment-169163998
-      // [React.Component.defaultProps objects are overridden, not merged?](https://stackoverflow.com/q/40428847)
-      ..._Input.defaultProps.classes,
-      hasErrors: 'is-invalid',
-      hasWarnings: undefined,
-      hasInfos: undefined,
-      isValid: 'is-valid'
-    }
-  };
 }
 
 function App() {

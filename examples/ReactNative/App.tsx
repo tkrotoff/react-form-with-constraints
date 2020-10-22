@@ -48,6 +48,19 @@ export interface State {
   resetButtonDisabled: boolean;
 }
 
+const fieldFeedbackTheme = StyleSheet.create({
+  error: { color: 'red' },
+  warning: { color: 'orange' },
+  info: { color: 'blue' },
+  whenValid: { color: 'green' }
+});
+
+class FieldFeedback extends React.PureComponent<FieldFeedbackProps> {
+  render() {
+    return <_FieldFeedback theme={fieldFeedbackTheme} {...this.props} />;
+  }
+}
+
 export default class App extends React.Component<Props, State> {
   form: FormWithConstraints | null = null;
   username: TextInput | null = null;
@@ -229,18 +242,5 @@ export default class App extends React.Component<Props, State> {
         </FormWithConstraints>
       </ScrollView>
     );
-  }
-}
-
-const fieldFeedbackTheme = StyleSheet.create({
-  error: { color: 'red' },
-  warning: { color: 'orange' },
-  info: { color: 'blue' },
-  whenValid: { color: 'green' }
-});
-
-class FieldFeedback extends React.PureComponent<FieldFeedbackProps> {
-  render() {
-    return <_FieldFeedback theme={fieldFeedbackTheme} {...this.props} />;
   }
 }

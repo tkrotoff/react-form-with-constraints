@@ -19,10 +19,10 @@
     "build:watch": "webpack -d --watch"
   },
   "dependencies": {
-    "@material-ui/core": "^4.9.4",
-    "lodash": "^4.17.15",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
+    "@material-ui/core": "^4.11.0",
+    "lodash": "^4.17.20",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-form-with-constraints": "^0.15.2",
     "react-form-with-constraints-material-ui": "^0.15.2",
     "react-form-with-constraints-tools": "^0.15.2"
@@ -31,15 +31,15 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-react": "^7.12.1",
     "@babel/preset-typescript": "^7.12.1",
-    "@types/lodash": "^4.14.149",
-    "@types/node": "^13.7.6",
-    "@types/react": "^16.9.23",
-    "@types/react-dom": "^16.9.5",
-    "@types/webpack": "^4.41.6",
-    "file-loader": "^5.1.0",
-    "ts-node": "^8.6.2",
-    "typescript": "^3.8.2",
-    "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.11"
+    "@types/lodash": "^4.14.162",
+    "@types/node": "^14.11.10",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "@types/webpack": "^4.41.22",
+    "file-loader": "^6.1.1",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
   }
 }

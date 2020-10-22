@@ -43,7 +43,6 @@ export class IValidityState implements ValidityState {
 export type HTMLInput = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
 // Minimum interface accepted by validateFields() and friends
-// eslint-disable-next-line @typescript-eslint/interface-name-prefix
 export interface IHTMLInput {
   readonly name: string;
   readonly type: string; // Not needed internally, can be text, radio...

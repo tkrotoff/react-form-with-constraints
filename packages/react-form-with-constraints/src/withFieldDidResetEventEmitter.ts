@@ -5,6 +5,7 @@ import { Field } from './Field';
 export const FieldDidResetEvent = 'FIELD_DID_RESET_EVENT';
 
 // [TypeScript 2.2 Support for Mix-in classes](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html)
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function withFieldDidResetEventEmitter<TBase extends Constructor<{}>>(Base: TBase) {
   type ListenerArg = Field;
   type ListenerReturnType = void;

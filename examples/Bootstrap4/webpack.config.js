@@ -33,7 +33,7 @@ const config = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => [postcssPresetEnv],
+              postcssOptions: { plugins: [['postcss-preset-env']] },
               sourceMap: true
             }
           },

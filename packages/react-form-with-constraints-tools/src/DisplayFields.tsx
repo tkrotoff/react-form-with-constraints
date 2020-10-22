@@ -40,7 +40,8 @@ import {
 //     ]
 //   }
 // ]
-function beautifulStringify(obj: object, space?: string | number) {
+// eslint-disable-next-line @typescript-eslint/ban-types
+function beautifulStringify(obj: {}, space?: string | number) {
   // Keep undefined
   // [Preserving undefined that JSON.stringify otherwise removes](https://stackoverflow.com/q/26540706)
   let str = JSON.stringify(

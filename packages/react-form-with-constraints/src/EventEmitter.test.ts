@@ -3,7 +3,7 @@ import { clearArray } from './clearArray';
 import * as assert from './assert';
 
 // [How to convert a plain object into an ES6 Map?](https://stackoverflow.com/q/36644438)
-function toMap(object: object) {
+function toMap(object: Record<string, unknown>) {
   return new Map(Object.entries(object));
 }
 

@@ -112,6 +112,15 @@ function omitClassesDefaultProps() {
   return otherProps;
 }
 
+export interface FieldFeedbackWhenValidProps extends _FieldFeedbackWhenValidBaseProps, TextProps {}
+
+export class FieldFeedbackWhenValid extends _FieldFeedbackWhenValid<FieldFeedbackWhenValidProps> {
+  // Copied and adapted from core/FieldFeedbackWhenValid.render()
+  render() {
+    return this.state.fieldIsValid ? <Text {...this.props} /> : null;
+  }
+}
+
 export class FieldFeedback extends _FieldFeedback<FieldFeedbackProps> {
   // Remove classes props: not relevant with React Native
   static defaultProps = omitClassesDefaultProps();
@@ -135,14 +144,5 @@ export class FieldFeedback extends _FieldFeedback<FieldFeedbackProps> {
     }
 
     return null;
-  }
-}
-
-export interface FieldFeedbackWhenValidProps extends _FieldFeedbackWhenValidBaseProps, TextProps {}
-
-export class FieldFeedbackWhenValid extends _FieldFeedbackWhenValid<FieldFeedbackWhenValidProps> {
-  // Copied and adapted from core/FieldFeedbackWhenValid.render()
-  render() {
-    return this.state.fieldIsValid ? <Text {...this.props} /> : null;
   }
 }

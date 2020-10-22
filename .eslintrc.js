@@ -42,9 +42,9 @@ const config = {
     'spaced-comment': 'off',
     'no-lonely-if': 'off',
     'max-classes-per-file': 'off',
-
     // [no-return-assign should be configurable to ignore arrow-functions](https://github.com/eslint/eslint/issues/9471)
     'no-return-assign': 'off',
+    camelcase: 'off',
 
     'prettier/prettier': 'error',
 
@@ -53,9 +53,13 @@ const config = {
     'import/prefer-default-export': 'off',
     'import/extensions': 'off',
 
-    'jsx-a11y/label-has-for': 'off',
-    'jsx-a11y/label-has-associated-control': 'off',
-    'jsx-a11y/iframe-has-title': 'off',
+    // https://github.com/typescript-eslint/typescript-eslint/blob/v4.1.0/packages/eslint-plugin/docs/rules/no-use-before-define.md
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': 'error',
+
+    // https://github.com/typescript-eslint/typescript-eslint/blob/v4.1.0/packages/eslint-plugin/docs/rules/no-shadow.md
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'error',
 
     '@typescript-eslint/indent': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
@@ -65,9 +69,15 @@ const config = {
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/explicit-member-accessibility': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-parameter-properties': 'off',
     '@typescript-eslint/array-type': 'off',
     '@typescript-eslint/ban-ts-ignore': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+    'jsx-a11y/label-has-for': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
+    'jsx-a11y/iframe-has-title': 'off',
 
     'react/no-unescaped-entities': 'off',
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx', '.jsx'] }],
@@ -89,6 +99,12 @@ const config = {
       files: ['*.js'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off'
+      }
+    },
+    {
+      files: ['examples/*/*.tsx'],
+      rules: {
+        'react/require-default-props': 'off'
       }
     }
   ]

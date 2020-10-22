@@ -16,7 +16,7 @@ import { validValidityState } from './InputElementMock';
 import * as assert from './assert';
 
 function mount(node: React.ReactElement<FormWithConstraintsProps>) {
-  return _mount<FormWithConstraintsProps, {}>(node);
+  return _mount<FormWithConstraintsProps, Record<string, unknown>>(node);
 }
 
 test('constructor()', () => {
