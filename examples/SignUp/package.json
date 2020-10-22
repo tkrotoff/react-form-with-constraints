@@ -1,6 +1,6 @@
 {
   "name": "sign-up-example",
-  "version": "0.15.2",
+  "version": "0.16.0",
   "private": true,
   "description": "react-form-with-constraints SignUp example",
   "keywords": [
@@ -23,8 +23,8 @@
     "lodash": "^4.17.20",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-form-with-constraints": "^0.15.2",
-    "react-form-with-constraints-tools": "^0.15.2",
+    "react-form-with-constraints": "^0.16.0",
+    "react-form-with-constraints-tools": "^0.16.0",
     "react-i18next": "^11.7.3"
   },
   "devDependencies": {

@@ -1,3 +1,16 @@
+## v0.16.0 (2020/10/22)
+
+### Breaking Changes
+
+- Drop IE 10 support (IE 11 still supported)
+- Use Array.flat(Infinity): Node.js >= 12 required
+- Use TypeScript 3.7 "asserts condition"
+
+### Features
+
+- Update npm packages
+- More ESLint and Stylelint plugins
+
 ## v0.15.2 (2020/10/20)
 
 ### Fixes
