@@ -56,7 +56,7 @@ export interface IHTMLInput {
   readonly validationMessage: string;
 }
 
-export function isHTMLInput(input: IHTMLInput | TextInput) {
+export function isHTMLInput(input: IHTMLInput | TextInput): input is IHTMLInput {
   return (input as any).props === undefined;
 }
 
@@ -72,10 +72,6 @@ export class InputElement implements IHTMLInput {
 
   constructor(input: IHTMLInput | TextInput) {
     if (isHTMLInput(input)) {
-      // FIXME
-      // eslint-disable-next-line no-param-reassign
-      input = input as IHTMLInput;
-
       this.name = input.name;
       this.type = input.type;
       this.value = input.value;
@@ -91,13 +87,9 @@ export class InputElement implements IHTMLInput {
 
       this.validationMessage = input.validationMessage;
     } else {
-      // FIXME
-      // eslint-disable-next-line no-param-reassign
-      input = input as TextInput;
-
-      this.name = input.props!.name;
+      this.name = input.props.name;
       this.type = undefined as any;
-      this.value = input.props!.value!; // Tested: TextInput props.value is always a string and never undefined (empty string instead)
+      this.value = input.props.value!; // Tested: TextInput props.value is always a string and never undefined (empty string instead)
       this.validity = undefined as any;
       this.validationMessage = undefined as any;
     }

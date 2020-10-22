@@ -9,9 +9,7 @@ import {
   FieldFeedbackType,
   FormWithConstraints,
   FormWithConstraintsChildContext,
-  HTMLInput,
-  isHTMLInput,
-  TextInput
+  isHTMLInput
 } from 'react-form-with-constraints';
 
 // Before:
@@ -74,9 +72,7 @@ function normalizeFieldElementProperty(fields: Field[]) {
     const { element, ...otherProps } = field;
     return element
       ? {
-          element: isHTMLInput(element)
-            ? (element as HTMLInput).outerHTML
-            : (element as TextInput).props,
+          element: isHTMLInput(element) ? element.outerHTML : element.props,
           ...otherProps
         }
       : field;
