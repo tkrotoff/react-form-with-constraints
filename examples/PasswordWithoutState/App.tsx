@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import ReactDOM from 'react-dom';
-
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
+import { FieldFeedback, FieldFeedbacks, FormWithConstraints } from 'react-form-with-constraints';
 
 import './index.html';
 import './style.css';

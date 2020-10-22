@@ -1,6 +1,6 @@
-import { EventEmitter } from './index';
-import { clearArray } from './clearArray';
 import * as assert from './assert';
+import { clearArray } from './clearArray';
+import { EventEmitter } from './index';
 
 // [How to convert a plain object into an ES6 Map?](https://stackoverflow.com/q/36644438)
 function toMap(object: Record<string, unknown>) {

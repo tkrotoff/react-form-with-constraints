@@ -1,5 +1,5 @@
-import { EventEmitter } from './EventEmitter';
 import { Constructor } from './Constructor';
+import { EventEmitter } from './EventEmitter';
 import { Field } from './Field';
 
 export const FieldDidValidateEvent = 'FIELD_DID_VALIDATE_EVENT';

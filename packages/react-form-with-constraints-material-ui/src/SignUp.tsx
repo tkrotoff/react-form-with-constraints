@@ -1,16 +1,15 @@
 import * as React from 'react';
-
 import {
-  Input,
-  FormHelperText,
   /*TextField, FormControl,*/
-  createMuiTheme
+  createMuiTheme,
+  FormHelperText,
+  Input
 } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 
 import { checkUsernameAvailability } from '../../react-form-with-constraints/src/checkUsernameAvailability';
-import { FormWithConstraints, Async, FieldFeedback, TextField, FormControl } from './index';
 import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
+import { Async, FieldFeedback, FormControl, FormWithConstraints, TextField } from './index';
 
 const defaultTheme = createMuiTheme({});
 

@@ -1,6 +1,6 @@
-import { Field } from './Field';
-import { EventEmitter } from './EventEmitter';
 import { assert } from './assert';
+import { EventEmitter } from './EventEmitter';
+import { Field } from './Field';
 
 export enum FieldEvent {
   Added = 'FIELD_ADDED',

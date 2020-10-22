@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
-import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
-import { InputElement } from './InputElement';
 import { FieldFeedbackValidation } from './FieldFeedbackValidation';
+import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
+import { InputElement } from './InputElement';
 import { Nullable } from './Nullable';
+import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 
 export interface FieldFeedbacksProps {
   for?: string;

@@ -1,4 +1,4 @@
-import { FileInfo, API } from 'jscodeshift';
+import { API, FileInfo } from 'jscodeshift';
 
 module.exports = (fileInfo: FileInfo, api: API) => {
   const j = api.jscodeshift;

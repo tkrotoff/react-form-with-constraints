@@ -1,31 +1,29 @@
-import React, { useState, useRef } from 'react';
-import ReactDOM from 'react-dom';
-import { isEqual } from 'lodash';
-
+import React, { useRef, useState } from 'react';
 import {
-  Input,
-  InputLabel,
+  Button,
+  createMuiTheme,
+  createStyles,
+  CssBaseline,
+  FormControlLabel,
   /*TextField, FormControl,*/
   FormHelperText,
-  FormControlLabel,
-  Button,
+  Input,
+  InputLabel,
   Switch,
-  createMuiTheme,
   Theme,
-  CssBaseline,
-  createStyles,
-  withStyles,
-  WithStyles
+  WithStyles,
+  withStyles
 } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
-
+import { isEqual } from 'lodash';
+import ReactDOM from 'react-dom';
 import {
-  FormWithConstraints,
-  FieldFeedbacks,
   Async,
   FieldFeedback,
-  TextField,
-  FormControl
+  FieldFeedbacks,
+  FormControl,
+  FormWithConstraints,
+  TextField
 } from 'react-form-with-constraints-material-ui';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 

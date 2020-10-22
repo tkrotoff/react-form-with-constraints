@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import { beautifyHtml } from '../../react-form-with-constraints/src/beautifyHtml';
 import { validValidityState } from '../../react-form-with-constraints/src/InputElementMock';
-import { FormWithConstraints, FormControl } from './index';
+import { FormControl, FormWithConstraints } from './index';
 import { SignUp } from './SignUp';
 
 const flushPromises = () => new Promise(resolve => setImmediate(resolve));

@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { shallow as _shallow, mount as _mount } from 'enzyme';
-
+import { mount as _mount, shallow as _shallow } from 'enzyme';
 import {
-  FormWithConstraints,
-  FormWithConstraintsProps,
-  FormWithConstraintsChildContext,
   FieldEvent,
+  FieldFeedbackType,
   FieldFeedbackValidation,
-  FieldFeedbackType
+  FormWithConstraints,
+  FormWithConstraintsChildContext,
+  FormWithConstraintsProps
 } from 'react-form-with-constraints';
 
 import { beautifyHtml } from '../../react-form-with-constraints/src/beautifyHtml';

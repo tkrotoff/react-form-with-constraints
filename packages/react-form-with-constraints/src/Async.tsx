@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
-import { FieldFeedbacks, FieldFeedbacksChildContext } from './FieldFeedbacks';
-import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
-import { FieldFeedbackValidation } from './FieldFeedbackValidation';
-import { InputElement } from './InputElement';
 import { assert } from './assert';
+import { FieldFeedbacks, FieldFeedbacksChildContext } from './FieldFeedbacks';
+import { FieldFeedbackValidation } from './FieldFeedbackValidation';
+import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
+import { InputElement } from './InputElement';
+import { withValidateFieldEventEmitter } from './withValidateFieldEventEmitter';
 
 export enum Status {
   None,

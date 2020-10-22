@@ -1,25 +1,25 @@
 import * as React from 'react';
-import { shallow as _shallow, mount as _mount } from 'enzyme';
+import { mount as _mount, shallow as _shallow } from 'enzyme';
 
+import { beautifyHtml } from './beautifyHtml';
+import { checkUsernameAvailability } from './checkUsernameAvailability';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import {
-  FormWithConstraints,
-  FieldFeedbacksProps,
   Async,
-  AsyncProps,
   AsyncContext,
-  Status,
+  AsyncProps,
   FieldFeedback,
   FieldFeedbacksContext,
+  FieldFeedbacksProps,
+  FormWithConstraints,
+  Status,
   ValidateFieldEvent
 } from './index';
-import { checkUsernameAvailability } from './checkUsernameAvailability';
 import {
   input_unknown_valueMissing,
-  input_username_valid,
-  input_username_error_valid
+  input_username_error_valid,
+  input_username_valid
 } from './InputElementMock';
-import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
-import { beautifyHtml } from './beautifyHtml';
 
 function shallow(node: React.ReactElement<AsyncProps<any>>, options: { context: AsyncContext }) {
   return _shallow<AsyncProps<any>>(node, options);

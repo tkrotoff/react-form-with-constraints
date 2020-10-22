@@ -1,20 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { debounce, isEqual, omit } from 'lodash';
-import { Trans, withTranslation, WithTranslation } from 'react-i18next';
+import './i18n';
 
+import React from 'react';
+import { debounce, isEqual, omit } from 'lodash';
+import ReactDOM from 'react-dom';
 import {
-  FormWithConstraints,
-  FieldFeedbacks,
-  FieldFeedback,
   Async as _Async,
-  AsyncProps
+  AsyncProps,
+  FieldFeedback,
+  FieldFeedbacks,
+  FormWithConstraints
 } from 'react-form-with-constraints';
 import { DisplayFields } from 'react-form-with-constraints-tools';
+import { Trans, WithTranslation, withTranslation } from 'react-i18next';
 
-import './i18n';
-import { Loader } from './Loader';
 import { Gender } from './Gender';
+import { Loader } from './Loader';
 import './index.html';
 import './style.css';
 

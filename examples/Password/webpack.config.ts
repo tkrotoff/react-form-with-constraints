@@ -1,6 +1,6 @@
+import CircularDependencyPlugin from 'circular-dependency-plugin';
 import path from 'path';
 import { Configuration } from 'webpack';
-import CircularDependencyPlugin from 'circular-dependency-plugin';
 
 const config: Configuration = {
   entry: './App.tsx',

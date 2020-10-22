@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { mount as _mount } from 'enzyme';
 
-import {
-  FormWithConstraints,
-  FormWithConstraintsProps,
-  FieldFeedbacksProps,
-  FieldFeedback,
-  Async
-} from './index';
-import { SignUp } from './SignUp';
-import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
-import { sleep } from './sleep';
-import { beautifyHtml } from './beautifyHtml';
-import { validValidityState } from './InputElementMock';
 import * as assert from './assert';
+import { beautifyHtml } from './beautifyHtml';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
+import {
+  Async,
+  FieldFeedback,
+  FieldFeedbacksProps,
+  FormWithConstraints,
+  FormWithConstraintsProps
+} from './index';
+import { validValidityState } from './InputElementMock';
+import { SignUp } from './SignUp';
+import { sleep } from './sleep';
 
 function mount(node: React.ReactElement<FormWithConstraintsProps>) {
   return _mount<FormWithConstraintsProps, Record<string, unknown>>(node);

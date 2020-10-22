@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { mount as _mount, shallow as _shallow } from 'enzyme';
 
+import { beautifyHtml } from './beautifyHtml';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import {
-  FormWithConstraints,
-  FormWithConstraintsChildContext,
   FieldFeedback,
   FieldFeedbacksProps,
+  FormWithConstraints,
+  FormWithConstraintsChildContext,
   ValidateFieldEvent
 } from './index';
 import {
-  input_username_valueMissing,
   input_unknown_valueMissing,
-  input_username_valid
+  input_username_valid,
+  input_username_valueMissing
 } from './InputElementMock';
-import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
-import { beautifyHtml } from './beautifyHtml';
 
 function shallow(
   node: React.ReactElement<FieldFeedbacksProps>,

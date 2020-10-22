@@ -1,20 +1,19 @@
 import * as React from 'react';
-import { Text, View, TextProps, StyleProp } from 'react-native';
-import { TextInput } from './TextInput'; // Specific to TypeScript
-
-// eslint-disable-next-line import/order
 import {
-  FormWithConstraints as _FormWithConstraints,
-  FieldFeedbacks,
   Async,
+  deepForEach,
   Field,
   FieldFeedback as _FieldFeedback,
   FieldFeedbackBaseProps as _FieldFeedbackBaseProps,
+  FieldFeedbacks,
   FieldFeedbackType,
   FieldFeedbackWhenValid as _FieldFeedbackWhenValid,
   FieldFeedbackWhenValidBaseProps as _FieldFeedbackWhenValidBaseProps,
-  deepForEach
+  FormWithConstraints as _FormWithConstraints
 } from 'react-form-with-constraints';
+import { StyleProp, Text, TextProps, View } from 'react-native';
+
+import { TextInput } from './TextInput'; // Specific to TypeScript
 
 export class FormWithConstraints extends _FormWithConstraints {
   // @ts-ignore

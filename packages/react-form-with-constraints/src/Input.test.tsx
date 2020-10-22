@@ -2,13 +2,13 @@ import * as React from 'react';
 import { shallow as _shallow } from 'enzyme';
 
 import {
-  Input,
-  InputProps,
-  InputContext,
-  FormWithConstraints,
   Field,
+  FieldFeedbackType,
   FieldFeedbackValidation,
-  FieldFeedbackType
+  FormWithConstraints,
+  Input,
+  InputContext,
+  InputProps
 } from './index';
 
 function shallow(node: React.ReactElement<InputProps>, options: { context: InputContext }) {

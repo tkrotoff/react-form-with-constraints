@@ -1,12 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { configure, observable, action, computed } from 'mobx';
+import { action, computed, configure, observable } from 'mobx';
 import { observer } from 'mobx-react';
-
+import ReactDOM from 'react-dom';
 import {
-  FormWithConstraints,
-  FieldFeedbacks,
   FieldFeedback,
+  FieldFeedbacks,
+  FormWithConstraints,
   Input as _Input,
   InputProps
 } from 'react-form-with-constraints';

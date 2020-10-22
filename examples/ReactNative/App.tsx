@@ -1,16 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Button, ActivityIndicator } from 'react-native';
 import { isEqual, omit } from 'lodash';
-
 import {
-  TextInput,
-  FormWithConstraints,
-  FieldFeedbacks,
   Async,
   FieldFeedback as _FieldFeedback,
-  FieldFeedbackProps
+  FieldFeedbackProps,
+  FieldFeedbacks,
+  FormWithConstraints,
+  TextInput
 } from 'react-form-with-constraints-native';
 import { DisplayFields } from 'react-form-with-constraints-tools';
+import { ActivityIndicator, Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { TextFixedWidth } from './TextFixedWidth';
 

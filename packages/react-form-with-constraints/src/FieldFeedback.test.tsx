@@ -1,20 +1,20 @@
 import * as React from 'react';
-import { shallow as _shallow, mount as _mount } from 'enzyme';
+import { mount as _mount, shallow as _shallow } from 'enzyme';
 
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import {
-  FormWithConstraints,
   Field,
   FieldFeedback,
   FieldFeedbackContext,
   FieldFeedbackProps,
+  FormWithConstraints,
   ValidateFieldEvent
 } from './index';
 import {
-  InputElementMock,
+  input_username_valid,
   input_username_valueMissing,
-  input_username_valid
+  InputElementMock
 } from './InputElementMock';
-import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 
 function shallow(
   node: React.ReactElement<FieldFeedbackProps>,

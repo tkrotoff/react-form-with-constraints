@@ -1,4 +1,4 @@
-import { Field, FieldFeedbackValidation, FieldFeedbackType } from './index';
+import { Field, FieldFeedbackType, FieldFeedbackValidation } from './index';
 
 test('constructor()', () => {
   const field = new Field('password');

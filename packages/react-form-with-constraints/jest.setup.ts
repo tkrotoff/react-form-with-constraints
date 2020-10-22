@@ -1,11 +1,10 @@
+import * as assert from 'assert';
 import { configure } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
 // [console.assert not throwing with v22.4.0](https://github.com/facebook/jest/issues/5634)
-// eslint-disable-next-line import/newline-after-import, import/first
-import * as assert from 'assert';
 console.assert = assert;
 
 // [Event: 'unhandledRejection'](https://nodejs.org/api/process.html#process_event_unhandledrejection)

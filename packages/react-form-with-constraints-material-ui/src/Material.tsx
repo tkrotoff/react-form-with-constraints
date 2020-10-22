@@ -1,29 +1,27 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
-
 import {
+  createMuiTheme,
+  createStyles,
   FormControl as _FormControl,
   TextField as _TextField,
   Theme,
-  createMuiTheme,
-  createStyles,
-  withStyles,
-  WithStyles
+  WithStyles,
+  withStyles
 } from '@material-ui/core';
 import { FormControlProps } from '@material-ui/core/FormControl';
 import { TextFieldProps } from '@material-ui/core/TextField';
 import { ThemeProvider } from '@material-ui/styles';
-
+import * as PropTypes from 'prop-types';
 import {
-  FormWithConstraints as _FormWithConstraints,
-  FormWithConstraintsChildContext,
-  FieldFeedbacks,
+  assert,
   Async,
+  deepForEach,
+  Field,
   FieldFeedback as _FieldFeedback,
   FieldFeedbackBaseProps,
-  Field,
-  deepForEach,
-  assert
+  FieldFeedbacks,
+  FormWithConstraints as _FormWithConstraints,
+  FormWithConstraintsChildContext
 } from 'react-form-with-constraints';
 
 interface FormControlState {

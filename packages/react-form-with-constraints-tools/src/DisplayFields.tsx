@@ -1,17 +1,16 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-
 import {
+  Async as _Async,
+  Field,
+  FieldEvent,
+  FieldFeedback as _FieldFeedback,
+  FieldFeedbacks as _FieldFeedbacks,
+  FieldFeedbackType,
   FormWithConstraints,
   FormWithConstraintsChildContext,
-  FieldFeedback as _FieldFeedback,
-  FieldFeedbackType,
-  FieldFeedbacks as _FieldFeedbacks,
-  Async as _Async,
-  FieldEvent,
-  Field,
-  isHTMLInput,
   HTMLInput,
+  isHTMLInput,
   TextInput
 } from 'react-form-with-constraints';
 

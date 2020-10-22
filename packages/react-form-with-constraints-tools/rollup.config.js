@@ -1,8 +1,8 @@
 // @ts-check
 
+import filesize from 'rollup-plugin-filesize';
 import typescript from 'rollup-plugin-typescript2';
 import { uglify } from 'rollup-plugin-uglify';
-import filesize from 'rollup-plugin-filesize';
 
 const isProd = process.env.NODE_ENV === 'production';
 

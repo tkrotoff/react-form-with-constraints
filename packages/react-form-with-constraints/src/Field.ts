@@ -1,7 +1,7 @@
-import { FieldFeedbackValidation } from './FieldFeedbackValidation';
-import { FieldFeedbackType } from './FieldFeedbackType';
 import { clearArray } from './clearArray';
-import { TextInput, HTMLInput } from './InputElement';
+import { FieldFeedbackType } from './FieldFeedbackType';
+import { FieldFeedbackValidation } from './FieldFeedbackValidation';
+import { HTMLInput, TextInput } from './InputElement';
 
 // Field is a better name than Input, [Django Form fields](https://docs.djangoproject.com/en/1.11/ref/forms/fields/)
 export class Field {

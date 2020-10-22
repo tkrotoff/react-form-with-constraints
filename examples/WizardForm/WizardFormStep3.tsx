@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
-
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from 'react-form-with-constraints';
+import { FieldFeedback, FieldFeedbacks, FormWithConstraints } from 'react-form-with-constraints';
 
 import { Color, colorKeys } from './Color';
 

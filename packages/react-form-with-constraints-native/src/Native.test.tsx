@@ -5,14 +5,14 @@ import * as TestRenderer from 'react-test-renderer';
 
 import { beautifyHtml } from '../../react-form-with-constraints/src/beautifyHtml';
 import {
-  input_username_valueMissing,
-  input_username_valid
+  input_username_valid,
+  input_username_valueMissing
 } from '../../react-form-with-constraints/src/InputElementMock';
 import {
-  FormWithConstraints,
-  FieldFeedbacks,
   FieldFeedback,
+  FieldFeedbacks,
   FieldFeedbackWhenValid,
+  FormWithConstraints,
   TextInput
 } from './index';
 import { SignUp } from './SignUp';
