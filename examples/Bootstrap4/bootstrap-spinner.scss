@@ -5,22 +5,24 @@
   display: none;
 }
 
-@function calcInputRightPadding($rightElementWidth) {
+@function calc-input-right-padding($right-element-width) {
   @return calc(
-    #{$rightElementWidth} - #{$input-border-width} * 2 + #{$input-height-inner-quarter} * 2
+    #{$right-element-width} - #{$input-border-width} * 2 + #{$input-height-inner-quarter} * 2
   );
 }
 
-@function calcInputTopMargin($rightElementHeight) {
+@function calc-input-top-margin($right-element-width) {
   // Fix for IE, https://github.com/postcss/autoprefixer/issues/1153
   $input-height-without-calc-for-ie: str-replace($input-height, 'calc');
 
-  @return calc((#{$input-height-without-calc-for-ie} + #{$rightElementHeight}) / -2);
+  @return calc((#{$input-height-without-calc-for-ie} + #{$right-element-width}) / -2);
 }
+
+// stylelint-disable selector-no-qualifying-type
 
 input.is-pending {
   // Cannot use the same as the validation icons because .spinner-border is too big
-  padding-right: calcInputRightPadding($spinner-width);
+  padding-right: calc-input-right-padding($spinner-width);
 
   &.is-pending-sm {
     // Same as the validation icons, this is possible because .spinner-border-sm is small enough
@@ -39,11 +41,12 @@ input.is-pending {
     // https://github.com/twbs/bootstrap/blob/v4.3.1/scss/mixins/_forms.scss#L62
     margin-right: $input-height-inner-quarter;
 
-    margin-top: calcInputTopMargin($spinner-height);
+    // stylelint-disable-next-line order/properties-order
+    margin-top: calc-input-top-margin($spinner-height);
 
     &.spinner-border-sm,
     &.spinner-grow-sm {
-      margin-top: calcInputTopMargin($spinner-height-sm);
+      margin-top: calc-input-top-margin($spinner-height-sm);
     }
   }
 }

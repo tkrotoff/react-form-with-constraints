@@ -2,6 +2,7 @@
 // [.invalid-feedback doesn't show for .input-group with an invalid control](https://github.com/twbs/bootstrap/issues/23454)
 .valid-feedback,
 .invalid-feedback {
+  // stylelint-disable-next-line declaration-no-important
   display: block !important; // [Is there an opposite to display:none?](https://stackoverflow.com/a/37289654/990356)
 }
 
