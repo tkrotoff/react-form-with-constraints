@@ -399,14 +399,14 @@ describe('FormWithConstraints', () => {
 
         // [async/await toThrow is not working](https://github.com/facebook/jest/issues/1700)
 
-        await expect(form.validateFields('username')).resolves.toEqual([
+        expect(await form.validateFields('username')).toEqual([
           { name: 'username', element: expectTextInput, validations: [] }
         ]);
-        await expect(form.validateFields()).rejects.toEqual(
-          new Error(`Multiple elements matching '[name="password"]' inside the form`)
+        await expect(form.validateFields()).rejects.toThrow(
+          `Multiple elements matching '[name="password"]' inside the form`
         );
-        await expect(form.validateFields('password')).rejects.toEqual(
-          new Error(`Multiple elements matching '[name="password"]' inside the form`)
+        await expect(form.validateFields('password')).rejects.toThrow(
+          `Multiple elements matching '[name="password"]' inside the form`
         );
 
         wrapper.unmount();
@@ -420,10 +420,10 @@ describe('FormWithConstraints', () => {
         );
         const form = (wrapper.getInstance() as any) as FormWithConstraints;
 
-        await expect(form.validateFields()).resolves.toEqual([]); // Ignore input without FieldFeedbacks
-        await expect(form.validateFields('username')).resolves.toEqual([]); // Ignore input without FieldFeedbacks
-        await expect(form.validateFields('unknown')).rejects.toEqual(
-          new Error(`Could not find field '[name="unknown"]' inside the form`)
+        expect(await form.validateFields()).toEqual([]); // Ignore input without FieldFeedbacks
+        expect(await form.validateFields('username')).toEqual([]); // Ignore input without FieldFeedbacks
+        await expect(form.validateFields('unknown')).rejects.toThrow(
+          `Could not find field '[name="unknown"]' inside the form`
         );
 
         wrapper.unmount();
@@ -435,9 +435,9 @@ describe('FormWithConstraints', () => {
         );
         const form = (wrapper.getInstance() as any) as FormWithConstraints;
 
-        await expect(form.validateFields()).resolves.toEqual([]);
-        await expect(form.validateFields('unknown')).rejects.toEqual(
-          new Error(`Could not find field '[name="unknown"]' inside the form`)
+        expect(await form.validateFields()).toEqual([]);
+        await expect(form.validateFields('unknown')).rejects.toThrow(
+          `Could not find field '[name="unknown"]' inside the form`
         );
 
         wrapper.unmount();
@@ -659,10 +659,12 @@ describe('FieldFeedback', () => {
         </Text>`);
     });
 
+    // eslint-disable-next-line jest/expect-expect
     test('warning', async () => {
       //
     });
 
+    // eslint-disable-next-line jest/expect-expect
     test('info', async () => {
       //
     });
@@ -694,6 +696,7 @@ describe('FieldFeedback', () => {
       expect(wrapper.debug()).toEqual('<Text data-feedback="0.0" style={[undefined]} />');
     });
 
+    // eslint-disable-next-line jest/expect-expect
     test('with already existing class', async () => {
       //
     });
@@ -750,6 +753,7 @@ describe('FieldFeedback', () => {
       expect(wrapper.props().style).toEqual({ color: 'red' });
     });
 
+    // eslint-disable-next-line jest/expect-expect
     test('when="valid"', async () => {
       // Cannot be implemented properly
     });

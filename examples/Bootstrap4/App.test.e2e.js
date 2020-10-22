@@ -20,7 +20,7 @@ test('john/123456/12345', async () => {
   //const usernameFeedbacks = await page.$$('input[name=username] ~ span[data-feedback]');
   const usernameFeedbacks = await username.$x('./following-sibling::span[@data-feedback]');
   expect(usernameFeedbacks).toHaveLength(1);
-  await expect(usernameFeedbacks[0]).toMatch('Username already taken, choose another');
+  expect(usernameFeedbacks[0]).toMatch('Username already taken, choose another');
 
   const password = await page.$('input[name=password]');
   await password.click();
@@ -28,10 +28,10 @@ test('john/123456/12345', async () => {
   await page.waitForSelector('input[name=password] ~ span[data-feedback]');
   const passwordFeedbacks = await page.$$('input[name=password] ~ span[data-feedback]');
   expect(passwordFeedbacks).toHaveLength(4);
-  await expect(passwordFeedbacks[0]).toMatch('Should contain small letters');
-  await expect(passwordFeedbacks[1]).toMatch('Should contain capital letters');
-  await expect(passwordFeedbacks[2]).toMatch('Should contain special characters');
-  await expect(passwordFeedbacks[3]).toMatch('Looks good!');
+  expect(passwordFeedbacks[0]).toMatch('Should contain small letters');
+  expect(passwordFeedbacks[1]).toMatch('Should contain capital letters');
+  expect(passwordFeedbacks[2]).toMatch('Should contain special characters');
+  expect(passwordFeedbacks[3]).toMatch('Looks good!');
 
   const passwordConfirm = await page.$('input[name=passwordConfirm]');
   await passwordConfirm.click();
@@ -40,7 +40,7 @@ test('john/123456/12345', async () => {
     'input[name=passwordConfirm] ~ span[data-feedback]'
   );
   expect(passwordConfirmFeedbacks).toHaveLength(1);
-  await expect(passwordConfirmFeedbacks[0]).toMatch('Not the same password');
+  expect(passwordConfirmFeedbacks[0]).toMatch('Not the same password');
 
   const signUp = (await page.$x("//button[text() = 'Sign Up']"))[0];
   // [Get Custom Attribute value](https://github.com/GoogleChrome/puppeteer/issues/1451)
@@ -56,8 +56,8 @@ test('jimmy/12345/12345', async () => {
   //const usernameFeedbacks = await page.$$('input[name=username] ~ span[data-feedback]');
   const usernameFeedbacks = await username.$x('./following-sibling::span[@data-feedback]');
   expect(usernameFeedbacks).toHaveLength(2);
-  await expect(usernameFeedbacks[0]).toMatch('Username available');
-  await expect(usernameFeedbacks[1]).toMatch('Looks good!');
+  expect(usernameFeedbacks[0]).toMatch('Username available');
+  expect(usernameFeedbacks[1]).toMatch('Looks good!');
 
   const password = await page.$('input[name=password]');
   await password.click();
@@ -65,10 +65,10 @@ test('jimmy/12345/12345', async () => {
   await page.waitForSelector('input[name=password] ~ span[data-feedback]');
   const passwordFeedbacks = await page.$$('input[name=password] ~ span[data-feedback]');
   expect(passwordFeedbacks).toHaveLength(4);
-  await expect(passwordFeedbacks[0]).toMatch('Should contain small letters');
-  await expect(passwordFeedbacks[1]).toMatch('Should contain capital letters');
-  await expect(passwordFeedbacks[2]).toMatch('Should contain special characters');
-  await expect(passwordFeedbacks[3]).toMatch('Looks good!');
+  expect(passwordFeedbacks[0]).toMatch('Should contain small letters');
+  expect(passwordFeedbacks[1]).toMatch('Should contain capital letters');
+  expect(passwordFeedbacks[2]).toMatch('Should contain special characters');
+  expect(passwordFeedbacks[3]).toMatch('Looks good!');
 
   const passwordConfirm = await page.$('input[name=passwordConfirm]');
   await passwordConfirm.click();
@@ -77,7 +77,7 @@ test('jimmy/12345/12345', async () => {
     'input[name=passwordConfirm] ~ span[data-feedback]'
   );
   expect(passwordConfirmFeedbacks).toHaveLength(1);
-  await expect(passwordConfirmFeedbacks[0]).toMatch('Looks good!');
+  expect(passwordConfirmFeedbacks[0]).toMatch('Looks good!');
 
   const signUp = (await page.$x("//button[text() = 'Sign Up']"))[0];
   // [Get Custom Attribute value](https://github.com/GoogleChrome/puppeteer/issues/1451)

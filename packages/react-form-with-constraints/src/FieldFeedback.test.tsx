@@ -317,7 +317,7 @@ describe('validate()', () => {
       });
       await expect(
         fieldFeedbacks_username.emitValidateFieldEvent(input_username_valid)
-      ).rejects.toEqual(new TypeError("Invalid FieldFeedback 'when' type: number"));
+      ).rejects.toThrow("Invalid FieldFeedback 'when' type: number");
     });
   });
 
