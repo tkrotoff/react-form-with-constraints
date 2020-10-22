@@ -9,7 +9,7 @@ import {
   Input,
   InputContext,
   InputProps
-} from './index';
+} from '.';
 
 function shallow(node: React.ReactElement<InputProps>, options: { context: InputContext }) {
   return _shallow<InputProps>(node, options);

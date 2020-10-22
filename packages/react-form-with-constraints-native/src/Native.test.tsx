@@ -14,7 +14,7 @@ import {
   FieldFeedbackWhenValid,
   FormWithConstraints,
   TextInput
-} from './index';
+} from '.';
 import { SignUp } from './SignUp';
 
 // FIXME

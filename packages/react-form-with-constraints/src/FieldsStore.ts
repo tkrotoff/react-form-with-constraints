@@ -34,6 +34,7 @@ export class FieldsStore extends EventEmitter<[Field | string], void> {
   }
 
   removeField(fieldName: string) {
+    // eslint-disable-next-line unicorn/prefer-array-find
     const fields = this.fields.filter(_field => _field.name === fieldName);
 
     // We can have multiple FieldFeedbacks for the same field,

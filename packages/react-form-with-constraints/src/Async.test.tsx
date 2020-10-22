@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { mount as _mount, shallow as _shallow } from 'enzyme';
 
-import { beautifyHtml } from './beautifyHtml';
-import { checkUsernameAvailability } from './checkUsernameAvailability';
-import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import {
   Async,
   AsyncContext,
@@ -14,7 +11,10 @@ import {
   FormWithConstraints,
   Status,
   ValidateFieldEvent
-} from './index';
+} from '.';
+import { beautifyHtml } from './beautifyHtml';
+import { checkUsernameAvailability } from './checkUsernameAvailability';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import {
   input_unknown_valueMissing,
   input_username_error_valid,

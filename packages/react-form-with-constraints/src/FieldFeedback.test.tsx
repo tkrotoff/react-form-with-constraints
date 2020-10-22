@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { mount as _mount, shallow as _shallow } from 'enzyme';
 
-import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import {
   Field,
   FieldFeedback,
@@ -9,7 +8,8 @@ import {
   FieldFeedbackProps,
   FormWithConstraints,
   ValidateFieldEvent
-} from './index';
+} from '.';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import {
   input_username_valid,
   input_username_valueMissing,

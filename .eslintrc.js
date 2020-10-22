@@ -6,6 +6,7 @@ const config = {
   parserOptions: {},
   extends: [
     // /!\ Order matters: the next one overrides rules from the previous one
+    'plugin:unicorn/recommended',
     'plugin:jest/recommended',
     'airbnb',
     // Already done by Airbnb
@@ -103,6 +104,14 @@ const config = {
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+    'unicorn/filename-case': 'off',
+    'unicorn/prevent-abbreviations': 'off',
+    'unicorn/catch-error-name': 'off',
+    // [IE does not support for...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of#Browser_compatibility)
+    'unicorn/no-for-loop': 'off',
+    'unicorn/no-null': 'off',
+    'unicorn/prefer-query-selector': 'off',
 
     'jsx-a11y/label-has-associated-control': 'off',
 

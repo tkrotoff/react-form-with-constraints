@@ -58,6 +58,7 @@ function beautifulStringify(obj: {}, space?: string | number) {
 
   // Before: element: "<input id=\"username\" name=\"username\" required=\"\">",
   // After: element: <input id=\"username\" name=\"username\" required=\"\">,
+  // eslint-disable-next-line unicorn/better-regex
   str = str.replace(/: "(.*[\\"].*)",/g, ': $1,');
 
   // Before: <input id=\"username\" name=\"username\" required=\"\">

@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { mount as _mount, shallow as _shallow } from 'enzyme';
 
-import { beautifyHtml } from './beautifyHtml';
-import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import {
   FieldFeedback,
   FieldFeedbacksProps,
   FormWithConstraints,
   FormWithConstraintsChildContext,
   ValidateFieldEvent
-} from './index';
+} from '.';
+import { beautifyHtml } from './beautifyHtml';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import {
   input_unknown_valueMissing,
   input_username_valid,

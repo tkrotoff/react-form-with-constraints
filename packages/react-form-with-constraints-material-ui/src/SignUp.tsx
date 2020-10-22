@@ -8,8 +8,8 @@ import {
 import { ThemeProvider } from '@material-ui/styles';
 
 import { checkUsernameAvailability } from '../../react-form-with-constraints/src/checkUsernameAvailability';
+import { Async, FieldFeedback, FormControl, FormWithConstraints, TextField } from '.';
 import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
-import { Async, FieldFeedback, FormControl, FormWithConstraints, TextField } from './index';
 
 const defaultTheme = createMuiTheme({});
 

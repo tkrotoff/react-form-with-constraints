@@ -3,7 +3,7 @@ import { mount, shallow } from 'enzyme';
 
 import { beautifyHtml } from '../../react-form-with-constraints/src/beautifyHtml';
 import { validValidityState } from '../../react-form-with-constraints/src/InputElementMock';
-import { FormControl, FormWithConstraints } from './index';
+import { FormControl, FormWithConstraints } from '.';
 import { SignUp } from './SignUp';
 
 const flushPromises = () => new Promise(resolve => setImmediate(resolve));

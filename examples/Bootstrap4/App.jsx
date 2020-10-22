@@ -29,17 +29,17 @@ async function checkUsernameAvailability(value) {
   return !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase());
 }
 
+function getInitialInputsState() {
+  return {
+    username: '',
+    password: '',
+    passwordConfirm: ''
+  };
+}
+
 function Form() {
   const form = useRef(null);
   const password = useRef(null);
-
-  function getInitialInputsState() {
-    return {
-      username: '',
-      password: '',
-      passwordConfirm: ''
-    };
-  }
 
   const [inputs, setInputs] = useState(getInitialInputsState());
   const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(false);

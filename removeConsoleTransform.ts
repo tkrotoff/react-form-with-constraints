@@ -1,16 +1,19 @@
 import { API, FileInfo } from 'jscodeshift';
 
 module.exports = (fileInfo: FileInfo, api: API) => {
-  const j = api.jscodeshift;
+  const { jscodeshift } = api;
 
-  return j(fileInfo.source)
-    .find(j.CallExpression, {
-      callee: {
-        object: {
-          name: 'console'
+  return (
+    jscodeshift(fileInfo.source)
+      // eslint-disable-next-line unicorn/no-fn-reference-in-iterator
+      .find(jscodeshift.CallExpression, {
+        callee: {
+          object: {
+            name: 'console'
+          }
         }
-      }
-    })
-    .remove()
-    .toSource();
+      })
+      .remove()
+      .toSource()
+  );
 };

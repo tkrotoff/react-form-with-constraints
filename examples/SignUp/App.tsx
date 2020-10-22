@@ -67,7 +67,7 @@ class SignUp extends React.Component<Props, State> {
     return {
       // en-US => en, fr-FR => fr
       // eslint-disable-next-line react/destructuring-assignment
-      language: this.props.i18n.language.substring(0, 2),
+      language: this.props.i18n.language.slice(0, 2),
 
       firstName: '',
       lastName: '',
@@ -141,11 +141,9 @@ class SignUp extends React.Component<Props, State> {
     target: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement,
     forceValidateFields: boolean
   ) {
-    if (forceValidateFields) {
-      await this.form!.validateFields(target);
-    } else {
-      await this.form!.validateFieldsWithoutFeedback(target);
-    }
+    await (forceValidateFields
+      ? this.form!.validateFields(target)
+      : this.form!.validateFieldsWithoutFeedback(target));
 
     this.setState(prevState => ({
       signUpButtonDisabled: !this.form!.isValid(),
@@ -170,11 +168,9 @@ class SignUp extends React.Component<Props, State> {
 
     if (forceValidateFields) this.form!.resetFields(target);
 
-    if (_debounce) {
-      await this.validateFieldsWithDebounce(target, forceValidateFields);
-    } else {
-      await this.validateFieldsWithoutDebounce(target, forceValidateFields);
-    }
+    await (_debounce
+      ? this.validateFieldsWithDebounce(target, forceValidateFields)
+      : this.validateFieldsWithoutDebounce(target, forceValidateFields));
   }
 
   handleHasWebsiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {

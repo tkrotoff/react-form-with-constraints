@@ -56,17 +56,17 @@ interface InputsState {
   passwordConfirm: string;
 }
 
+function getInitialInputsState() {
+  return {
+    username: '',
+    password: '',
+    passwordConfirm: ''
+  };
+}
+
 function Form({ classes }: FormProps) {
   const form = useRef<FormWithConstraints | null>(null);
   const password = useRef<HTMLInputElement | null>(null);
-
-  function getInitialInputsState() {
-    return {
-      username: '',
-      password: '',
-      passwordConfirm: ''
-    };
-  }
 
   const [inputs, setInputs] = useState<InputsState>(getInitialInputsState());
   const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(false);

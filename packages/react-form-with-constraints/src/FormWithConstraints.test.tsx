@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { mount as _mount } from 'enzyme';
 
-import * as assert from './assert';
-import { beautifyHtml } from './beautifyHtml';
-import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import {
   Async,
   FieldFeedback,
   FieldFeedbacksProps,
   FormWithConstraints,
   FormWithConstraintsProps
-} from './index';
+} from '.';
+import * as assert from './assert';
+import { beautifyHtml } from './beautifyHtml';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import { validValidityState } from './InputElementMock';
 import { SignUp } from './SignUp';
 import { sleep } from './sleep';

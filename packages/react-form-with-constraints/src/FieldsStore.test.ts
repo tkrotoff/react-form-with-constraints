@@ -1,4 +1,4 @@
-import { FieldEvent, FieldFeedbackType, FieldFeedbackValidation, FieldsStore } from './index';
+import { FieldEvent, FieldFeedbackType, FieldFeedbackValidation, FieldsStore } from '.';
 
 const validation_empty: FieldFeedbackValidation = {
   key: '0.0',

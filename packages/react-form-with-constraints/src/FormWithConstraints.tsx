@@ -122,9 +122,10 @@ export class FormWithConstraints
       // emitFieldWillValidateEvent() returns the result of the first change while the store already contains the final validations
       assert(
         JSON.stringify(
-          (arrayOfArrays.flat(Infinity) as (FieldFeedbackValidation | undefined)[]).filter(
-            notUndefined
-          )
+          (arrayOfArrays.flat(Infinity) as (
+            | FieldFeedbackValidation
+            | undefined
+          )[]).filter(fieldFeedback => notUndefined(fieldFeedback))
         ) /* validationsFromEmitValidateFieldEvent */ ===
           JSON.stringify(field.validations) /* validationsFromStore */,
         `FieldsStore does not match emitValidateFieldEvent() result, did the user changed the input rapidly?`
@@ -145,6 +146,7 @@ export class FormWithConstraints
       // [name] matches <input name="...">, <select name="...">, <button name="...">, ...
       // [Convert JavaScript NodeList to Array?](https://stackoverflow.com/a/33822526/990356)
       // [...NodeList] vs Array.from(NodeList): the latter doesn't need downlevelIteration with IE
+      // eslint-disable-next-line unicorn/prefer-spread
       inputs = Array.from(this.form!.querySelectorAll<HTMLInputElement>('[name]'));
 
       // Remove elements without ValidityState, example:
@@ -173,6 +175,7 @@ export class FormWithConstraints
           const query = `[name="${input}"]`;
 
           // [...NodeList] vs Array.from(NodeList): the latter doesn't need downlevelIteration with IE
+          // eslint-disable-next-line unicorn/prefer-spread
           const elements = Array.from(this.form!.querySelectorAll<HTMLInputElement>(query));
 
           // Checks

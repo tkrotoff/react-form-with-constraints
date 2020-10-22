@@ -69,6 +69,7 @@ export class FormControl extends React.Component<FormControlProps, FormControlSt
     assert(
       fieldNames.size === 1,
       // [...Set] vs Array.from(Set): the latter doesn't need downlevelIteration with IE
+      // eslint-disable-next-line unicorn/prefer-spread
       `0 or multiple [name="*"] instead of 1: '${Array.from(fieldNames)}'`
     );
 

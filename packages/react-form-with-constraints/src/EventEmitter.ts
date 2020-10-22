@@ -46,7 +46,7 @@ export class EventEmitter<ListenerArgs extends any[], ListenerReturnType> {
   addListener(eventName: string, listener: Listener<ListenerArgs, ListenerReturnType>) {
     if (!this.listeners.has(eventName)) this.listeners.set(eventName, []);
     const listeners = this.listeners.get(eventName)!;
-    assert(listeners.indexOf(listener) === -1, `Listener already added for event '${eventName}'`);
+    assert(!listeners.includes(listener), `Listener already added for event '${eventName}'`);
     listeners.push(listener);
   }
 
