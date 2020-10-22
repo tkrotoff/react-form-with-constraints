@@ -8,8 +8,8 @@ import {
   FormWithConstraintsChildContext,
   ValidateFieldEvent
 } from '.';
-import { beautifyHtml } from './beautifyHtml';
 import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
+import { dBlock, error, formatHTML, key, keys, warning } from './formatHTML';
 import {
   input_unknown_valueMissing,
   input_username_valid,
@@ -194,7 +194,7 @@ describe('render()', () => {
     const form = new FormWithConstraints({});
     const wrapper = mount(<FieldFeedbacks for="username" />, { context: { form } });
 
-    expect(wrapper.html()).toEqual('<span data-feedbacks="0"></span>');
+    expect(wrapper.html()).toEqual(`<span ${keys}="0"></span>`);
   });
 
   test('children', async () => {
@@ -214,9 +214,9 @@ describe('render()', () => {
       }
     ]);
 
-    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
-      <span data-feedbacks="0">
-        <span data-feedback="0.0" class="error" style="display: block;">Suffering from being missing</span>
+    expect(formatHTML(wrapper.html(), '      ')).toEqual(`\
+      <span ${keys}="0">
+        <span ${key}="0.0" ${error} ${dBlock}>Suffering from being missing</span>
       </span>`);
   });
 
@@ -239,10 +239,10 @@ describe('render()', () => {
       }
     ]);
 
-    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
-      <span data-feedbacks="0">
+    expect(formatHTML(wrapper.html(), '      ')).toEqual(`\
+      <span ${keys}="0">
         <div>
-          <span data-feedback="0.0" class="error" style="display: block;">Suffering from being missing</span>
+          <span ${key}="0.0" ${error} ${dBlock}>Suffering from being missing</span>
         </div>
       </span>`);
   });
@@ -258,7 +258,7 @@ describe('render()', () => {
     const fields = await form.validateFields(input_unknown_valueMissing);
     expect(fields).toEqual([]);
 
-    expect(wrapper.html()).toEqual('<span data-feedbacks="0"></span>');
+    expect(wrapper.html()).toEqual(`<span ${keys}="0"></span>`);
   });
 
   describe('stop prop', () => {
@@ -285,11 +285,11 @@ describe('render()', () => {
         }
       ]);
 
-      expect(beautifyHtml(wrapper.html(), '        ')).toEqual(`\
-        <span data-feedbacks="0">
-          <span data-feedback="0.0" class="error" style="display: block;">Suffering from being missing</span>
-          <span data-feedback="0.1" class="error" style="display: block;">Suffering from being missing</span>
-          <span data-feedback="0.2" class="error" style="display: block;">Suffering from being missing</span>
+      expect(formatHTML(wrapper.html(), '        ')).toEqual(`\
+        <span ${keys}="0">
+          <span ${key}="0.0" ${error} ${dBlock}>Suffering from being missing</span>
+          <span ${key}="0.1" ${error} ${dBlock}>Suffering from being missing</span>
+          <span ${key}="0.2" ${error} ${dBlock}>Suffering from being missing</span>
         </span>`);
     });
 
@@ -316,9 +316,9 @@ describe('render()', () => {
         }
       ]);
 
-      expect(beautifyHtml(wrapper.html(), '        ')).toEqual(`\
-        <span data-feedbacks="0">
-          <span data-feedback="0.0" class="error" style="display: block;">Suffering from being missing</span>
+      expect(formatHTML(wrapper.html(), '        ')).toEqual(`\
+        <span ${keys}="0">
+          <span ${key}="0.0" ${error} ${dBlock}>Suffering from being missing</span>
         </span>`);
     });
 
@@ -345,10 +345,10 @@ describe('render()', () => {
         }
       ]);
 
-      expect(beautifyHtml(wrapper.html(), '        ')).toEqual(`\
-        <span data-feedbacks="0">
-          <span data-feedback="0.0" class="warning" style="display: block;">Suffering from being missing</span>
-          <span data-feedback="0.1" class="error" style="display: block;">Suffering from being missing</span>
+      expect(formatHTML(wrapper.html(), '        ')).toEqual(`\
+        <span ${keys}="0">
+          <span ${key}="0.0" ${warning} ${dBlock}>Suffering from being missing</span>
+          <span ${key}="0.1" ${error} ${dBlock}>Suffering from being missing</span>
         </span>`);
     });
   });

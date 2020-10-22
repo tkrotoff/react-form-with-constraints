@@ -1,12 +1,17 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { beautifyHtml } from '../../react-form-with-constraints/src/beautifyHtml';
+import { dBlock, formatHTML, key, keys } from '../../react-form-with-constraints/src/formatHTML';
 import { validValidityState } from '../../react-form-with-constraints/src/InputElementMock';
 import { FormControl, FormWithConstraints } from '.';
 import { SignUp } from './SignUp';
 
 const flushPromises = () => new Promise(resolve => setImmediate(resolve));
+
+const error = 'class="FieldFeedbackWS-root-\\d+ error"';
+const warning = 'class="FieldFeedbackWS-root-\\d+ warning"';
+const info = 'class="FieldFeedbackWS-root-\\d+ info"';
+const whenValid = 'class="FieldFeedbackWS-root-\\d+ when-valid"';
 
 const MuiFormControl = 'MuiFormControl-root-\\d+';
 const MuiFormControl_MuiTextField = 'MuiFormControl-root-\\d+ MuiTextField-root-\\d+';
@@ -162,7 +167,7 @@ describe('FormWithConstraints', () => {
     ]);
 
     await flushPromises();
-    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(
+    expect(formatHTML(wrapper.html(), '      ')).toMatch(
       new RegExp(`\
       <form>
         <div class="${MuiFormControl_MuiTextField}">
@@ -170,8 +175,8 @@ describe('FormWithConstraints', () => {
             <input aria-invalid="true" name="username" type="text" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText_error}">
-            <span data-feedbacks="0">
-              <span data-feedback="0.3" class="FieldFeedbackWS-root-\\d+ error" style="display: block;">Username 'john' already taken, choose another</span>
+            <span ${keys}="0">
+              <span ${key}="0.3" ${error} ${dBlock}>Username 'john' already taken, choose another</span>
             </span>
           </p>
         </div>
@@ -180,11 +185,11 @@ describe('FormWithConstraints', () => {
             <input aria-invalid="false" id="password" name="password" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
-            <span data-feedbacks="1">
-              <span data-feedback="1.3" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain small letters</span>
-              <span data-feedback="1.4" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
-              <span data-feedback="1.5" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain special characters</span>
-              <span data-feedback="1.6" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+            <span ${keys}="1">
+              <span ${key}="1.3" ${warning} ${dBlock}>Should contain small letters</span>
+              <span ${key}="1.4" ${warning} ${dBlock}>Should contain capital letters</span>
+              <span ${key}="1.5" ${warning} ${dBlock}>Should contain special characters</span>
+              <span ${key}="1.6" ${whenValid} ${dBlock}>Looks good!</span>
             </span>
           </p>
         </div>
@@ -193,8 +198,8 @@ describe('FormWithConstraints', () => {
             <input aria-invalid="true" name="passwordConfirm" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText_error}">
-            <span data-feedbacks="2">
-              <span data-feedback="2.0" class="FieldFeedbackWS-root-\\d+ error" style="display: block;">Not the same password</span>
+            <span ${keys}="2">
+              <span ${key}="2.0" ${error} ${dBlock}>Not the same password</span>
             </span>
           </p>
         </div>
@@ -215,7 +220,7 @@ describe('FormWithConstraints', () => {
     await signUp.form!.validateFields();
 
     await flushPromises();
-    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(
+    expect(formatHTML(wrapper.html(), '      ')).toMatch(
       new RegExp(`\
       <form>
         <div class="${MuiFormControl_MuiTextField}">
@@ -223,8 +228,8 @@ describe('FormWithConstraints', () => {
             <input aria-invalid="true" name="username" type="text" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText_error}">
-            <span data-feedbacks="0">
-              <span data-feedback="0.3" class="FieldFeedbackWS-root-\\d+ error" style="display: block;">Username 'john' already taken, choose another</span>
+            <span ${keys}="0">
+              <span ${key}="0.3" ${error} ${dBlock}>Username 'john' already taken, choose another</span>
             </span>
           </p>
         </div>
@@ -233,11 +238,11 @@ describe('FormWithConstraints', () => {
             <input aria-invalid="false" id="password" name="password" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
-            <span data-feedbacks="1">
-              <span data-feedback="1.3" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain small letters</span>
-              <span data-feedback="1.4" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
-              <span data-feedback="1.5" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain special characters</span>
-              <span data-feedback="1.6" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+            <span ${keys}="1">
+              <span ${key}="1.3" ${warning} ${dBlock}>Should contain small letters</span>
+              <span ${key}="1.4" ${warning} ${dBlock}>Should contain capital letters</span>
+              <span ${key}="1.5" ${warning} ${dBlock}>Should contain special characters</span>
+              <span ${key}="1.6" ${whenValid} ${dBlock}>Looks good!</span>
             </span>
           </p>
         </div>
@@ -246,8 +251,8 @@ describe('FormWithConstraints', () => {
             <input aria-invalid="true" name="passwordConfirm" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText_error}">
-            <span data-feedbacks="2">
-              <span data-feedback="2.0" class="FieldFeedbackWS-root-\\d+ error" style="display: block;">Not the same password</span>
+            <span ${keys}="2">
+              <span ${key}="2.0" ${error} ${dBlock}>Not the same password</span>
             </span>
           </p>
         </div>
@@ -257,7 +262,7 @@ describe('FormWithConstraints', () => {
     signUp.form!.resetFields();
 
     await flushPromises();
-    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(
+    expect(formatHTML(wrapper.html(), '      ')).toMatch(
       new RegExp(`\
       <form>
         <div class="${MuiFormControl_MuiTextField}">
@@ -265,7 +270,7 @@ describe('FormWithConstraints', () => {
             <input aria-invalid="false" name="username" type="text" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
-            <span data-feedbacks="0"></span>
+            <span ${keys}="0"></span>
           </p>
         </div>
         <div class="${MuiFormControl}">
@@ -273,7 +278,7 @@ describe('FormWithConstraints', () => {
             <input aria-invalid="false" id="password" name="password" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
-            <span data-feedbacks="1"></span>
+            <span ${keys}="1"></span>
           </p>
         </div>
         <div class="${MuiFormControl_MuiTextField}">
@@ -281,7 +286,7 @@ describe('FormWithConstraints', () => {
             <input aria-invalid="false" name="passwordConfirm" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
-            <span data-feedbacks="2"></span>
+            <span ${keys}="2"></span>
           </p>
         </div>
       </form>`)
@@ -294,7 +299,7 @@ describe('FormWithConstraints', () => {
     await signUp.form!.validateFields();
 
     await flushPromises();
-    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(
+    expect(formatHTML(wrapper.html(), '      ')).toMatch(
       new RegExp(`\
       <form>
         <div class="${MuiFormControl_MuiTextField}">
@@ -302,9 +307,9 @@ describe('FormWithConstraints', () => {
             <input aria-invalid="false" name="username" type="text" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
-            <span data-feedbacks="0">
-              <span data-feedback="0.4" class="FieldFeedbackWS-root-\\d+ info" style="display: block;">Username 'jimmy' available</span>
-              <span data-feedback="0.2" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+            <span ${keys}="0">
+              <span ${key}="0.4" ${info} ${dBlock}>Username 'jimmy' available</span>
+              <span ${key}="0.2" ${whenValid} ${dBlock}>Looks good!</span>
             </span>
           </p>
         </div>
@@ -313,11 +318,11 @@ describe('FormWithConstraints', () => {
             <input aria-invalid="false" id="password" name="password" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
-            <span data-feedbacks="1">
-              <span data-feedback="1.3" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain small letters</span>
-              <span data-feedback="1.4" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
-              <span data-feedback="1.5" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain special characters</span>
-              <span data-feedback="1.6" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+            <span ${keys}="1">
+              <span ${key}="1.3" ${warning} ${dBlock}>Should contain small letters</span>
+              <span ${key}="1.4" ${warning} ${dBlock}>Should contain capital letters</span>
+              <span ${key}="1.5" ${warning} ${dBlock}>Should contain special characters</span>
+              <span ${key}="1.6" ${whenValid} ${dBlock}>Looks good!</span>
             </span>
           </p>
         </div>
@@ -326,8 +331,8 @@ describe('FormWithConstraints', () => {
             <input aria-invalid="false" name="passwordConfirm" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
-            <span data-feedbacks="2">
-              <span data-feedback="2.1" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+            <span ${keys}="2">
+              <span ${key}="2.1" ${whenValid} ${dBlock}>Looks good!</span>
             </span>
           </p>
         </div>
@@ -415,7 +420,7 @@ describe('Async', () => {
       ]
     ]);
 
-    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(
+    expect(formatHTML(wrapper.html(), '      ')).toMatch(
       new RegExp(`\
       <form>
         <div class="${MuiFormControl_MuiTextField}">
@@ -423,9 +428,9 @@ describe('Async', () => {
             <input aria-invalid="false" name="username" type="text" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
-            <span data-feedbacks="0">
-              <span data-feedback="0.3" class="FieldFeedbackWS-root-\\d+ info" style="display: block;">Username 'jimmy' available</span>
-              <span data-feedback="0.2" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+            <span ${keys}="0">
+              <span ${key}="0.3" ${info} ${dBlock}>Username 'jimmy' available</span>
+              <span ${key}="0.2" ${whenValid} ${dBlock}>Looks good!</span>
             </span>
           </p>
         </div>
@@ -434,11 +439,11 @@ describe('Async', () => {
             <input aria-invalid="false" id="password" name="password" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
-            <span data-feedbacks="1">
-              <span data-feedback="1.3" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain small letters</span>
-              <span data-feedback="1.4" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
-              <span data-feedback="1.5" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain special characters</span>
-              <span data-feedback="1.6" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+            <span ${keys}="1">
+              <span ${key}="1.3" ${warning} ${dBlock}>Should contain small letters</span>
+              <span ${key}="1.4" ${warning} ${dBlock}>Should contain capital letters</span>
+              <span ${key}="1.5" ${warning} ${dBlock}>Should contain special characters</span>
+              <span ${key}="1.6" ${whenValid} ${dBlock}>Looks good!</span>
             </span>
           </p>
         </div>
@@ -447,8 +452,8 @@ describe('Async', () => {
             <input aria-invalid="false" name="passwordConfirm" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
-            <span data-feedbacks="2">
-              <span data-feedback="2.1" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+            <span ${keys}="2">
+              <span ${key}="2.1" ${whenValid} ${dBlock}>Looks good!</span>
             </span>
           </p>
         </div>
@@ -533,7 +538,7 @@ describe('Async', () => {
     ]);
 
     await flushPromises();
-    expect(beautifyHtml(wrapper.html(), '      ')).toMatch(
+    expect(formatHTML(wrapper.html(), '      ')).toMatch(
       new RegExp(`\
       <form>
         <div class="${MuiFormControl_MuiTextField}">
@@ -541,8 +546,8 @@ describe('Async', () => {
             <input aria-invalid="true" name="username" type="text" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText_error}">
-            <span data-feedbacks="0">
-              <span data-feedback="0.3" class="FieldFeedbackWS-root-\\d+ error" style="display: block;">Something wrong with username 'error'</span>
+            <span ${keys}="0">
+              <span ${key}="0.3" ${error} ${dBlock}>Something wrong with username 'error'</span>
             </span>
           </p>
         </div>
@@ -551,11 +556,11 @@ describe('Async', () => {
             <input aria-invalid="false" id="password" name="password" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText}">
-            <span data-feedbacks="1">
-              <span data-feedback="1.3" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain small letters</span>
-              <span data-feedback="1.4" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain capital letters</span>
-              <span data-feedback="1.5" class="FieldFeedbackWS-root-\\d+ warning" style="display: block;">Should contain special characters</span>
-              <span data-feedback="1.6" class="FieldFeedbackWS-root-\\d+ when-valid" style="display: block;">Looks good!</span>
+            <span ${keys}="1">
+              <span ${key}="1.3" ${warning} ${dBlock}>Should contain small letters</span>
+              <span ${key}="1.4" ${warning} ${dBlock}>Should contain capital letters</span>
+              <span ${key}="1.5" ${warning} ${dBlock}>Should contain special characters</span>
+              <span ${key}="1.6" ${whenValid} ${dBlock}>Looks good!</span>
             </span>
           </p>
         </div>
@@ -564,8 +569,8 @@ describe('Async', () => {
             <input aria-invalid="true" name="passwordConfirm" type="password" class="${MuiInput}" value="">
           </div>
           <p class="${MuiFormHelperText_error}">
-            <span data-feedbacks="2">
-              <span data-feedback="2.0" class="FieldFeedbackWS-root-\\d+ error" style="display: block;">Not the same password</span>
+            <span ${keys}="2">
+              <span ${key}="2.0" ${error} ${dBlock}>Not the same password</span>
             </span>
           </p>
         </div>

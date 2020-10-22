@@ -1,11 +1,16 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 
-import { beautifyHtml } from '../../react-form-with-constraints/src/beautifyHtml';
+import { dBlock, formatHTML, key, keys } from '../../react-form-with-constraints/src/formatHTML';
 import { validValidityState } from '../../react-form-with-constraints/src/InputElementMock';
 import { SignUp } from './SignUp';
 
 const flushPromises = () => new Promise(resolve => setImmediate(resolve));
+
+const error = 'class="invalid-feedback"';
+const warning = 'class="warning-feedback"';
+const info = 'class="info-feedback"';
+const whenValid = 'class="valid-feedback"';
 
 describe('FormWithConstraints', () => {
   test('change inputs', async () => {
@@ -153,22 +158,22 @@ describe('FormWithConstraints', () => {
     ]);
 
     await flushPromises();
-    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+    expect(formatHTML(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username" class="form-control is-invalid">
-        <span data-feedbacks="0">
-          <span data-feedback="0.3" class="invalid-feedback" style="display: block;">Username 'john' already taken, choose another</span>
+        <span ${keys}="0">
+          <span ${key}="0.3" ${error} ${dBlock}>Username 'john' already taken, choose another</span>
         </span>
         <input type="password" name="password" class="form-control is-warning is-valid">
-        <span data-feedbacks="1">
-          <span data-feedback="1.3" class="warning-feedback" style="display: block;">Should contain small letters</span>
-          <span data-feedback="1.4" class="warning-feedback" style="display: block;">Should contain capital letters</span>
-          <span data-feedback="1.5" class="warning-feedback" style="display: block;">Should contain special characters</span>
-          <span data-feedback="1.6" class="valid-feedback" style="display: block;">Looks good!</span>
+        <span ${keys}="1">
+          <span ${key}="1.3" ${warning} ${dBlock}>Should contain small letters</span>
+          <span ${key}="1.4" ${warning} ${dBlock}>Should contain capital letters</span>
+          <span ${key}="1.5" ${warning} ${dBlock}>Should contain special characters</span>
+          <span ${key}="1.6" ${whenValid} ${dBlock}>Looks good!</span>
         </span>
         <input type="password" name="passwordConfirm" class="is-invalid">
-        <span data-feedbacks="2">
-          <span data-feedback="2.0" class="invalid-feedback" style="display: block;">Not the same password</span>
+        <span ${keys}="2">
+          <span ${key}="2.0" ${error} ${dBlock}>Not the same password</span>
         </span>
       </form>`);
 
@@ -186,35 +191,35 @@ describe('FormWithConstraints', () => {
     await signUp.form!.validateFields();
 
     await flushPromises();
-    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+    expect(formatHTML(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username" class="form-control is-invalid">
-        <span data-feedbacks="0">
-          <span data-feedback="0.3" class="invalid-feedback" style="display: block;">Username 'john' already taken, choose another</span>
+        <span ${keys}="0">
+          <span ${key}="0.3" ${error} ${dBlock}>Username 'john' already taken, choose another</span>
         </span>
         <input type="password" name="password" class="form-control is-warning is-valid">
-        <span data-feedbacks="1">
-          <span data-feedback="1.3" class="warning-feedback" style="display: block;">Should contain small letters</span>
-          <span data-feedback="1.4" class="warning-feedback" style="display: block;">Should contain capital letters</span>
-          <span data-feedback="1.5" class="warning-feedback" style="display: block;">Should contain special characters</span>
-          <span data-feedback="1.6" class="valid-feedback" style="display: block;">Looks good!</span>
+        <span ${keys}="1">
+          <span ${key}="1.3" ${warning} ${dBlock}>Should contain small letters</span>
+          <span ${key}="1.4" ${warning} ${dBlock}>Should contain capital letters</span>
+          <span ${key}="1.5" ${warning} ${dBlock}>Should contain special characters</span>
+          <span ${key}="1.6" ${whenValid} ${dBlock}>Looks good!</span>
         </span>
         <input type="password" name="passwordConfirm" class="is-invalid">
-        <span data-feedbacks="2">
-          <span data-feedback="2.0" class="invalid-feedback" style="display: block;">Not the same password</span>
+        <span ${keys}="2">
+          <span ${key}="2.0" ${error} ${dBlock}>Not the same password</span>
         </span>
       </form>`);
 
     signUp.form!.resetFields();
 
-    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+    expect(formatHTML(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username" class="form-control">
-        <span data-feedbacks="0"></span>
+        <span ${keys}="0"></span>
         <input type="password" name="password" class="form-control">
-        <span data-feedbacks="1"></span>
+        <span ${keys}="1"></span>
         <input type="password" name="passwordConfirm">
-        <span data-feedbacks="2"></span>
+        <span ${keys}="2"></span>
       </form>`);
 
     signUp.username!.value = 'jimmy';
@@ -224,23 +229,23 @@ describe('FormWithConstraints', () => {
     await signUp.form!.validateFields();
 
     await flushPromises();
-    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+    expect(formatHTML(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username" class="form-control is-info is-valid">
-        <span data-feedbacks="0">
-          <span data-feedback="0.4" class="info-feedback" style="display: block;">Username 'jimmy' available</span>
-          <span data-feedback="0.2" class="valid-feedback" style="display: block;">Looks good!</span>
+        <span ${keys}="0">
+          <span ${key}="0.4" ${info} ${dBlock}>Username 'jimmy' available</span>
+          <span ${key}="0.2" ${whenValid} ${dBlock}>Looks good!</span>
         </span>
         <input type="password" name="password" class="form-control is-warning is-valid">
-        <span data-feedbacks="1">
-          <span data-feedback="1.3" class="warning-feedback" style="display: block;">Should contain small letters</span>
-          <span data-feedback="1.4" class="warning-feedback" style="display: block;">Should contain capital letters</span>
-          <span data-feedback="1.5" class="warning-feedback" style="display: block;">Should contain special characters</span>
-          <span data-feedback="1.6" class="valid-feedback" style="display: block;">Looks good!</span>
+        <span ${keys}="1">
+          <span ${key}="1.3" ${warning} ${dBlock}>Should contain small letters</span>
+          <span ${key}="1.4" ${warning} ${dBlock}>Should contain capital letters</span>
+          <span ${key}="1.5" ${warning} ${dBlock}>Should contain special characters</span>
+          <span ${key}="1.6" ${whenValid} ${dBlock}>Looks good!</span>
         </span>
         <input type="password" name="passwordConfirm" class="is-valid">
-        <span data-feedbacks="2">
-          <span data-feedback="2.1" class="valid-feedback" style="display: block;">Looks good!</span>
+        <span ${keys}="2">
+          <span ${key}="2.1" ${whenValid} ${dBlock}>Looks good!</span>
         </span>
       </form>`);
 
@@ -326,23 +331,23 @@ describe('Async', () => {
     ]);
 
     await flushPromises();
-    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+    expect(formatHTML(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username" class="form-control is-info is-valid">
-        <span data-feedbacks="0">
-          <span data-feedback="0.3" class="info-feedback" style="display: block;">Username 'jimmy' available</span>
-          <span data-feedback="0.2" class="valid-feedback" style="display: block;">Looks good!</span>
+        <span ${keys}="0">
+          <span ${key}="0.3" ${info} ${dBlock}>Username 'jimmy' available</span>
+          <span ${key}="0.2" ${whenValid} ${dBlock}>Looks good!</span>
         </span>
         <input type="password" name="password" class="form-control is-warning is-valid">
-        <span data-feedbacks="1">
-          <span data-feedback="1.3" class="warning-feedback" style="display: block;">Should contain small letters</span>
-          <span data-feedback="1.4" class="warning-feedback" style="display: block;">Should contain capital letters</span>
-          <span data-feedback="1.5" class="warning-feedback" style="display: block;">Should contain special characters</span>
-          <span data-feedback="1.6" class="valid-feedback" style="display: block;">Looks good!</span>
+        <span ${keys}="1">
+          <span ${key}="1.3" ${warning} ${dBlock}>Should contain small letters</span>
+          <span ${key}="1.4" ${warning} ${dBlock}>Should contain capital letters</span>
+          <span ${key}="1.5" ${warning} ${dBlock}>Should contain special characters</span>
+          <span ${key}="1.6" ${whenValid} ${dBlock}>Looks good!</span>
         </span>
         <input type="password" name="passwordConfirm" class="is-valid">
-        <span data-feedbacks="2">
-          <span data-feedback="2.1" class="valid-feedback" style="display: block;">Looks good!</span>
+        <span ${keys}="2">
+          <span ${key}="2.1" ${whenValid} ${dBlock}>Looks good!</span>
         </span>
       </form>`);
 
@@ -424,22 +429,22 @@ describe('Async', () => {
     ]);
 
     await flushPromises();
-    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+    expect(formatHTML(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username" class="form-control is-invalid">
-        <span data-feedbacks="0">
-          <span data-feedback="0.3" class="invalid-feedback" style="display: block;">Something wrong with username 'error'</span>
+        <span ${keys}="0">
+          <span ${key}="0.3" ${error} ${dBlock}>Something wrong with username 'error'</span>
         </span>
         <input type="password" name="password" class="form-control is-warning is-valid">
-        <span data-feedbacks="1">
-          <span data-feedback="1.3" class="warning-feedback" style="display: block;">Should contain small letters</span>
-          <span data-feedback="1.4" class="warning-feedback" style="display: block;">Should contain capital letters</span>
-          <span data-feedback="1.5" class="warning-feedback" style="display: block;">Should contain special characters</span>
-          <span data-feedback="1.6" class="valid-feedback" style="display: block;">Looks good!</span>
+        <span ${keys}="1">
+          <span ${key}="1.3" ${warning} ${dBlock}>Should contain small letters</span>
+          <span ${key}="1.4" ${warning} ${dBlock}>Should contain capital letters</span>
+          <span ${key}="1.5" ${warning} ${dBlock}>Should contain special characters</span>
+          <span ${key}="1.6" ${whenValid} ${dBlock}>Looks good!</span>
         </span>
         <input type="password" name="passwordConfirm" class="is-invalid">
-        <span data-feedbacks="2">
-          <span data-feedback="2.0" class="invalid-feedback" style="display: block;">Not the same password</span>
+        <span ${keys}="2">
+          <span ${key}="2.0" ${error} ${dBlock}>Not the same password</span>
         </span>
       </form>`);
 

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { StyleSheet } from 'react-native';
 import * as TestRenderer from 'react-test-renderer';
 
-import { beautifyHtml } from '../../react-form-with-constraints/src/beautifyHtml';
+import { formatHTML, key } from '../../react-form-with-constraints/src/formatHTML';
 import {
   input_username_valid,
   input_username_valueMissing
@@ -617,7 +617,7 @@ describe('FieldFeedbacks', () => {
       </FieldFeedbacks>,
       { context: { form: form_username } }
     );
-    expect(beautifyHtml(wrapper.debug(), '      ')).toEqual(`\
+    expect(formatHTML(wrapper.debug(), '      ')).toEqual(`\
       <FieldFeedback when={[Function: when]}>
         Cannot be empty
       </FieldFeedback>`);
@@ -653,8 +653,8 @@ describe('FieldFeedback', () => {
 
       expect(validations).toEqual([{ key: '0.0', type: 'error', show: true }]);
       wrapper.update();
-      expect(beautifyHtml(wrapper.debug(), '        ')).toEqual(`\
-        <Text data-feedback="0.0" style={[undefined]}>
+      expect(formatHTML(wrapper.debug(), '        ')).toEqual(`\
+        <Text ${key}="0.0" style={[undefined]}>
           Cannot be empty
         </Text>`);
     });
@@ -693,7 +693,7 @@ describe('FieldFeedback', () => {
 
       expect(validations).toEqual([{ key: '0.0', type: 'error', show: true }]);
       wrapper.update();
-      expect(wrapper.debug()).toEqual('<Text data-feedback="0.0" style={[undefined]} />');
+      expect(wrapper.debug()).toEqual(`<Text ${key}="0.0" style={[undefined]} />`);
     });
 
     // eslint-disable-next-line jest/expect-expect
@@ -714,8 +714,8 @@ describe('FieldFeedback', () => {
 
       expect(validations).toEqual([{ key: '0.0', type: 'error', show: true }]);
       wrapper.update();
-      expect(beautifyHtml(wrapper.debug(), '        ')).toEqual(`\
-        <Text data-feedback="0.0" style={{...}}>
+      expect(formatHTML(wrapper.debug(), '        ')).toEqual(`\
+        <Text ${key}="0.0" style={{...}}>
           Cannot be empty
         </Text>`);
       expect(wrapper.props().style).toEqual({ color: 'yellow' });
@@ -746,8 +746,8 @@ describe('FieldFeedback', () => {
 
       expect(validations).toEqual([{ key: '0.0', type: 'error', show: true }]);
       wrapper.update();
-      expect(beautifyHtml(wrapper.debug(), '        ')).toEqual(`\
-        <Text data-feedback="0.0" style={{...}}>
+      expect(formatHTML(wrapper.debug(), '        ')).toEqual(`\
+        <Text ${key}="0.0" style={{...}}>
           Cannot be empty
         </Text>`);
       expect(wrapper.props().style).toEqual({ color: 'red' });
@@ -785,7 +785,7 @@ describe('FieldFeedbackWhenValid', () => {
     expect(wrapper.html()).toEqual(null);
 
     wrapper.setState({ fieldIsValid: true });
-    expect(beautifyHtml(wrapper.debug(), '      ')).toEqual(`\
+    expect(formatHTML(wrapper.debug(), '      ')).toEqual(`\
       <Text>
         Looks good!
       </Text>`);
@@ -799,7 +799,7 @@ describe('FieldFeedbackWhenValid', () => {
       { context: { form: form_username, fieldFeedbacks: fieldFeedbacks_username } }
     );
     wrapper.setState({ fieldIsValid: true });
-    expect(beautifyHtml(wrapper.debug(), '      ')).toEqual(`\
+    expect(formatHTML(wrapper.debug(), '      ')).toEqual(`\
       <Text style={{...}}>
         Looks good!
       </Text>`);

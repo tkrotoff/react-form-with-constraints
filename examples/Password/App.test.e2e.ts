@@ -2,9 +2,13 @@
 jest.setTimeout(20000); // 20s
 
 function indent(text: string, indentation: string) {
-  // [Add a char to the start of each line in JavaScript using regular expression](https://stackoverflow.com/q/11939575)
-  // [Trim trailing spaces before newlines in a single multi-line string in JavaScript](https://stackoverflow.com/q/5568797)
-  return text.replace(/^/gm, indentation).replace(/[^\S\n\r]+$/gm, '');
+  return (
+    text
+      // [Add a char to the start of each line in JavaScript using regular expression](https://stackoverflow.com/q/11939575)
+      .replace(/^/gm, indentation)
+      // [Trim trailing spaces before newlines in a single multi-line string in JavaScript](https://stackoverflow.com/q/5568797)
+      .replace(/[^\S\n]+$/gm, '')
+  );
 }
 
 beforeEach(async () => {

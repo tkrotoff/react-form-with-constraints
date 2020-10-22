@@ -9,9 +9,19 @@ import {
   FormWithConstraintsProps
 } from 'react-form-with-constraints';
 
-import { beautifyHtml } from '../../react-form-with-constraints/src/beautifyHtml';
+import {
+  dBlock,
+  error,
+  formatHTML,
+  key,
+  warning,
+  whenValid
+} from '../../react-form-with-constraints/src/formatHTML';
 import { DisplayFields } from '.';
 import { SignUp } from './SignUp';
+
+// [d-inline](https://getbootstrap.com/docs/4.5/utilities/display/)
+const dInline = 'style="display: inline;"';
 
 function mount(node: React.ReactElement<FormWithConstraintsProps>) {
   return _mount<FormWithConstraintsProps, Record<string, unknown>>(node);
@@ -211,7 +221,7 @@ test('SignUp', async () => {
 
   await signUp.form!.validateFields();
 
-  expect(beautifyHtml(wrapper.html(), '    ')).toEqual(`\
+  expect(formatHTML(wrapper.html(), '    ')).toEqual(`\
     <form>
       <input name="username">
       <li>key="0" for="username" stop="first-error"</li>
@@ -227,7 +237,7 @@ test('SignUp', async () => {
           <ul>
             <li>
               <span style="">key="0.3" type="error"</span>
-              <span data-feedback="0.3" class="error" style="display: inline;">Username 'john' already taken, choose another</span>
+              <span ${key}="0.3" ${error} ${dInline}>Username 'john' already taken, choose another</span>
             </li>
           </ul>
         </li>
@@ -249,19 +259,19 @@ test('SignUp', async () => {
         </li>
         <li>
           <span style="">key="1.3" type="warning"</span>
-          <span data-feedback="1.3" class="warning" style="display: inline;">Should contain small letters</span>
+          <span ${key}="1.3" ${warning} ${dInline}>Should contain small letters</span>
         </li>
         <li>
           <span style="">key="1.4" type="warning"</span>
-          <span data-feedback="1.4" class="warning" style="display: inline;">Should contain capital letters</span>
+          <span ${key}="1.4" ${warning} ${dInline}>Should contain capital letters</span>
         </li>
         <li>
           <span style="">key="1.5" type="warning"</span>
-          <span data-feedback="1.5" class="warning" style="display: inline;">Should contain special characters</span>
+          <span ${key}="1.5" ${warning} ${dInline}>Should contain special characters</span>
         </li>
         <li>
           <span style="text-decoration: line-through;">key="1.6" type="whenValid"</span>
-          <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+          <span ${key}="1.6" ${whenValid} ${dBlock}>Looks good!</span>
         </li>
       </ul>
       <input type="password" name="passwordConfirm">
@@ -269,7 +279,7 @@ test('SignUp', async () => {
       <ul>
         <li>
           <span style="">key="2.0" type="error"</span>
-          <span data-feedback="2.0" class="error" style="display: inline;">Not the same password</span>
+          <span ${key}="2.0" ${error} ${dInline}>Not the same password</span>
         </li>
         <li>
           <span style="text-decoration: line-through;">key="2.1" type="whenValid"</span>
@@ -290,7 +300,7 @@ describe('Async', () => {
     signUp.passwordConfirm!.value = '12345';
 
     await signUp.form!.validateFields();
-    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+    expect(formatHTML(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username">
         <li>key="0" for="username" stop="first-error"</li>
@@ -306,13 +316,13 @@ describe('Async', () => {
             <ul>
               <li>
                 <span style="">key="0.3" type="info"</span>
-                <span data-feedback="0.3" class="info" style="display: inline;">Username 'jimmy' available</span>
+                <span ${key}="0.3" class="info" ${dInline}>Username 'jimmy' available</span>
               </li>
             </ul>
           </li>
           <li>
             <span style="text-decoration: line-through;">key="0.2" type="whenValid"</span>
-            <span data-feedback="0.2" class="when-valid" style="display: block;">Looks good!</span>
+            <span ${key}="0.2" ${whenValid} ${dBlock}>Looks good!</span>
           </li>
         </ul>
         <input type="password" name="password">
@@ -329,19 +339,19 @@ describe('Async', () => {
           </li>
           <li>
             <span style="">key="1.3" type="warning"</span>
-            <span data-feedback="1.3" class="warning" style="display: inline;">Should contain small letters</span>
+            <span ${key}="1.3" ${warning} ${dInline}>Should contain small letters</span>
           </li>
           <li>
             <span style="">key="1.4" type="warning"</span>
-            <span data-feedback="1.4" class="warning" style="display: inline;">Should contain capital letters</span>
+            <span ${key}="1.4" ${warning} ${dInline}>Should contain capital letters</span>
           </li>
           <li>
             <span style="">key="1.5" type="warning"</span>
-            <span data-feedback="1.5" class="warning" style="display: inline;">Should contain special characters</span>
+            <span ${key}="1.5" ${warning} ${dInline}>Should contain special characters</span>
           </li>
           <li>
             <span style="text-decoration: line-through;">key="1.6" type="whenValid"</span>
-            <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+            <span ${key}="1.6" ${whenValid} ${dBlock}>Looks good!</span>
           </li>
         </ul>
         <input type="password" name="passwordConfirm">
@@ -352,7 +362,7 @@ describe('Async', () => {
           </li>
           <li>
             <span style="text-decoration: line-through;">key="2.1" type="whenValid"</span>
-            <span data-feedback="2.1" class="when-valid" style="display: block;">Looks good!</span>
+            <span ${key}="2.1" ${whenValid} ${dBlock}>Looks good!</span>
           </li>
         </ul>
       </form>`);
@@ -369,7 +379,7 @@ describe('Async', () => {
     signUp.passwordConfirm!.value = '12345';
 
     await signUp.form!.validateFields();
-    expect(beautifyHtml(wrapper.html(), '      ')).toEqual(`\
+    expect(formatHTML(wrapper.html(), '      ')).toEqual(`\
       <form>
         <input name="username">
         <li>key="0" for="username" stop="first-error"</li>
@@ -385,7 +395,7 @@ describe('Async', () => {
             <ul>
               <li>
                 <span style="">key="0.3" type="error"</span>
-                <span data-feedback="0.3" class="error" style="display: inline;">Something wrong with username 'error'</span>
+                <span ${key}="0.3" ${error} ${dInline}>Something wrong with username 'error'</span>
               </li>
             </ul>
           </li>
@@ -407,19 +417,19 @@ describe('Async', () => {
           </li>
           <li>
             <span style="">key="1.3" type="warning"</span>
-            <span data-feedback="1.3" class="warning" style="display: inline;">Should contain small letters</span>
+            <span ${key}="1.3" ${warning} ${dInline}>Should contain small letters</span>
           </li>
           <li>
             <span style="">key="1.4" type="warning"</span>
-            <span data-feedback="1.4" class="warning" style="display: inline;">Should contain capital letters</span>
+            <span ${key}="1.4" ${warning} ${dInline}>Should contain capital letters</span>
           </li>
           <li>
             <span style="">key="1.5" type="warning"</span>
-            <span data-feedback="1.5" class="warning" style="display: inline;">Should contain special characters</span>
+            <span ${key}="1.5" ${warning} ${dInline}>Should contain special characters</span>
           </li>
           <li>
             <span style="text-decoration: line-through;">key="1.6" type="whenValid"</span>
-            <span data-feedback="1.6" class="when-valid" style="display: block;">Looks good!</span>
+            <span ${key}="1.6" ${whenValid} ${dBlock}>Looks good!</span>
           </li>
         </ul>
         <input type="password" name="passwordConfirm">
@@ -427,7 +437,7 @@ describe('Async', () => {
         <ul>
           <li>
             <span style="">key="2.0" type="error"</span>
-            <span data-feedback="2.0" class="error" style="display: inline;">Not the same password</span>
+            <span ${key}="2.0" ${error} ${dInline}>Not the same password</span>
           </li>
           <li>
             <span style="text-decoration: line-through;">key="2.1" type="whenValid"</span>
