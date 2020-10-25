@@ -229,7 +229,7 @@ class SignUp extends React.Component<Props, State> {
       resetButtonDisabled
     } = this.state;
 
-    const Color: { [index: string]: string } = {
+    const Color = {
       Red: t('Red'),
       Orange: t('Orange'),
       Yellow: t('Yellow'),
@@ -238,7 +238,7 @@ class SignUp extends React.Component<Props, State> {
       Indigo: t('Indigo'),
       Violet: t('Violet')
     };
-    const colorKeys = Object.keys(Color);
+    const colorKeys = Object.keys(Color) as (keyof typeof Color)[];
 
     return (
       <>

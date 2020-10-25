@@ -8,4 +8,4 @@ export enum Color {
   Violet = 'Violet'
 }
 
-export const colorKeys = Object.keys(Color);
+export const colorKeys = Object.keys(Color) as (keyof typeof Color)[];
