@@ -95,6 +95,14 @@ const config = {
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
 
+    // https://github.com/typescript-eslint/typescript-eslint/blob/v4.5.0/packages/eslint-plugin/docs/rules/no-empty-function.md
+    'no-empty-function': 'off',
+    '@typescript-eslint/no-empty-function': 'error',
+
+    // https://github.com/typescript-eslint/typescript-eslint/blob/v4.5.0/packages/eslint-plugin/docs/rules/no-useless-constructor.md
+    'no-useless-constructor': 'off',
+    '@typescript-eslint/no-useless-constructor': 'error',
+
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/camelcase': 'off',
