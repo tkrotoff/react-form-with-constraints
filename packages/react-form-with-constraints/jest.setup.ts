@@ -7,6 +7,8 @@ configure({ adapter: new Adapter() });
 // [console.assert not throwing with v22.4.0](https://github.com/facebook/jest/issues/5634)
 console.assert = assert;
 
+// FIXME Remove when Node.js >= 15 is LTS
+//
 // [Event: 'unhandledRejection'](https://nodejs.org/api/process.html#process_event_unhandledrejection)
 // [Bluebird Error management configuration](http://bluebirdjs.com/docs/api/error-management-configuration.html)
 //

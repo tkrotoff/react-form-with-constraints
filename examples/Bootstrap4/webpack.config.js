@@ -1,7 +1,6 @@
 // @ts-check
 
 const path = require('path');
-const postcssPresetEnv = require('postcss-preset-env');
 
 /** @type import('webpack').Configuration */
 const config = {
