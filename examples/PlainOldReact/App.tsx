@@ -39,9 +39,9 @@ function hasErrors(errors: Errors) {
 }
 
 function Form() {
-  const email = useRef<HTMLInputElement | null>(null);
-  const password = useRef<HTMLInputElement | null>(null);
-  const passwordConfirm = useRef<HTMLInputElement | null>(null);
+  const email = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
+  const passwordConfirm = useRef<HTMLInputElement>(null);
 
   const [errors, setErrors] = useState<Errors>({
     email: [],

@@ -37,8 +37,8 @@ async function isACommonPassword(password: string) {
 }
 
 function Form() {
-  const form = useRef<FormWithConstraints | null>(null);
-  const password = useRef<HTMLInputElement | null>(null);
+  const form = useRef<FormWithConstraints>(null);
+  const password = useRef<HTMLInputElement>(null);
 
   const [inputs, setInputs] = useState({
     email: '',

@@ -65,8 +65,8 @@ function getInitialInputsState() {
 }
 
 function Form({ classes }: FormProps) {
-  const form = useRef<FormWithConstraints | null>(null);
-  const password = useRef<HTMLInputElement | null>(null);
+  const form = useRef<FormWithConstraints>(null);
+  const password = useRef<HTMLInputElement>(null);
 
   const [inputs, setInputs] = useState<InputsState>(getInitialInputsState());
   const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(false);

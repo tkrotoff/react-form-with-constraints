@@ -6,8 +6,8 @@ import './index.html';
 import './style.css';
 
 function Form() {
-  const form = useRef<FormWithConstraints | null>(null);
-  const password = useRef<HTMLInputElement | null>(null);
+  const form = useRef<FormWithConstraints>(null);
+  const password = useRef<HTMLInputElement>(null);
 
   async function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     await form.current!.validateFields(target);

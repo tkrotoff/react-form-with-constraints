@@ -13,7 +13,7 @@ interface Props {
 }
 
 export function WizardFormStep3(props: Props) {
-  const form = useRef<FormWithConstraints | null>(null);
+  const form = useRef<FormWithConstraints>(null);
 
   async function handleChange({
     target

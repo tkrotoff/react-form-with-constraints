@@ -9,7 +9,7 @@ interface Props {
 }
 
 export function WizardFormStep1(props: Props) {
-  const form = useRef<FormWithConstraints | null>(null);
+  const form = useRef<FormWithConstraints>(null);
 
   async function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     props.onChange(target);
