@@ -1,6 +1,7 @@
 {
   // See .editorconfig
 
-  // For Prettier, Visual Studio Code needs an extension: `ext install esbenp.prettier-vscode`
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  // https://github.com/prettier/prettier-vscode
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
