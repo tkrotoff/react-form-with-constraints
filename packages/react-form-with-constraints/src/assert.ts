@@ -4,6 +4,9 @@ export function assert(condition: boolean, message?: string): asserts condition 
   // Use compiler option '--downlevelIteration' to allow iterating of iterators.
   //console.assert(...arguments);
 
-  if (message === undefined) console.assert(condition);
-  else console.assert(condition, message);
+  if (message === undefined) {
+    console.assert(condition);
+  } else {
+    console.assert(condition, message);
+  }
 }
