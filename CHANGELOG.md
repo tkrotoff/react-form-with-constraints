@@ -1,3 +1,9 @@
+## v0.16.1 (2021/05/0)
+
+### Fixes
+
+- Fix jscodeshift: remove console.assert() from bundle
+
 ## v0.16.0 (2020/10/22)
 
 ### Breaking Changes
