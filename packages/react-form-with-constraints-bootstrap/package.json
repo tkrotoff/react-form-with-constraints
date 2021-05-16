@@ -1,5 +1,5 @@
 {
-  "name": "react-form-with-constraints-bootstrap4",
+  "name": "react-form-with-constraints-bootstrap",
   "version": "0.16.1",
   "repository": {
     "type": "git",
@@ -12,8 +12,7 @@
     "form",
     "validation",
     "react-form-with-constraints",
-    "bootstrap",
-    "bootstrap4"
+    "bootstrap"
   ],
   "main": "lib-es5/index.js",
   "module": "lib/index.js",

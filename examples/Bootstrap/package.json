@@ -1,15 +1,14 @@
 {
-  "name": "bootstrap4-example",
+  "name": "bootstrap-example",
   "version": "0.16.1",
   "private": true,
-  "description": "react-form-with-constraints Bootstrap 4 example",
+  "description": "react-form-with-constraints Bootstrap example",
   "keywords": [
     "react",
     "form",
     "validation",
     "react-form-with-constraints",
-    "bootstrap",
-    "bootstrap4"
+    "bootstrap"
   ],
   "main": "App.jsx",
   "scripts": {
@@ -29,7 +28,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-form-with-constraints": "^0.16.1",
-    "react-form-with-constraints-bootstrap4": "^0.16.1",
+    "react-form-with-constraints-bootstrap": "^0.16.1",
     "react-form-with-constraints-tools": "^0.16.1"
   },
   "devDependencies": {

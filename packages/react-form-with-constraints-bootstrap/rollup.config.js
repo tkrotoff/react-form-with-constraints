@@ -7,7 +7,7 @@ import { uglify } from 'rollup-plugin-uglify';
 const isProd = process.env.NODE_ENV === 'production';
 
 function outputFileName() {
-  let fileName = `react-form-with-constraints-bootstrap4.${process.env.NODE_ENV}`;
+  let fileName = `react-form-with-constraints-bootstrap.${process.env.NODE_ENV}`;
   fileName += isProd ? '.min.js' : '.js';
   return fileName;
 }
@@ -16,7 +16,7 @@ export default {
   input: './src/index.ts',
   output: {
     file: `dist/${outputFileName()}`,
-    name: 'ReactFormWithConstraintsBootstrap4',
+    name: 'ReactFormWithConstraintsBootstrap',
     format: 'umd',
     sourcemap: true,
     globals: {

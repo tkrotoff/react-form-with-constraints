@@ -13,7 +13,7 @@ import {
   FieldFeedbacks,
   FormWithConstraints,
   Input
-} from 'react-form-with-constraints-bootstrap4';
+} from 'react-form-with-constraints-bootstrap';
 import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './index.html';

@@ -50,7 +50,7 @@ Resources:
 - No dependency beside React (no Redux, MobX...)
 - Re-render only what's necessary
 - Easily extendable
-- [Bootstrap 4](examples/Bootstrap4) styling with npm package `react-form-with-constraints-bootstrap4`
+- [Bootstrap](examples/Bootstrap) styling with npm package `react-form-with-constraints-bootstrap`
 - [Material-UI](examples/MaterialUI) integration with npm package `react-form-with-constraints-material-ui`
 - Support for [React Native](examples/ReactNative) with npm package `react-form-with-constraints-native`
 - ...
@@ -82,7 +82,7 @@ Resources:
 
   ![example-password](doc/example-password.png)
 
-- [Bootstrap 4 example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/Bootstrap4)
+- [Bootstrap example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/Bootstrap)
 - [Material-UI example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/MaterialUI)
 - [WizardForm example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/WizardForm)
 - [SignUp example (React classes)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/SignUp)
@@ -302,7 +302,7 @@ The field name should match `FieldFeedbacks.for`:
 
   Example: `<Input name="username" />` can generate `<input name="username" class="has-errors has-warnings">`
 
-  FYI `react-form-with-constraints-bootstrap4` and `react-form-with-constraints-material-ui` already style the fields to match their respective frameworks.
+  FYI `react-form-with-constraints-bootstrap` and `react-form-with-constraints-material-ui` already style the fields to match their respective frameworks.
 
 ## Browser support
 

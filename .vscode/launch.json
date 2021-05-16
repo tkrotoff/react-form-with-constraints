@@ -14,12 +14,12 @@
       "env": { "NODE_ENV": "development" }
     },
     {
-      "name": "Jest react-form-with-constraints-bootstrap4",
+      "name": "Jest react-form-with-constraints-bootstrap",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/packages/react-form-with-constraints-bootstrap4/node_modules/.bin/jest",
+      "program": "${workspaceFolder}/packages/react-form-with-constraints-bootstrap/node_modules/.bin/jest",
       "args": ["--runInBand", "--no-cache"],
-      "cwd": "${workspaceFolder}/packages/react-form-with-constraints-bootstrap4",
+      "cwd": "${workspaceFolder}/packages/react-form-with-constraints-bootstrap",
       "runtimeArgs": ["--nolazy"],
       "env": { "NODE_ENV": "development" }
     },
