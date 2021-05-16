@@ -1,6 +1,6 @@
 {
   "name": "password-without-state-example",
-  "version": "0.16.1",
+  "version": "0.17.0",
   "private": true,
   "description": "react-form-with-constraints Password without state example",
   "keywords": [
@@ -19,7 +19,7 @@
   "dependencies": {
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-form-with-constraints": "^0.16.1"
+    "react-form-with-constraints": "^0.17.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
