@@ -1,33 +1,27 @@
-/* https://github.com/twbs/bootstrap/blob/v4.1.2/scss/_close.scss */
-button.close {
-  float: initial;
-  padding-left: 0.5rem;
-}
-
-ul.list-none {
+.list-style-none {
   list-style-type: none;
 }
 
 /*
- * https://github.com/twbs/bootstrap/blob/v4.1.2/scss/mixins/_forms.scss#L30
+ * https://github.com/twbs/bootstrap/blob/v5.0.1/scss/mixins/_forms.scss#L26
  */
 [data-feedback].error {
   margin-top: 0.25rem; /* $form-feedback-margin-top => $form-text-margin-top => .25rem */
-  font-size: 80%; /* $form-feedback-font-size => $small-font-size => 80% */
+  font-size: 0.875em; /* $form-feedback-font-size => $form-text-font-size => $small-font-size => .875em */
   color: #dc3545; /* $form-feedback-invalid-color => $danger => $red => #dc3545 */
 }
 [data-feedback].warning {
   margin-top: 0.25rem;
-  font-size: 80%;
+  font-size: 0.875em;
   color: #ffc107; /* $warning => $yellow => #ffc107 */
 }
 [data-feedback].info {
   margin-top: 0.25rem;
-  font-size: 80%;
-  color: #17a2b8; /* $info => $cyan => #17a2b8 */
+  font-size: 0.875em;
+  color: #0dcaf0; /* $info => $cyan => #0dcaf0 */
 }
 [data-feedback].when-valid {
   margin-top: 0.25rem;
-  font-size: 80%;
-  color: #28a745; /* $form-feedback-valid-color => $success => $green => #28a745 */
+  font-size: 0.875em;
+  color: #198754; /* $form-feedback-valid-color => $success => $green => #198754 */
 }
