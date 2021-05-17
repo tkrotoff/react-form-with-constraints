@@ -94,7 +94,7 @@ function Form() {
 
   return (
     <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
-      <div className="form-group">
+      <div className="mb-3">
         <label htmlFor="username">
           Username <small>(already taken: john, paul, george, ringo)</small>
         </label>
@@ -116,7 +116,7 @@ function Form() {
             pending={<span className="d-block">...</span>}
             then={available =>
               available ? (
-                <FieldFeedback key="1" info style={{ color: '#28a745' }}>
+                <FieldFeedback key="1" info style={{ color: '#198754' /* $green */ }}>
                   Username available
                 </FieldFeedback>
               ) : (
@@ -127,7 +127,7 @@ function Form() {
           <FieldFeedback when="valid">Looks good!</FieldFeedback>
         </FieldFeedbacks>
       </div>
-      <div className="form-group">
+      <div className="mb-3">
         <label htmlFor="password">Password</label>
         <Input
           type="password"
@@ -158,7 +158,7 @@ function Form() {
           <FieldFeedback when="valid">Looks good!</FieldFeedback>
         </FieldFeedbacks>
       </div>
-      <div className="form-group">
+      <div className="mb-3">
         <label htmlFor="password-confirm">Confirm Password</label>
         <Input
           type="password"
