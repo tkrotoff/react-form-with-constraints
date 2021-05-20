@@ -29,13 +29,13 @@ import { DisplayFields } from 'react-form-with-constraints-tools';
 
 import './index.html';
 
-function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+function wait(ms: number) {
+  return new Promise<void>(resolve => setTimeout(resolve, ms));
 }
 
 async function checkUsernameAvailability(value: string) {
   console.log('checkUsernameAvailability');
-  await sleep(1000);
+  await wait(1000);
   return !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase());
 }
 

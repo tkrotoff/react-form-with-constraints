@@ -9,14 +9,14 @@ import { DisplayFields } from 'react-form-with-constraints-tools';
 
 // Copy-pasted from Password/App.tsx example
 
-function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+function wait(ms: number) {
+  return new Promise<void>(resolve => setTimeout(resolve, ms));
 }
 
 // https://en.wikipedia.org/wiki/List_of_the_most_common_passwords
 async function isACommonPassword(password: string) {
   console.log('isACommonPassword');
-  await sleep(1000);
+  await wait(1000);
   return [
     '123456',
     'password',

@@ -1,7 +1,7 @@
-import { sleep } from './sleep';
+import { wait } from './wait';
 
 export async function checkUsernameAvailability(value: string) {
-  await sleep(10);
+  await wait(10);
   if (value === 'error') {
     throw new Error(`Something wrong with username '${value}'`);
   } else {

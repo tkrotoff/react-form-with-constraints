@@ -13,7 +13,7 @@ import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzym
 import { dBlock, error, formatHTML, info, key, keys, warning, whenValid } from './formatHTML';
 import { validValidityState } from './InputElementMock';
 import { SignUp } from './SignUp';
-import { sleep } from './sleep';
+import { wait } from './wait';
 
 function mount(node: React.ReactElement<FormWithConstraintsProps>) {
   return _mount<FormWithConstraintsProps, Record<string, unknown>>(node);
@@ -57,7 +57,7 @@ describe('FormWithBeforeAsync', () => {
               Info before Async
             </FieldFeedback>
             <Async
-              promise={() => sleep(10)}
+              promise={() => wait(10)}
               then={() => <FieldFeedback>Async error</FieldFeedback>}
             />
           </FieldFeedbacks>
@@ -173,7 +173,7 @@ describe('FormWithAfterAsync', () => {
           <input name="input" ref={input => (this.input = input)} />
           <FieldFeedbacks for="input" stop={inputStop}>
             <Async
-              promise={() => sleep(10)}
+              promise={() => wait(10)}
               then={() => <FieldFeedback>Async error</FieldFeedback>}
             />
             <FieldFeedback when={() => true}>Error after Async</FieldFeedback>
@@ -482,30 +482,30 @@ describe('FormWithMultipleNestedAsync - test Async.validate() has*(fieldFeedback
 
           <FieldFeedbacks for="input" stop={inputStop}>
             <Async
-              promise={() => sleep(10)}
+              promise={() => wait(10)}
               then={() => <FieldFeedback>Async1 error</FieldFeedback>}
             />
             <Async
-              promise={() => sleep(10)}
+              promise={() => wait(10)}
               then={() => <FieldFeedback warning>Async1 warning</FieldFeedback>}
             />
             <Async
-              promise={() => sleep(10)}
+              promise={() => wait(10)}
               then={() => <FieldFeedback info>Async1 info</FieldFeedback>}
             />
           </FieldFeedbacks>
 
           <FieldFeedbacks for="input" stop={inputStop}>
             <Async
-              promise={() => sleep(10)}
+              promise={() => wait(10)}
               then={() => <FieldFeedback>Async2 error</FieldFeedback>}
             />
             <Async
-              promise={() => sleep(10)}
+              promise={() => wait(10)}
               then={() => <FieldFeedback warning>Async2 warning</FieldFeedback>}
             />
             <Async
-              promise={() => sleep(10)}
+              promise={() => wait(10)}
               then={() => <FieldFeedback info>Async2 info</FieldFeedback>}
             />
           </FieldFeedbacks>
