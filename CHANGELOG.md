@@ -1,4 +1,4 @@
-## Next
+## v0.18.0 (2021/05/20)
 
 ### Breaking Changes
 
