@@ -40,7 +40,7 @@
     "test:coverage": "jest --coverage"
   },
   "peerDependencies": {
-    "react-form-with-constraints": "^0.17.0"
+    "react-form-with-constraints": ">=0.17.0"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.7",

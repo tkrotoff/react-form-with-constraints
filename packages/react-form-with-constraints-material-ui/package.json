@@ -36,8 +36,8 @@
     "test:coverage": "jest --coverage"
   },
   "peerDependencies": {
-    "@material-ui/core": "^4.11.0",
-    "react-form-with-constraints": "^0.17.0"
+    "@material-ui/core": ">=4.11.0",
+    "react-form-with-constraints": ">=0.17.0"
   },
   "devDependencies": {
     "@material-ui/core": "^4.11.0",

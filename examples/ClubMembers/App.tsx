@@ -131,8 +131,8 @@ const Hobbies = observer<React.FunctionComponent<HobbiesProps>>(
       const hobbyName = `member${memberIndex}.hobby${index}`;
 
       return (
-        <li key={index} className="form-group">
-          <div className="form-inline">
+        <li key={index} className="mb-3">
+          <div className="d-flex align-items-center">
             <Input
               name={hobbyName}
               id={hobbyName}
@@ -142,16 +142,15 @@ const Hobbies = observer<React.FunctionComponent<HobbiesProps>>(
               required
               minLength={3}
               className="form-control"
-              style={{ width: 'auto' }}
             />
+            &nbsp;
             <button
               type="button"
               title="Remove Hobby"
               onClick={() => removeHobby(index)}
-              className="close"
-            >
-              &times;
-            </button>
+              className="btn-close"
+              aria-label="Close"
+            />
           </div>
           <FieldFeedbacks for={hobbyName}>
             <FieldFeedback when="*" />
@@ -164,7 +163,7 @@ const Hobbies = observer<React.FunctionComponent<HobbiesProps>>(
 
     return (
       <>
-        <div className="form-group">
+        <div className="mb-3">
           <button
             type="button"
             name={checkNbHobbiesName}
@@ -179,7 +178,7 @@ const Hobbies = observer<React.FunctionComponent<HobbiesProps>>(
             </FieldFeedback>
           </FieldFeedbacks>
         </div>
-        <ul className="list-none">
+        <ul className="list-style-none">
           {member.hobbies.map((hobby, index) => renderHobby(hobby, index))}
         </ul>
       </>
@@ -224,17 +223,17 @@ const Members = observer<React.FunctionComponent<MembersProps>>(({ club, validat
       <li key={index}>
         <h4>
           Member #{index + 1}
+          &nbsp;
           <button
             type="button"
             title="Remove Member"
             onClick={() => removeMember(index)}
-            className="close"
-          >
-            &times;
-          </button>
+            className="btn-close fs-6"
+            aria-label="Close"
+          />
         </h4>
 
-        <div className="form-group">
+        <div className="mb-3">
           <Input
             name={memberFirstNameName}
             placeholder="First Name"
@@ -249,7 +248,7 @@ const Members = observer<React.FunctionComponent<MembersProps>>(({ club, validat
           </FieldFeedbacks>
         </div>
 
-        <div className="form-group">
+        <div className="mb-3">
           <Input
             name={memberLastNameName}
             placeholder="Last Name"
@@ -271,7 +270,7 @@ const Members = observer<React.FunctionComponent<MembersProps>>(({ club, validat
 
   return (
     <>
-      <div className="form-group">
+      <div className="mb-3">
         <button
           type="button"
           name="checkNbMembers"
@@ -286,7 +285,7 @@ const Members = observer<React.FunctionComponent<MembersProps>>(({ club, validat
           </FieldFeedback>
         </FieldFeedbacks>
       </div>
-      <ul className="list-none">
+      <ul className="list-style-none">
         {club.members.map((member, index) => renderMember(member, index))}
       </ul>
     </>
@@ -341,7 +340,7 @@ class Form extends React.Component<FormProps> {
         onSubmit={this.handleSubmit}
         noValidate
       >
-        <div className="form-group">
+        <div className="mb-3">
           <Input
             name="clubName"
             placeholder="Club Name"

@@ -1,3 +1,9 @@
+## Next
+
+### Breaking Changes
+
+- Upgrade Bootstrap from v4 to v5
+
 ## v0.17.0 (2021/05/16)
 
 ### Breaking Changes

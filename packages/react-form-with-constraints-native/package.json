@@ -35,7 +35,7 @@
     "test:coverage": "jest --coverage"
   },
   "peerDependencies": {
-    "react-form-with-constraints": "^0.17.0",
+    "react-form-with-constraints": ">=0.17.0",
     "react-native": ">=0.61.5"
   },
   "devDependencies": {
