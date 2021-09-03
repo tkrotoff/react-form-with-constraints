@@ -6,7 +6,7 @@ import { validValidityState } from '../../react-form-with-constraints/src/InputE
 import { FormControl, FormWithConstraints } from '.';
 import { SignUp } from './SignUp';
 
-const flushPromises = () => new Promise(resolve => setImmediate(resolve));
+const flushPromises = () => new Promise(resolve => setTimeout(resolve));
 
 const error = 'class="FieldFeedbackWS-root-\\d+ error"';
 const warning = 'class="FieldFeedbackWS-root-\\d+ warning"';
