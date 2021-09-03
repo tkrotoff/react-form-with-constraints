@@ -5,7 +5,7 @@ import { dBlock, formatHTML, key, keys } from '../../react-form-with-constraints
 import { validValidityState } from '../../react-form-with-constraints/src/InputElementMock';
 import { SignUp } from './SignUp';
 
-const flushPromises = () => new Promise(resolve => setTimeout(resolve));
+const flushPromises = () => new Promise<void>(resolve => setTimeout(resolve));
 
 const error = 'class="invalid-feedback"';
 const warning = 'class="warning-feedback"';
