@@ -1,11 +1,8 @@
 {
   "name": "react-form-with-constraints-native",
   "version": "0.18.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/tkrotoff/react-form-with-constraints.git"
-  },
   "description": "Simple form validation for React",
+  "repository": "github:tkrotoff/react-form-with-constraints",
   "license": "MIT",
   "keywords": [
     "react",
