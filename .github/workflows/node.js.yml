@@ -3,7 +3,7 @@
 name: Node.js CI
 
 # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#on
-on: [push, pull_request]
+on: push
 
 jobs:
   build:

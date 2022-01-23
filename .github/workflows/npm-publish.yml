@@ -34,4 +34,4 @@ jobs:
       - run: yarn prepublishOnly
       - run: yarn lerna publish from-git --yes
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
