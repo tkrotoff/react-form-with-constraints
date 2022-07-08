@@ -1,7 +1,7 @@
 # react-form-with-constraints
 
 [![npm version](https://badge.fury.io/js/react-form-with-constraints.svg)](https://badge.fury.io/js/react-form-with-constraints)
-[![Build status](https://travis-ci.org/tkrotoff/react-form-with-constraints.svg?branch=master)](https://travis-ci.org/tkrotoff/react-form-with-constraints)
+[![Node.js CI](https://github.com/tkrotoff/react-form-with-constraints/workflows/Node.js%20CI/badge.svg?branch=master)](https://github.com/tkrotoff/react-form-with-constraints/actions)
 [![codecov](https://codecov.io/gh/tkrotoff/react-form-with-constraints/branch/master/graph/badge.svg)](https://codecov.io/gh/tkrotoff/react-form-with-constraints)
 [![Bundle size](https://badgen.net/bundlephobia/minzip/react-form-with-constraints)](https://bundlephobia.com/result?p=react-form-with-constraints@latest)
 [![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
