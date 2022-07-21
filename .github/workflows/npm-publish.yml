@@ -15,8 +15,8 @@ jobs:
         with:
           node-version: 16
       - run: npm install
+      - run: npx playwright install --with-deps
       - run: npm run prepublishOnly
-      - run: npm run build
       - run: npm run lint
       - run: npm run test:coverage
       - run: npm run test:e2e
