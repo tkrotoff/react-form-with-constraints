@@ -51,7 +51,7 @@
     "metro-react-native-babel-preset": "^0.71.3",
     "react": "^16.14.0",
     "react-form-with-constraints": "^0.19.1",
-    "react-native": "^0.63.4",
+    "react-native": "^0.64.1",
     "react-test-renderer": "^16.14.0",
     "ts-jest": "^26.5.6",
     "typescript": "^4.7.4"
