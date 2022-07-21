@@ -1,3 +1,12 @@
+## v0.19.0 (2022/07/21)
+
+- Fix React 18 types (#58)
+- Use React 18 in examples
+- Update most npm packages when possible
+- Switch from Puppeteer to Playwright
+- Remove Yarn, use npm workspaces instead
+- Use Lerna only for `npm run version`
+
 ## v0.18.0 (2021/05/20)
 
 ### Breaking Changes
