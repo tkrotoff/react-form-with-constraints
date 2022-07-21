@@ -78,16 +78,17 @@ Resources:
 
 ## Examples
 
-- CodePen basic Password example: https://codepen.io/tkrotoff/pen/BRGdqL ([CodeSandbox version](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/Password))
+- CodePen basic Password example: https://codepen.io/tkrotoff/pen/BRGdqL ([StackBlitz version](https://stackblitz.com/github/tkrotoff/react-form-with-constraints/tree/master/examples/Password))
 
   ![example-password](doc/example-password.png)
 
-- [Bootstrap example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/Bootstrap)
-- [Material-UI example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/MaterialUI)
-- [WizardForm example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/WizardForm)
-- [SignUp example (React classes)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/SignUp)
-- [ClubMembers example (React classes + MobX)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/ClubMembers)
-- [Password without state example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/PasswordWithoutState)
+- [Bootstrap example (React hooks)](https://stackblitz.com/github/tkrotoff/react-form-with-constraints/tree/master/examples/Bootstrap)
+- [Material-UI example (React hooks)](https://stackblitz.com/github/tkrotoff/react-form-with-constraints/tree/master/examples/MaterialUI)
+- [WizardForm example (React hooks)](https://stackblitz.com/github/tkrotoff/react-form-with-constraints/tree/master/examples/WizardForm)
+- [SignUp example (React classes)](https://stackblitz.com/github/tkrotoff/react-form-with-constraints/tree/master/examples/SignUp)
+- [ClubMembers example (React classes + MobX)](https://stackblitz.com/github/tkrotoff/react-form-with-constraints/tree/master/examples/ClubMembers)
+- [Password without state example (React hooks)](https://stackblitz.com/github/tkrotoff/react-form-with-constraints/tree/master/examples/PasswordWithoutState)
+- [Server-side rendering example (React hooks)](https://stackblitz.com/github/tkrotoff/react-form-with-constraints/tree/master/examples/ServerSideRendering)
 
 - [React Native example (React classes)](examples/ReactNative):
 
@@ -96,9 +97,8 @@ Resources:
   | ![react-native-example-ios](doc/react-native-ios.png) | ![react-native-example-android](doc/react-native-android.png) |
 
 - Other examples from [the examples directory](examples):
-  - [Plain old React form validation example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/PlainOldReact)
-  - [React with HTML5 constraint validation API example (React hooks)](https://codesandbox.io/s/github/tkrotoff/react-form-with-constraints/tree/master/examples/HTML5ConstraintValidationAPI)
-  - [Server-side rendering example (React hooks)](examples/ServerSideRendering)
+  - [Plain old React form validation example (React hooks)](https://stackblitz.com/github/tkrotoff/react-form-with-constraints/tree/master/examples/PlainOldReact)
+  - [React with HTML5 constraint validation API example (React hooks)](https://stackblitz.com/github/tkrotoff/react-form-with-constraints/tree/master/examples/HTML5ConstraintValidationAPI)
 
 ## How it works
 

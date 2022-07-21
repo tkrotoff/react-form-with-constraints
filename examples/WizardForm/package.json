@@ -13,6 +13,7 @@
   "scripts": {
     "clean": "rm -rf build",
     "tsc": "tsc",
+    "start": "webpack serve --mode=development --host 0.0.0.0",
     "build": "webpack --mode=development",
     "build:watch": "webpack --mode=development --watch"
   },
@@ -34,6 +35,7 @@
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4",
     "webpack": "^5.73.0",
-    "webpack-cli": "^4.10.0"
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3"
   }
 }

@@ -1,6 +1,6 @@
 /*
 Copy-pasted from WizardForm/Gender.ts
-Cannot use a symlink nor "import '../WizardForm/Gender'" because of CodeSandbox
+Cannot use a symlink nor "import '../WizardForm/Gender'" because of StackBlitz
 */
 
 export enum Gender {
