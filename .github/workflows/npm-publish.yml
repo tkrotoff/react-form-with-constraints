@@ -1,4 +1,4 @@
-# https://github.com/actions/starter-workflows/blob/c934669ce246e6d64e54006b714b04199cbe445b/ci/npm-publish.yml
+# https://github.com/actions/starter-workflows/blob/692c4c52607f67dd3ee34ad0b7c26066ae85bbae/ci/npm-publish.yml
 
 name: Node.js Package
 
@@ -10,28 +10,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 12
-      - run: yarn install
-      - run: yarn prepublishOnly
-      - run: yarn build
-      - run: yarn lint
-      - run: yarn test:coverage
-      - run: yarn test:e2e
+          node-version: 16
+      - run: npm install
+      - run: npm run prepublishOnly
+      - run: npm run build
+      - run: npm run lint
+      - run: npm run test:coverage
+      - run: npm run test:e2e
 
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 12
+          node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: yarn install
-      - run: yarn prepublishOnly
-      - run: yarn lerna publish from-git --yes
+      - run: npm install
+      - run: npm run publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

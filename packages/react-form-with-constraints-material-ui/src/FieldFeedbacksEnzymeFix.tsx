@@ -1,6 +1,5 @@
 import * as React from 'react';
-
-import { FieldFeedbacks } from '.';
+import { FieldFeedbacks } from 'react-form-with-constraints';
 
 // FIXME [React 16 Fragments unsupported](https://github.com/airbnb/enzyme/issues/1213)
 export class FieldFeedbacksEnzymeFix extends FieldFeedbacks {

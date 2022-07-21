@@ -1,8 +1,7 @@
 // @ts-check
 
-import filesize from 'rollup-plugin-filesize';
+import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
-import { uglify } from 'rollup-plugin-uglify';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -18,26 +17,22 @@ export default {
     file: `dist/${outputFileName()}`,
     name: 'ReactFormWithConstraintsTools',
     format: 'umd',
-    sourcemap: true,
     globals: {
       'react-form-with-constraints': 'ReactFormWithConstraints',
       react: 'React',
-      'prop-types': 'PropTypes',
-      'react-dom': 'ReactDOM'
+      'prop-types': 'PropTypes'
     }
   },
 
-  external: ['react-form-with-constraints', 'react', 'prop-types', 'react-dom'],
+  external: ['react-form-with-constraints', 'react', 'prop-types'],
 
   plugins: [
     typescript({
       clean: true,
-      tsconfig: 'tsconfig.lib-es5.json',
-      tsconfigOverride: { compilerOptions: { module: 'esnext' } }
+      tsconfig: 'tsconfig.dist.json',
+      tsconfigOverride: { compilerOptions: { removeComments: true } }
     }),
 
-    isProd && uglify(),
-
-    filesize()
+    isProd && terser()
   ]
 };

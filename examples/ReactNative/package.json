@@ -10,37 +10,34 @@
     "react-form-with-constraints",
     "react-native"
   ],
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "index.js",
   "scripts": {
-    "rm-duplicated-react-native": "rm -rf node_modules/react-form-with-constraints-native/node_modules/react-native",
-    "prestart": "yarn rm-duplicated-react-native",
-    "pretest": "yarn rm-duplicated-react-native",
-    "clean:node_modules": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
-    "clean": "rm -f yarn.lock && rm -rf node_modules/react-form-with-constraints && rm -rf node_modules/react-form-with-constraints-native && rm -rf node_modules/react-form-with-constraints-tools",
-    "clean:all": "rm -rf .expo && yarn clean && yarn clean:node_modules",
+    "clean:all": "rm -rf package-lock.json node_modules .expo ios android",
     "tsc": "tsc",
-    "start": "expo start",
-    "test": "jest --verbose"
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "test": "jest --verbose --detectOpenHandles"
   },
   "dependencies": {
-    "expo": "^39.0.3",
-    "lodash": "^4.17.20",
-    "react": "^16.14.0",
+    "expo": "^45.0.6",
+    "lodash-es": "^4.17.21",
+    "react": "17.0.2",
     "react-form-with-constraints": "../../packages/react-form-with-constraints",
     "react-form-with-constraints-native": "../../packages/react-form-with-constraints-native",
     "react-form-with-constraints-tools": "../../packages/react-form-with-constraints-tools",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz"
+    "react-native": "0.68.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@types/jest": "^26.0.14",
-    "@types/lodash": "^4.14.162",
-    "@types/react": "^16.9.53",
-    "@types/react-native": "^0.63.25",
-    "@types/react-test-renderer": "^16.9.3",
-    "expo-cli": "^3.28.0",
-    "jest-expo": "^39.0.0",
-    "react-test-renderer": "^16.14.0",
-    "typescript": "^4.0.3"
+    "@babel/core": "^7.18.9",
+    "@types/jest": "^28.1.6",
+    "@types/lodash-es": "^4.17.6",
+    "@types/react-native": "^0.69.3",
+    "@types/react-test-renderer": "^18.0.0",
+    "expo-cli": "^5.5.1",
+    "jest": "^27.5.1",
+    "jest-expo": "^45.0.1",
+    "react-test-renderer": "17.0.2",
+    "typescript": "^4.7.4"
   }
 }

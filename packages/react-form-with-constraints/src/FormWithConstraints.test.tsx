@@ -1,16 +1,13 @@
 import * as React from 'react';
 import { mount as _mount } from 'enzyme';
 
-import {
-  Async,
-  FieldFeedback,
-  FieldFeedbacksProps,
-  FormWithConstraints,
-  FormWithConstraintsProps
-} from '.';
 import * as assert from './assert';
+import { Async } from './Async';
+import { FieldFeedback } from './FieldFeedback';
+import { FieldFeedbacksProps } from './FieldFeedbacks';
 import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import { dBlock, error, formatHTML, info, key, keys, warning, whenValid } from './formatHTML';
+import { FormWithConstraints, FormWithConstraintsProps } from './FormWithConstraints';
 import { validValidityState } from './InputElementMock';
 import { SignUp } from './SignUp';
 import { wait } from './wait';

@@ -2,7 +2,6 @@
   "extends": "../../tsconfig",
   "compilerOptions": {
     "target": "es2015",
-    "jsx": "react-native",
-    "esModuleInterop": true
+    "jsx": "react-native"
   }
 }

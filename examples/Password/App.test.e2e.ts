@@ -1,5 +1,43 @@
-// @ts-ignore
-jest.setTimeout(20000); // 20s
+/* eslint-disable jest/no-standalone-expect */
+
+import { expect, test } from '@playwright/test';
+
+test.describe.configure({ mode: 'parallel' });
+
+test.beforeEach(async ({ page }) => {
+  await page.goto('http://localhost:8080');
+});
+
+test('john@beatles/123456/12345', async ({ page }) => {
+  const email = page.locator('input[name=email]');
+  await email.fill('john@beatles');
+  await page.waitForSelector('input[name=email] ~ span[data-feedback]');
+  const emailFeedbacks = page.locator('input[name=email] ~ span[data-feedback]');
+  await expect(emailFeedbacks).toHaveCount(1);
+  expect(emailFeedbacks.nth(0)).toHaveText('Looks good!');
+
+  const password = page.locator('input[name=password]');
+  await password.fill('123456');
+  await page.waitForSelector('input[name=password] ~ span[data-feedback].when-valid');
+  const passwordFeedbacks = page.locator('input[name=password] ~ span[data-feedback]');
+  expect(passwordFeedbacks).toHaveCount(5);
+  expect(passwordFeedbacks.nth(0)).toHaveText('Should contain small letters');
+  expect(passwordFeedbacks.nth(1)).toHaveText('Should contain capital letters');
+  expect(passwordFeedbacks.nth(2)).toHaveText('Should contain special characters');
+  expect(passwordFeedbacks.nth(3)).toHaveText('This password is very common');
+  expect(passwordFeedbacks.nth(4)).toHaveText('Looks good!');
+
+  const passwordConfirm = page.locator('input[name=passwordConfirm]');
+  await passwordConfirm.fill('12345');
+  const passwordConfirmFeedbacks = page.locator(
+    'input[name=passwordConfirm] ~ span[data-feedback]'
+  );
+  expect(passwordConfirmFeedbacks).toHaveCount(1);
+  expect(passwordConfirmFeedbacks.nth(0)).toHaveText('Not the same password');
+
+  const signUp = page.locator("'Sign Up'");
+  await expect(signUp).toBeDisabled();
+});
 
 function indent(text: string, indentation: string) {
   return (
@@ -11,82 +49,34 @@ function indent(text: string, indentation: string) {
   );
 }
 
-beforeEach(async () => {
-  await page.goto('http://localhost:8080');
-});
-
-test('john@beatles/123456/12345', async () => {
-  const email = (await page.$('input[name=email]'))!;
-  await email.click();
-  await email.type('john@beatles');
+test('john@beatles/Tr0ub4dor&3/Tr0ub4dor&3', async ({ page }) => {
+  const email = page.locator('input[name=email]');
+  await email.fill('john@beatles');
   await page.waitForSelector('input[name=email] ~ span[data-feedback]');
-  //const emailFeedbacks = await page.$$('input[name=email] ~ span[data-feedback]');
-  const emailFeedbacks = await email.$x('./following-sibling::span[@data-feedback]');
-  expect(emailFeedbacks).toHaveLength(1);
-  expect(emailFeedbacks[0]).toMatch('Looks good!');
+  const emailFeedbacks = page.locator('input[name=email] ~ span[data-feedback]');
+  expect(emailFeedbacks).toHaveCount(1);
+  expect(emailFeedbacks.nth(0)).toHaveText('Looks good!');
 
-  const password = (await page.$('input[name=password]'))!;
-  await password.click();
-  await password.type('123456');
+  const password = page.locator('input[name=password]');
+  await password.fill('Tr0ub4dor&3');
   await page.waitForSelector('input[name=password] ~ span[data-feedback].when-valid');
-  const passwordFeedbacks = await page.$$('input[name=password] ~ span[data-feedback]');
-  expect(passwordFeedbacks).toHaveLength(5);
-  expect(passwordFeedbacks[0]).toMatch('Should contain small letters');
-  expect(passwordFeedbacks[1]).toMatch('Should contain capital letters');
-  expect(passwordFeedbacks[2]).toMatch('Should contain special characters');
-  expect(passwordFeedbacks[3]).toMatch('This password is very common');
-  expect(passwordFeedbacks[4]).toMatch('Looks good!');
+  const passwordFeedbacks = page.locator('input[name=password] ~ span[data-feedback]');
+  expect(passwordFeedbacks).toHaveCount(1);
+  expect(passwordFeedbacks.nth(0)).toHaveText('Looks good!');
 
-  const passwordConfirm = (await page.$('input[name=passwordConfirm]'))!;
+  const passwordConfirm = page.locator('input[name=passwordConfirm]');
   await passwordConfirm.click();
-  await passwordConfirm.type('12345');
-  const passwordConfirmFeedbacks = await page.$$(
+  await passwordConfirm.fill('Tr0ub4dor&3');
+  const passwordConfirmFeedbacks = page.locator(
     'input[name=passwordConfirm] ~ span[data-feedback]'
   );
-  expect(passwordConfirmFeedbacks).toHaveLength(1);
-  expect(passwordConfirmFeedbacks[0]).toMatch('Not the same password');
+  expect(passwordConfirmFeedbacks).toHaveCount(0);
 
-  const signUp = (await page.$x("//button[text() = 'Sign Up']"))[0];
-  // [Get Custom Attribute value](https://github.com/GoogleChrome/puppeteer/issues/1451)
-  const disabled = await page.evaluate(el => el.getAttribute('disabled'), signUp);
-  expect(disabled).toEqual('');
-});
+  const signUp = page.locator("'Sign Up'");
+  await expect(signUp).toBeEnabled();
 
-test('john@beatles/Tr0ub4dor&3/Tr0ub4dor&3', async () => {
-  const email = (await page.$('input[name=email]'))!;
-  await email.click();
-  await email.type('john@beatles');
-  await page.waitForSelector('input[name=email] ~ span[data-feedback]');
-  //const emailFeedbacks = await page.$$('input[name=email] ~ span[data-feedback]');
-  const emailFeedbacks = await email.$x('./following-sibling::span[@data-feedback]');
-  expect(emailFeedbacks).toHaveLength(1);
-  expect(emailFeedbacks[0]).toMatch('Looks good!');
-
-  const password = (await page.$('input[name=password]'))!;
-  await password.click();
-  await password.type('Tr0ub4dor&3');
-  await page.waitForSelector('input[name=password] ~ span[data-feedback].when-valid');
-  const passwordFeedbacks = await page.$$('input[name=password] ~ span[data-feedback]');
-  expect(passwordFeedbacks).toHaveLength(1);
-  expect(passwordFeedbacks[0]).toMatch('Looks good!');
-
-  const passwordConfirm = (await page.$('input[name=passwordConfirm]'))!;
-  await passwordConfirm.click();
-  await passwordConfirm.type('Tr0ub4dor&3');
-  const passwordConfirmFeedbacks = await page.$$(
-    'input[name=passwordConfirm] ~ span[data-feedback]'
-  );
-  expect(passwordConfirmFeedbacks).toHaveLength(0);
-
-  const signUp = (await page.$x("//button[text() = 'Sign Up']"))[0];
-  // [Get Custom Attribute value](https://github.com/GoogleChrome/puppeteer/issues/1451)
-  const disabled = await page.evaluate(el => el.getAttribute('disabled'), signUp);
-  expect(disabled).toEqual(null);
-
-  const dialog = await expect(page).toDisplayDialog(async () => {
-    await signUp.click();
-  });
-  expect(indent(dialog.message(), '    ')).toEqual(`\
+  page.on('dialog', async dialog => {
+    expect(indent(dialog.message(), '    ')).toEqual(`\
     Valid form
 
     inputs =
@@ -95,5 +85,7 @@ test('john@beatles/Tr0ub4dor&3/Tr0ub4dor&3', async () => {
       "password": "Tr0ub4dor&3",
       "passwordConfirm": "Tr0ub4dor&3"
     }`);
-  await dialog.accept();
+    await dialog.accept();
+  });
+  await signUp.click();
 });

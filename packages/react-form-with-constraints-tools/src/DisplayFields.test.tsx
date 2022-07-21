@@ -17,7 +17,7 @@ import {
   warning,
   whenValid
 } from '../../react-form-with-constraints/src/formatHTML';
-import { DisplayFields } from '.';
+import { DisplayFields } from './DisplayFields';
 import { SignUp } from './SignUp';
 
 // [d-inline](https://getbootstrap.com/docs/4.5/utilities/display/)

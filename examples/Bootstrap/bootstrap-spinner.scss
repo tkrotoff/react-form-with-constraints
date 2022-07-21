@@ -12,10 +12,7 @@
 }
 
 @function calc-input-top-margin($right-element-width) {
-  // Fix for IE, https://github.com/postcss/autoprefixer/issues/1153
-  $input-height-without-calc-for-ie: str-replace($input-height, 'calc');
-
-  @return calc((#{$input-height-without-calc-for-ie} + #{$right-element-width}) / -2);
+  @return calc((#{$input-height} + #{$right-element-width}) / -2);
 }
 
 // stylelint-disable selector-no-qualifying-type

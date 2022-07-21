@@ -1,7 +1,7 @@
-import React from 'react';
-import { action, computed, configure, observable } from 'mobx';
+import { Component } from 'react';
+import { action, computed, configure, makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import {
   FieldFeedback,
   FieldFeedbacks,
@@ -22,6 +22,10 @@ class Member {
   @observable private _firstName = '';
   @observable private _lastName = '';
   @observable hobbies: Hobby[] = [];
+
+  constructor() {
+    makeObservable(this);
+  }
 
   @action addHobby() {
     this.hobbies.push('');
@@ -64,6 +68,10 @@ class Member {
 class Club {
   @observable private _name = '';
   @observable members: Member[] = [];
+
+  constructor() {
+    makeObservable(this);
+  }
 
   @action addMember() {
     this.members.push(new Member());
@@ -307,7 +315,7 @@ interface FormProps {
 }
 
 @observer
-class Form extends React.Component<FormProps> {
+class Form extends Component<FormProps> {
   form: FormWithConstraints | null = null;
 
   validateField = (e: React.ChangeEvent<HTMLInputElement> | string) => {
@@ -387,4 +395,5 @@ function App() {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const root = createRoot(document.getElementById('app')!);
+root.render(<App />);

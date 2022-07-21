@@ -1,10 +1,21 @@
 {
-  "version": "0.18.0",
-  "npmClient": "yarn",
-  "useWorkspaces": true,
-  "command": {
-    "publish": {
-      "ignoreChanges": ["*-example"]
-    }
-  }
+  "packages": [
+    "packages/react-form-with-constraints",
+    "packages/react-form-with-constraints-bootstrap",
+    "packages/react-form-with-constraints-material-ui",
+    "packages/react-form-with-constraints-native",
+    "packages/react-form-with-constraints-tools",
+    "examples/Bootstrap",
+    "examples/ClubMembers",
+    "examples/HTML5ConstraintValidationAPI",
+    "examples/MaterialUI",
+    "examples/Password",
+    "examples/PasswordWithoutState",
+    "examples/PlainOldReact",
+    "examples/ServerSideRendering",
+    "examples/SignUp",
+    "examples/WizardForm"
+  ],
+  "useNx": false,
+  "version": "0.18.0"
 }

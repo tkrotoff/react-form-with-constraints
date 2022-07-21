@@ -1,20 +1,17 @@
 import * as React from 'react';
 import { mount as _mount, shallow as _shallow } from 'enzyme';
 
-import {
-  FieldFeedback,
-  FieldFeedbacksProps,
-  FormWithConstraints,
-  FormWithConstraintsChildContext,
-  ValidateFieldEvent
-} from '.';
+import { FieldFeedback } from './FieldFeedback';
+import { FieldFeedbacksProps } from './FieldFeedbacks';
 import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import { dBlock, error, formatHTML, key, keys, warning } from './formatHTML';
+import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
 import {
   input_unknown_valueMissing,
   input_username_valid,
   input_username_valueMissing
 } from './InputElementMock';
+import { ValidateFieldEvent } from './withValidateFieldEventEmitter';
 
 function shallow(
   node: React.ReactElement<FieldFeedbacksProps>,

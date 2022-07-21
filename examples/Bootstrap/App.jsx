@@ -4,9 +4,9 @@ import 'core-js';
 import 'regenerator-runtime/runtime';
 import 'raf/polyfill';
 
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { isEqual } from 'lodash-es';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import {
   Async,
   FieldFeedback,
@@ -20,11 +20,13 @@ import './index.html';
 import './App.scss';
 
 function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
 }
 
 async function checkUsernameAvailability(value) {
-  console.log('checkUsernameAvailability');
+  console.info('checkUsernameAvailability');
   await wait(1000);
   return !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase());
 }
@@ -214,4 +216,5 @@ function App() {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const root = createRoot(document.getElementById('app'));
+root.render(<App />);

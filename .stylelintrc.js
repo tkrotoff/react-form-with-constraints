@@ -1,12 +1,12 @@
 // @ts-check
 
-/** @type {Partial<import('stylelint').Configuration>} */
+/** @type {Partial<import('stylelint').Config>} */
 const config = {
   extends: [
     // /!\ Order matters: the next one overrides rules from the previous one
 
-    // Includes stylelint-config-recommended-scss and stylelint-config-standard
-    'stylelint-config-twbs-bootstrap/scss',
+    // Extends stylelint-config-standard-scss which extends stylelint-config-recommended-scss
+    'stylelint-config-twbs-bootstrap',
 
     'stylelint-prettier/recommended'
   ],

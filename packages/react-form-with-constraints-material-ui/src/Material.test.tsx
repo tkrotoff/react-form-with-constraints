@@ -3,10 +3,13 @@ import { mount, shallow } from 'enzyme';
 
 import { dBlock, formatHTML, key, keys } from '../../react-form-with-constraints/src/formatHTML';
 import { validValidityState } from '../../react-form-with-constraints/src/InputElementMock';
-import { FormControl, FormWithConstraints } from '.';
+import { FormControl, FormWithConstraints } from './Material';
 import { SignUp } from './SignUp';
 
-const flushPromises = () => new Promise<void>(resolve => setTimeout(resolve));
+const flushPromises = () =>
+  new Promise<void>(resolve => {
+    setTimeout(resolve);
+  });
 
 const error = 'class="FieldFeedbackWS-root-\\d+ error"';
 const warning = 'class="FieldFeedbackWS-root-\\d+ warning"';

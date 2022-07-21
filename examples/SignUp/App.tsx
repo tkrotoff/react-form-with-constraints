@@ -1,8 +1,8 @@
 import './i18n';
 
-import React from 'react';
-import { debounce, isEqual, omit } from 'lodash';
-import ReactDOM from 'react-dom';
+import { Component } from 'react';
+import { debounce, isEqual, omit } from 'lodash-es';
+import { createRoot } from 'react-dom/client';
 import {
   Async as _Async,
   AsyncProps,
@@ -19,11 +19,13 @@ import './index.html';
 import './style.css';
 
 function wait(ms: number) {
-  return new Promise<void>(resolve => setTimeout(resolve, ms));
+  return new Promise<void>(resolve => {
+    setTimeout(resolve, ms);
+  });
 }
 
 async function checkUsernameAvailability(value: string) {
-  console.log('checkUsernameAvailability');
+  console.info('checkUsernameAvailability');
   await wait(1000);
   return !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase());
 }
@@ -57,7 +59,7 @@ interface State {
   resetButtonDisabled: boolean;
 }
 
-class SignUp extends React.Component<Props, State> {
+class SignUp extends Component<Props, State> {
   form: FormWithConstraints | null = null;
   passwordInput: HTMLInputElement | null = null;
 
@@ -434,7 +436,7 @@ class SignUp extends React.Component<Props, State> {
               {/* https://github.com/facebook/react/issues/4085#issuecomment-262990423 */}
               <select
                 name="favoriteColor"
-                value={favoriteColor || ''}
+                value={favoriteColor ?? ''}
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
                 required
@@ -470,7 +472,7 @@ class SignUp extends React.Component<Props, State> {
               <input
                 type="checkbox"
                 name="isEmployed"
-                checked={isEmployed || false}
+                checked={isEmployed ?? false}
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
               />
@@ -494,7 +496,7 @@ class SignUp extends React.Component<Props, State> {
               <input
                 type="checkbox"
                 name="hasWebsite"
-                checked={hasWebsite || false}
+                checked={hasWebsite ?? false}
                 onChange={this.handleHasWebsiteChange}
                 onBlur={this.handleBlur}
               />
@@ -596,4 +598,5 @@ class SignUp extends React.Component<Props, State> {
 }
 
 const SignUpTranslated = withTranslation()(SignUp);
-ReactDOM.render(<SignUpTranslated />, document.getElementById('app'));
+const root = createRoot(document.getElementById('app')!);
+root.render(<SignUpTranslated />);

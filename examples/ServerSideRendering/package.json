@@ -1,6 +1,6 @@
 {
   "name": "server-side-rendering-example",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "private": true,
   "description": "react-form-with-constraints server-side rendering example",
   "keywords": [
@@ -14,31 +14,28 @@
   "scripts": {
     "clean": "rm -rf build",
     "tsc": "tsc",
-    "build": "webpack -d",
-    "start": "yarn clean && yarn build && cd build && node server"
+    "build": "webpack --mode=development",
+    "start": "npm run clean && npm run build && cd build && node server"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
-    "react-form-with-constraints": "^0.18.0",
-    "react-form-with-constraints-tools": "^0.18.0"
+    "express": "^4.18.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-form-with-constraints": "^0.19.0",
+    "react-form-with-constraints-tools": "^0.19.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/preset-react": "^7.12.1",
-    "@babel/preset-typescript": "^7.12.1",
-    "@types/express": "^4.17.8",
-    "@types/node": "^14.11.10",
-    "@types/react": "^16.9.53",
-    "@types/react-dom": "^16.9.8",
-    "@types/webpack": "^4.41.22",
-    "@types/webpack-node-externals": "^2.5.0",
-    "file-loader": "^6.1.1",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.3",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
-    "webpack-node-externals": "^2.5.2"
+    "@babel/core": "^7.18.9",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@types/express": "^4.17.13",
+    "@types/node": "^18.0.6",
+    "@types/react-dom": "^18.0.6",
+    "babel-loader": "^8.2.5",
+    "express": "^4.18.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.7.4",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
   }
 }

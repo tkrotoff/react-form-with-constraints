@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { instanceOf } from 'prop-types';
 import {
   Async as _Async,
   Field,
@@ -81,7 +81,7 @@ function normalizeFieldElementProperty(fields: Field[]) {
 
 export class DisplayFields extends React.Component {
   static contextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
-    form: PropTypes.instanceOf(FormWithConstraints).isRequired
+    form: instanceOf(FormWithConstraints).isRequired
   };
   context!: FormWithConstraintsChildContext;
 
@@ -131,8 +131,6 @@ export class DisplayFields extends React.Component {
 
   /* eslint-enable react/destructuring-assignment */
 }
-
-export { FormWithConstraints };
 
 export class FieldFeedbacks extends _FieldFeedbacks {
   render() {

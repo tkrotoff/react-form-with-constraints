@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { instanceOf } from 'prop-types';
 
 import { Field } from './Field';
 import { FieldFeedbackClasses } from './FieldFeedback';
@@ -24,8 +24,8 @@ export class FieldFeedbackWhenValid<
   Props extends FieldFeedbackWhenValidBaseProps = FieldFeedbackWhenValidProps
 > extends React.Component<Props, FieldFeedbackWhenValidState> {
   static contextTypes: React.ValidationMap<FieldFeedbackWhenValidContext> = {
-    form: PropTypes.instanceOf(FormWithConstraints).isRequired,
-    fieldFeedbacks: PropTypes.instanceOf(FieldFeedbacks).isRequired
+    form: instanceOf(FormWithConstraints).isRequired,
+    fieldFeedbacks: instanceOf(FieldFeedbacks).isRequired
   };
   context!: FieldFeedbackWhenValidContext;
 
@@ -70,7 +70,7 @@ export class FieldFeedbackWhenValid<
 
   // Don't forget to update native/FieldFeedbackWhenValid.render()
   render() {
-    const { style, ...otherProps } = (this.props as unknown) as FieldFeedbackWhenValidProps;
+    const { style, ...otherProps } = this.props as unknown as FieldFeedbackWhenValidProps;
 
     return this.state.fieldIsValid ? (
       // <span style="display: block"> instead of <div> so FieldFeedbackWhenValid can be wrapped inside a <p>

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { FieldFeedback, FieldFeedbacks, FormWithConstraints } from 'react-form-with-constraints';
 
 interface Props {
@@ -8,11 +8,11 @@ interface Props {
   nextPage: () => void;
 }
 
-export function WizardFormStep1(props: Props) {
+export function WizardFormStep1({ firstName, lastName, onChange, nextPage }: Props) {
   const form = useRef<FormWithConstraints>(null);
 
   async function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
-    props.onChange(target);
+    onChange(target);
 
     await form.current!.validateFields(target);
   }
@@ -22,11 +22,9 @@ export function WizardFormStep1(props: Props) {
 
     await form.current!.validateForm();
     if (form.current!.isValid()) {
-      props.nextPage();
+      nextPage();
     }
   }
-
-  const { firstName, lastName } = props;
 
   return (
     <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>

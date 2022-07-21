@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { instanceOf } from 'prop-types';
 
 import { assert } from './assert';
 import { Field } from './Field';
@@ -33,9 +33,10 @@ export class FormWithConstraints
       )
     )
   )
-  implements React.ChildContextProvider<FormWithConstraintsChildContext> {
+  implements React.ChildContextProvider<FormWithConstraintsChildContext>
+{
   static childContextTypes: React.ValidationMap<FormWithConstraintsChildContext> = {
-    form: PropTypes.instanceOf(FormWithConstraints).isRequired
+    form: instanceOf(FormWithConstraints).isRequired
   };
   getChildContext(): FormWithConstraintsChildContext {
     return {
@@ -122,10 +123,9 @@ export class FormWithConstraints
       // emitFieldWillValidateEvent() returns the result of the first change while the store already contains the final validations
       assert(
         JSON.stringify(
-          (arrayOfArrays.flat(Infinity) as (
-            | FieldFeedbackValidation
-            | undefined
-          )[]).filter(fieldFeedback => notUndefined(fieldFeedback))
+          (
+            arrayOfArrays.flat(Number.POSITIVE_INFINITY) as (FieldFeedbackValidation | undefined)[]
+          ).filter(fieldFeedback => notUndefined(fieldFeedback))
         ) /* validationsFromEmitValidateFieldEvent */ ===
           JSON.stringify(field.validations) /* validationsFromStore */,
         `FieldsStore does not match emitValidateFieldEvent() result, did the user changed the input rapidly?`
@@ -180,7 +180,7 @@ export class FormWithConstraints
 
           // Checks
 
-          if (elements.filter(el => el.validity === undefined).length > 0) {
+          if (elements.some(el => el.validity === undefined)) {
             // Should not match something like
             // <iframe src="https://www.google.com/recaptcha..." name="a-49ekipqfmwsv">
             throw new Error(`'${query}' should match an <input>, <select> or <textarea>`);

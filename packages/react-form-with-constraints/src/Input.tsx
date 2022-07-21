@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { instanceOf } from 'prop-types';
 
 import { Field } from './Field';
 import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
@@ -24,7 +24,7 @@ export type InputContext = FormWithConstraintsChildContext;
 
 export class Input extends React.Component<InputProps, InputState> {
   static contextTypes: React.ValidationMap<InputContext> = {
-    form: PropTypes.instanceOf(FormWithConstraints).isRequired
+    form: instanceOf(FormWithConstraints).isRequired
   };
   context!: InputContext;
 

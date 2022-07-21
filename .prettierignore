@@ -1,9 +1,8 @@
 .git/
+.husky/
 node_modules/
 build/
 dist/
-lib/
-lib-es5/
 coverage/
 .gitignore
 .prettierignore
@@ -11,6 +10,10 @@ coverage/
 .editorconfig
 .browserslistrc
 *.png
-yarn.lock
-yarn-error.log
+package-lock.json
 LICENSE
+
+# React Native example
+examples/ReactNative/.expo/
+examples/ReactNative/ios/
+examples/ReactNative/android/

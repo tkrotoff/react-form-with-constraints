@@ -1,15 +1,11 @@
 import * as React from 'react';
 import { shallow as _shallow } from 'enzyme';
 
-import {
-  Field,
-  FieldFeedbackType,
-  FieldFeedbackValidation,
-  FormWithConstraints,
-  Input,
-  InputContext,
-  InputProps
-} from '.';
+import { Field } from './Field';
+import { FieldFeedbackType } from './FieldFeedbackType';
+import { FieldFeedbackValidation } from './FieldFeedbackValidation';
+import { FormWithConstraints } from './FormWithConstraints';
+import { Input, InputContext, InputProps } from './Input';
 
 function shallow(node: React.ReactElement<InputProps>, options: { context: InputContext }) {
   return _shallow<InputProps>(node, options);

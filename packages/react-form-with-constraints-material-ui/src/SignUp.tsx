@@ -1,17 +1,18 @@
 import * as React from 'react';
 import {
+  createTheme,
   /*TextField, FormControl,*/
-  createMuiTheme,
   FormHelperText,
   Input
 } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { Async } from 'react-form-with-constraints';
 
 import { checkUsernameAvailability } from '../../react-form-with-constraints/src/checkUsernameAvailability';
-import { Async, FieldFeedback, FormControl, FormWithConstraints, TextField } from '.';
 import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
+import { FieldFeedback, FormControl, FormWithConstraints, TextField } from './Material';
 
-const defaultTheme = createMuiTheme({});
+const defaultTheme = createTheme();
 
 export class SignUp extends React.Component {
   form: FormWithConstraints | null = null;

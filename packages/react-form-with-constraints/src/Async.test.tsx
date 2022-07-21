@@ -1,25 +1,19 @@
 import * as React from 'react';
 import { mount as _mount, shallow as _shallow } from 'enzyme';
 
-import {
-  Async,
-  AsyncContext,
-  AsyncProps,
-  FieldFeedback,
-  FieldFeedbacksContext,
-  FieldFeedbacksProps,
-  FormWithConstraints,
-  Status,
-  ValidateFieldEvent
-} from '.';
+import { Async, AsyncContext, AsyncProps, Status } from './Async';
 import { checkUsernameAvailability } from './checkUsernameAvailability';
+import { FieldFeedback } from './FieldFeedback';
+import { FieldFeedbacksContext, FieldFeedbacksProps } from './FieldFeedbacks';
 import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import { dBlock, error, formatHTML, info, key, keys } from './formatHTML';
+import { FormWithConstraints } from './FormWithConstraints';
 import {
   input_unknown_valueMissing,
   input_username_error_valid,
   input_username_valid
 } from './InputElementMock';
+import { ValidateFieldEvent } from './withValidateFieldEventEmitter';
 
 function shallow(node: React.ReactElement<AsyncProps<any>>, options: { context: AsyncContext }) {
   return _shallow<AsyncProps<any>>(node, options);

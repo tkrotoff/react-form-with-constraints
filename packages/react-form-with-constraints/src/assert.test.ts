@@ -1,7 +1,6 @@
 import { assert } from './assert';
 
 test('TypeScript "asserts condition"', () => {
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   const foobar = (): number | string => 'foobar';
 
   const str = foobar();

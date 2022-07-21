@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { FieldFeedbacks } from 'react-form-with-constraints';
 import { StyleSheet } from 'react-native';
 import * as TestRenderer from 'react-test-renderer';
 
@@ -8,14 +9,9 @@ import {
   input_username_valid,
   input_username_valueMissing
 } from '../../react-form-with-constraints/src/InputElementMock';
-import {
-  FieldFeedback,
-  FieldFeedbacks,
-  FieldFeedbackWhenValid,
-  FormWithConstraints,
-  TextInput
-} from '.';
+import { FieldFeedback, FieldFeedbackWhenValid, FormWithConstraints } from './Native';
 import { SignUp } from './SignUp';
+import { TextInput } from './TextInput';
 
 // FIXME
 // Cannot write "expect(fields).toEqual([{... element: signUp.username ...}])" after calling form.validateFields() or form.validateFields('username')
@@ -30,7 +26,7 @@ describe('FormWithConstraints', () => {
     describe('validateFields()', () => {
       test('inputs', async () => {
         const wrapper = TestRenderer.create(<SignUp />);
-        const signUp = (wrapper.getInstance() as any) as SignUp;
+        const signUp = wrapper.getInstance() as any as SignUp;
         const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
         signUp.setState({ username: 'john' });
@@ -69,7 +65,7 @@ describe('FormWithConstraints', () => {
 
       test('field names', async () => {
         const wrapper = TestRenderer.create(<SignUp />);
-        const signUp = (wrapper.getInstance() as any) as SignUp;
+        const signUp = wrapper.getInstance() as any as SignUp;
         const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
         signUp.setState({ username: 'john' });
@@ -108,7 +104,7 @@ describe('FormWithConstraints', () => {
 
       test('inputs + field names', async () => {
         const wrapper = TestRenderer.create(<SignUp />);
-        const signUp = (wrapper.getInstance() as any) as SignUp;
+        const signUp = wrapper.getInstance() as any as SignUp;
         const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
         signUp.setState({ username: 'john' });
@@ -147,7 +143,7 @@ describe('FormWithConstraints', () => {
 
       test('without arguments', async () => {
         const wrapper = TestRenderer.create(<SignUp />);
-        const signUp = (wrapper.getInstance() as any) as SignUp;
+        const signUp = wrapper.getInstance() as any as SignUp;
         const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
         signUp.setState({ username: 'john' });
@@ -200,7 +196,7 @@ describe('FormWithConstraints', () => {
 
       test('change inputs', async () => {
         const wrapper = TestRenderer.create(<SignUp />);
-        const signUp = (wrapper.getInstance() as any) as SignUp;
+        const signUp = wrapper.getInstance() as any as SignUp;
         const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
         signUp.setState({ username: '' });
@@ -301,7 +297,7 @@ describe('FormWithConstraints', () => {
     describe('validateFieldsWithoutFeedback()', () => {
       test('without arguments', async () => {
         const wrapper = TestRenderer.create(<SignUp />);
-        const signUp = (wrapper.getInstance() as any) as SignUp;
+        const signUp = wrapper.getInstance() as any as SignUp;
         const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
         signUp.setState({ username: 'john' });
@@ -368,7 +364,7 @@ describe('FormWithConstraints', () => {
 
     test('validateForm()', async () => {
       const wrapper = TestRenderer.create(<SignUp />);
-      const signUp = (wrapper.getInstance() as any) as SignUp;
+      const signUp = wrapper.getInstance() as any as SignUp;
       const validateFieldsWithoutFeedbackSpy = jest.spyOn(
         signUp.form!,
         'validateFieldsWithoutFeedback'
@@ -395,7 +391,7 @@ describe('FormWithConstraints', () => {
             <FieldFeedbacks for="password" />
           </FormWithConstraints>
         );
-        const form = (wrapper.getInstance() as any) as FormWithConstraints;
+        const form = wrapper.getInstance() as any as FormWithConstraints;
 
         // [async/await toThrow is not working](https://github.com/facebook/jest/issues/1700)
 
@@ -418,7 +414,7 @@ describe('FormWithConstraints', () => {
             <TextInput name="username" />
           </FormWithConstraints>
         );
-        const form = (wrapper.getInstance() as any) as FormWithConstraints;
+        const form = wrapper.getInstance() as any as FormWithConstraints;
 
         expect(await form.validateFields()).toEqual([]); // Ignore input without FieldFeedbacks
         expect(await form.validateFields('username')).toEqual([]); // Ignore input without FieldFeedbacks
@@ -433,7 +429,7 @@ describe('FormWithConstraints', () => {
         const wrapper = TestRenderer.create(
           <FormWithConstraints>ChildWithPropsUndefined</FormWithConstraints>
         );
-        const form = (wrapper.getInstance() as any) as FormWithConstraints;
+        const form = wrapper.getInstance() as any as FormWithConstraints;
 
         expect(await form.validateFields()).toEqual([]);
         await expect(form.validateFields('unknown')).rejects.toThrow(
@@ -448,7 +444,7 @@ describe('FormWithConstraints', () => {
   describe('Async', () => {
     test('then', async () => {
       const wrapper = TestRenderer.create(<SignUp />);
-      const signUp = (wrapper.getInstance() as any) as SignUp;
+      const signUp = wrapper.getInstance() as any as SignUp;
       const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
       signUp.setState({ username: 'jimmy' });
@@ -501,7 +497,7 @@ describe('FormWithConstraints', () => {
 
     test('catch', async () => {
       const wrapper = TestRenderer.create(<SignUp />);
-      const signUp = (wrapper.getInstance() as any) as SignUp;
+      const signUp = wrapper.getInstance() as any as SignUp;
       const emitValidateFieldEventSpy = jest.spyOn(signUp.form!, 'emitValidateFieldEvent');
 
       signUp.setState({ username: 'error' });
@@ -556,7 +552,7 @@ describe('FormWithConstraints', () => {
   describe('resetFields()', () => {
     test('inputs', async () => {
       const wrapper = TestRenderer.create(<SignUp />);
-      const signUp = (wrapper.getInstance() as any) as SignUp;
+      const signUp = wrapper.getInstance() as any as SignUp;
 
       signUp.setState({ username: 'john' });
       signUp.setState({ password: '123456' });

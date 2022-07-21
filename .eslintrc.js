@@ -6,27 +6,22 @@ const config = {
   parserOptions: {},
   extends: [
     // /!\ Order matters: the next one overrides rules from the previous one
-    'plugin:unicorn/recommended',
     'plugin:jest/recommended',
+    'plugin:unicorn/recommended',
     'airbnb',
     // Already done by Airbnb
     //'plugin:react/recommended'
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-    'prettier/@typescript-eslint',
-    'prettier/react'
+    'plugin:prettier/recommended'
   ],
   plugins: ['simple-import-sort', 'react-hooks'],
   env: {
     browser: true
   },
-  globals: {
-    // Jest Puppeteer, see https://github.com/smooth-code/jest-puppeteer/blob/v4.0.0/README.md#configure-eslint
-    page: true
-  },
+  globals: {},
 
   rules: {
-    'no-console': 'off',
+    'no-console': ['error', { allow: ['error', 'info'] }],
     'no-alert': 'off',
     'no-underscore-dangle': 'off',
     'no-plusplus': 'off',
@@ -46,10 +41,10 @@ const config = {
     'import/prefer-default-export': 'off',
     'import/extensions': 'off',
 
-    'simple-import-sort/sort': [
+    'simple-import-sort/imports': [
       'error',
       {
-        // https://github.com/lydell/eslint-plugin-simple-import-sort/blob/v5.0.2/src/sort.js#L3-L15
+        // https://github.com/lydell/eslint-plugin-simple-import-sort/blob/v7.0.0/src/imports.js#L5
         groups: [
           // Side effect imports
           ['^\\u0000'],
@@ -63,8 +58,8 @@ const config = {
           ],
 
           // Absolute imports and other imports such as Vue-style `@/foo`
-          // Anything that does not start with a dot
-          ['^[^.]'],
+          // Anything not matched in another group
+          ['^'],
 
           // Relative imports
           [
@@ -86,6 +81,7 @@ const config = {
         ]
       }
     ],
+    'simple-import-sort/exports': 'error',
 
     // https://github.com/typescript-eslint/typescript-eslint/blob/v4.1.0/packages/eslint-plugin/docs/rules/no-use-before-define.md
     'no-use-before-define': 'off',
@@ -119,21 +115,38 @@ const config = {
     // [IE does not support for...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of#Browser_compatibility)
     'unicorn/no-for-loop': 'off',
     'unicorn/no-null': 'off',
+    // https://github.com/sindresorhus/eslint-plugin-unicorn/blob/v27.0.0/docs/rules/no-array-for-each.md
+    // https://github.com/github/eslint-plugin-github/blob/v4.1.1/docs/rules/array-foreach.md
+    // conflicts with
+    // https://github.com/airbnb/javascript/issues/1271
+    'unicorn/no-array-for-each': 'off',
+    // FIXME Activate when ES modules are well supported
+    'unicorn/prefer-module': 'off',
     'unicorn/prefer-query-selector': 'off',
+    'unicorn/numeric-separators-style': 'off',
+    'unicorn/no-await-expression-member': 'off',
 
     'jsx-a11y/label-has-associated-control': 'off',
 
     'react/no-unescaped-entities': 'off',
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx', '.jsx'] }],
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+    // FIXME https://github.com/yannickcr/eslint-plugin-react/issues/3114#issuecomment-951725512
+    'react/jsx-no-bind': 'off',
     'react/jsx-pascal-case': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/static-property-placement': 'off',
     'react/state-in-constructor': 'off',
+    'react/no-unused-class-component-methods': 'off',
+    'react/no-unstable-nested-components': 'off',
+    'react/require-default-props': 'off',
+    'react/default-props-match-prop-types': 'off',
+    'react/no-unused-prop-types': 'off',
 
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
 
-    'jest/no-expect-resolves': 'error',
     'jest/expect-expect': 'off'
   },
 
@@ -154,8 +167,10 @@ const config = {
       }
     },
     {
-      files: ['*.test.tsx'],
+      files: ['*.test.ts', '*.test.tsx'],
       rules: {
+        'unicorn/consistent-function-scoping': 'off',
+
         'jsx-a11y/iframe-has-title': 'off'
       }
     }
