@@ -1,3 +1,7 @@
+## v0.19.1 (2022/07/22)
+
+- Switch from CodeSandbox to StackBlitz
+
 ## v0.19.0 (2022/07/21)
 
 - Fix React 18 types (#58)

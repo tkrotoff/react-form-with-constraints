@@ -1,6 +1,6 @@
 {
   "name": "react-form-with-constraints-bootstrap",
-  "version": "0.19.0",
+  "version": "0.19.1",
   "description": "Simple form validation for React",
   "repository": "github:tkrotoff/react-form-with-constraints",
   "license": "MIT",
@@ -49,7 +49,7 @@
     "jest": "^26.6.3",
     "jscodeshift": "^0.13.1",
     "react": "^16.14.0",
-    "react-form-with-constraints": "^0.19.0",
+    "react-form-with-constraints": "^0.19.1",
     "rollup": "^2.77.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.32.1",
