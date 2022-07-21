@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
+import { useEffect, useRef, useState } from 'react';
+import { createRoot } from 'react-dom/client';
 
 import './index.html';
 import './style.css';
@@ -49,7 +49,6 @@ function Form() {
     passwordConfirm: []
   });
 
-  // FIXME [SetStateAction returned from useState hook does not accept a second callback argument](https://github.com/facebook/react/issues/14174)
   const [isSubmitted, setIsSubmitted] = useState(false);
   useEffect(() => {
     if (isSubmitted) {
@@ -152,4 +151,5 @@ function Form() {
   );
 }
 
-ReactDOM.render(<Form />, document.getElementById('app'));
+const root = createRoot(document.getElementById('app')!);
+root.render(<Form />);

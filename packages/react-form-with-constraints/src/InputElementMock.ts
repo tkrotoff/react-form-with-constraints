@@ -1,4 +1,4 @@
-import { InputElement, IValidityState } from '.';
+import { InputElement, IValidityState } from './InputElement';
 
 export const validValidityState: IValidityState = {
   badInput: false,

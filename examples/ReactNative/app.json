@@ -1,6 +1,12 @@
 {
   "expo": {
     "name": "React Native example",
-    "slug": "react-native-example"
+    "slug": "react-native-example",
+    "ios": {
+      "bundleIdentifier": "react-native-example"
+    },
+    "android": {
+      "package": "com.example"
+    }
   }
 }

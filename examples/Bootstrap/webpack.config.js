@@ -1,14 +1,13 @@
 // @ts-check
 
-const path = require('path');
+const path = require('node:path');
 
 /** @type import('webpack').Configuration */
 const config = {
   entry: './App.jsx',
 
   output: {
-    path: path.join(__dirname, 'build'),
-    filename: '[name].js'
+    path: path.resolve('build')
   },
 
   resolve: {
@@ -23,20 +22,17 @@ const config = {
         exclude: /\/core-js/,
         loader: 'babel-loader'
       },
-      { test: /\.html$/, loader: 'file-loader', options: { name: '[path][name].[ext]' } },
+      { test: /\.html$/, type: 'asset/resource', generator: { filename: '[name][ext]' } },
       {
         test: /\.scss$/,
         use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader', options: { sourceMap: true } },
+          'style-loader',
+          'css-loader',
           {
             loader: 'postcss-loader',
-            options: {
-              postcssOptions: { plugins: [['postcss-preset-env']] },
-              sourceMap: true
-            }
+            options: { postcssOptions: { plugins: [['postcss-preset-env']] } }
           },
-          { loader: 'sass-loader', options: { sourceMap: true } }
+          'sass-loader'
         ]
       }
     ]

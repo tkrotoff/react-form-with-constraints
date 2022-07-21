@@ -1,8 +1,8 @@
-import React from 'react';
-import express from 'express';
+import * as express from 'express';
 import { renderToString } from 'react-dom/server';
 
 import { App } from './App';
+// eslint-disable-next-line import/no-relative-packages
 import '../Password/style.css';
 
 const server = express();

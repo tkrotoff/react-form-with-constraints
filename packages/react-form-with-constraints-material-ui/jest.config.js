@@ -1,8 +1,8 @@
 // @ts-check
 
-/** @type Partial<import('@jest/types').Config.InitialOptions> */
+/** @type import('@jest/types').Config.InitialOptions */
 const config = {
-  setupFiles: ['../react-form-with-constraints/jest.setup.ts'],
+  setupFiles: ['./jest.setup.ts'],
   preset: 'ts-jest',
 
   globals: {

@@ -10,6 +10,6 @@ module.exports = {
         debug: false
       }
     ],
-    '@babel/preset-react'
+    ['@babel/preset-react', { runtime: 'automatic' }]
   ]
 };

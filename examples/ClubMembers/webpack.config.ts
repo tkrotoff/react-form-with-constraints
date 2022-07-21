@@ -1,12 +1,11 @@
-import path from 'path';
+import * as path from 'node:path';
 import { Configuration } from 'webpack';
 
 const config: Configuration = {
   entry: './App.tsx',
 
   output: {
-    path: path.join(__dirname, 'build'),
-    filename: '[name].js'
+    path: path.resolve('build')
   },
 
   resolve: {
@@ -16,11 +15,8 @@ const config: Configuration = {
   module: {
     rules: [
       { test: /\.tsx?$/, loader: 'babel-loader' },
-      {
-        test: /\.css$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader', options: { sourceMap: true } }]
-      },
-      { test: /\.html$/, loader: 'file-loader', options: { name: '[path][name].[ext]' } }
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+      { test: /\.html$/, type: 'asset/resource', generator: { filename: '[name][ext]' } }
     ]
   }
 };

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import './spinner.css';
 
 // https://forums.meteor.com/t/any-recommendations-for-a-spinner-to-use-with-react-apps/22510/4

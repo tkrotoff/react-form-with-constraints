@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 
 import { Color } from './Color';
 import { WizardFormStep1 } from './WizardFormStep1';
@@ -16,7 +16,7 @@ interface State {
   favoriteColor: '' | Color;
 }
 
-export class WizardForm extends React.Component<Props, State> {
+export class WizardForm extends Component<Props, State> {
   state: State = {
     step: 1,
 

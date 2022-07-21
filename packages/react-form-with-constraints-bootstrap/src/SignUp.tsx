@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { Async, FormWithConstraints } from 'react-form-with-constraints';
 
 import { checkUsernameAvailability } from '../../react-form-with-constraints/src/checkUsernameAvailability';
-import { Async, FieldFeedback, FormWithConstraints, Input } from '.';
+import { FieldFeedback, Input } from './Bootstrap';
 import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 
 export class SignUp extends React.Component {

@@ -4,10 +4,10 @@ node_modules/
 # Generated files
 build/
 dist/
-lib/
-lib-es5/
 coverage/
 
-# rollup-plugin-typescript2
-# [.rpt2_cache should be in /tmp](https://github.com/ezolenko/rollup-plugin-typescript2/issues/34)
-.rpt2_cache/
+# React Native example
+examples/ReactNative/package-lock.json
+examples/ReactNative/.expo/
+examples/ReactNative/ios/
+examples/ReactNative/android/

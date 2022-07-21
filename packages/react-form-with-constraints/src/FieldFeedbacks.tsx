@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { instanceOf } from 'prop-types';
 
 import { FieldFeedbackValidation } from './FieldFeedbackValidation';
 import { FormWithConstraints, FormWithConstraintsChildContext } from './FormWithConstraints';
@@ -16,6 +16,8 @@ export interface FieldFeedbacksProps {
    * Default is 'first-error'
    */
   stop: 'first' | 'first-error' | 'first-warning' | 'first-info' | 'no';
+
+  children?: React.ReactNode;
 }
 
 // Why Nullable? https://github.com/DefinitelyTyped/DefinitelyTyped/pull/27973
@@ -35,19 +37,20 @@ export class FieldFeedbacks
     FieldFeedbackValidation | (FieldFeedbackValidation | undefined)[] | undefined,
     typeof FieldFeedbacksComponent
   >(FieldFeedbacksComponent)
-  implements React.ChildContextProvider<FieldFeedbacksChildContext> {
+  implements React.ChildContextProvider<FieldFeedbacksChildContext>
+{
   static defaultProps: FieldFeedbacksProps = {
     stop: 'first-error'
   };
 
   static contextTypes: React.ValidationMap<FieldFeedbacksContext> = {
-    form: PropTypes.instanceOf(FormWithConstraints).isRequired,
-    fieldFeedbacks: PropTypes.instanceOf(FieldFeedbacks)
+    form: instanceOf(FormWithConstraints).isRequired,
+    fieldFeedbacks: instanceOf(FieldFeedbacks)
   };
   context!: FieldFeedbacksContext;
 
   static childContextTypes: React.ValidationMap<FieldFeedbacksChildContext> = {
-    fieldFeedbacks: PropTypes.instanceOf(FieldFeedbacks).isRequired
+    fieldFeedbacks: instanceOf(FieldFeedbacks).isRequired
   };
   getChildContext(): FieldFeedbacksChildContext {
     return {
@@ -97,7 +100,7 @@ export class FieldFeedbacks
 
     form.fieldsStore.addField(this.fieldName);
 
-    const parent = fieldFeedbacksParent || form;
+    const parent = fieldFeedbacksParent ?? form;
     parent.addValidateFieldEventListener(this.validate);
   }
 
@@ -106,7 +109,7 @@ export class FieldFeedbacks
 
     form.fieldsStore.removeField(this.fieldName);
 
-    const parent = fieldFeedbacksParent || form;
+    const parent = fieldFeedbacksParent ?? form;
     parent.removeValidateFieldEventListener(this.validate);
   }
 
@@ -136,7 +139,10 @@ export class FieldFeedbacks
 
   async _validate(input: InputElement) {
     const arrayOfArrays = await this.emitValidateFieldEvent(input);
-    const validations = arrayOfArrays.flat(Infinity) as (FieldFeedbackValidation | undefined)[];
+    const validations = arrayOfArrays.flat(Number.POSITIVE_INFINITY) as (
+      | FieldFeedbackValidation
+      | undefined
+    )[];
     return validations;
   }
 

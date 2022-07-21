@@ -1,4 +1,4 @@
-# https://github.com/actions/starter-workflows/blob/c934669ce246e6d64e54006b714b04199cbe445b/ci/node.js.yml
+# https://github.com/actions/starter-workflows/blob/692c4c52607f67dd3ee34ad0b7c26066ae85bbae/ci/node.js.yml
 
 name: Node.js CI
 
@@ -11,19 +11,18 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [16.x, 18.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{matrix.node-version}}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node-version}}
-      - run: yarn install
-      - run: yarn prepublishOnly
-      - run: yarn build
-      - run: yarn lint
-      - run: yarn test:coverage
-      - run: yarn test:e2e
-        env:
-          CI: true
+          cache: 'npm'
+      - run: npm install
+      - run: npx playwright install --with-deps
+      - run: npm run build
+      - run: npm run lint
+      - run: npm run test:coverage
+      - run: npm run test:e2e

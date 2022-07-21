@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
     "noEmit": true,
+
+    // Nullish coalescing operator (??) needs to be transpiled by TypeScript to support Node.js 12
+    // https://stackoverflow.com/a/59787575
     "target": "es2019",
+
     "module": "esnext",
     "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "preserve",
     "esModuleInterop": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
-
-    // Needed by Array.flat() in ES5 mode
-    "lib": ["dom", "es2019"],
 
     "strict": true,
     "noUnusedLocals": true,
@@ -18,8 +19,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
-
-    "removeComments": true,
 
     // FIXME
     // [error TS2300: Duplicate identifier 'require'](https://github.com/tkrotoff/react-form-with-constraints/issues/12)

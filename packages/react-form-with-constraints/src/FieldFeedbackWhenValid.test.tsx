@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { shallow as _shallow } from 'enzyme';
 
+import { Field } from './Field';
+import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
 import {
-  Field,
-  FieldDidResetEvent,
-  FieldDidValidateEvent,
   FieldFeedbackWhenValid,
   FieldFeedbackWhenValidContext,
-  FieldFeedbackWhenValidProps,
-  FieldWillValidateEvent,
-  FormWithConstraints
-} from '.';
-import { FieldFeedbacksEnzymeFix as FieldFeedbacks } from './FieldFeedbacksEnzymeFix';
+  FieldFeedbackWhenValidProps
+} from './FieldFeedbackWhenValid';
+import { FormWithConstraints } from './FormWithConstraints';
+import { FieldDidResetEvent } from './withFieldDidResetEventEmitter';
+import { FieldDidValidateEvent } from './withFieldDidValidateEventEmitter';
+import { FieldWillValidateEvent } from './withFieldWillValidateEventEmitter';
 
 function shallow(
   node: React.ReactElement<FieldFeedbackWhenValidProps>,

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { deepForEach } from '.';
+import { deepForEach } from './deepForEach';
 
 test('deepForEach', () => {
   const component = (

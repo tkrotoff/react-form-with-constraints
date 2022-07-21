@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import ReactDOM from 'react-dom';
+import { useRef } from 'react';
+import { createRoot } from 'react-dom/client';
 import { FieldFeedback, FieldFeedbacks, FormWithConstraints } from 'react-form-with-constraints';
 
 import './index.html';
@@ -97,4 +97,5 @@ function Form() {
   );
 }
 
-ReactDOM.render(<Form />, document.getElementById('app'));
+const root = createRoot(document.getElementById('app')!);
+root.render(<Form />);

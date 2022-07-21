@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { FieldFeedback, FieldFeedbacks, FormWithConstraints } from 'react-form-with-constraints';
 
 import { Color, colorKeys } from './Color';
@@ -12,13 +12,20 @@ interface Props {
   onSubmit: () => void;
 }
 
-export function WizardFormStep3(props: Props) {
+export function WizardFormStep3({
+  favoriteColor,
+  employed,
+  notes,
+  previousPage,
+  onChange,
+  onSubmit
+}: Props) {
   const form = useRef<FormWithConstraints>(null);
 
   async function handleChange({
     target
   }: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) {
-    props.onChange(target);
+    onChange(target);
 
     await form.current!.validateFields(target);
   }
@@ -28,11 +35,9 @@ export function WizardFormStep3(props: Props) {
 
     await form.current!.validateForm();
     if (form.current!.isValid()) {
-      props.onSubmit();
+      onSubmit();
     }
   }
-
-  const { favoriteColor, employed, notes, previousPage } = props;
 
   return (
     <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
@@ -60,7 +65,7 @@ export function WizardFormStep3(props: Props) {
           <input
             type="checkbox"
             name="employed"
-            checked={employed || false}
+            checked={employed ?? false}
             onChange={handleChange}
           />
           Employed

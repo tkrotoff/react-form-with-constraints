@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { instanceOf } from 'prop-types';
 
 import { assert } from './assert';
 import { FieldFeedbacks, FieldFeedbacksChildContext } from './FieldFeedbacks';
@@ -24,7 +24,7 @@ export interface AsyncProps<T> {
 
 interface AsyncState<T> {
   status: Status;
-  value?: T;
+  value?: T | unknown /* Error */;
 }
 
 export interface AsyncChildContext {
@@ -45,15 +45,16 @@ export class Async<T>
     FieldFeedbackValidation,
     typeof AsyncComponent
   >(AsyncComponent)
-  implements React.ChildContextProvider<AsyncChildContext> {
+  implements React.ChildContextProvider<AsyncChildContext>
+{
   static contextTypes: React.ValidationMap<AsyncContext> = {
-    form: PropTypes.instanceOf(FormWithConstraints).isRequired,
-    fieldFeedbacks: PropTypes.instanceOf(FieldFeedbacks).isRequired
+    form: instanceOf(FormWithConstraints).isRequired,
+    fieldFeedbacks: instanceOf(FieldFeedbacks).isRequired
   };
   context!: AsyncContext;
 
   static childContextTypes: React.ValidationMap<AsyncChildContext> = {
-    async: PropTypes.instanceOf(Async).isRequired
+    async: instanceOf(Async).isRequired
   };
   getChildContext(): AsyncChildContext {
     return {
@@ -95,15 +96,35 @@ export class Async<T>
     return validations;
   };
 
+  // FIXME
+  // With React 18, we have to wait for setState() to finish
+  // This way FieldFeedback is mounted and thus FieldFeedback.validate() is called thx to the event
+  async setStateSync(state: AsyncState<T>) {
+    return new Promise<void>(resolve => {
+      this.setState(state, resolve);
+    });
+  }
+
   async _validate(input: InputElement) {
-    this.setState({ status: Status.Pending });
+    let state: AsyncState<T> = {
+      status: Status.Pending
+    };
+
+    this.setState(state);
+
     try {
       const value = await this.props.promise(input.value);
-      this.setState({ status: Status.Resolved, value });
+      state = { status: Status.Resolved, value };
     } catch (e) {
-      this.setState({ status: Status.Rejected, value: e });
+      state = { status: Status.Rejected, value: e };
     }
 
+    await this.setStateSync(state);
+
+    // FIXME
+    // With React 18, we have to wait for setState() to finish
+    // This way FieldFeedback is mounted and thus FieldFeedback.validate() is called thx to the event
+    // We could also "await wait(1)"
     return this.emitValidateFieldEvent(input);
   }
 

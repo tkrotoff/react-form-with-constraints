@@ -1,11 +1,9 @@
 import * as React from 'react';
 import {
-  Async,
   deepForEach,
   Field,
   FieldFeedback as _FieldFeedback,
   FieldFeedbackBaseProps as _FieldFeedbackBaseProps,
-  FieldFeedbacks,
   FieldFeedbackType,
   FieldFeedbackWhenValid as _FieldFeedbackWhenValid,
   FieldFeedbackWhenValidBaseProps as _FieldFeedbackWhenValidBaseProps,
@@ -88,8 +86,6 @@ export class FormWithConstraints extends _FormWithConstraints {
     return <View {...(this.props as any)} />;
   }
 }
-
-export { FieldFeedbacks, Async };
 
 // [Tips for styling your React Native apps](https://medium.com/the-react-native-log/tips-for-styling-your-react-native-apps-3f61608655eb)
 export interface FieldFeedbackTheme {

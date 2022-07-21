@@ -1,25 +1,23 @@
 import * as React from 'react';
 import {
-  createMuiTheme,
   createStyles,
+  createTheme,
   FormControl as _FormControl,
+  FormControlProps,
   TextField as _TextField,
+  TextFieldProps,
   Theme,
   WithStyles,
   withStyles
 } from '@material-ui/core';
-import { FormControlProps } from '@material-ui/core/FormControl';
-import { TextFieldProps } from '@material-ui/core/TextField';
-import { ThemeProvider } from '@material-ui/styles';
-import * as PropTypes from 'prop-types';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { instanceOf } from 'prop-types';
 import {
   assert,
-  Async,
   deepForEach,
   Field,
   FieldFeedback as _FieldFeedback,
   FieldFeedbackBaseProps,
-  FieldFeedbacks,
   FormWithConstraints as _FormWithConstraints,
   FormWithConstraintsChildContext
 } from 'react-form-with-constraints';
@@ -32,7 +30,7 @@ type FormControlContext = FormWithConstraintsChildContext;
 
 export class FormControl extends React.Component<FormControlProps, FormControlState> {
   static contextTypes: React.ValidationMap<FormControlContext> = {
-    form: PropTypes.instanceOf(_FormWithConstraints).isRequired
+    form: instanceOf(_FormWithConstraints).isRequired
   };
   context!: FormControlContext;
 
@@ -113,7 +111,7 @@ interface TextFieldState {
 
 export class TextField extends React.Component<TextFieldProps, TextFieldState> {
   static contextTypes: React.ValidationMap<FormControlContext> = {
-    form: PropTypes.instanceOf(_FormWithConstraints).isRequired
+    form: instanceOf(_FormWithConstraints).isRequired
   };
   context!: FormControlContext;
 
@@ -165,12 +163,12 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
   }
 }
 
-const defaultTheme = createMuiTheme({});
+const defaultTheme = createTheme();
 
 // https://v3-5-0.material-ui.com/customization/themes/#nesting-the-theme
 function formWithConstraintsTheme(outerTheme: Theme | null) {
   return {
-    ...(outerTheme || defaultTheme),
+    ...(outerTheme ?? defaultTheme),
     overrides: {
       MuiFormHelperText: {
         root: {
@@ -232,5 +230,3 @@ export const FieldFeedback = withStyles(fieldFeedbackStyles)(
     }
   }
 );
-
-export { FieldFeedbacks, Async };

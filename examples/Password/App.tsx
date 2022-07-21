@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
+import { useRef, useState } from 'react';
+import { createRoot } from 'react-dom/client';
 import {
   Async,
   FieldFeedback,
@@ -12,12 +12,14 @@ import './index.html';
 import './style.css';
 
 function wait(ms: number) {
-  return new Promise<void>(resolve => setTimeout(resolve, ms));
+  return new Promise<void>(resolve => {
+    setTimeout(resolve, ms);
+  });
 }
 
 // https://en.wikipedia.org/wiki/List_of_the_most_common_passwords
 async function isACommonPassword(password: string) {
-  console.log('isACommonPassword');
+  console.info('isACommonPassword');
   await wait(1000);
   return [
     '123456',
@@ -60,11 +62,11 @@ function Form() {
     const fieldIsValid = fields.every(fieldFeedbacksValidation =>
       fieldFeedbacksValidation.isValid()
     );
-    if (fieldIsValid) console.log(`Field '${target.name}' is valid`);
-    else console.log(`Field '${target.name}' is invalid`);
+    if (fieldIsValid) console.info(`Field '${target.name}' is valid`);
+    else console.info(`Field '${target.name}' is invalid`);
 
-    if (form.current!.isValid()) console.log('The form is valid');
-    else console.log('The form is invalid');
+    if (form.current!.isValid()) console.info('The form is valid');
+    else console.info('The form is invalid');
 
     setSignUpButtonDisabled(!form.current!.isValid());
   }
@@ -77,11 +79,11 @@ function Form() {
     const fields = await form.current!.validateFields(target, 'passwordConfirm');
 
     const fieldsAreValid = fields.every(field => field.isValid());
-    if (fieldsAreValid) console.log(`Fields '${target.name}' and 'passwordConfirm' are valid`);
-    else console.log(`Fields '${target.name}' and/or 'passwordConfirm' are invalid`);
+    if (fieldsAreValid) console.info(`Fields '${target.name}' and 'passwordConfirm' are valid`);
+    else console.info(`Fields '${target.name}' and/or 'passwordConfirm' are invalid`);
 
-    if (form.current!.isValid()) console.log('The form is valid');
-    else console.log('The form is invalid');
+    if (form.current!.isValid()) console.info('The form is valid');
+    else console.info('The form is invalid');
 
     setSignUpButtonDisabled(!form.current!.isValid());
   }
@@ -95,8 +97,8 @@ function Form() {
     // or simply use form.current.isValid()
     const formIsValid = fields.every(field => field.isValid());
 
-    if (formIsValid) console.log('The form is valid');
-    else console.log('The form is invalid');
+    if (formIsValid) console.info('The form is valid');
+    else console.info('The form is invalid');
 
     setSignUpButtonDisabled(!form.current!.isValid());
     if (formIsValid) {
@@ -195,4 +197,5 @@ function Form() {
   );
 }
 
-ReactDOM.render(<Form />, document.getElementById('app'));
+const root = createRoot(document.getElementById('app')!);
+root.render(<Form />);

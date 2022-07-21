@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { instanceOf } from 'prop-types';
 
 import { Async, AsyncChildContext } from './Async';
 import { Field } from './Field';
@@ -77,9 +77,9 @@ export class FieldFeedback<
   };
 
   static contextTypes: React.ValidationMap<FieldFeedbackContext> = {
-    form: PropTypes.instanceOf(FormWithConstraints).isRequired,
-    fieldFeedbacks: PropTypes.instanceOf(FieldFeedbacks).isRequired,
-    async: PropTypes.instanceOf(Async)
+    form: instanceOf(FormWithConstraints).isRequired,
+    fieldFeedbacks: instanceOf(FieldFeedbacks).isRequired,
+    async: instanceOf(Async)
   };
   context!: FieldFeedbackContext;
 
@@ -99,7 +99,7 @@ export class FieldFeedback<
     else if (info) type = FieldFeedbackType.Info;
 
     // Special case for when="valid"
-    if (type === FieldFeedbackType.WhenValid && (error || warning || info)) {
+    if (type === FieldFeedbackType.WhenValid && (error ?? warning ?? info)) {
       throw new Error(
         'Cannot have an attribute (error, warning...) with FieldFeedback when="valid"'
       );
@@ -202,7 +202,7 @@ export class FieldFeedback<
     // eslint-disable-next-line react/destructuring-assignment
     if (field.name === this.context.fieldFeedbacks.fieldName) {
       this.setState(prevState => ({
-        validation: { ...prevState.validation, ...{ show: undefined } },
+        validation: { ...prevState.validation, show: undefined },
         validationMessage: ''
       }));
     }
@@ -210,8 +210,8 @@ export class FieldFeedback<
 
   // Don't forget to update native/FieldFeedback.render()
   render() {
-    const { when, error, warning, info, className, classes, style, children, ...otherProps } = (this
-      .props as unknown) as FieldFeedbackProps;
+    const { when, error, warning, info, className, classes, style, children, ...otherProps } = this
+      .props as unknown as FieldFeedbackProps;
     const { validation, validationMessage } = this.state;
 
     const fieldFeedbackClassName = classes![validation.type]!;

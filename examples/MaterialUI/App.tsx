@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   Button,
-  createMuiTheme,
   createStyles,
+  createTheme,
   CssBaseline,
   FormControlLabel,
   /*TextField, FormControl,*/
@@ -14,9 +14,9 @@ import {
   WithStyles,
   withStyles
 } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
-import { isEqual } from 'lodash';
-import ReactDOM from 'react-dom';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { isEqual } from 'lodash-es';
+import { render } from 'react-dom';
 import {
   Async,
   FieldFeedback,
@@ -30,11 +30,13 @@ import { DisplayFields } from 'react-form-with-constraints-tools';
 import './index.html';
 
 function wait(ms: number) {
-  return new Promise<void>(resolve => setTimeout(resolve, ms));
+  return new Promise<void>(resolve => {
+    setTimeout(resolve, ms);
+  });
 }
 
 async function checkUsernameAvailability(value: string) {
-  console.log('checkUsernameAvailability');
+  console.info('checkUsernameAvailability');
   await wait(1000);
   return !['john', 'paul', 'george', 'ringo'].includes(value.toLowerCase());
 }
@@ -234,52 +236,40 @@ function Form({ classes }: FormProps) {
   );
 }
 
-const App = withStyles(styles)(Form);
+const lightTheme = createTheme({
+  palette: {
+    type: 'light'
+  }
+});
 
-const noTheme = createMuiTheme();
-
-const darkTheme = createMuiTheme({
+const darkTheme = createTheme({
   palette: {
     type: 'dark'
   }
 });
 
+const App = withStyles(styles)(Form);
+
 function AppWithTheme() {
-  const [withTheme, setWithTheme] = useState(false);
+  const [isDarkTheme, setDarkTheme] = useState(false);
 
   function handleChange(_e: React.ChangeEvent<HTMLInputElement>, checked: boolean) {
-    setWithTheme(checked);
-  }
-
-  function renderWithThemeSwitch() {
-    return (
-      <FormControlLabel
-        control={<Switch checked={withTheme} onChange={handleChange} />}
-        label="Dark theme"
-      />
-    );
+    setDarkTheme(checked);
   }
 
   return (
-    <>
-      {withTheme ? (
-        <ThemeProvider theme={darkTheme}>
-          {renderWithThemeSwitch()}
-          <CssBaseline />
-          <App />
-        </ThemeProvider>
-      ) : (
-        <ThemeProvider theme={noTheme}>
-          {renderWithThemeSwitch()}
-          <CssBaseline />
-          <App />
-        </ThemeProvider>
-      )}
-    </>
+    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+      <FormControlLabel
+        control={<Switch checked={isDarkTheme} onChange={handleChange} />}
+        label="Dark theme"
+      />
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
   );
 }
 
-ReactDOM.render(
+render(
   <main style={{ margin: 8 }}>
     <AppWithTheme />
   </main>,
