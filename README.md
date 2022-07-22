@@ -33,8 +33,9 @@ The `required` HTML5 attribute specifies that the user must fill in a value, [`t
 
 Resources:
 
-- [Making Forms Fabulous with HTML5](https://www.html5rocks.com/en/tutorials/forms/html5forms/)
-- [Constraint Validation: Native Client Side Validation for Web Forms](https://www.html5rocks.com/en/tutorials/forms/constraintvalidation/)
+- [Making Forms Fabulous with HTML5](https://web.archive.org/web/20220317195146/https://www.html5rocks.com/en/tutorials/forms/html5forms/)
+- [Constraint Validation: Native Client Side Validation for Web Forms](https://web.archive.org/web/20210818094708/https://www.html5rocks.com/en/tutorials/forms/constraintvalidation/)
+- [web.dev - Learn Forms](https://web.dev/learn/forms/)
 - [MDN - Form data validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation)
 - [MDN - Form input types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_<input>_types)
 - [UX Research Articles - Usability Testing of Inline Form Validation](https://baymard.com/blog/inline-form-validation)
